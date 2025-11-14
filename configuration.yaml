@@ -1,0 +1,222 @@
+#
+#     ______            _____                        __  _
+#    / ____/___  ____  / __(_)___ ___  ___________ _/ /_(_)___  ____
+#   / /   / __ \/ __ \/ /_/ / __ `/ / / / ___/ __ `/ __/ / __ \/ __ \
+#  / /___/ /_/ / / / / __/ / /_/ / /_/ / /  / /_/ / /_/ / /_/ / / / /
+#  \____/\____/_/ /_/_/ /_/\__, /\__,_/_/   \__,_/\__/_/\____/_/ /_/
+#                         /____/
+
+homeassistant:
+  name: Casa
+  latitude: XX.XXXXXXX
+  longitude: XX.XXXXXXX
+  elevation: 11
+  unit_system: metric
+  temperature_unit: C
+  time_zone: Europe/Rome
+  country: IT
+  currency: EUR
+  external_url: https://**************************.ui.nabu.casa
+  internal_url: http://192.168.1.145:8123
+  packages: !include_dir_named packages
+
+
+  customize_domain:
+    automation:
+      initial_state: true
+  allowlist_external_dirs:
+    - /config
+    - /config/www/snapshot
+    - /config/www/sound
+
+frontend:
+  extra_module_url:
+    - /hacsfiles/lovelace-card-mod/card-mod.js
+  themes: !include_dir_merge_named themes
+input_boolean: !include input_boolean.yaml
+template: !include sidebar.yaml
+
+cloud:
+default_config:
+mobile_app:
+my:
+sun:
+bluetooth:
+browser_mod:
+python_script:
+powercalc:
+
+spotcast:
+  sp_dc: !secret sp_dc
+  sp_key: !secret sp_key
+
+####################################
+#                                  #
+#            DASHBOARD             #
+#                                  #
+####################################
+
+lovelace:
+  mode: yaml
+  resources:
+    [
+      { url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js, type: module },
+      { url: /hacsfiles/apexcharts-card/apexcharts-card.js, type: module },
+      { url: /hacsfiles/bar-card/bar-card.js, type: module },
+      { url: /hacsfiles/button-card/button-card.js, type: module },
+      { url: /hacsfiles/circle-sensor-card/circle-sensor-card.js, type: module },
+      { url: /hacsfiles/config-template-card/config-template-card.js, type: module },
+      { url: /hacsfiles/cover-popup-card/cover-popup-card.js, type: module },
+      { url: /hacsfiles/custom-icons/custom-icons.js, type: module },
+      { url: /hacsfiles/hass-shutter-card/hass-shutter-card.js, type: module },
+      { url: /hacsfiles/Homekit-panel-card/homekit-panel-card.js, type: module },
+      { url: /hacsfiles/light-entity-card/light-entity-card.js, type: module },
+      { url: /hacsfiles/garbage-collection-card/garbage-collection-card.js, type: module },
+      { url: /hacsfiles/kiosk-mode/kiosk-mode.js, type: module },
+      { url: /hacsfiles/lovelace-hui-element/hui-element.js, type: module },
+      { url: /hacsfiles/lovelace-card-mod/card-mod.js, type: module },
+      { url: /hacsfiles/lovelace-layout-card/layout-card.js, type: module },
+      { url: /hacsfiles/lovelace-more-info-card/more-info-card.js, type: module },
+      { url: /hacsfiles/lovelace-mushroom/mushroom.js, type: module },
+      { url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js, type: module },
+      { url: /hacsfiles/lovelace-state-switch/state-switch.js, type: module },
+      { url: /hacsfiles/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js, type: module },
+      { url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js, type: module },
+      { url: /hacsfiles/mini-media-player/mini-media-player-bundle.js, type: module },
+      { url: /hacsfiles/tv-card/tv-card.js, type: module },
+      { url: /hacsfiles/slider-button-card/slider-button-card.js, type: module },
+      { url: /hacsfiles/swipe-card/swipe-card.js, type: module },
+      { url: /hacsfiles/tabbed-card/tabbed-card.js, type: module },
+      { url: /hacsfiles/weather-card/weather-card.js, type: module },
+      { url: /hacsfiles/weather-radar-card/weather-radar-card.js, type: module },
+      { url: /hacsfiles/lovelace-paper-buttons-row/paper-buttons-row.js, type: module },
+      { url: /hacsfiles/lovelace-multiple-entity-row/multiple-entity-row.js, type: module },
+      { url: /hacsfiles/hass-blind-card/hass-blind-card.js, type: module },
+      { url: /hacsfiles/cover-icon-element/cover-icon-element.js, type: module },
+      { url: /hacsfiles/spotify-card/spotify-card.js, type: module },
+      { url: /hacsfiles/battery-state-card/battery-state-card.js, type: module },
+      { url: /hacsfiles/text-divider-row/text-divider-row.js, type: module },
+      { url: /hacsfiles/lovelace-time-picker-card/time-picker-card.js, type: module },
+      { url: /hacsfiles/hassio-trash-card/trashcard.js, type: module },
+      { url: /hacsfiles/frigate-hass-card/frigate-hass-card.js, type: module },
+      { url: /hacsfiles/lovelace-card-templater/lovelace-card-templater.js, type: module },
+      { url: /hacsfiles/flex-horseshoe-card/flex-horseshoe-card.js, type: module },
+      { url: /hacsfiles/vacuum-card/vacuum-card.js, type: module },
+      { url: /hacsfiles/floor3d-card/floor3d-card.js, type: module },
+      { url: /hacsfiles/lunar-phase-card/lunar-phase-card.js, type: module },
+      { url: /hacsfiles/ha-floorplan/floorplan.js, type: module },
+      { url: /hacsfiles/Bubble-Card/bubble-card.js, type: module },
+      { url: /hacsfiles/clock-weather-card/clock-weather-card.js, type: module },
+      { url: /hacsfiles/select-list-card/select-list-card.js, type: module },
+      { url: /hacsfiles/maxi-media-player/maxi-media-player.js, type: module },
+
+      { url: /config/custom_components/xiaomi_cloud_map_extractor, type: module },
+      { url: /config/custom_components/dpc, type: module },
+      { url: /config/custom_components/roborock, type: module },
+      { url: /config/www/community/lovelace-fold-entity-row, type: module },
+      { url: /hacsfiles/honeycomb-menu/honeycomb-menu.js, type: module },
+      { url: /hacsfiles/lovelace-auto-entities/auto-entities.js, type: module },
+      { url: "/local/card-tools.js", type: module },
+      { url: "/local/browser_mod_icon.js?v=0.5", type: module },
+      { url: "/local/marked.min.js?v=4.2.1", type: module },
+      { url: "/local/vanilla-tilt.min.js?v=1.7.3", type: module },
+      { url: "/local/fonts.css?v=2.1", type: css },
+    ]
+
+  dashboards:
+    lovelace-main: # Needs to contain a hyphen (-)
+      mode: yaml
+      title: Floorplan
+      icon: mdi:home
+      show_in_sidebar: true
+      require_admin: false
+      filename: floorplan.yaml
+
+    lovelace-esterno: # Needs to contain a hyphen (-)
+      mode: yaml
+      title: Esterno
+      icon: mdi:flower
+      show_in_sidebar: true
+      require_admin: false
+      filename: esterno.yaml
+
+    lovelace-terra: # Needs to contain a hyphen (-)
+      mode: yaml
+      title: Piano terra
+      icon: mdi:home-floor-0
+      show_in_sidebar: true
+      require_admin: false
+      filename: piano_terra.yaml
+
+    lovelace-primo: # Needs to contain a hyphen (-)
+      mode: yaml
+      title: Piano primo
+      icon: mdi:home-floor-1
+      show_in_sidebar: true
+      require_admin: false
+      filename: piano_primo.yaml
+
+    lovelace-mansarda: # Needs to contain a hyphen (-)
+      mode: yaml
+      title: Mansarda
+      icon: mdi:home-roof
+      show_in_sidebar: true
+      require_admin: false
+      filename: mansarda.yaml
+      
+    lovelace-consumi: # Needs to contain a hyphen (-)
+      mode: yaml
+      title: Consumi
+      icon: mdi:home-lightning-bolt-outline
+      show_in_sidebar: true
+      require_admin: false
+      filename: consumi.yaml
+
+logger:
+  default: warning
+  logs:
+    homeassistant.components.websocket_api: fatal
+    custom_components.monitor_docker.helpers: fatal
+    homeassistant.bootstrap: info
+
+recorder:
+  exclude:
+    entity_globs:
+
+input_number:
+  costo_energia:
+    name: costo_energia
+    initial: 0.26
+    min: 0.1
+    max: 1
+    step: 0.01
+    unit_of_measurement: €
+    icon: mdi:currency-eur
+
+
+input_datetime:
+  both_date_and_time:
+    name: Input date time
+    has_date: true
+    has_time: true
+  only_date:
+    name: Input date
+    has_date: true
+    has_time: false
+  only_time:
+    name: Input time
+    has_date: false
+    has_time: true
+
+sensor:
+  - platform: time_date
+    display_options:
+      - time
+      - date
+
+mqtt:
+  sensor:
+    - name: "tablet_battery"
+      state_topic: "wallpanel/mywallpanel/sensor/battery"
+      unit_of_measurement: "%"
+      value_template: "{{ value_json.value }}"

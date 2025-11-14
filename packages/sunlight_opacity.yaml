@@ -1,0 +1,31 @@
+
+# Sourcecode by vdbrink.github.io
+# configuration.yaml
+template:
+  - sensor:
+      - name: "Sunlight pct"
+        unique_id: sunlight_pct_sensor
+        state: >
+          {%- set elevation = state_attr('sun.sun','elevation') | float %}
+          {%- set cloud_coverage = states('sensor.pirate_weather_cloud_coverage') | float %}
+          {%- set cloud_factor = (1 - (0.75 * ( cloud_coverage / 100) ** 3 )) %}
+          {%- set min_elevation = -6 %}
+          {%- set max_elevation = 90 %}
+          {%- set adjusted_elevation = elevation - min_elevation %}
+          {%- set adjusted_elevation = [adjusted_elevation,0] | max %}
+          {%- set adjusted_elevation = [adjusted_elevation,max_elevation - min_elevation] | min %}
+          {%- set adjusted_elevation = adjusted_elevation / (max_elevation - min_elevation) %}
+          {%- set adjusted_elevation = adjusted_elevation %}
+          {%- set adjusted_elevation = adjusted_elevation * 100 %}
+          {%- set brightness = adjusted_elevation * cloud_factor %}
+          {{ brightness | round }}
+        unit_of_measurement: 'lx'
+        device_class: 'illuminance'
+
+  - sensor:
+      - name: "Sunlight Opacity"
+        unique_id: sensor_sunlight_opacity
+        state: > 
+          {%- set sunpct = states('sensor.sunlight_pct') | float %}
+          {{ sunpct / 100 | float }}
+ 

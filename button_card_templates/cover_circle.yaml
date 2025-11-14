@@ -1,0 +1,35 @@
+cover_circle:
+  styles:
+    card:
+      - --c-stroke-color-on: '#b0b0b0'
+      - --c-stroke-color-off: none
+      - --c-fill-color-on: none
+      - --c-fill-color-off: rgba(255,255,255,0.04)
+      - --c-stroke-width: 2.3
+      - --c-stroke-width-dragging: 4
+      - --c-font-color: '#97989c'
+      - --c-font-size: 14px
+      - --c-unit-font-size: 10.5px
+      - --c-font-weight: 700
+      - --c-letter-spacing: -0.02rem
+    custom_fields:
+      circle:
+        - display: initial
+        - width: 88%
+        - letter-spacing: 0.03vw
+        - margin: -3% 2% 0 0
+        - justify-self: end
+        - opacity: 1
+  custom_fields:
+    circle: >
+      [[[
+        const input = variables.circle_input == null ? ' ' : `${parseInt(variables.circle_input)}<tspan font-size="12">%</tspan>`;
+        const stroke_color = (variables.state === 'open') ? 'none' : '#3e3e3f';
+        const fill_color = (variables.state === 'closed') ? 'none' : 'rgba(255,255,255,0.04)';
+        return `
+          <svg viewBox="0 0 50 50">
+            <circle cx="25" cy="25" r="23.5" stroke="${stroke_color}" stroke-width="1.5" fill="${fill_color}" />
+            <text x="50%" y="54%" fill="#8d8e90" font-size="14" text-anchor="middle" alignment-baseline="middle" dominant-baseline="middle">${input}</text>
+          </svg>
+        `;
+      ]]]

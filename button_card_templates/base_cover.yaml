@@ -1,0 +1,113 @@
+base_cover:
+    variables:
+      state: >
+        [[[ return entity === undefined || entity.state; ]]]
+      timeout: >
+        [[[ return entity === undefined || Date.now() - Date.parse(entity.last_changed); ]]]
+    aspect_ratio: 1/1
+    show_state: false
+    show_icon: false
+    show_label: true
+    label: |
+      [[[
+        if (entity.attributes.current_position <= variables.close_position)
+          return 'Chiusa';
+        return 'Aperta';
+      ]]]
+    state_display: >
+      [[[ if (variables.state === true) return 'Scono'; ]]]
+    tap_action:
+      animation_card: |
+        [[[
+          const animation_speed_ms = 900;
+          const animation = `card_bounce ${animation_speed_ms}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+          this.shadowRoot.getElementById("card").style.animation = animation;
+          window.setTimeout(() => {
+            this.shadowRoot.getElementById("card").style.animation = "none";
+          }, animation_speed_ms)
+        ]]]
+      action: call-service
+      service: cover.set_cover_position
+      service_data:
+        entity_id: entity
+        position: |
+          [[[
+            return (variables.close_position == null) ? 20 : variables.close_position;
+          ]]]
+    hold_action:
+      action: more-info
+    styles:
+      grid:
+        - grid-template-areas: |
+            "icon  circle"
+            "n     n"
+            "l     l"
+        - grid-template-columns: repeat(2, 1fr)
+        - grid-template-rows: auto repeat(2, min-content)
+        - gap: 2%
+        - align-items: start
+      name:
+        - justify-self: start
+        - line-height: 115%
+      state:
+        - justify-self: start
+        - line-height: 115%
+      label:
+        - justify-self: start
+        - line-height: 115%
+      card:
+        - font-family: Sf Display
+        - border-radius: var(--custom-button-card-border-radius)
+        - -webkit-tap-highlight-color: rgba(0,0,0,0)
+        - transition: none
+        - padding: 10%
+        - --mdc-ripple-color: >
+            [[[
+              return (variables.state === 'open') ?
+                'rgb(0, 0, 0)' :
+                'rgba(255, 255, 255, 0.3)';
+            ]]]
+        - color: >
+            [[[
+              return 'rgba(255, 255, 255, 0.3)';
+            ]]]
+        - background-color: >
+            [[[
+              return 'rgba(115, 115, 115, 0.2)';
+            ]]]
+    extra_styles: |
+      #name, #state, #label {
+        font-size: 1.2vw;
+        letter-spacing: 0.05vw;
+      }
+      /* portrait */
+      @media screen and (max-width: 1200px) {
+        #name, #state {
+          font-size: 2vw;
+          letter-spacing: 0.05vw;
+        }
+      }
+      /* phone */
+      @media screen and (max-width: 800px) {
+        #name, #state {
+          font-size: 3.1vw;
+          letter-spacing: 0.12vw;
+        }
+      }
+      @keyframes card_bounce {
+        0% {
+          transform: scale(1);
+        }
+        15% {
+          transform: scale(0.9);
+        }
+        25% {
+          transform: scale(1);
+        }
+        30% {
+          transform: scale(0.98);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }

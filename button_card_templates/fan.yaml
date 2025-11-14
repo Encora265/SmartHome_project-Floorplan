@@ -1,0 +1,65 @@
+fan:
+  template:
+    - base
+    - circle
+    - loader
+  double_tap_action:
+    action: fire-dom-event
+    browser_mod:
+      service: browser_mod.popup
+      data:
+        title: >
+          [[[
+            return !entity || entity.attributes.friendly_name;
+          ]]]
+        card_mod:
+          style:
+            #popup header
+            .:
+        content:
+          type: entities
+          card_mod:
+            style: |
+              #states {
+                padding-top: 0.5em;
+              }
+          entities: >
+            [[[
+              if (entity) {
+                  let fans = [],
+                      id = Boolean(entity.attributes.entity_id)
+                          ? [entity.entity_id].concat(entity.attributes.entity_id)
+                          : [entity.entity_id];
+
+                  for (let i = 0; i < id.length; i++) {
+                      fans.push({
+                          "type": "custom:mushroom-fan-card",
+                          "entity": id[i],
+                          "fill_container": false,
+                          "primary_info": "name",
+                          "secondary_info": "state",
+                          "icon_type": "icon",
+                          "show_speed_control": true,
+                          "use_fan_color": true,
+                          "collapsible_controls": true
+                      });
+                  }
+                  return fans;
+              }
+            ]]]
+  variables:
+    circle_input: >
+      [[[
+        if (entity) {
+            // Se il ventilatore è parte di un gruppo, prendi la velocità dal figlio per evitare rimbalzi
+            let child = entity.attributes.entity_id,
+                speed = child && states[child[0]].attributes.percentage
+                    ? Math.round(states[child[0]].attributes.percentage)
+                    : Math.round(entity.attributes.percentage);
+            return speed === 0 && entity.state !== 'off'
+                ? 1
+                : speed;
+        }
+      ]]]
+    circle_input_unit: ''  # Cambiato da 'level' a una stringa vuota
+    

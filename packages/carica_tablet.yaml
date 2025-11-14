@@ -1,0 +1,157 @@
+# AUTOMAZIONE PER RICARICA AUTOMATICA TABLET A MURO
+ 
+input_boolean:
+  dashboard_general_management:
+    name: 'Gestione Dashboard'
+    icon: mdi:tablet-dashboard
+
+  dashboard_power_battery_low:
+    name: 'Accendi Sotto Limite Minimo'
+    icon: mdi:battery-low
+
+  dashboard_power_battery_high:
+    name: 'Spegni Sopra Limite Massimo'
+    icon: mdi:battery-high
+
+input_number:
+  dashboard_power_battery_low:
+    name: 'Limite Minimo Batteria'
+    icon: mdi:battery-low
+    min: 5
+    max: 50
+    step: 1
+    unit_of_measurement: '%'
+
+  dashboard_power_battery_high:
+    name: 'Limite Massimo Batteria'
+    icon: mdi:battery-high
+    min: 51
+    max: 99
+    step: 1
+    unit_of_measurement: '%'
+
+binary_sensor:
+  - platform: template
+    sensors:
+      dashboard_power_battery_low:
+        friendly_name: 'Allarme Stato Batteria Minimo'
+        value_template: >-
+          {% set battery = states("sensor.my_wall_panel_battery_level") | int(0) %}
+          {% set limite = states("input_number.dashboard_power_battery_low") | int(20) %}
+          {{ battery <= limite }}
+        icon_template: mdi:battery-low
+
+      dashboard_power_battery_high:
+        friendly_name: 'Allarme Stato Batteria Massimo'
+        value_template: >-
+          {% set battery = states("sensor.my_wall_panel_battery_level") | int(0) %}
+          {% set limite = states("input_number.dashboard_power_battery_high") | int(80) %}
+          {{ battery >= limite }}
+        icon_template: mdi:battery-high
+
+automation:
+  - alias: 'Dashboard - Accensione Alimentazione'
+    initial_state: true
+    mode: single
+    max_exceeded: silent
+    trigger:
+      - platform: time_pattern
+        minutes: '/5'
+      - platform: state
+        entity_id: binary_sensor.dashboard_power_battery_low
+        from: 'off'
+        to: 'on'
+    condition:
+      - condition: state
+        entity_id: input_boolean.dashboard_general_management
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.dashboard_power_battery_low
+        state: 'on'
+      - condition: state
+        entity_id: binary_sensor.dashboard_power_battery_low
+        state: 'on'
+      - condition: state
+        entity_id: switch.sonoff_1001edb37d_2
+        state: 'off'
+    action:
+      - alias: "Accendi presa"
+        service: switch.turn_on
+        target:
+          entity_id: switch.sonoff_1001edb37d_2
+
+      - alias: "Notifica di carica"
+        service: notify.mobile_app_sm_t550
+        data:
+          title: 'Tablet'
+          message: 'Si è scaricata la batteria, arrivata a: {{ states("sensor.my_wall_panel_battery_level") | int(0) }}%, ora procedo a caricarla'
+          data:
+            priority: 0
+
+      - alias: "Volume tablet"
+        service: media_player.volume_set
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          volume_level: 0.5
+
+      - alias: "Messaggio vocale"
+        service: tts.cloud_say
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          message: "Il tablet è scarico"
+          cache: true
+
+  - alias: 'Dashboard - Spegnimento Alimentazione'
+    initial_state: true
+    mode: single
+    max_exceeded: silent
+    trigger:
+      - platform: time_pattern
+        minutes: '/5'
+      - platform: state
+        entity_id: binary_sensor.dashboard_power_battery_high
+        from: 'off'
+        to: 'on'
+    condition:
+      - condition: state
+        entity_id: input_boolean.dashboard_general_management
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.dashboard_power_battery_high
+        state: 'on'
+      - condition: state
+        entity_id: binary_sensor.dashboard_power_battery_high
+        state: 'on'
+      - condition: state
+        entity_id: switch.sonoff_1001edb37d_2
+        state: 'on'
+    action:
+      - alias: "Spegni presa"
+        service: switch.turn_off
+        target:
+          entity_id: switch.sonoff_1001edb37d_2
+
+      - alias: "Notifica carica completa"
+        service: notify.mobile_app_sm_t550
+        data:
+          title: 'Tablet'
+          message: 'La batteria si è caricata, arrivata alla percentuale: {{ states("sensor.my_wall_panel_battery_level") | int(0) }}, ora stacco la corrente'
+          data:
+            priority: 0
+
+      - alias: "Volume tablet"
+        service: media_player.volume_set
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          volume_level: 0.5
+
+      - alias: "Messaggio vocale"
+        service: tts.cloud_say
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          message: "Il tablet è carico"
+          cache: true

@@ -1,0 +1,122 @@
+# waste_circle_bin:
+#   template:
+#     - base
+#     - circle
+#   show_icon: true
+#   show_state: false
+#   icon: mdi:trash-can
+#   custom_fields:
+#     circle: >
+#       [[[
+#         if (entity) {
+#           let giorni = parseInt(entity.state) || 0;
+#           let tipo = entity.attributes.tipo || "";
+#           let color = "#97989c";
+
+#           if (tipo.includes("Umido")) color = "#775144";
+#           else if (tipo.includes("Plastica")) color = "#2504c9";
+#           else if (tipo.includes("Indifferenziato")) color = "#343436";
+#           else if (tipo.includes("Carta")) color = "#eebd17";
+#           else if (tipo.includes("Verde")) color = "#44672f";
+#           else if (tipo.includes("Vetro")) color = "#25549d";
+
+#           return `
+#             <svg viewBox="0 0 50 50">
+#               <circle cx="25" cy="25" r="22.1"
+#                 stroke="${color}"
+#                 stroke-width="2.3"
+#                 fill="none"
+#                 stroke-dasharray="${2 * Math.PI * 22.1}"
+#                 stroke-dashoffset="${giorni > 0 ? (2 * Math.PI * 22.1) - (giorni/7 * 2 * Math.PI * 22.1) : 0}">
+#               </circle>
+#               <text x="50%" y="58%" text-anchor="middle"
+#                 fill="${color}" font-size="16" font-weight="700">
+#                 ${giorni}
+#               </text>
+#             </svg>
+#           `;
+#         }
+#       ]]]
+#   styles:
+#     custom_fields:
+#       circle:
+#         - display: initial
+#         - width: 90%
+#         - margin: 0% 2% 0 0
+#         - justify-self: end
+#     icon:
+#       - color: >
+#           [[[
+#             let tipo = entity?.attributes?.tipo || "";
+#             if (tipo.includes("Umido")) return "#775144";
+#             if (tipo.includes("Plastica")) return "#2504c9";
+#             if (tipo.includes("Indifferenziato")) return "#343436";
+#             if (tipo.includes("Carta")) return "#eebd17";
+#             if (tipo.includes("Verde")) return "#44672f";
+#             if (tipo.includes("Vetro")) return "#25549d";
+#             return "#97989c";
+#           ]]]
+#       - width: 65%
+#       - margin-top: 6%
+#       - justify-self: start
+#       - align-self: start
+#   card_mod:
+#     style: |
+#       ha-icon {
+#         clip-path: inset(0 0 75% 0);
+#         transform-origin: 50% 25%;
+#         animation: lid 1s ease infinite;
+#       }
+#       @keyframes lid {
+#         0%, 50%, 80%, 100% { transform: translateY(0); }
+#         10% { transform: translateY(-5px) rotate(-37deg); }
+#         20% { transform: translateY(-5px) rotate(31deg); }
+#         30% { transform: translateY(-5px) rotate(-25deg); }
+#         40% { transform: translateY(-5px) rotate(19deg); }
+#         60% { transform: translateY(-3px); }
+#       }
+waste_circle_bin:
+  template:
+    - base
+    - circle
+    - icon_waste   # richiamo dell'icona dal file icons.yaml
+  show_icon: false
+  show_state: false
+  custom_fields:
+    circle: >
+      [[[
+        if (entity) {
+          let giorni = parseInt(entity.state) || 0;
+          let tipo = entity.attributes.tipo || "";
+          let color = "#97989c";
+
+          if (tipo.includes("Umido")) color = "#775144";
+          else if (tipo.includes("Plastica")) color = "#2504c9";
+          else if (tipo.includes("Indifferenziato")) color = "#343436";
+          else if (tipo.includes("Carta")) color = "#eebd17";
+          else if (tipo.includes("Verde")) color = "#44672f";
+          else if (tipo.includes("Vetro")) color = "#25549d";
+
+          return `
+            <svg viewBox="0 0 50 50">
+              <circle cx="25" cy="25" r="22.1"
+                stroke="${color}"
+                stroke-width="2.3"
+                fill="none"
+                stroke-dasharray="${2 * Math.PI * 22.1}"
+                stroke-dashoffset="${giorni > 0 ? (2 * Math.PI * 22.1) - (giorni/7 * 2 * Math.PI * 22.1) : 0}">
+              </circle>
+              <text x="50%" y="59%" text-anchor="middle"
+                fill="${color}" font-size="16" font-weight="700">
+                ${giorni}
+              </text>
+            </svg>
+          `;
+        }
+      ]]]
+  styles:
+    custom_fields:
+      circle:
+        - width: 90%
+        - margin: 0% 2% 0 0
+        - justify-self: end

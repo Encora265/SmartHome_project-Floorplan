@@ -1,0 +1,1447 @@
+###############################################################################
+# PACKAGE: Gestione Lavastoviglie Hisense HV603D40 - VERSIONE COMPLETA
+###############################################################################
+
+homeassistant:
+  customize:
+    binary_sensor.lavastoviglie_in_funzione:
+      friendly_name: Lavastoviglie in funzione
+      icon: >
+        {% if is_state('binary_sensor.lavastoviglie_in_funzione', 'on') %}
+          mdi:dishwasher
+        {% else %}
+          mdi:dishwasher-off
+        {% endif %}
+    input_datetime.lavastoviglie_inizio_programma:
+      icon: mdi:clock-start
+    input_datetime.lavastoviglie_fine_programma:
+      icon: mdi:clock-end
+    input_number.lavastoviglie_consumo_ultimo_ciclo:
+      icon: mdi:lightning-bolt
+
+###############################################################################
+# SENSORI - Potenza → Consumo Ciclo (kWh)
+###############################################################################
+sensor:
+  - platform: integration
+    source: sensor.power_cucina_power_b
+    name: "Lavastoviglie Consumo Ciclo"
+    unit_prefix: k
+    round: 3
+    method: left
+    unit_time: h
+
+###############################################################################
+# UTILITY METER - Resettabile manualmente all'inizio di ogni ciclo
+###############################################################################
+utility_meter:
+  lavastoviglie_ciclo:
+    source: sensor.lavastoviglie_consumo_ciclo
+
+  lavastoviglie_consumo_giornaliero:
+    source: sensor.lavastoviglie_consumo_ciclo
+    cycle: daily
+
+  lavastoviglie_consumo_settimanale:
+    source: sensor.lavastoviglie_consumo_ciclo
+    cycle: weekly
+
+  lavastoviglie_consumo_mensile:
+    source: sensor.lavastoviglie_consumo_ciclo
+    cycle: monthly
+
+  lavastoviglie_consumo_annuale:
+    source: sensor.lavastoviglie_consumo_ciclo
+    cycle: yearly
+
+###############################################################################
+# INPUT DATETIME e INPUT NUMBER per memorizzare dati ultimo ciclo
+###############################################################################
+input_datetime:
+  lavastoviglie_inizio_programma:
+    name: Inizio programma lavastoviglie
+    has_date: true
+    has_time: true
+  lavastoviglie_fine_programma:
+    name: Fine programma lavastoviglie
+    has_date: true
+    has_time: true
+
+input_number:
+  lavastoviglie_consumo_ultimo_ciclo:
+    name: Consumo ultimo ciclo
+    min: 0
+    max: 3
+    step: 0.01
+    unit_of_measurement: "kWh"
+
+  lavastoviglie_cicli_totali:
+    name: Cicli totali lavastoviglie
+    unit_of_measurement: "cicli"
+    min: 0
+    max: 100000
+    step: 1
+
+  lavastoviglie_consumo_totale:
+    name: Consumo totale lavastoviglie
+    unit_of_measurement: "kWh"
+    min: 0
+    max: 100000
+    step: 0.001
+
+  lavastoviglie_costo_totale:
+    name: Costo totale lavastoviglie
+    unit_of_measurement: "€"
+    min: 0
+    max: 100000
+    step: 0.01
+
+  lavastoviglie_tempo_totale:
+    name: Tempo totale lavastoviglie
+    unit_of_measurement: "min"
+    min: 0
+    max: 1000000
+    step: 1
+    
+###############################################################################
+# INPUT BOOLEAN per toggle notifiche
+###############################################################################
+input_boolean:
+  lavastoviglie_notifiche_abilitate:
+    name: Notifiche Lavastoviglie
+    icon: mdi:bell-ring
+    initial: true
+
+  lavastoviglie_notifiche_vocali_abilitate:
+    name: Notifiche Vocali Nest Hub
+    icon: mdi:google-assistant
+    initial: true
+    
+  lavastoviglie_notifiche_manutenzione_abilitate:
+    name: Notifiche Manutenzione
+    icon: mdi:tools
+    initial: true
+
+###############################################################################
+# COUNTER dei cicli di lavaggio
+###############################################################################
+counter:
+  lavastoviglie_cicli_giornalieri:
+    name: Cicli Giornalieri Lavastoviglie
+    icon: mdi:calendar-today
+    restore: false
+
+  lavastoviglie_cicli_settimanali:
+    name: Cicli Settimanali Lavastoviglie
+    icon: mdi:calendar-week
+    restore: false
+
+  lavastoviglie_cicli_mensili:
+    name: Cicli Mensili Lavastoviglie
+    icon: mdi:calendar-month
+    restore: false
+
+  lavastoviglie_cicli_annuali:
+    name: Cicli Annuali Lavastoviglie
+    icon: mdi:calendar-multiple
+    restore: false
+
+  lavastoviglie_cicli_totali:
+    name: Cicli lavastoviglie totali
+    initial: 0
+    step: 1
+
+###############################################################################
+# COUNTER manutenzione lavastoviglie
+###############################################################################
+  lavastoviglie_cicli_da_manutenzione_leggera:
+    name: Cicli da ultima manutenzione leggera
+    icon: mdi:broom
+    initial: 0
+    step: 1
+
+  lavastoviglie_cicli_da_manutenzione_standard:
+    name: Cicli da ultima manutenzione standard
+    icon: mdi:wrench
+    initial: 0
+    step: 1
+
+  lavastoviglie_cicli_da_manutenzione_completa:
+    name: Cicli da ultima manutenzione completa
+    icon: mdi:tools
+    initial: 0
+    step: 1
+
+###############################################################################
+# SENSORI TEMPLATE
+###############################################################################
+template:
+  - binary_sensor:
+      - name: "Lavastoviglie in funzione"
+        unique_id: lavastoviglie_in_funzione
+        state: "{{ states('sensor.power_cucina_power_b') | float(0) > 5 }}"
+        device_class: running
+        icon: >
+          {% if is_state('binary_sensor.lavastoviglie_in_funzione', 'on') %}
+            mdi:dishwasher
+          {% else %}
+            mdi:dishwasher-off
+          {% endif %}
+
+  - sensor:
+      # Orario e durata ultimo ciclo
+      - name: "Ora ultimo avvio lavastoviglie"
+        unique_id: ora_ultimo_avvio_lavastoviglie
+        device_class: timestamp
+        state: >
+          {% set val = states('input_datetime.lavastoviglie_inizio_programma') %}
+          {{ val if val not in ['unknown', 'unavailable', 'none', 'None'] else none }}
+
+      - name: "Durata ultimo ciclo lavastoviglie"
+        unique_id: durata_ultimo_ciclo_lavastoviglie
+        unit_of_measurement: "min"
+        icon: mdi:timer-outline
+        state: >
+          {% set start = states('input_datetime.lavastoviglie_inizio_programma') %}
+          {% set end = states('input_datetime.lavastoviglie_fine_programma') %}
+          {% if start not in ['unknown', 'unavailable', 'none', 'None']
+                and end not in ['unknown', 'unavailable', 'none', 'None'] %}
+            {{ ((as_datetime(end) - as_datetime(start)).total_seconds() / 60) | round(0) }}
+          {% else %}
+            0
+          {% endif %}
+
+      # Costo ultimo ciclo
+      - name: "Costo ultimo ciclo lavastoviglie"
+        unique_id: costo_ultimo_ciclo_lavastoviglie
+        unit_of_measurement: "€"
+        icon: mdi:currency-eur
+        state: >
+          {% set consumo = states('input_number.lavastoviglie_consumo_ultimo_ciclo') | float(0) %}
+          {% set prezzo = states('input_number.costo_energia') | float(0) %}
+          {{ (consumo * prezzo) | round(2) if prezzo > 0 else 0.0 }}
+
+      # Costo giornaliero
+      - name: "Costo giornaliero lavastoviglie"
+        unique_id: costo_giornaliero_lavastoviglie
+        unit_of_measurement: "€"
+        icon: mdi:currency-eur
+        state: >
+          {% set consumo = states('sensor.lavastoviglie_consumo_giornaliero') | float(0) %}
+          {% set prezzo = states('input_number.costo_energia') | float(0) %}
+          {{ (consumo * prezzo) | round(2) if prezzo > 0 else 0.0 }}
+
+      # Costo settimanale
+      - name: "Costo settimanale lavastoviglie"
+        unique_id: costo_settimanale_lavastoviglie
+        unit_of_measurement: "€"
+        icon: mdi:currency-eur
+        state: >
+          {% set consumo = states('sensor.lavastoviglie_consumo_settimanale') | float(0) %}
+          {% set prezzo = states('input_number.costo_energia') | float(0) %}
+          {{ (consumo * prezzo) | round(2) if prezzo > 0 else 0.0 }}
+
+      # Costo mensile e annuale
+      - name: "Costo Mensile Lavastoviglie"
+        unique_id: costo_mensile_lavastoviglie
+        unit_of_measurement: "€"
+        icon: mdi:calendar-month
+        state: >
+          {% set consumo = states('sensor.lavastoviglie_consumo_mensile') | float(0) %}
+          {% set prezzo = states('input_number.costo_energia') | float(0) %}
+          {{ (consumo * prezzo) | round(2) if prezzo > 0 else 0.0 }}
+
+      - name: "Costo Annuale Lavastoviglie"
+        unique_id: costo_annuale_lavastoviglie
+        unit_of_measurement: "€"
+        icon: mdi:calendar
+        state: >
+          {% set consumo = states('sensor.lavastoviglie_consumo_annuale') | float(0) %}
+          {% set prezzo = states('input_number.costo_energia') | float(0) %}
+          {{ (consumo * prezzo) | round(2) if prezzo > 0 else 0.0 }}
+
+      # Sensori cicli
+      - name: "Cicli Lavastoviglie Oggi"
+        unique_id: cicli_lavastoviglie_oggi
+        icon: mdi:calendar-today
+        unit_of_measurement: "cicli"
+        state: "{{ states('counter.lavastoviglie_cicli_giornalieri') | int(0) }}"
+
+      - name: "Cicli Lavastoviglie Settimana"
+        unique_id: cicli_lavastoviglie_settimana
+        icon: mdi:calendar-week
+        unit_of_measurement: "cicli"
+        state: "{{ states('counter.lavastoviglie_cicli_settimanali') | int(0) }}"
+
+      - name: "Cicli Lavastoviglie Mese"
+        unique_id: cicli_lavastoviglie_mese
+        icon: mdi:calendar-month
+        unit_of_measurement: "cicli"
+        state: "{{ states('counter.lavastoviglie_cicli_mensili') | int(0) }}"
+
+      - name: "Cicli Lavastoviglie Anno"
+        unique_id: cicli_lavastoviglie_anno
+        icon: mdi:calendar
+        unit_of_measurement: "cicli"
+        state: "{{ states('counter.lavastoviglie_cicli_annuali') | int(0) }}"
+
+      - name: "Cicli Lavastoviglie Totali"
+        unique_id: cicli_lavastoviglie_totali
+        icon: mdi:counter
+        unit_of_measurement: "cicli"
+        state: "{{ states('counter.lavastoviglie_cicli_totali') | int(0) }}"
+
+      # Sensori consumo
+      - name: "Consumo Lavastoviglie Oggi"
+        unique_id: consumo_lavastoviglie_oggi
+        state: "{{ states('sensor.lavastoviglie_consumo_giornaliero') | float(0) }}"
+        unit_of_measurement: "kWh"
+        icon: mdi:flash
+
+      - name: "Consumo Lavastoviglie Settimana"
+        unique_id: consumo_lavastoviglie_settimana
+        state: "{{ states('sensor.lavastoviglie_consumo_settimanale') | float(0) }}"
+        unit_of_measurement: "kWh"
+        icon: mdi:flash
+
+      - name: "Consumo Lavastoviglie Mese"
+        unique_id: consumo_lavastoviglie_mese
+        state: "{{ states('sensor.lavastoviglie_consumo_mensile') | float(0) }}"
+        unit_of_measurement: "kWh"
+        icon: mdi:flash
+
+      - name: "Consumo Lavastoviglie Anno"
+        unique_id: consumo_lavastoviglie_anno
+        state: "{{ states('sensor.lavastoviglie_consumo_annuale') | float(0) }}"
+        unit_of_measurement: "kWh"
+        icon: mdi:flash
+
+      - name: "Consumo Totale Lavastoviglie"
+        unique_id: consumo_totale_lavastoviglie
+        state: "{{ states('input_number.lavastoviglie_consumo_totale') | float(0) }}"
+        unit_of_measurement: "kWh"
+        icon: mdi:flash
+
+###############################################################################
+# SENSORI TEMPLATE MANUTENZIONE LAVASTOVIGLIE
+###############################################################################
+      - name: "Stato Manutenzione Leggera Lavastoviglie"
+        unique_id: stato_manutenzione_leggera_lavastoviglie
+        state: >
+          {% set cicli = states('counter.lavastoviglie_cicli_da_manutenzione_leggera') | int(0) %}
+          {% if cicli >= 15 %}Necessaria{% elif cicli >= 12 %}In scadenza{% else %}OK{% endif %}
+        icon: >
+          {% set cicli = states('counter.lavastoviglie_cicli_da_manutenzione_leggera') | int(0) %}
+          {% if cicli >= 15 %}mdi:alert-circle{% elif cicli >= 12 %}mdi:alert{% else %}mdi:check-circle{% endif %}
+
+      - name: "Stato Manutenzione Standard Lavastoviglie"
+        unique_id: stato_manutenzione_standard_lavastoviglie
+        state: >
+          {% set cicli = states('counter.lavastoviglie_cicli_da_manutenzione_standard') | int(0) %}
+          {% if cicli >= 30 %}Necessaria{% elif cicli >= 25 %}In scadenza{% else %}OK{% endif %}
+        icon: >
+          {% set cicli = states('counter.lavastoviglie_cicli_da_manutenzione_standard') | int(0) %}
+          {% if cicli >= 30 %}mdi:alert-circle{% elif cicli >= 25 %}mdi:alert{% else %}mdi:check-circle{% endif %}
+
+      - name: "Stato Manutenzione Completa Lavastoviglie"
+        unique_id: stato_manutenzione_completa_lavastoviglie
+        state: >
+          {% set cicli = states('counter.lavastoviglie_cicli_da_manutenzione_completa') | int(0) %}
+          {% if cicli >= 60 %}Necessaria{% elif cicli >= 50 %}In scadenza{% else %}OK{% endif %}
+        icon: >
+          {% set cicli = states('counter.lavastoviglie_cicli_da_manutenzione_completa') | int(0) %}
+          {% if cicli >= 60 %}mdi:alert-circle{% elif cicli >= 50 %}mdi:alert{% else %}mdi:check-circle{% endif %}
+
+###############################################################################
+# AUTOMAZIONI
+###############################################################################
+automation:
+  # Inizio lavaggio
+  - alias: "Lavastoviglie - Inizio lavaggio"
+    id: lavastoviglie_inizio_lavaggio
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.lavastoviglie_in_funzione
+        from: "off"
+        to: "on"
+    action:
+      # Salva l'orario di inizio ciclo
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.lavastoviglie_inizio_programma
+        data:
+          datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+      # Reset del contatore utility meter
+      - service: utility_meter.reset
+        target:
+          entity_id: utility_meter.lavastoviglie_ciclo
+
+  # Fine lavaggio
+  - alias: "Lavastoviglie - Fine lavaggio"
+    id: lavastoviglie_fine_lavaggio
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.lavastoviglie_in_funzione
+        from: "on"
+        to: "off"
+        for:
+          minutes: 2
+    action:
+      # Salva consumo ultimo ciclo dall'utility meter
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.lavastoviglie_consumo_ultimo_ciclo
+        data:
+          value: "{{ states('sensor.lavastoviglie_ciclo') | float(0) }}"
+      # Salva orario fine ciclo
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.lavastoviglie_fine_programma
+        data:
+          datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+      # Incrementa contatori periodici
+      - service: counter.increment
+        target:
+          entity_id:
+            - counter.lavastoviglie_cicli_giornalieri
+            - counter.lavastoviglie_cicli_settimanali
+            - counter.lavastoviglie_cicli_mensili
+            - counter.lavastoviglie_cicli_annuali
+            - counter.lavastoviglie_cicli_totali
+            - counter.lavastoviglie_cicli_da_manutenzione_leggera
+            - counter.lavastoviglie_cicli_da_manutenzione_standard
+            - counter.lavastoviglie_cicli_da_manutenzione_completa
+      # Aggiorna totali cumulativi
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.lavastoviglie_consumo_totale
+        data:
+          value: >
+            {{ states('input_number.lavastoviglie_consumo_totale') | float(0)
+               + states('input_number.lavastoviglie_consumo_ultimo_ciclo') | float(0) }}
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.lavastoviglie_costo_totale
+        data:
+          value: >
+            {{ states('input_number.lavastoviglie_costo_totale') | float(0)
+               + states('sensor.costo_ultimo_ciclo_lavastoviglie') | float(0) }}
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.lavastoviglie_tempo_totale
+        data:
+          value: >
+            {{ states('input_number.lavastoviglie_tempo_totale') | float(0)
+               + states('sensor.durata_ultimo_ciclo_lavastoviglie') | float(0) }}
+      # Notifica vocale e aumento temporaneo volume
+      - condition: state
+        entity_id: input_boolean.lavastoviglie_notifiche_vocali_abilitate
+        state: 'on'
+      - variables:
+          volume_attuale: "{{ state_attr('media_player.nesthube6f7', 'volume_level') | float(0.3) }}"
+      - service: media_player.volume_set
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          volume_level: 0.7
+      - service: tts.cloud_say
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          message: >
+            {{ [
+              "Il lavaggio è terminato.",
+              "La lavastoviglie ha concluso il ciclo.",
+              "Il programma è completato."
+            ] | random }}
+            Il consumo dell'ultimo lavaggio è stato di 
+            {{ states('input_number.lavastoviglie_consumo_ultimo_ciclo') | float(0) | round(2) }} kilowattora,
+            per un costo stimato di 
+            {{ states('sensor.costo_ultimo_ciclo_lavastoviglie') | float(0) | round(2) }} euro.
+            Ricordati di svuotare la lavastoviglie!
+          language: "it-IT"
+      - delay: "00:00:05"
+      - service: media_player.volume_set
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          volume_level: "{{ volume_attuale }}"
+      # Notifica push
+      - condition: state
+        entity_id: input_boolean.lavastoviglie_notifiche_abilitate
+        state: 'on'
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "Lavastoviglie"
+          message: >
+            Il ciclo della lavastoviglie è terminato!
+            Consumo: {{ states('input_number.lavastoviglie_consumo_ultimo_ciclo') }} kWh
+            Costo: {{ states('sensor.costo_ultimo_ciclo_lavastoviglie') }} €
+
+  # Reset contatori giornalieri
+  - alias: "Lavastoviglie - Reset contatore giornaliero"
+    id: lavastoviglie_reset_giornaliero
+    trigger:
+      - platform: time
+        at: "00:00:00"
+    action:
+      - service: counter.reset
+        target:
+          entity_id: counter.lavastoviglie_cicli_giornalieri
+
+  # Reset contatore settimanale (Lunedì)
+  - alias: "Lavastoviglie - Reset contatore settimanale"
+    id: lavastoviglie_reset_settimanale
+    trigger:
+      - platform: time
+        at: "00:00:00"
+    condition:
+      - condition: template
+        value_template: "{{ now().weekday() == 0 }}"
+    action:
+      - service: counter.reset
+        target:
+          entity_id: counter.lavastoviglie_cicli_settimanali
+
+  # Reset contatore mensile (1° giorno del mese)
+  - alias: "Lavastoviglie - Reset contatore mensile"
+    id: lavastoviglie_reset_mensile
+    trigger:
+      - platform: time
+        at: "00:00:00"
+    condition:
+      - condition: template
+        value_template: "{{ now().day == 1 }}"
+    action:
+      - service: counter.reset
+        target:
+          entity_id: counter.lavastoviglie_cicli_mensili
+
+  # Reset contatore annuale (1° gennaio)
+  - alias: "Lavastoviglie - Reset contatore annuale"
+    id: lavastoviglie_reset_annuale
+    trigger:
+      - platform: time
+        at: "00:00:00"
+    condition:
+      - condition: template
+        value_template: "{{ now().month == 1 and now().day == 1 }}"
+    action:
+      - service: counter.reset
+        target:
+          entity_id: counter.lavastoviglie_cicli_annuali
+
+###############################################################################
+# AUTOMAZIONI manutenzione lavastoviglie
+###############################################################################
+  # Alert Manutenzione Leggera Lavastoviglie
+  - alias: "Lavastoviglie - Alert Manutenzione Leggera"
+    id: lavastoviglie_alert_manutenzione_leggera
+    trigger:
+      - platform: numeric_state
+        entity_id: counter.lavastoviglie_cicli_da_manutenzione_leggera
+        above: 14
+    condition:
+      - condition: state
+        entity_id: input_boolean.lavastoviglie_notifiche_manutenzione_abilitate
+        state: 'on'
+    action:
+      # Notifica push
+      - condition: state
+        entity_id: input_boolean.lavastoviglie_notifiche_abilitate
+        state: 'on'
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "🧹 Lavastoviglie - Manutenzione"
+          message: "È ora di fare la manutenzione leggera! (Controllo bracci irroratori + carico corretto)"
+      # Notifica vocale
+      - condition: state
+        entity_id: input_boolean.lavastoviglie_notifiche_vocali_abilitate
+        state: 'on'
+      - service: tts.cloud_say
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          message: "Attenzione: è ora di fare la manutenzione leggera della lavastoviglie."
+          language: "it-IT"
+
+  # Alert Manutenzione Standard Lavastoviglie
+  - alias: "Lavastoviglie - Alert Manutenzione Standard"
+    id: lavastoviglie_alert_manutenzione_standard
+    trigger:
+      - platform: numeric_state
+        entity_id: counter.lavastoviglie_cicli_da_manutenzione_standard
+        above: 29
+    condition:
+      - condition: state
+        entity_id: input_boolean.lavastoviglie_notifiche_manutenzione_abilitate
+        state: 'on'
+    action:
+      # Notifica push
+      - condition: state
+        entity_id: input_boolean.lavastoviglie_notifiche_abilitate
+        state: 'on'
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "🔧 Lavastoviglie - Manutenzione"
+          message: "È ora di fare la manutenzione standard! (Pulizia filtro principale + controllo residui)"
+      # Notifica vocale
+      - condition: state
+        entity_id: input_boolean.lavastoviglie_notifiche_vocali_abilitate
+        state: 'on'
+      - service: tts.cloud_say
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          message: "Attenzione: è ora di fare la manutenzione standard della lavastoviglie."
+          language: "it-IT"
+
+  # Alert Manutenzione Completa Lavastoviglie
+  - alias: "Lavastoviglie - Alert Manutenzione Completa"
+    id: lavastoviglie_alert_manutenzione_completa
+    trigger:
+      - platform: numeric_state
+        entity_id: counter.lavastoviglie_cicli_da_manutenzione_completa
+        above: 59
+    condition:
+      - condition: state
+        entity_id: input_boolean.lavastoviglie_notifiche_manutenzione_abilitate
+        state: 'on'
+    action:
+      # Notifica push
+      - condition: state
+        entity_id: input_boolean.lavastoviglie_notifiche_abilitate
+        state: 'on'
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "⚠️ Lavastoviglie - Manutenzione"
+          message: "È ora di fare la manutenzione completa! (Pulizia completa sistema filtri + decalcificazione)"
+      # Notifica vocale
+      - condition: state
+        entity_id: input_boolean.lavastoviglie_notifiche_vocali_abilitate
+        state: 'on'
+      - service: tts.cloud_say
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          message: "Attenzione: è ora di fare la manutenzione completa della lavastoviglie, con pulizia di tutti i filtri."
+          language: "it-IT"
+
+###############################################################################
+# SCRIPT - Popup lavastoviglie
+###############################################################################
+script:
+  lavastoviglie_popup:
+    alias: "Mostra popup lavastoviglie"
+    sequence:
+      - action: browser_mod.popup
+        data:
+          size: normal
+          timeout: 0
+          content:
+            type: entities
+            card_mod:
+              style: |
+                .card-header {
+                  padding: 0px !important;
+                }
+            show_header_toggle: false
+            entities:
+              - type: section
+                label: 🍽️ Lavastoviglie Hisense HV603D40
+              - type: custom:hui-element
+                card_type: vertical-stack
+                cards:
+                  - type: horizontal-stack
+                    cards:
+                      - type: picture-entity
+                        entity: binary_sensor.lavastoviglie_in_funzione
+                        name: "🍽️ Lavastoviglie"
+                        show_name: false
+                        show_state: false
+                        fit_mode: contain
+                        state_image:
+                          "on": /local/elettrodomestici/lavastoviglie_on.gif
+                          "off": /local/elettrodomestici/lavastoviglie_off.png
+                        card_mod:
+                          style: |
+                            ha-card {
+                              --ha-card-border-width: 0px;
+                              margin: 0px;
+                              padding: 10px;
+                              background: none;
+                              {% if is_state('binary_sensor.lavastoviglie_in_funzione', 'on') %}
+                                filter: drop-shadow(0 0 15px rgba(33, 150, 243, 0.6));
+                                animation: pulse 2s ease-in-out infinite;
+                              {% endif %}
+                            }
+                            @keyframes pulse {
+                              0%, 100% { filter: drop-shadow(0 0 10px rgba(33, 150, 243, 0.4)); }
+                              50% { filter: drop-shadow(0 0 20px rgba(33, 150, 243, 0.8)); }
+                            }
+
+                      - type: vertical-stack
+                        cards:
+                          - type: custom:button-card
+                            entity: input_datetime.lavastoviglie_inizio_programma
+                            icon: mdi:clock-start
+                            show_name: false
+                            show_icon: true
+                            show_state: true
+                            show_label: true
+                            label: >
+                              [[[ 
+                                const e = states['input_datetime.lavastoviglie_inizio_programma'];
+                                if (!e || e.state === 'unknown' || e.state === '') return '-';
+                                const d = new Date(e.state.replace(' ', 'T'));
+                                return d.toLocaleDateString('it-IT') + ' ' + d.toLocaleTimeString('it-IT', {hour:'2-digit', minute:'2-digit'});
+                              ]]]
+                            state_display: 'Inizio ultimo ciclo'
+                            styles:
+                              grid:
+                                - grid-template-areas: '"i l" "i s"'
+                                - grid-template-columns: 40px 1fr
+                                - grid-template-rows: auto auto
+                                - row-gap: 2px
+                              card:
+                                - "--ha-card-background": rgba(0,0,0,0)
+                                - "--ha-card-box-shadow": none
+                                - padding: 8px
+                                - height: auto
+                              icon:
+                                - color: var(--primary-text-color)
+                                - width: 30px
+                                - height: 30px
+                              label:
+                                - font-size: 14px
+                                - justify-self: start
+                                - white-space: nowrap
+                                - color: >
+                                    [[[
+                                      const e = states['input_datetime.lavastoviglie_inizio_programma'];
+                                      if (!e || e.state === 'unknown' || e.state === '') return 'var(--secondary-text-color)';
+                                      return 'var(--primary-text-color)';
+                                    ]]]
+                              state:
+                                - font-size: 12px
+                                - justify-self: start
+                                - color: var(--secondary-text-color)
+
+                          - type: custom:button-card
+                            entity: input_datetime.lavastoviglie_fine_programma
+                            icon: mdi:clock-end
+                            show_name: false
+                            show_icon: true
+                            show_state: true
+                            show_label: true
+                            label: >
+                              [[[ 
+                                const e = states['input_datetime.lavastoviglie_fine_programma'];
+                                if (!e || e.state === 'unknown' || e.state === '') return '-';
+                                const d = new Date(e.state.replace(' ', 'T'));
+                                return d.toLocaleDateString('it-IT') + ' ' + d.toLocaleTimeString('it-IT',{hour:'2-digit', minute:'2-digit'});
+                              ]]]
+                            state_display: 'Fine ultimo ciclo'
+                            styles:
+                              grid:
+                                - grid-template-areas: '"i l" "i s"'
+                                - grid-template-columns: 40px 1fr
+                                - grid-template-rows: auto auto
+                                - row-gap: 2px
+                              card:
+                                - "--ha-card-background": rgba(0,0,0,0)
+                                - "--ha-card-box-shadow": none
+                                - padding: 8px
+                                - height: auto
+                              icon:
+                                - color: var(--primary-text-color)
+                                - width: 30px
+                                - height: 30px
+                              label:
+                                - font-size: 14px
+                                - justify-self: start
+                                - white-space: nowrap
+                              state:
+                                - font-size: 12px
+                                - justify-self: start
+                                - color: var(--secondary-text-color)
+
+                          - type: custom:button-card
+                            entity: sensor.durata_ultimo_ciclo_lavastoviglie
+                            icon: mdi:timer-outline
+                            show_name: false
+                            show_icon: true
+                            show_state: true
+                            show_label: true
+                            label: >
+                              [[[ 
+                                const e = states['sensor.durata_ultimo_ciclo_lavastoviglie'];
+                                if (!e || e.state === 'unknown' || e.state === '' || e.state === 'unavailable' || e.state === '0') return '-';
+                                const minuti = parseInt(e.state);
+                                if (isNaN(minuti) || minuti === 0) return '-';
+                                const ore = Math.floor(minuti / 60);
+                                const min = minuti % 60;
+                                if (ore > 0) return ore + 'h ' + min + 'min';
+                                return min + ' min';
+                              ]]]
+                            state_display: 'Durata ultimo ciclo'
+                            styles:
+                              grid:
+                                - grid-template-areas: '"i l" "i s"'
+                                - grid-template-columns: 40px 1fr
+                                - grid-template-rows: auto auto
+                                - row-gap: 2px
+                              card:
+                                - "--ha-card-background": rgba(0,0,0,0)
+                                - "--ha-card-box-shadow": none
+                                - padding: 8px
+                                - height: auto
+                              icon:
+                                - color: var(--primary-text-color)
+                                - width: 30px
+                                - height: 30px
+                              label:
+                                - font-size: 14px
+                                - justify-self: start
+                                - white-space: nowrap
+                              state:
+                                - font-size: 12px
+                                - justify-self: start
+                                - color: var(--secondary-text-color)
+
+                          - type: custom:button-card
+                            entity: input_number.lavastoviglie_consumo_ultimo_ciclo
+                            icon: mdi:flash
+                            show_name: false
+                            show_icon: true
+                            show_state: true
+                            show_label: true
+                            label: >
+                              [[[ return states['input_number.lavastoviglie_consumo_ultimo_ciclo'].state + ' kWh'; ]]]
+                            state_display: 'Ultimo consumo'
+                            styles:
+                              grid:
+                                - grid-template-areas: '"i l" "i s"'
+                                - grid-template-columns: 40px 1fr
+                                - grid-template-rows: auto auto
+                                - row-gap: 2px
+                              card:
+                                - "--ha-card-background": rgba(0,0,0,0)
+                                - "--ha-card-box-shadow": none
+                                - padding: 8px
+                                - height: auto
+                              icon:
+                                - color: var(--primary-text-color)
+                                - width: 30px
+                                - height: 30px
+                              label:
+                                - font-size: 14px
+                                - justify-self: start
+                                - white-space: nowrap
+                              state:
+                                - font-size: 12px
+                                - justify-self: start
+                                - color: var(--secondary-text-color)
+
+                          - type: custom:button-card
+                            entity: sensor.costo_ultimo_ciclo_lavastoviglie
+                            icon: mdi:currency-eur
+                            show_name: false
+                            show_icon: true
+                            show_state: true
+                            show_label: true
+                            label: >
+                              [[[ return states['sensor.costo_ultimo_ciclo_lavastoviglie'].state + ' €'; ]]]
+                            state_display: 'Costo ultimo ciclo'
+                            styles:
+                              grid:
+                                - grid-template-areas: '"i l" "i s"'
+                                - grid-template-columns: 40px 1fr
+                                - grid-template-rows: auto auto
+                                - row-gap: 2px
+                              card:
+                                - "--ha-card-background": rgba(0,0,0,0)
+                                - "--ha-card-box-shadow": none
+                                - padding: 8px
+                                - height: auto
+                              icon:
+                                - color: var(--primary-text-color)
+                                - width: 30px
+                                - height: 30px
+                              label:
+                                - font-size: 14px
+                                - justify-self: start
+                                - white-space: nowrap
+                              state:
+                                - font-size: 12px
+                                - justify-self: start
+                                - color: var(--secondary-text-color)
+
+                  - type: custom:bar-card
+                    entity: sensor.power_cucina_power_b
+                    name: Consumo Istantaneo
+                    max: 2000
+                    unit_of_measurement: W
+                    show_icon: true
+                    align: split
+                    columns: 1
+                    positions:
+                      icon: inside
+                      indicator: inside
+                      name: inside
+                      value: inside
+                    severity:
+                      - color: "#00e676"
+                        from: 0
+                        to: 5
+                      - color: "#1e90ff"
+                        from: 6
+                        to: 500
+                      - color: "#ff9800"
+                        from: 501
+                        to: 1000
+                      - color: "#f44336"
+                        from: 1001
+                        to: 4000
+                    animation:
+                      - state: "on"
+                        color: "#2196f3"
+                    card_mod:
+                      style: |
+                        ha-card {
+                          --ha-card-background: rgba(0,0,0,0);
+                          --ha-card-box-shadow: none;
+                        }
+                        bar-card-currentbar, bar-card-backgroundbar {
+                          border-radius: 10px !important;
+                        }
+                        bar-card-currentbar {
+                          background: linear-gradient(90deg, 
+                            var(--bar-color) 0%, 
+                            var(--bar-color) 100%) !important;
+                          box-shadow: 0 0 10px var(--bar-color) !important;
+                          transition: all 0.3s ease !important;
+                        }
+
+                  ###############################################################################
+                  # PULSANTI Popup Lavastoviglie
+                  ###############################################################################
+
+                  - type: custom:paper-buttons-row
+                    buttons:
+                      # ----------------- Impostazioni -----------------
+                      - icon: hass:cog-outline
+                        tap_action:
+                          action: fire-dom-event
+                          browser_mod:
+                            service: browser_mod.popup
+                            data:
+                              title: Impostazioni Lavastoviglie
+                              style: |
+                                --popup-background-color: var(--secondary-background-color);
+                                --dialog-backdrop-filter: blur(2em) brightness(0.75);
+                              content:
+                                type: vertical-stack
+                                cards:
+                                  - type: entities
+                                    entities:
+                                      - entity: binary_sensor.lavastoviglie_in_funzione
+                                      - type: divider
+                                      - entity: input_boolean.lavastoviglie_notifiche_abilitate
+                                        name: Notifiche Push
+                                        icon: mdi:cellphone-message
+                                      - entity: input_boolean.lavastoviglie_notifiche_vocali_abilitate
+                                        name: Notifiche Vocali Nest Hub
+                                        icon: mdi:google-assistant
+                                      - entity: input_boolean.lavastoviglie_notifiche_manutenzione_abilitate
+                                        name: Alert Manutenzione
+                                        icon: mdi:tools
+                                      - type: divider
+                                      - entity: input_number.costo_energia
+                                      - type: divider
+                                      
+                                      # SEZIONE MANUTENZIONE LAVASTOVIGLIE 👇
+                                      - type: section
+                                        label: 🔧 Stato Manutenzioni Lavastoviglie
+                                      - entity: sensor.stato_manutenzione_leggera_lavastoviglie
+                                        name: Manutenzione Leggera
+                                        secondary_info: >
+                                          {{ states('counter.lavastoviglie_cicli_da_manutenzione_leggera') }}/15 cicli
+                                      - entity: sensor.stato_manutenzione_standard_lavastoviglie
+                                        name: Manutenzione Standard
+                                        secondary_info: >
+                                          {{ states('counter.lavastoviglie_cicli_da_manutenzione_standard') }}/30 cicli
+                                      - entity: sensor.stato_manutenzione_completa_lavastoviglie
+                                        name: Manutenzione Completa
+                                        secondary_info: >
+                                          {{ states('counter.lavastoviglie_cicli_da_manutenzione_completa') }}/60 cicli
+                                      - type: divider
+                                      
+                                      - type: button
+                                        name: Reset Statistiche Totali
+                                        icon: mdi:refresh
+                                        action_name: RESET
+                                        tap_action:
+                                          action: call-service
+                                          service: script.lavastoviglie_reset_totali
+                                          confirmation:
+                                            text: "Sei sicuro di voler azzerare tutte le statistiche totali della lavastoviglie?"
+                                  
+                                  - type: custom:paper-buttons-row
+                                    buttons:
+                                      - icon: mdi:arrow-left
+                                        name: Indietro
+                                        tap_action:
+                                          action: call-service
+                                          service: script.lavastoviglie_popup
+                                        style:
+                                          button:
+                                            width: 100%
+
+                      # ----------------- Popup Statistiche Lavastoviglie -----------------
+                      - icon: hass:chart-bar
+                        tap_action:
+                          action: fire-dom-event
+                          browser_mod:
+                            service: browser_mod.popup
+                            data:
+                              title: Statistiche Lavastoviglie
+                              style: |
+                                --popup-background-color: var(--secondary-background-color);
+                                --dialog-backdrop-filter: blur(2em) brightness(0.75);
+                              content:
+                                type: vertical-stack
+                                cards:
+                                  - type: custom:swipe-card
+                                    start_card: 0
+                                    parameters:
+                                      grabCursor: true
+                                      spaceBetween: 10
+                                      effect: slide
+                                    cards:
+                        
+                                      # ----------------- Scheda 1: Statistiche Testuali -----------------
+                                      - type: markdown
+                                        content: |
+                                          ## 📊 Statistiche Consumo Lavastoviglie
+                                            
+                                          ### Oggi
+                                          - **Cicli:** {{ states('sensor.cicli_lavastoviglie_oggi') }}
+                                          - **Consumo:** {{ states('sensor.consumo_lavastoviglie_oggi') }} kWh
+                                          - **Costo:** {{ states('sensor.costo_giornaliero_lavastoviglie') }} €
+                                                
+                                          ### Settimana
+                                          - **Cicli:** {{ states('sensor.cicli_lavastoviglie_settimana') }}
+                                          - **Consumo:** {{ states('sensor.consumo_lavastoviglie_settimana') }} kWh
+                                          - **Costo:** {{ states('sensor.costo_settimanale_lavastoviglie') }} €
+                                                
+                                          ### Mese
+                                          - **Cicli:** {{ states('sensor.cicli_lavastoviglie_mese') }}
+                                          - **Consumo:** {{ states('sensor.consumo_lavastoviglie_mese') }} kWh
+                                          - **Costo:** {{ states('sensor.costo_mensile_lavastoviglie') }} €
+                                                
+                                          ### Anno
+                                          - **Cicli:** {{ states('sensor.cicli_lavastoviglie_anno') }}
+                                          - **Consumo:** {{ states('sensor.consumo_lavastoviglie_anno') }} kWh
+                                          - **Costo:** {{ states('sensor.costo_annuale_lavastoviglie') }} €
+                                                
+                                          ---
+                                                
+                                          ### 🏆 Totali Assoluti
+                                          - **Cicli totali:** {{ states('sensor.cicli_lavastoviglie_totali') }}
+                                          - **Consumo totale:** {{ states('sensor.consumo_totale_lavastoviglie') }} kWh
+                                          - **Costo totale:** {{ states('input_number.lavastoviglie_costo_totale') }} €
+                                          - **Tempo totale:** {{ (states('input_number.lavastoviglie_tempo_totale') | float / 60) | round(1) }} ore
+
+                                      # ----------------- Scheda 2: Grafici MENSILI -----------------
+                                      - type: vertical-stack
+                                        cards:
+                                          - type: custom:apexcharts-card
+                                            header:
+                                              show: true
+                                              title: "📈 Consumo Mese Corrente"
+                                            graph_span: 31d
+                                            span:
+                                              start: month
+                                            series:
+                                              - entity: sensor.lavastoviglie_consumo_giornaliero
+                                                name: Consumo Giornaliero (kWh)
+                                                type: column
+                                                group_by:
+                                                  func: max
+                                                  duration: 1d
+                                            apex_config:
+                                              chart:
+                                                height: 260
+                                              plotOptions:
+                                                bar:
+                                                  borderRadius: 6
+                                              xaxis:
+                                                labels:
+                                                  show: true
+                                            yaxis:
+                                              - decimals: 2
+                                                min: 0
+                       
+                                          - type: custom:apexcharts-card
+                                            header:
+                                              show: true
+                                              title: "💶 Costo Mese Corrente"
+                                            graph_span: 31d
+                                            span:
+                                              start: month
+                                            series:
+                                              - entity: sensor.costo_giornaliero_lavastoviglie
+                                                name: Costo Giornaliero (€)
+                                                type: column
+                                                group_by:
+                                                  func: max
+                                                  duration: 1d
+                                            apex_config:
+                                              chart:
+                                                height: 260
+                                              plotOptions:
+                                                bar:
+                                                  borderRadius: 6
+                                              xaxis:
+                                                labels:
+                                                  show: true
+                                            yaxis:
+                                              - decimals: 2
+                                                min: 0
+                        
+                                      # ----------------- Scheda 3: Grafici ANNUALI -----------------
+                                      - type: vertical-stack
+                                        cards:
+                                          - type: custom:apexcharts-card
+                                            header:
+                                              show: true
+                                              title: "📅 Consumo Storico Annuale"
+                                            graph_span: 10y
+                                            series:
+                                              - entity: sensor.lavastoviglie_consumo_annuale
+                                                name: Consumo Annuale (kWh)
+                                                type: column
+                                                group_by:
+                                                  func: last
+                                                  duration: 1y
+                                            apex_config:
+                                              chart:
+                                                height: 260
+                                              plotOptions:
+                                                bar:
+                                                  borderRadius: 6
+                                              xaxis:
+                                                labels:
+                                                  show: true
+                                            yaxis:
+                                              - decimals: 2
+                                                min: 0
+                        
+                                          - type: custom:apexcharts-card
+                                            header:
+                                              show: true
+                                              title: "🏦 Costo Storico Annuale"
+                                            graph_span: 10y
+                                            series:
+                                              - entity: sensor.costo_annuale_lavastoviglie
+                                                name: Costo Annuale (€)
+                                                type: column
+                                                group_by:
+                                                  func: last
+                                                  duration: 1y
+                                            apex_config:
+                                              chart:
+                                                height: 260
+                                              plotOptions:
+                                                bar:
+                                                  borderRadius: 6
+                                              xaxis:
+                                                labels:
+                                                  show: true
+                                            yaxis:
+                                              - decimals: 2
+                                                min: 0
+                        
+                                  # ----------------- Pulsante "Indietro" -----------------
+                                  - type: custom:paper-buttons-row
+                                    buttons:
+                                      - icon: mdi:arrow-left
+                                        name: Indietro
+                                        tap_action:
+                                          action: call-service
+                                          service: script.lavastoviglie_popup
+                                        style:
+                                          button:
+                                            width: 100%
+
+                      # ----------------- Manutenzione Lavastoviglie -----------------
+                      - icon: hass:tools
+                        tap_action:
+                          action: fire-dom-event
+                          browser_mod:
+                            service: browser_mod.popup
+                            data:
+                              title: Manutenzione Lavastoviglie
+                              size: wide
+                              style: |
+                                --popup-background-color: var(--secondary-background-color);
+                                --dialog-backdrop-filter: blur(2em) brightness(0.75);
+                                --popup-max-width: 1000px;
+                                --popup-min-height: 600px;
+                              content:
+                                type: vertical-stack
+                                cards:
+                        
+                                  # ----------------- CONTENUTO A 3 COLONNE -----------------
+                                  - type: grid
+                                    columns: 3
+                                    square: false
+                                    cards:
+                        
+                                      # ⭐ COLONNA 1 — Leggera
+                                      - type: entities
+                                        entities:
+                                          - type: section
+                                            label: 🧹 Manutenzione Leggera (ogni 15 cicli)
+                                          - entity: counter.lavastoviglie_cicli_da_manutenzione_leggera
+                                            name: Cicli dall'ultima manutenzione
+                                            icon: mdi:counter
+                                          - entity: sensor.stato_manutenzione_leggera_lavastoviglie
+                                            name: Stato
+                                          - type: button
+                                            name: Controllo bracci + carico
+                                            icon: mdi:broom
+                                            action_name: FATTO
+                                            tap_action:
+                                              action: call-service
+                                              service: script.lavastoviglie_manutenzione_leggera_completata
+                        
+                                      # ⭐ COLONNA 2 — Standard
+                                      - type: entities
+                                        entities:
+                                          - type: section
+                                            label: 🔧 Manutenzione Standard (ogni 30 cicli)
+                                          - entity: counter.lavastoviglie_cicli_da_manutenzione_standard
+                                            name: Cicli dall'ultima manutenzione
+                                            icon: mdi:counter
+                                          - entity: sensor.stato_manutenzione_standard_lavastoviglie
+                                            name: Stato
+                                          - type: button
+                                            name: Pulizia filtro principale
+                                            icon: mdi:wrench
+                                            action_name: FATTO
+                                            tap_action:
+                                              action: call-service
+                                              service: script.lavastoviglie_manutenzione_standard_completata
+                        
+                                      # ⭐ COLONNA 3 — Completa
+                                      - type: entities
+                                        entities:
+                                          - type: section
+                                            label: ⚙️ Manutenzione Completa (ogni 60 cicli)
+                                          - entity: counter.lavastoviglie_cicli_da_manutenzione_completa
+                                            name: Cicli dall'ultima manutenzione
+                                            icon: mdi:counter
+                                          - entity: sensor.stato_manutenzione_completa_lavastoviglie
+                                            name: Stato
+                                          - type: button
+                                            name: Pulizia completa filtri
+                                            icon: mdi:tools
+                                            action_name: FATTO
+                                            tap_action:
+                                              action: call-service
+                                              service: script.lavastoviglie_manutenzione_completa_completata
+
+                                  # --- SPACER ---
+                                  - type: custom:button-card
+                                    color_type: blank-card
+                                    styles:
+                                      card:
+                                        - height: 10px
+
+                                  # ----------------- FOOTER: INDietro / GUIDA -----------------
+                                  - type: horizontal-stack
+                                    cards:
+                        
+                                      # Pulsante INDietro a sinistra
+                                      - type: custom:paper-buttons-row
+                                        buttons:
+                                          - icon: mdi:arrow-left
+                                            name: Indietro
+                                            tap_action:
+                                              action: call-service
+                                              service: script.lavastoviglie_popup
+                                            style:
+                                              button:
+                                                width: 100%
+                        
+                                      # Spazio centrale vuoto
+                                      - type: custom:button-card
+                                        color_type: blank
+
+                                         # Pulsante GUIDA a destra
+                                      - type: custom:paper-buttons-row
+                                        buttons:
+                                          - icon: mdi:book-open-variant
+                                            name: GUIDA
+                                            tap_action:
+                                              action: fire-dom-event
+                                              browser_mod:
+                                                service: browser_mod.popup
+                                                data:
+                                                  title: Guida Manutenzione Lavastoviglie
+                                                  size: normal
+                                                  style: |
+                                                    --popup-background-color: var(--secondary-background-color);
+                                                    --dialog-backdrop-filter: blur(2em) brightness(0.85);
+                                                    --popup-max-width: 700px;
+                                                    --popup-min-height: 420px;
+                                                  content:
+                                                    type: vertical-stack
+                                                    cards:
+                                                      # ----------------- CONTENUTO GUIDA -----------------
+                                                      - type: markdown
+                                                        content: |
+                                                          ## 📋 Guida Manutenzione Lavastoviglie
+                                        
+                                                          **🧹 Leggera (ogni 15 cicli)**
+                                                          - Controllo bracci irroratori per ostruzioni  
+                                                          - Verifica carico corretto stoviglie
+                                        
+                                                          **🔧 Standard (ogni 30 cicli)**
+                                                          - Pulizia filtro principale  
+                                                          - Rimozione residui di cibo
+                                                          - Controllo filtro grezzo
+                                        
+                                                          **⚙️ Completa (ogni 60 cicli)**
+                                                          - Pulizia completa sistema filtri (3 componenti)
+                                                          - Decalcificazione
+                                                          - Controllo filtro a maglie fini
+                                                          - Verifica prestazioni lavaggio
+                                        
+                                                      # ----------------- PULSANTE INDIETRO -----------------
+                                                      - type: custom:paper-buttons-row
+                                                        buttons:
+                                                          - icon: mdi:arrow-left
+                                                            name: Indietro
+                                                            tap_action:
+                                                              action: call-service
+                                                              service: script.lavastoviglie_popup                                                          
+
+                      # ----------------- Info Package -----------------
+                      - icon: hass:information-outline
+                        tap_action:
+                          action: fire-dom-event
+                          browser_mod:
+                            service: browser_mod.popup
+                            data:
+                              title: Info Package Lavastoviglie
+                              style: |
+                                --popup-background-color: var(--secondary-background-color);
+                                --dialog-backdrop-filter: blur(2em) brightness(0.75);
+                              content:
+                                type: vertical-stack
+                                cards:
+                                  - type: markdown
+                                    content: |
+                                      # 🏠 Controllo Elettrodomestici
+                                      
+                                      ## 📦 Package Lavastoviglie
+                                      Monitoraggio completo dei consumi e statistiche della lavastoviglie
+                                      
+                                      ### ✨ Funzionalità:
+                                      - Tracciamento cicli di lavaggio
+                                      - Monitoraggio consumo energetico in tempo reale
+                                      - Calcolo automatico dei costi
+                                      - Statistiche giornaliere, settimanali, mensili e annuali
+                                      - Storico completo dei cicli
+                                      - Sistema manutenzione intelligente
+                                      
+                                      ### 🔧 Manutenzione Programmate:
+                                      - **Leggera:** ogni 15 cicli (controllo bracci)
+                                      - **Standard:** ogni 30 cicli (pulizia filtri)
+                                      - **Completa:** ogni 60 cicli (decalcificazione)
+                                      
+                                      ---
+                                      
+                                      ### 📺 Seguimi su YouTube!
+                                      
+                                      Per altri progetti, tutorial e guide sulla domotica, visita il mio canale:
+                                      
+                                      **[SmartHome Project](https://www.youtube.com/channel/UCqftpsaHHm0PCle6vpMvxOg)**
+                                      
+                                      🔔 Iscriviti per non perdere i nuovi video!
+                                      
+                                      ---
+                                      
+                                      💡 *Package creato con Home Assistant*
+                                  
+                                  - type: custom:paper-buttons-row
+                                    buttons:
+                                      - icon: mdi:arrow-left
+                                        name: Indietro
+                                        tap_action:
+                                          action: call-service
+                                          service: script.lavastoviglie_popup
+                                        style:
+                                          button:
+                                            width: 100
+
+###############################################################################
+# RESET STATISTICHE TOTALI LAVASTOVIGLIE
+###############################################################################
+  lavastoviglie_reset_totali:
+    alias: "Reset Statistiche Totali Lavastoviglie"
+    sequence:
+      - service: input_number.set_value
+        target:
+          entity_id:
+            - input_number.lavastoviglie_consumo_totale
+            - input_number.lavastoviglie_costo_totale
+            - input_number.lavastoviglie_tempo_totale
+        data:
+          value: 0
+      - service: counter.reset
+        target:
+          entity_id: counter.lavastoviglie_cicli_totali
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "Lavastoviglie"
+          message: "Statistiche totali azzerate con successo!"
+
+###############################################################################
+# MANUTENZIONI COMPLETE LAVASTOVIGLIE
+###############################################################################          
+  lavastoviglie_manutenzione_leggera_completata:
+    alias: "Manutenzione Leggera Lavastoviglie Completata"
+    sequence:
+      - service: counter.reset
+        target:
+          entity_id: counter.lavastovoviglie_cicli_da_manutenzione_leggera
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "🧹 Lavastoviglie"
+          message: "Manutenzione leggera registrata! Prossima tra 15 cicli."
+
+  lavastoviglie_manutenzione_standard_completata:
+    alias: "Manutenzione Standard Lavastoviglie Completata"
+    sequence:
+      - service: counter.reset
+        target:
+          entity_id: counter.lavastoviglie_cicli_da_manutenzione_standard
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "🔧 Lavastoviglie"
+          message: "Manutenzione standard registrata! Prossima tra 30 cicli."
+
+  lavastoviglie_manutenzione_completa_completata:
+    alias: "Manutenzione Completa Lavastoviglie Completata"
+    sequence:
+      - service: counter.reset
+        target:
+          entity_id: counter.lavastoviglie_cicli_da_manutenzione_completa
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "⚙️ Lavastoviglie"
+          message: "Manutenzione completa registrata! Prossima tra 60 cicli."

@@ -1,0 +1,1336 @@
+button_card_templates: !include_dir_merge_named button_card_templates
+title: Floorplan primo piano
+views:
+
+    #############################################################################################################################################
+    #                                                                                                                                           #
+    #                                                       Floorplan Primo piano                                                               #
+    #                                                                                                                                           #
+    #############################################################################################################################################
+
+  - title: Primo piano
+    icon: 'mdi:floor-plan'
+    panel: true
+    badges: []
+    cards:
+
+        ###################   config-template-card    #####################
+
+      - type: 'custom:config-template-card'
+        entities:
+
+          - light.ricky_windcalm_2
+          - light.davide_windcalm
+          - input_boolean.luce_armadi
+          - input_boolean.luce_bagno1
+          - fan.davide_windcalm_fan
+          - fan.ricky_windcalm_fan
+          - switch.scala2
+          - light.parentesi_group
+
+        card:
+
+          ###################   Picture Elements Card    #####################
+          type: picture-elements
+          image: /local/floorplan/transparent.png
+
+        #   style: |
+        #     ha-card:first-child {
+        #       background: rgba(42, 46, 48, 1)
+        #     }
+          elements:
+
+              #########################    DAY BASE FLOORPLAN OVERLAY    #########################
+
+            - action: none
+              entity: sun.sun
+              hold_action:
+                action: none
+              state_image:
+                above_horizon: /local/floorplan/primo/p1_day.png
+                below_horizon: /local/floorplan/transparent.png
+              style:
+                height: auto
+                left: 55%
+                mix-blend-mode: lighten
+                # opacity: '${ states[''sensor.sunlight_opacity''].state }'
+                top: 53.00%
+                width: 120%
+              tap_action:
+                action: none
+              type: image
+
+              #########################    Inside overlays for weather    #########################
+
+            - action: none
+              hold_action:
+                action: none
+              image: /local/floorplan/primo/p1_night.png
+              style:
+                height: auto
+                left: 55%
+                top: 53.00%
+                width: 120%
+              tap_action:
+                action: none
+              type: image
+
+            - action: none
+              entity: sun.sun
+              hold_action:
+                action: none
+              state_image:
+                above_horizon: /local/floorplan/primo/p1_day.png
+                below_horizon: /local/floorplan/transparent.png
+              style:
+                height: auto
+                left: 55%
+                mix-blend-mode: lighten
+                opacity: '${ states[''sensor.sunlight_opacity''].state }'
+                top: 53.00%
+                width: 120%
+              tap_action:
+                action: none
+              type: image
+
+            #################################################
+            #                                               #
+            #          LUCI INDIVIDUALI - RENDERING         #
+            #                                               #
+            #################################################
+ 
+             ######### CAMERA RICKY ##########
+
+            - action: none
+              entity: light.ricky_windcalm_2
+              hold_action:
+                action: none
+              image:  /local/floorplan/primo/p1_ricky.png
+              style:
+                filter: >-
+                  ${(() => {
+                    const e = states['light.ricky_windcalm_2'].attributes;
+                    const kelvin = e.color_temp_kelvin || 4000;
+                    const ratio = (kelvin - 2000) / (6500 - 2000);
+                    const sepiaLevel = 1 - ratio;
+                    const hueRotate = (sepiaLevel - 0.5) * 30;
+                    const brightness = e.brightness ? e.brightness / 255 : 0.6;
+                    return `sepia(${sepiaLevel}) hue-rotate(${hueRotate}deg) brightness(${brightness + 0.6})`;
+                  })()}
+                opacity: >-
+                  ${states['light.ricky_windcalm_2'].state === 'on'
+                    ? ((states['light.ricky_windcalm_2'].attributes.brightness || 180) / 255) * 1.2
+                    : 0}
+                mix-blend-mode: lighten
+                left: 55.00%
+                top: 53.00%
+                width: 120%
+                height: auto
+              tap_action:
+                action: none
+              type: image
+
+             ######### CAMERA DAVIDE ##########
+
+            - action: none
+              entity: light.davide_windcalm
+              hold_action:
+                action: none
+              image:  /local/floorplan/primo/p1_davide.png
+              style:
+                filter: >-
+                  ${(() => {
+                    const e = states['light.davide_windcalm'].attributes;
+                    const kelvin = e.color_temp_kelvin || 4000;
+                    const ratio = (kelvin - 2000) / (6500 - 2000);
+                    const sepiaLevel = 1 - ratio;
+                    const hueRotate = (sepiaLevel - 0.5) * 30;
+                    const brightness = e.brightness ? e.brightness / 255 : 0.6;
+                    return `sepia(${sepiaLevel}) hue-rotate(${hueRotate}deg) brightness(${brightness + 0.6})`;
+                  })()}
+                opacity: >-
+                  ${states['light.davide_windcalm'].state === 'on'
+                    ? ((states['light.davide_windcalm'].attributes.brightness || 180) / 255) * 1.2
+                    : 0}
+                mix-blend-mode: lighten
+                left: 55.00%
+                top: 53.00%
+                width: 120%
+                height: auto
+              tap_action:
+                action: none
+              type: image
+
+             ######### CAMERA DAVIDE RGB ##########
+
+            ######### DAVIDE RGB - Layer 1: Base bianca ##########
+
+            - action: none
+              entity: light.parentesi_group
+              hold_action:
+                action: none
+              image: /local/floorplan/transparent.png
+              state_image:
+                'on': /local/floorplan/primo/p1_davidergb.png
+              tap_action:
+                action: none
+              type: image
+              style:
+                opacity: >-
+                  ${ ( states["light.parentesi_group"].attributes.brightness ?
+                  states["light.parentesi_group"].attributes.brightness / 255 : 0) -
+                  (states["light.parentesi_group"].attributes.hs_color ?
+                  states["light.parentesi_group"].attributes.hs_color[1]/90 : 0)}
+                mix-blend-mode: lighten
+                left: 55.00%
+                top: 53.00%
+                width: 120%
+            
+            ######### DAVIDE RGB - Layer 2: CCT (bianca calda/fredda) ##########
+   
+            - action: none
+              entity: light.parentesi_group
+              hold_action:
+                action: none
+              image: /local/floorplan/transparent.png
+              state_image:
+                'on': /local/floorplan/primo/p1_davidergb.png  # immagine BIANCA
+              tap_action:
+                action: none
+              type: image
+              style:
+                filter: >-
+                  ${(() => {
+                    const e = states["light.parentesi_group"].attributes;
+                    const kelvin = e.color_temp_kelvin || 4000;
+                    const ratio = Math.min(Math.max((kelvin - 2000) / (6500 - 2000), 0), 1);
+                    const brightness = e.brightness ? e.brightness / 255 : 0.6;
+                    
+                    // Caldo (2000K) = giallo/arancio, Freddo (6500K) = blu
+                    const sepiaLevel = 1 - ratio;  // 1 per caldo, 0 per freddo
+                    const hueRotate = (sepiaLevel - 0.5) * 30;  // ±15°
+                    
+                    return `sepia(${sepiaLevel}) hue-rotate(${hueRotate}deg) brightness(${brightness + 0.1})`;  // ridotto da +0.4 a +0.2
+                  })()}
+                opacity: >-
+                  ${(() => {
+                    const e = states["light.parentesi_group"].attributes;
+                    const sat = e.hs_color ? e.hs_color[1] : 0;
+                    if (e.color_mode !== 'hs' || sat <= 10) {
+                      const brightness = e.brightness ? e.brightness / 255 : 0.6;
+                      return brightness * 0.7;
+                    }
+                    return 0;
+                  })()}
+                mix-blend-mode: lighten
+                left: 55.00%
+                top: 53.00%
+                width: 120%
+            
+            ######### DAVIDE RGB - Layer 3: RGB (colorata) ##########
+
+            - action: none
+              entity: light.parentesi_group
+              hold_action:
+                action: none
+              image: /local/floorplan/transparent.png
+              state_image:
+                'on': /local/floorplan/primo/p1_davidergbred.png  # immagine ROSSA/COLORATA
+              tap_action:
+                action: none
+              type: image
+              style:
+                filter: >-
+                  ${(() => {
+                    const e = states["light.parentesi_group"].attributes;
+                    const hue = e.hs_color ? e.hs_color[0] : 0;
+                    const sat = e.hs_color ? e.hs_color[1] : 0;
+                    const bright = e.brightness ? e.brightness / 255 : 0.7;
+                    
+                    return `hue-rotate(${hue}deg) saturate(${sat + 20}%) brightness(${0.6 + bright * 0.6})`;
+                  })()}
+                opacity: >-
+                  ${(() => {
+                    const e = states["light.parentesi_group"].attributes;
+                    const sat = e.hs_color ? e.hs_color[1] : 0;
+                    
+                     if (e.color_mode === 'hs' && sat > 10) {
+                      const bright = e.brightness ? e.brightness / 255 : 0.7;
+                      return bright;
+                    }
+                    return 0;
+                  })()}
+                mix-blend-mode: lighten
+                left: 55.00%
+                top: 53.00%
+                width: 120%
+
+             ######### SCALA ##########
+
+            - action: none
+              entity: switch.scala2
+              hold_action:
+                action: none
+              image: /local/floorplan/primo/p1_scala.png
+              style:
+                left: 55.00%
+                top: 53.00%
+                width: 120%
+                height: auto
+                mix-blend-mode: lighten
+                opacity: "${states['switch.scala2'].state === 'on' ? '1' : '0'}"
+              tap_action:
+                action: none
+              type: image
+
+             ######### ARMADI ##########
+
+            - action: none
+              entity: input_boolean.luce_armadi
+              hold_action:
+                action: none
+              image: /local/floorplan/primo/p1_stireria.png
+              style:
+                left: 55.00%
+                top: 53.00%
+                width: 120%
+                height: auto
+                mix-blend-mode: lighten
+                opacity: "${states['input_boolean.luce_armadi'].state === 'on' ? '1' : '0'}"
+              tap_action:
+                action: none
+              type: image
+
+             ######### BAGNO ##########
+
+            - action: none
+              entity: input_boolean.luce_bagno1
+              hold_action:
+                action: none
+              image: /local/floorplan/primo/p1_bagno.png
+              style:
+                left: 55.00%
+                top: 53.00%
+                width: 120%
+                height: auto
+                mix-blend-mode: lighten
+                opacity: "${states['input_boolean.luce_bagno1'].state === 'on' ? '1' : '0'}"
+              tap_action:
+                action: none
+              type: image
+
+            #################################################
+            #                                               #
+            #              PULSANTI TRASPARENTI             #
+            #                                               #
+            #################################################
+
+            ######### RICKY ##########
+
+            - type: image
+              entity: light.ricky_windcalm_2
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: homeassistant.toggle
+                service_data:
+                  entity_id: light.ricky_windcalm_2
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-light-card
+                      entity: light.ricky_windcalm_2
+                      use_light_color: true
+                      show_brightness_control: false
+                      show_color_temp_control: true
+                      show_color_control: false                     
+              style:
+                height: 12.00%
+                left: 52.00%
+                top: 63.00%
+                width: 11.50%
+                # border: 1px solid red
+                template:
+                  - light
+
+            ######### DAVIDE ##########
+
+            - type: image
+              entity: light.davide_windcalm
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: homeassistant.toggle
+                service_data:
+                  entity_id: light.davide_windcalm
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-light-card
+                      entity: light.davide_windcalm
+                      use_light_color: true
+                      show_brightness_control: false
+                      show_color_temp_control: true
+                      show_color_control: false                     
+              style:
+                height: 10.00%
+                left: 56.50%
+                top: 18.00%
+                width: 12.00%
+                # border: 1px solid red
+                template:
+                  - light
+
+             ######### CAMERA DAVIDE RGB ##########
+                  
+            - type: image
+              entity: light.parentesi_group
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: homeassistant.toggle
+                service_data:
+                  entity_id: light.parentesi_group
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mod-card
+                      card_mod:
+                        style: |
+                          ha-dialog {
+                            position: absolute !important;
+                            top: 150px !important;
+                            left: 300px !important;
+                            transform: none !important;
+                          }
+                      card:
+                        type: custom:mushroom-light-card
+                        entity: light.parentesi_group
+                        fill_container: true
+                        use_light_color: true
+                        show_color_control: true
+                        show_color_temp_control: true
+                        show_brightness_control: true
+                        layout: horizontal
+              style:
+                height: 8.00%
+                left: 46.50%
+                top: 33.50%
+                width: 8.00%
+                # border: 1px solid red
+                template:
+                  - light
+
+            ######### SCALE ##########
+
+            - type: image
+              entity: switch.scala2
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: homeassistant.toggle
+                service_data:
+                  entity_id: switch.scala2
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-light-card
+                      entity: switch.scala2
+                      use_light_color: true
+                      show_brightness_control: false
+                      show_color_temp_control: true
+                      show_color_control: false                     
+              style:
+                height: 5.00%
+                left: 68.00%
+                top: 9.00%
+                width: 5.00%
+                # border: 1px solid red
+                template:
+                  - light
+                  
+            ######### ARMADI ##########
+
+            - type: image
+              entity: input_boolean.luce_armadi
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: homeassistant.toggle
+                service_data:
+                  entity_id: input_boolean.luce_armadi
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-light-card
+                      entity: input_boolean.luce_armadi
+                      use_light_color: true
+                      show_brightness_control: false
+                      show_color_temp_control: true
+                      show_color_control: false                     
+              style:
+                height: 35.50%
+                left: 82.00%
+                top: 50.50%
+                width: 16.00%
+                # border: 1px solid red
+                template:
+                  - light
+
+            ######### BAGNO ##########
+
+            - type: image
+              entity: input_boolean.luce_bagno1
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: homeassistant.toggle
+                service_data:
+                  entity_id: input_boolean.luce_bagno1
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-light-card
+                      entity: input_boolean.luce_bagno1
+                      use_light_color: true
+                      show_brightness_control: false
+                      show_color_temp_control: true
+                      show_color_control: false                     
+              style:
+                height: 17.50%
+                left: 67.50%
+                top: 59.50%
+                width: 17.30%
+                # border: 1px solid red
+                template:
+                  - light
+
+            ######### IRRIGAZIONE FIORI ##########
+
+            - type: image
+              entity: switch.sonoff_1000162117_4
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: switch.toggle
+                service_data:
+                  entity_id: switch.sonoff_1000162117_4
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                honeycomb_menu:
+                  entity:
+                    - switch.sonoff_1000162117_1
+                    - switch.sonoff_1000162117_2
+                    - switch.sonoff_1000162117_3
+                    - switch.sonoff_1000162117_4
+                  buttons:
+                    - icon: 'mdi:sprinkler'
+                      entity: switch.sonoff_1000162117_1
+                      tap_action:
+                        action: toggle
+                    - icon: 'mdi:sprinkler'
+                      entity: switch.sonoff_1000162117_2
+                      tap_action:
+                        action: toggle
+                    - icon: 'mdi:sprinkler-variant'
+                      entity: switch.getti_group
+                      tap_action:
+                        action: toggle
+                    - icon: 'mdi:water'
+                      entity: switch.sonoff_1000162117_3                      
+                      tap_action:
+                        action: toggle
+                    - icon: 'mdi:flower'
+                      entity: switch.sonoff_1000162117_4
+                      tap_action:
+                        action: toggle
+                    - icon: 'mdi:watering-can-outline'
+                      entity: switch.irrigazione_group
+                      tap_action:
+                        action: toggle
+              style:
+                left: 24.20%
+                top: 29.00%
+                width: 2.00%
+                height: 36.00%
+                # border: 1px solid red
+                # transform: rotate(-180deg)
+
+            ######### CAMBIO DASHBOARD ##########
+
+            - type: image
+              image: /local/floorplan/transparent.png
+              style:
+                left: 80.50%
+                top: 13.70%  
+                width: 16.00%
+                height: 11.00%
+                # border: 1px solid red
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace-terra/0
+
+            - type: image
+              image: /local/floorplan/transparent.png
+              style:
+                left: 80.50%
+                top: 23.70%  
+                width: 16.00%
+                height: 11.00%
+                # border: 1px solid red
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace-mansarda/0
+
+            #################################################
+            #                                               #
+            #                     ICONE                     #
+            #                                               #
+            #################################################
+            
+            ######### FRIGORIFERO ##########
+
+            - type: conditional
+              conditions:
+                - entity: sensor.sonoff_1001dc2633_power_2
+                  state_not: "unavailable"
+              elements:
+                - type: custom:mushroom-chips-card
+                  chips:
+                    - type: template
+                      entity: switch.sonoff_1001dc2633
+                      icon: mdi:fridge-industrial
+                      icon_color: >
+                        {% set watt = states('sensor.sonoff_1001dc2633_power_2') | float(0) %}
+                        {% set is_on = is_state('switch.sonoff_1001dc2633', 'on') %}
+                        {% if watt > 1000 %}
+                          red
+                        {% elif watt > 300 %}
+                          yellow
+                        {% elif watt > 0 %}
+                          green
+                        {% elif is_on %}
+                          blue
+                        {% else %}
+                          grey
+                        {% endif %}
+                      tap_action:
+                        action: toggle
+                    #   hold_action:
+                    #     action: call-service
+                    #     service: script.lavatrice_popup
+                  alignment: justify
+                  style:
+                    top: 13.00%
+                    left: 36.50%
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --chip-height: 55px; /* Aumenta dimensione del chip */
+                      }
+                      mushroom-template-chip {
+                        --icon-size: 45px; /* Aumenta dimensione dell'icona */
+                      }
+
+            - type: conditional
+              conditions:
+                - entity: sensor.sonoff_1001dc2633_power_2
+                  state_not: "unavailable"
+              elements:
+                - type: custom:button-card
+                  entity: sensor.sonoff_1001dc2633_power_2
+                  show_state: false
+                  show_name: false
+                  show_icon: false
+                  styles:
+                    card:
+                      - background: none
+                      - box-shadow: none
+                      - border: none
+                      - padding: 0
+                      - font-size: 12px
+                      - color: var(--secondary-text-color)
+                      - text-align: center
+                  custom_fields:
+                    consumo: >
+                      [[[
+                        const watt = parseFloat(states['sensor.sonoff_1001dc2633_power_2'].state) || 0;
+                        return watt > 0 ? watt.toFixed(0) + " W" : "";
+                      ]]]
+                  style:
+                    top: 15.00%
+                    left: 36.50%
+
+            ######### TENDA DA SOLE ##########
+            
+            - type: conditional
+              conditions:
+                - entity: cover.tenda_a_bracci_virtual
+                  state_not: "unavailable"
+              elements:
+                - type: custom:mushroom-chips-card
+                  chips:
+                    - type: template
+                      entity: cover.tenda_a_bracci_virtual
+                      icon: mdi:awning-outline
+                      icon_color: >
+                        {% if is_state('cover.tenda_a_bracci', 'closing') %}
+                          amber
+                        {% elif is_state('cover.tenda_a_bracci', 'opening') %}
+                          yellow
+                        {% elif is_state('cover.tenda_a_bracci', 'open') %}
+                          blue
+                        {% else %}
+                          grey
+                        {% endif %}
+                      tap_action:
+                        action: toggle
+                      hold_action: !include popup/tende.yaml
+                  alignment: justify
+                  style:
+                    top: 84.00%   # <-- posizione verticale
+                    left: 75.00%  # <-- posizione orizzontale
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --chip-height: 55px; /* dimensione chip */
+                      }
+                      mushroom-template-chip {
+                        --icon-size: 45px; /* dimensione icona */
+                      }
+            
+            - type: conditional
+              conditions:
+                - entity: cover.tenda_a_bracci_virtual
+                  state_not: "unavailable"
+              elements:
+                - type: custom:button-card
+                  entity: cover.tenda_a_bracci_virtual
+                  show_state: false
+                  show_name: false
+                  show_icon: false
+                  styles:
+                    card:
+                      - background: none
+                      - box-shadow: none
+                      - border: none
+                      - padding: 0
+                      - font-size: 12px
+                      - color: var(--secondary-text-color)
+                      - text-align: center
+                  custom_fields:
+                    apertura: >
+                      [[[
+                        let pos = states['cover.tenda_a_bracci_virtual'].attributes.current_position;
+                        return (pos !== undefined) ? pos + "%" : "";
+                      ]]]
+                  style:
+                    top: 86.00%   # <-- posizione verticale per il testo
+                    left: 75.00%  # <-- posizione orizzontale per il testo
+
+              #################################################################
+              #                                                               #
+              #                           ANIMAZIONI                          #
+              #                                                               #
+              #################################################################
+  
+            ######### VENTILATORE RICKY ##########
+
+            - type: image
+              entity: fan.ricky_windcalm_fan
+              tap_action:
+                action: call-service
+                service: fan.toggle
+                target:
+                  entity_id: fan.ricky_windcalm_fan
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-fan-card
+                      entity: fan.ricky_windcalm_fan
+                      show_percentage_control: true
+                      show_oscillate_control: true
+              style:
+                top: 58.00%
+                left: 48.00%
+                width: 7%
+                opacity: 0.3
+                transform-origin: center
+                transform-box: fill-box
+                transform: translate(-50%, -50%)
+                animation-name: rotation
+                animation-duration: var(--fan-anim-duration, 1s)
+                animation-timing-function: linear
+                animation-iteration-count: infinite
+                animation-play-state: var(--fan-anim-play, paused)
+              state_image:
+                "on": /local/floorplan/windcalm.png
+                "off": /local/floorplan/windcalm.png
+              card_mod:
+                style: |
+                  :host {
+                    {% set speed = state_attr('fan.ricky_windcalm_fan', 'percentage') | default(0) %}
+                    {% if is_state('fan.ricky_windcalm_fan','on') and speed > 0 %}
+                      --fan-anim-duration: {{ ((100 - speed) / 40 + 0.5) | round(2) }}s;
+                      --fan-anim-play: running;
+                    {% else %}
+                      /* Pausa l'animazione, niente salti/shift dell'immagine */
+                      --fan-anim-duration: 1s;
+                      --fan-anim-play: paused;
+                    {% endif %}
+                  }
+            
+                  @keyframes rotation {
+                    0%   { transform: translate(-50%, -50%) rotate(0deg); }
+                    100% { transform: translate(-50%, -50%) rotate(360deg); }
+                  }
+
+            ######### VENTILATORE DAVIDE ##########
+
+            - type: image
+              entity: fan.davide_windcalm_fan
+              tap_action:
+                action: call-service
+                service: fan.toggle
+                target:
+                  entity_id: fan.davide_windcalm_fan
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-fan-card
+                      entity: fan.davide_windcalm_fan
+                      show_percentage_control: true
+                      show_oscillate_control: true
+              style:
+                top: 24.00%
+                left: 52.00%
+                width: 7%
+                opacity: 0.3
+                transform-origin: center
+                transform-box: fill-box
+                transform: translate(-50%, -50%)
+                animation-name: rotation
+                animation-duration: var(--fan-anim-duration, 1s)
+                animation-timing-function: linear
+                animation-iteration-count: infinite
+                animation-play-state: var(--fan-anim-play, paused)
+              state_image:
+                "on": /local/floorplan/windcalm.png
+                "off": /local/floorplan/windcalm.png
+              card_mod:
+                style: |
+                  :host {
+                    {% set speed = state_attr('fan.davide_windcalm_fan', 'percentage') | default(0) %}
+                    {% if is_state('fan.davide_windcalm_fan','on') and speed > 0 %}
+                      --fan-anim-duration: {{ ((100 - speed) / 40 + 0.5) | round(2) }}s;
+                      --fan-anim-play: running;
+                    {% else %}
+                      /* Pausa l'animazione, niente salti/shift dell'immagine */
+                      --fan-anim-duration: 1s;
+                      --fan-anim-play: paused;
+                    {% endif %}
+                  }
+            
+                  @keyframes rotation {
+                    0%   { transform: translate(-50%, -50%) rotate(0deg); }
+                    100% { transform: translate(-50%, -50%) rotate(360deg); }
+                  }
+
+              #################################################################
+              #                                                               #
+              #                             SIDEBAR                           #
+              #                                                               #
+              #################################################################
+
+            ######### DISPOSITIVI ##########
+
+            - type: custom:button-card
+              name: Dispositivi
+              icon: mdi:lightbulb-group-outline
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace/0?kiosk
+              style:
+                top: 8.00%
+                left: 12.00%
+                width: 240px
+                height: 45px
+              layout: name_icon
+              styles:
+                card:
+                  - display: flex
+                  - flex-direction: row
+                  - justify-content: flex-start
+                  - align-items: center
+                  - background: rgba(255, 255, 255, 0.1)
+                  - backdrop-filter: blur(10px)
+                  - border: 1px solid rgba(255, 255, 255, 0.2) 
+                  - border-radius: 10px
+                  - padding: 0 24px
+                  - height: 100%
+                  - position: relative
+                  - overflow: hidden
+                name:
+                  - color: white
+                  - font-size: 18px
+                  - font-weight: bold
+                  - margin-right: 110px
+                  - transform: translateY(-5px)
+                icon:
+                  - color: white
+                  - width: 28px
+                  - height: 280px
+                  - margin-left: 160px
+                  - transform: translateY(-7px)
+              card_mod:
+                style: |
+                  ha-card {
+                    position: relative;
+                    z-index: 0;
+                  }
+                  ha-card::before {
+                    content: "";
+                    position: absolute;
+                    top: -4px;
+                    left: -4px;
+                    width: calc(100% + 8px);
+                    height: calc(100% + 8px);
+                    background: linear-gradient(
+                      45deg,
+                      #ff0000,
+                      #ff7300,
+                      #fffb00,
+                      #48ff00,
+                      #00ffd5,
+                      #002bff,
+                      #7a00ff,
+                      #ff00c8,
+                      #ff0000
+                    );
+                    background-size: 400%;
+                    z-index: -1;
+                    filter: blur(6px);   /* meno sfocato → bordo più netto */
+                    border-radius: 12px;
+                    animation: glowing 12s linear infinite; /* più veloce */
+                    opacity: 1;
+                  }
+                  ha-card::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #111;
+                    z-index: -1;
+                    border-radius: 10px;
+                  }
+                  @keyframes glowing {
+                    0% { background-position: 0 0; }
+                    50% { background-position: 400% 0; }
+                    100% { background-position: 0 0; }
+                  }  
+
+            ######### MAIN ##########
+
+            - type: custom:button-card
+              name: Casa
+              icon: mdi:home
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace-main/0?kiosk
+              style:
+                top: 16.00%
+                left: 12.00%
+                width: 240px
+                height: 45px
+              layout: name_icon
+              styles:
+                card:
+                  - display: flex
+                  - flex-direction: row
+                  - justify-content: flex-start
+                  - align-items: center
+                  - background: rgba(255, 255, 255, 0.1)
+                  - backdrop-filter: blur(10px)
+                  - border: 1px solid rgba(255, 255, 255, 0.2) 
+                  - border-radius: 10px
+                  - padding: 0 24px
+                  - height: 100%
+                  - position: relative
+                  - overflow: hidden
+                name:
+                  - color: white
+                  - font-size: 18px
+                  - font-weight: bold
+                  - margin-right: 155px
+                  - transform: translateY(-5px)
+                icon:
+                  - color: white
+                  - width: 26px
+                  - height: 26px
+                  - margin-left: 160px
+                  - transform: translateY(-5px)
+              card_mod:
+                style: |
+                  ha-card {
+                    position: relative;
+                    z-index: 0;
+                  }
+                  ha-card::before {
+                    content: "";
+                    position: absolute;
+                    top: -4px;
+                    left: -4px;
+                    width: calc(100% + 8px);
+                    height: calc(100% + 8px);
+                    background: linear-gradient(
+                      45deg,
+                      #ff0000,
+                      #ff7300,
+                      #fffb00,
+                      #48ff00,
+                      #00ffd5,
+                      #002bff,
+                      #7a00ff,
+                      #ff00c8,
+                      #ff0000
+                    );
+                    background-size: 400%;
+                    z-index: -1;
+                    filter: blur(6px);   /* meno sfocato → bordo più netto */
+                    border-radius: 12px;
+                    animation: glowing 12s linear infinite; /* più veloce */
+                    opacity: 1;
+                  }
+                  ha-card::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #111;
+                    z-index: -1;
+                    border-radius: 10px;
+                  }
+                  @keyframes glowing {
+                    0% { background-position: 0 0; }
+                    50% { background-position: 400% 0; }
+                    100% { background-position: 0 0; }
+                  }
+
+            ######### GIARDINO ##########
+
+            - type: custom:button-card
+              name: Giardino
+              icon: mdi:flower
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace-esterno/0?kiosk
+              style:
+                top: 24.00%
+                left: 12.00%
+                width: 240px
+                height: 45px
+              layout: name_icon
+              styles:
+                card:
+                  - display: flex
+                  - flex-direction: row
+                  - justify-content: flex-start
+                  - align-items: center
+                  - background: rgba(255, 255, 255, 0.1)
+                  - backdrop-filter: blur(10px)
+                  - border: 1px solid rgba(255, 255, 255, 0.2) 
+                  - border-radius: 10px
+                  - padding: 0 24px
+                  - height: 100%
+                  - position: relative
+                  - overflow: hidden
+                name:
+                  - color: white
+                  - font-size: 18px
+                  - font-weight: bold
+                  - margin-right: 130px
+                  - transform: translateY(-5px)
+                icon:
+                  - color: white
+                  - width: 26px
+                  - height: 26px
+                  - margin-left: 160px
+                  - transform: translateY(-4px)
+              card_mod:
+                style: |
+                  ha-card {
+                    position: relative;
+                    z-index: 0;
+                  }
+                  ha-card::before {
+                    content: "";
+                    position: absolute;
+                    top: -4px;
+                    left: -4px;
+                    width: calc(100% + 8px);
+                    height: calc(100% + 8px);
+                    background: linear-gradient(
+                      45deg,
+                      #ff0000,
+                      #ff7300,
+                      #fffb00,
+                      #48ff00,
+                      #00ffd5,
+                      #002bff,
+                      #7a00ff,
+                      #ff00c8,
+                      #ff0000
+                    );
+                    background-size: 400%;
+                    z-index: -1;
+                    filter: blur(6px);   /* meno sfocato → bordo più netto */
+                    border-radius: 12px;
+                    animation: glowing 12s linear infinite; /* più veloce */
+                    opacity: 1;
+                  }
+                  ha-card::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #111;
+                    z-index: -1;
+                    border-radius: 10px;
+                  }
+                  @keyframes glowing {
+                    0% { background-position: 0 0; }
+                    50% { background-position: 400% 0; }
+                    100% { background-position: 0 0; }
+                  }
+
+            ######### PIANO TERRA ##########
+
+            - type: custom:button-card
+              name: Piano terra
+              icon: mdi:home-floor-0
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace-terra/0?kiosk
+              style:
+                top: 32.00%
+                left: 12.00%
+                width: 240px
+                height: 45px
+              layout: name_icon
+              styles:
+                card:
+                  - display: flex
+                  - flex-direction: row
+                  - justify-content: flex-start
+                  - align-items: center
+                  - background: rgba(255, 255, 255, 0.1)
+                  - backdrop-filter: blur(10px)
+                  - border: 1px solid rgba(255, 255, 255, 0.2) 
+                  - border-radius: 10px
+                  - padding: 0 24px
+                  - height: 100%
+                  - position: relative
+                  - overflow: hidden
+                name:
+                  - color: white
+                  - font-size: 18px
+                  - font-weight: bold
+                  - margin-right: 110px
+                  - transform: translateY(-5px)
+                icon:
+                  - color: white
+                  - width: 26px
+                  - height: 26px
+                  - margin-left: 160px
+                  - transform: translateY(-5px)
+              card_mod:
+                style: |
+                  ha-card {
+                    position: relative;
+                    z-index: 0;
+                  }
+                  ha-card::before {
+                    content: "";
+                    position: absolute;
+                    top: -4px;
+                    left: -4px;
+                    width: calc(100% + 8px);
+                    height: calc(100% + 8px);
+                    background: linear-gradient(
+                      45deg,
+                      #ff0000,
+                      #ff7300,
+                      #fffb00,
+                      #48ff00,
+                      #00ffd5,
+                      #002bff,
+                      #7a00ff,
+                      #ff00c8,
+                      #ff0000
+                    );
+                    background-size: 400%;
+                    z-index: -1;
+                    filter: blur(6px);   /* meno sfocato → bordo più netto */
+                    border-radius: 12px;
+                    animation: glowing 12s linear infinite; /* più veloce */
+                    opacity: 1;
+                  }
+                  ha-card::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #111;
+                    z-index: -1;
+                    border-radius: 10px;
+                  }
+                  @keyframes glowing {
+                    0% { background-position: 0 0; }
+                    50% { background-position: 400% 0; }
+                    100% { background-position: 0 0; }
+                  } 
+
+            ######### MANSARDA ##########
+                  
+            - type: custom:button-card
+              name: Mansarda
+              icon: mdi:home-roof
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace-mansarda/0?kiosk
+              style:
+                top: 40.00%
+                left: 12.00%
+                width: 240px
+                height: 45px
+              layout: name_icon
+              styles:
+                card:
+                  - display: flex
+                  - flex-direction: row
+                  - justify-content: flex-start
+                  - align-items: center
+                  - background: rgba(255, 255, 255, 0.1)
+                  - backdrop-filter: blur(10px)
+                  - border: 1px solid rgba(255, 255, 255, 0.2) 
+                  - border-radius: 10px
+                  - padding: 0 24px
+                  - height: 100%
+                  - position: relative
+                  - overflow: hidden
+                name:
+                  - color: white
+                  - font-size: 18px
+                  - font-weight: bold
+                  - margin-right: 115px
+                  - transform: translateY(-5px)
+                icon:
+                  - color: white
+                  - width: 26px
+                  - height: 26px
+                  - margin-left: 160px
+                  - transform: translateY(-5px)
+              card_mod:
+                style: |
+                  ha-card {
+                    position: relative;
+                    z-index: 0;
+                  }
+                  ha-card::before {
+                    content: "";
+                    position: absolute;
+                    top: -4px;
+                    left: -4px;
+                    width: calc(100% + 8px);
+                    height: calc(100% + 8px);
+                    background: linear-gradient(
+                      45deg,
+                      #ff0000,
+                      #ff7300,
+                      #fffb00,
+                      #48ff00,
+                      #00ffd5,
+                      #002bff,
+                      #7a00ff,
+                      #ff00c8,
+                      #ff0000
+                    );
+                    background-size: 400%;
+                    z-index: -1;
+                    filter: blur(6px);   /* meno sfocato → bordo più netto */
+                    border-radius: 12px;
+                    animation: glowing 12s linear infinite; /* più veloce */
+                    opacity: 1;
+                  }
+                  ha-card::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #111;
+                    z-index: -1;
+                    border-radius: 10px;
+                  }
+                  @keyframes glowing {
+                    0% { background-position: 0 0; }
+                    50% { background-position: 400% 0; }
+                    100% { background-position: 0 0; }
+                  }

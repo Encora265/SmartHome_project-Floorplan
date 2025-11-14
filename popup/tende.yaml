@@ -1,0 +1,195 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: ""
+    dismissable: true
+    timeout: 0
+    size: normal
+    style: |
+      :host {
+        --mdc-dialog-scrim-color: transparent !important;
+        background: transparent !important;
+        box-shadow: none !important;
+      }
+    card_mod:
+      style:
+        ha-dialog:
+          $: |
+            .mdc-dialog__container {
+              overflow: visible !important;
+              background: transparent !important;
+            }
+            .mdc-dialog__surface {
+              overflow: visible !important;
+              background: transparent !important;
+              box-shadow: none !important;
+            }
+    content:
+      type: picture-elements
+      image: /local/situo.png
+      elements:
+        # Dropdown input_select direttamente sopra il pulsante
+        - type: custom:hui-element
+          card_type: entities
+          style:
+            top: 75%
+            left: 52%
+            width: 120px
+            height: 30px
+            z-index: 10
+          card_mod:
+            style: |
+              ha-card {
+                background: none !important;
+                box-shadow: none !important;
+                border: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+              }
+              .entities {
+                background: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+              }
+              .entities .entity__icon {
+                display: none !important;
+              }
+              .entities .entity__info {
+                display: none !important;
+              }
+              .entities .entity__name {
+                display: none !important;
+              }
+              .entities .state {
+                background: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                border: none !important;
+                color: transparent !important;
+              }
+          entities:
+            - entity: input_select.tenda_selezionata
+              name: ""
+              icon: ""
+
+        # - type: image
+        #   image: /local/transparent.png
+        #   tap_action:
+        #     action: fire-dom-event
+        #     browser_mod:
+        #       service: browser_mod.popup
+        #       data:
+        #         title: ""
+        #         size: normal
+        #         dismissable: true
+        #         style: |
+        #           :host {
+        #             --mdc-dialog-scrim-color: transparent !important;
+        #             background: transparent !important;
+        #           }
+        #         content:
+        #           type: custom:honeycomb-menu
+        #           entity:
+        #             - cover.tenda_a_caduta
+        #             - cover.tenda_a_bracci
+        #             - cover.cappottina
+        #             - cover.velux
+        #             - cover.roller_shutter_2
+        #             - cover.tutte_le_tende
+        #           buttons:
+        #             - icon: 'mdi:roller-shade'
+        #               name: Tenda caduta
+        #               tap_action:
+        #                 action: call-service
+        #                 service: input_select.select_option
+        #                 data:
+        #                   entity_id: input_select.tenda_selezionata
+        #                   option: 'cover.tenda_a_caduta'
+        #             - icon: 'mdi:awning-outline'
+        #               name: Tenda a bracci
+        #               tap_action:
+        #                 action: call-service
+        #                 service: input_select.select_option
+        #                 data:
+        #                   entity_id: input_select.tenda_selezionata
+        #                   option: 'cover.tenda_a_bracci'
+        #             - icon: 'mdi:awning-outline'
+        #               name: Cappottina
+        #               tap_action:
+        #                 action: call-service
+        #                 service: input_select.select_option
+        #                 data:
+        #                   entity_id: input_select.tenda_selezionata
+        #                   option: 'cover.cappottina'
+        #             - icon: 'mdi:window-open'
+        #               name: Velux
+        #               tap_action:
+        #                 action: call-service
+        #                 service: input_select.select_option
+        #                 data:
+        #                   entity_id: input_select.tenda_selezionata
+        #                   option: 'cover.velux'
+        #             - icon: 'mdi:shutter'
+        #               name: Tapparella
+        #               tap_action:
+        #                 action: call-service
+        #                 service: input_select.select_option
+        #                 data:
+        #                   entity_id: input_select.tenda_selezionata
+        #                   option: 'cover.roller_shutter_2'
+        #             - icon: 'mdi:arrow-expand-all'
+        #               name: Tutte le tende
+        #               tap_action:
+        #                 action: call-service
+        #                 service: input_select.select_option
+        #                 data:
+        #                   entity_id: input_select.tenda_selezionata
+        #                   option: 'cover.tutte_le_tende'
+        #   style:
+        #     top: 75%
+        #     left: 52%
+        #     width: 120px
+        #     height: 30px
+        #     z-index: 100
+
+
+            
+        # Pulsante ⬆️
+        - type: image
+          image: /local/transparent.png
+          tap_action:
+            action: perform-action
+            perform_action: script.turn_on
+            target:
+              entity_id: script.apri_tenda
+          style:
+            top: 30%
+            left: 54%
+            width: 15%
+
+        # Pulsante ⏹️
+        - type: image
+          image: /local/transparent.png
+          tap_action:
+            action: perform-action
+            perform_action: script.turn_on
+            target:
+              entity_id: script.ferma_tenda
+          style:
+            top: 45%
+            left: 54%
+            width: 15%
+
+        # Pulsante ⬇️
+        - type: image
+          image: /local/transparent.png
+          tap_action:
+            action: perform-action
+            perform_action: script.turn_on
+            target:
+              entity_id: script.chiudi_tenda
+          style:
+            top: 60%
+            left: 54%
+            width: 15%

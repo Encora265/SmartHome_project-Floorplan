@@ -1,0 +1,1329 @@
+button_card_templates: !include_dir_merge_named button_card_templates
+title: Casa
+views:
+
+    #############################################################################################################################################
+    #                                                                                                                                           #
+    #                                                         Floorplan View Casa                                                               #
+    #                                                                                                                                           #
+    #############################################################################################################################################
+
+  - title: Casa
+    icon: 'mdi:floor-plan'
+    panel: true
+    badges: []
+    cards:
+
+        ###################   config-template-card    #####################
+
+      - type: 'custom:config-template-card'
+        entities:
+          - light.luci_esterne
+          - light.luci_auto
+          - light.luci_fly
+          - input_boolean.luci_viale
+          - cover.garage_virtual
+          - binary_sensor.garage_contact
+          - switch.sonoff_1000162117_1
+          - switch.sonoff_1000162117_2
+          - switch.sonoff_1000162117_3
+          - switch.sonoff_1000162117_4
+
+
+        card:
+
+          ###################   Picture Elements Card    #####################
+          type: picture-elements
+          image: /local/floorplan/transparent.png
+          elements:
+
+              #########################    DAY BASE FLOORPLAN OVERLAY    #########################
+
+            - action: none
+              entity: sun.sun
+              hold_action:
+                action: none
+              state_image:
+                above_horizon: /local/floorplan/main/main_day.png
+                below_horizon:  /local/floorplan/transparent.png
+              style:
+                height: auto
+                left: 55%
+                mix-blend-mode: lighten
+                opacity: '${ states[''sensor.sunlight_opacity''].state }'
+                top: 35.00%
+                width: 140%
+              tap_action:
+                action: none
+              type: image
+
+              #########################    WEATHER ANIMATIONS    #########################
+
+            - type: conditional
+              conditions:
+                - entity: weather.casa
+                  state_not: "unavailable"
+              elements:
+                - type: image
+                  entity: weather.casa
+                  state_image:
+                    "sunny": /local/weather-icons/day.svg
+                    "clear-night": /local/weather-icons/night.svg
+                    "partlycloudy": /local/weather-icons/partly-cloudy-day.svg
+                    "cloudy": /local/weather-icons/cloudy-day-1.svg
+                    "rainy": /local/weather-icons/rainy-6.svg
+                  style:
+                    left: 80.00%
+                    top: 15.00%
+                    width: 6.00%
+                    height: auto
+                    mix-blend-mode: lighten
+                  tap_action:
+                    action: none
+ 
+            - type: state-label
+              entity: weather.casa
+              attribute: temperature
+              style:
+                left: 88.00%
+                top: 15.00%
+                color: white
+                font-size: 40px
+                font-weight: bold
+                font-family: Roboto
+                text-shadow: 1px 1px 2px black
+              suffix: " °C"
+              tap_action:
+                action: none
+
+              #########################    Inside overlays for weather    #########################
+
+
+            - action: none
+              hold_action:
+                action: none
+              image: /local/floorplan/main/main_night.png
+              style:
+                height: auto
+                left: 55%
+                top: 35.00%
+                width: 140%
+              tap_action:
+                action: none
+              type: image
+
+            - action: none
+              entity: sun.sun
+              hold_action:
+                action: none
+              state_image:
+                above_horizon: /local/floorplan/main/main_day.png
+                below_horizon: /local/floorplan/transparent.png
+              style:
+                height: auto
+                left: 55%
+                mix-blend-mode: lighten
+                opacity: '${ states[''sensor.sunlight_opacity''].state }'
+                top: 35.00%
+                width: 140%
+              tap_action:
+                action: none
+              type: image
+
+            #################################################
+            #                                               #
+            #          LUCI INDIVIDUALI - RENDERING         #
+            #                                               #
+            #################################################
+
+            ######### LUCI ESTERNE ##########
+
+            - action: none
+              entity: light.luci_esterne
+              hold_action:
+                action: none
+              image: /local/floorplan/main/main_esterne.png
+              style:
+                left: 55.00%
+                top: 35.00%
+                width: 140%
+                height: auto
+                mix-blend-mode: lighten
+                opacity: "${states['light.luci_esterne'].state === 'on' ? '1' : '0'}"
+              tap_action:
+                action: none
+              type: image
+
+            ######### LUCI AUTO ##########
+
+            - action: none
+              entity: light.luci_auto
+              hold_action:
+                action: none
+              image: /local/floorplan/main/main_auto.png
+              style:
+                filter: >-
+                  ${(() => {
+                    const e = states['light.luci_auto'].attributes;
+                    const bright = e.brightness ? e.brightness / 255 : 0;
+                    return `brightness(${0.5 + bright * 0.8})`;
+                  })()}
+                opacity: >-
+                  ${(() => {
+                    const e = states['light.luci_auto'].attributes;
+                    return states['light.luci_auto'].state === 'on'
+                      ? (e.brightness || 180) / 255
+                      : 0;
+                  })()}
+                mix-blend-mode: lighten
+                left: 55.00%
+                top: 35.00%
+                width: 140%
+                height: auto
+              tap_action:
+                action: none
+              type: image
+
+            ######### LUCI FLY ##########
+
+            - action: none
+              entity: light.luci_fly
+              hold_action:
+                action: none
+              image: /local/floorplan/main/main_fly.png
+              style:
+                filter: >-
+                  ${(() => {
+                    const e = states['light.luci_fly'].attributes;
+                    const bright = e.brightness ? e.brightness / 255 : 0;
+                    return `brightness(${0.5 + bright * 0.8})`;
+                  })()}
+                opacity: >-
+                  ${(() => {
+                    const e = states['light.luci_fly'].attributes;
+                    return states['light.luci_fly'].state === 'on'
+                      ? (e.brightness || 180) / 255
+                      : 0;
+                  })()}
+                mix-blend-mode: lighten
+                left: 55.00%
+                top: 35.00%
+                width: 140%
+                height: auto
+              tap_action:
+                action: none
+              type: image
+
+            ######### LUCI VIALE ##########
+
+            - action: none
+              entity: input_boolean.luci_viale
+              hold_action:
+                action: none
+              image: /local/floorplan/main/main_viale.png
+              style:
+                left: 55.00%
+                top: 35.00%
+                width: 140%
+                height: auto
+                mix-blend-mode: lighten
+                opacity: "${states['input_boolean.luci_viale'].state === 'on' ? '1' : '0'}"
+              tap_action:
+                action: none
+              type: image
+
+            ######### GARAGE ##########
+
+            - action: none
+              entity: binary_sensor.garage_contact
+              hold_action:
+                action: none
+              state_image:
+                on:  /local/floorplan/main/main_garage.png
+              style:
+                left: 55.00%
+                mix-blend-mode: lighten
+                opacity: "${states['binary_sensor.garage_contact'].state === 'on' ? '1' : '0'}"
+                top: 35.00%
+                width: 140%
+                height: auto
+              tap_action:
+                action: none
+              type: image
+
+            #################################################
+            #                                               #
+            #              PULSANTI TRASPARENTI             #
+            #                                               #
+            #################################################
+
+            ######### FORECAST ##########
+
+            - type: image
+              entity: light.luci_esterne
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:clock-weather-card
+                      entity: weather.casa
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:weather-radar-card
+                      frame_count: 10
+                      center_latitude: 45.3440749
+                      center_longitude: 11.7918202
+                      marker_latitude: 45.3440749
+                      marker_longitude: 11.7918202
+                      square_map: true
+                      map_style: satellite
+                      show_marker: true
+                      show_range: true
+                      show_zoom: true
+                      show_recenter: true
+                      show_playback: true
+                      zoom_level: 8
+              style:
+                left: 84.80%
+                top: 14.00%
+                width: 16.00%
+                height: 8.00%
+                # border: 1px solid red
+                mix-blend-mode: lighten
+                    
+            ######### LUCI ESTERNE ##########
+
+            - type: image
+              entity: light.luci_esterne
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: homeassistant.toggle
+                service_data:
+                  entity_id: light.luci_esterne
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-light-card
+                      entity: light.luci_esterne
+                      use_light_color: true
+                      show_brightness_control: true
+              double_tap_action: !include popup/luci_esterne.yaml
+              style:
+                height: 3.00%
+                left: 50.50%
+                top: 66.00%
+                width: 9.50%
+                # border: 1px solid red
+                transform: |
+                  translate(-55%, -100%)        /* centro */
+                  rotate(10deg)               /* inclinazione “di taglio” */
+                template:
+                  - light
+                  
+            - type: image
+              entity: light.luci_esterne
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: homeassistant.toggle
+                service_data:
+                  entity_id: light.luci_esterne
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-light-card
+                      entity: light.luci_esterne
+                      use_light_color: true
+                      show_brightness_control: true
+              double_tap_action: !include popup/luci_esterne.yaml
+              style:
+                height: 3.00%
+                left: 67.50%
+                top: 62.50%
+                width: 3.00%
+                # border: 1px solid red
+                transform: |
+                  translate(-55%, -100%)        /* centro */
+                  rotate(-12deg)               /* inclinazione “di taglio” */
+                template:
+                  - light
+
+            ######### LUCI VIALE ##########
+
+            - type: image
+              entity: input_boolean.luci_viale
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: homeassistant.toggle
+                service_data:
+                  entity_id: input_boolean.luci_viale
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-light-card
+                      entity: input_boolean.luci_viale
+                      use_light_color: true
+                      show_brightness_control: true     
+              style:
+                height: 8%
+                left: 30%
+                top: 77%
+                width: 17%
+                # border: 1px solid red
+                transform: |
+                  translate(-50%, -50%)       
+                  rotate(12deg)               
+                  skewX(-69deg)
+                  skewY(4deg)
+                template:
+                  - light
+
+            ######### LUCI AUTO ##########
+
+            - type: image
+              entity: light.luci_auto
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: homeassistant.toggle
+                service_data:
+                  entity_id: light.luci_auto
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-light-card
+                      entity: light.luci_auto
+                      use_light_color: true
+                      show_brightness_control: true     
+              style:
+                height: 14%
+                left: 49%
+                top: 89%
+                width: 14%
+                # border: 1px solid red
+                transform: |
+                  translate(-55%, -100%)        /* centro */
+                  rotate(18deg)               /* inclinazione “di taglio” */
+                template:
+                  - light
+
+            ######### LUCI FLY ##########
+              
+            - type: image
+              entity: light.luci_fly
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: homeassistant.toggle
+                service_data:
+                  entity_id: light.luci_fly
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-light-card
+                      entity: light.luci_fly
+                      use_light_color: true
+                      show_brightness_control: true 
+              style:
+                height: 6%
+                left: 81%
+                top: 64%
+                width: 9%
+                # border: 1px solid red
+                transform: |
+                  translate(-50%, -100%)        /* centro */
+                  rotate(-11deg)               /* inclinazione “di taglio” */
+                  skewX(71deg)                 /* effetto parallelogramma */
+                template:
+                  - light
+
+            ######### GARAGE ##########
+
+            - type: image
+              entity: cover.garage_virtual
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: cover.toggle
+                service_data:
+                  entity_id: cover.garage_virtual
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-cover-card
+                      entity: cover.garage_virtual
+                      icon: mdi:garage
+                      fill_container: true
+                      show_position_control: false
+                      show_buttons_control: true
+              style:
+                left: 34.5%
+                top: 73.5%
+                width: 5.5%
+                height: 12%
+                # border: 1px solid red
+                transform: |
+                  translate(-50%, -100%)
+                  rotate(9deg)
+                  skewX(10deg)
+
+            ######### IRRIGAZIONE ##########
+
+            - type: image
+              entity: switch.irrigazione_group
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: switch.toggle
+                service_data:
+                  entity_id: switch.getti_group
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                honeycomb_menu:
+                  entity:
+                    - switch.sonoff_1000162117_1
+                    - switch.sonoff_1000162117_2
+                    - switch.sonoff_1000162117_3
+                    - switch.sonoff_1000162117_4
+                  buttons:
+                    - icon: 'mdi:sprinkler'
+                      entity: switch.sonoff_1000162117_1
+                      tap_action:
+                        action: toggle
+                    - icon: 'mdi:sprinkler'
+                      entity: switch.sonoff_1000162117_2
+                      tap_action:
+                        action: toggle
+                    - icon: 'mdi:sprinkler-variant'
+                      entity: switch.getti_group
+                      tap_action:
+                        action: toggle
+                    - icon: 'mdi:water'
+                      entity: switch.sonoff_1000162117_3                      
+                      tap_action:
+                        action: toggle
+                    - icon: 'mdi:flower'
+                      entity: switch.sonoff_1000162117_4
+                      tap_action:
+                        action: toggle
+                    - icon: 'mdi:watering-can-outline'
+                      entity: switch.irrigazione_group
+                      tap_action:
+                        action: toggle
+              style:
+                left: 69%
+                top: 85%
+                width: 15%
+                height: 9%
+                transform: |
+                  translate(-55%, -100%)        /* centro */
+                  rotate(-18.5deg)               /* inclinazione “di taglio” */
+                  skewX(60deg)                 /* effetto parallelogramma */
+                clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+                # border: 1px solid red 
+                
+            ######### CAMERA INGRESSO ##########
+
+            - type: image
+              image: /local/floorplan/transparent.png
+              entity: camera.ingresso
+              style:
+                left: 45%
+                top: 77.50%  
+                width: 6.00%
+                height: 16.50%
+                # border: 1px solid red
+                transform: |
+                  translate(-100%, -100%)     /* centro */
+                  rotate(9deg)                /* inclinazione “di taglio” */
+                  skewX(8deg)                 /* effetto parallelogramma */
+              tap_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    title: Ingresso
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:frigate-card
+                      cameras:
+                        - camera_entity: camera.ingresso
+
+            ######### RACCOLTA DIFFERENZIATA ##########
+
+            - type: image
+              image: /local/floorplan/transparent.png
+              entity: calendar.raccolta_differenziata
+              style:
+                left: 61.00%
+                top: 95.00%  
+                width: 5.00%
+                height: 16.50%
+                # border: 1px solid red
+                transform: |
+                  translate(-100%, -100%)      /* centro */
+                  rotate(71deg)                /* inclinazione “di taglio” */
+                  skewX(0deg)                  /* effetto parallelogramma */
+                  skewY(19deg)                 /* effetto parallelogramma */
+              tap_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    content:
+                      type: custom:mushroom-template-card
+                      primary: >
+                        {% if is_state("calendar.raccolta_differenziata", "on") %}
+                          {{ state_attr("calendar.raccolta_differenziata", "message") }}
+                        {% else %}
+                          Nessun conferimento
+                        {% endif %}
+                      secondary: >
+                        {% if states("sensor.giorni_raccolta") != "unknown" %}
+                          Tra {{ states("sensor.giorni_raccolta") }} giorni
+                        {% endif %}
+                      icon: >
+                        {% set rifiuto = state_attr("calendar.raccolta_differenziata", "message") | lower %}
+                        {% if "umido" in rifiuto %}
+                          mdi:food-apple-outline
+                        {% elif "carta" in rifiuto %}
+                          mdi:archive
+                        {% elif "plastica" in rifiuto %}
+                          mdi:bottle-soda
+                        {% elif "vetro" in rifiuto %}
+                          mdi:bottle-wine
+                        {% else %}
+                          mdi:trash-can
+                        {% endif %}
+                      icon_color: >
+                        {% set rifiuto = state_attr("calendar.raccolta_differenziata", "message") | lower %}
+                        {% if "umido" in rifiuto %}
+                          brown
+                        {% elif "carta" in rifiuto %}
+                          yellow
+                        {% elif "plastica" in rifiuto %}
+                          amber
+                        {% elif "vetro" in rifiuto %}
+                          green
+                        {% else %}
+                          grey
+                        {% endif %}
+                      tap_action:
+                        action: none
+                      hold_action:
+                        action: none
+                      double_tap_action:
+                        action: none
+
+            ######### TENDA SOGGIORNO ##########
+
+            - type: image
+              image: /local/floorplan/transparent.png
+              entity: cover.tenda_a_caduta
+              style:
+                left: 60.3%
+                top: 77%  
+                width: 7.5%
+                height: 15%
+                # border: 1px solid red
+                transform: |
+                  translate(-55%, -100%)        /* centro */
+                  rotate(-12deg)               /* inclinazione “di taglio” */
+                  skewX(347deg)                 /* effetto parallelogramma */
+              tap_action:
+                action: fire-dom-event
+                browser_mod:
+                honeycomb_menu:
+                  entity:
+                    - cover.tenda_a_caduta
+                  buttons:
+                   
+                    - icon: 'mdi:arrow-up-bold-circle'
+                      position: 1
+                      entity: cover.tenda_a_caduta
+                      tap_action:
+                        action: call-service
+                        service: cover.open_cover
+                        data:
+                        target:
+                          device_id: 271a25a282640d8c02f4f41b28c710fb
+         
+                    - icon: 'mdi:stop-circle'
+                      position: 2
+                      entity: cover.tenda_a_caduta
+                      tap_action:
+                        action: call-service
+                        service: cover.stop_cover
+                        data:
+                        target:
+                          device_id: 271a25a282640d8c02f4f41b28c710fb
+  
+                    - icon: 'mdi:arrow-down-bold-circle'
+                      position: 3
+                      entity: cover.tenda_a_caduta
+                      tap_action:
+                        action: call-service
+                        service: cover.close_cover
+                        data:
+                        target:
+                          device_id: 271a25a282640d8c02f4f41b28c710fb
+
+                    - icon: 'mdi:remote'
+                      position: 5
+                      entity: cover.tenda_a_caduta
+                      tap_action: !include popup/tende.yaml
+
+            #################################################
+            #                                               #
+            #                     ICONE                     #
+            #                                               #
+            #################################################
+
+            ######### CAMERA GIARDINO ##########
+
+            - type: state-icon
+              entity: camera.giardino
+              icon: mdi:cctv
+              tap_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  data:
+                    title: Giardino
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:frigate-card
+                      cameras:
+                        - camera_entity: camera.giardino
+                      live:
+                        controls:
+                          ptz:
+                            mode: "on"
+                            orientation: horizontal
+                            hide_home: false
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-alarm-control-panel-card
+                      entity: alarm_control_panel.ezviz_alarm
+                      states:
+                        - armed_home
+                        - armed_away
+                      fill_container: true
+              style:
+                color: '#cf07f2'
+                left: 47.00%
+                top: 72.00%
+                width: 2vw
+                height: 2vw
+                transform: |
+                  translate(-50%, -50%) scaleX(-1)        
+                  rotate(20deg)               
+                background-color: '#ffffff00'
+                box-shadow: '0px 0px 28px 0px rgba(0,0,0,0.1)'
+                border-radius: 50%
+                z-index: 5
+
+            ######### POTENZA ISTANTANEA ##########
+
+            - type: custom:hui-element
+              card_type: gauge
+              entity: sensor.wifi_digital_meter_potenza
+              name: Potenza istantanea
+              min: 0
+              max: 3500
+              needle: true
+              segments:
+                - from: 0
+                  color: '#4D8DF7'
+                - from: 100
+                  color: '#5096E5'
+                - from: 200
+                  color: '#53A0D3'
+                - from: 300
+                  color: '#57AAC2'
+                - from: 400
+                  color: '#5AB3B0'
+                - from: 500
+                  color: '#5EBD9F'
+                - from: 600
+                  color: '#61C78D'
+                - from: 700
+                  color: '#64D07B'
+                - from: 800
+                  color: '#68DA6A'
+                - from: 900
+                  color: '#6BE458'
+                - from: 1000
+                  color: '#6FEE47'
+                - from: 1100
+                  color: '#7AEF48'
+                - from: 1200
+                  color: '#85F149'
+                - from: 1300
+                  color: '#91F24A'
+                - from: 1400
+                  color: '#9CF44B'
+                - from: 1500
+                  color: '#A8F54C'
+                - from: 1600
+                  color: '#B3F74D'
+                - from: 1700
+                  color: '#BEF84E'
+                - from: 1800
+                  color: '#CAFA4F'
+                - from: 1900
+                  color: '#D5FB50'
+                - from: 2000
+                  color: '#E1FD52'
+                - from: 2100
+                  color: '#E1F050'
+                - from: 2200
+                  color: '#E2E44E'
+                - from: 2300
+                  color: '#E2D74C'
+                - from: 2400
+                  color: '#E3CB4A'
+                - from: 2500
+                  color: '#E4BE49'
+                - from: 2600
+                  color: '#E4B247'
+                - from: 2700
+                  color: '#E5A545'
+                - from: 2800
+                  color: '#E59943'
+                - from: 2900
+                  color: '#E68C41'
+                - from: 3000
+                  color: '#E78040'
+                - from: 3100
+                  color: '#E7733E'
+                - from: 3200
+                  color: '#E8673C'
+                - from: 3300
+                  color: '#E85A3A'
+                - from: 3400
+                  color: '#E94E38'
+                - from: 3500
+                  color: '#EA4237'
+              hold_action:
+                action: navigate
+                navigation_path: /energy?kiosk
+              style:
+                top: 55%
+                left: 12%
+                width: 150px
+                transform: translate(-50%, -50%)
+
+              #################################################################
+              #                                                               #
+              #                             SIDEBAR                           #
+              #                                                               #
+              #################################################################
+
+            ######### DISPOSITIVI ##########
+
+            - type: custom:button-card
+              name: Dispositivi
+              icon: mdi:lightbulb-group-outline
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace/0?kiosk
+              style:
+                top: 8.00%
+                left: 12.00%
+                width: 240px
+                height: 45px
+              layout: name_icon
+              styles:
+                card:
+                  - display: flex
+                  - flex-direction: row
+                  - justify-content: flex-start
+                  - align-items: center
+                  - background: rgba(255, 255, 255, 0.1)
+                  - backdrop-filter: blur(10px)
+                  - border: 1px solid rgba(255, 255, 255, 0.2) 
+                  - border-radius: 10px
+                  - padding: 0 24px
+                  - height: 100%
+                  - position: relative
+                  - overflow: hidden
+                name:
+                  - color: white
+                  - font-size: 18px
+                  - font-weight: bold
+                  - margin-right: 110px
+                  - transform: translateY(-5px)
+                icon:
+                  - color: white
+                  - width: 28px
+                  - height: 280px
+                  - margin-left: 160px
+                  - transform: translateY(-7px)
+              card_mod:
+                style: |
+                  ha-card {
+                    position: relative;
+                    z-index: 0;
+                  }
+                  ha-card::before {
+                    content: "";
+                    position: absolute;
+                    top: -4px;
+                    left: -4px;
+                    width: calc(100% + 8px);
+                    height: calc(100% + 8px);
+                    background: linear-gradient(
+                      45deg,
+                      #ff0000,
+                      #ff7300,
+                      #fffb00,
+                      #48ff00,
+                      #00ffd5,
+                      #002bff,
+                      #7a00ff,
+                      #ff00c8,
+                      #ff0000
+                    );
+                    background-size: 400%;
+                    z-index: -1;
+                    filter: blur(6px);   /* meno sfocato → bordo più netto */
+                    border-radius: 12px;
+                    animation: glowing 12s linear infinite; /* più veloce */
+                    opacity: 1;
+                  }
+                  ha-card::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #111;
+                    z-index: -1;
+                    border-radius: 10px;
+                  }
+                  @keyframes glowing {
+                    0% { background-position: 0 0; }
+                    50% { background-position: 400% 0; }
+                    100% { background-position: 0 0; }
+                  }  
+
+            ######### GIARDINO ##########
+
+            - type: custom:button-card
+              name: Giardino
+              icon: mdi:flower
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace-esterno/0?kiosk
+              style:
+                top: 16.00%
+                left: 12.00%
+                width: 240px
+                height: 45px
+              layout: name_icon
+              styles:
+                card:
+                  - display: flex
+                  - flex-direction: row
+                  - justify-content: flex-start
+                  - align-items: center
+                  - background: rgba(255, 255, 255, 0.1)
+                  - backdrop-filter: blur(10px)
+                  - border: 1px solid rgba(255, 255, 255, 0.2) 
+                  - border-radius: 10px
+                  - padding: 0 24px
+                  - height: 100%
+                  - position: relative
+                  - overflow: hidden
+                name:
+                  - color: white
+                  - font-size: 18px
+                  - font-weight: bold
+                  - margin-right: 130px
+                  - transform: translateY(-5px)
+                icon:
+                  - color: white
+                  - width: 26px
+                  - height: 26px
+                  - margin-left: 160px
+                  - transform: translateY(-5px)
+              card_mod:
+                style: |
+                  ha-card {
+                    position: relative;
+                    z-index: 0;
+                  }
+                  ha-card::before {
+                    content: "";
+                    position: absolute;
+                    top: -4px;
+                    left: -4px;
+                    width: calc(100% + 8px);
+                    height: calc(100% + 8px);
+                    background: linear-gradient(
+                      45deg,
+                      #ff0000,
+                      #ff7300,
+                      #fffb00,
+                      #48ff00,
+                      #00ffd5,
+                      #002bff,
+                      #7a00ff,
+                      #ff00c8,
+                      #ff0000
+                    );
+                    background-size: 400%;
+                    z-index: -1;
+                    filter: blur(6px);   /* meno sfocato → bordo più netto */
+                    border-radius: 12px;
+                    animation: glowing 12s linear infinite; /* più veloce */
+                    opacity: 1;
+                  }
+                  ha-card::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #111;
+                    z-index: -1;
+                    border-radius: 10px;
+                  }
+                  @keyframes glowing {
+                    0% { background-position: 0 0; }
+                    50% { background-position: 400% 0; }
+                    100% { background-position: 0 0; }
+                  }
+
+            ######### PIANO TERRA ##########
+
+            - type: custom:button-card
+              name: Piano terra
+              icon: mdi:home-floor-0
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace-terra/0?kiosk
+              style:
+                top: 24.00%
+                left: 12.00%
+                width: 240px
+                height: 45px
+              layout: name_icon
+              styles:
+                card:
+                  - display: flex
+                  - flex-direction: row
+                  - justify-content: flex-start
+                  - align-items: center
+                  - background: rgba(255, 255, 255, 0.1)
+                  - backdrop-filter: blur(10px)
+                  - border: 1px solid rgba(255, 255, 255, 0.2) 
+                  - border-radius: 10px
+                  - padding: 0 24px
+                  - height: 100%
+                  - position: relative
+                  - overflow: hidden
+                name:
+                  - color: white
+                  - font-size: 18px
+                  - font-weight: bold
+                  - margin-right: 110px
+                  - transform: translateY(-5px)
+                icon:
+                  - color: white
+                  - width: 26px
+                  - height: 26px
+                  - margin-left: 160px
+                  - transform: translateY(-5px)
+              card_mod:
+                style: |
+                  ha-card {
+                    position: relative;
+                    z-index: 0;
+                  }
+                  ha-card::before {
+                    content: "";
+                    position: absolute;
+                    top: -4px;
+                    left: -4px;
+                    width: calc(100% + 8px);
+                    height: calc(100% + 8px);
+                    background: linear-gradient(
+                      45deg,
+                      #ff0000,
+                      #ff7300,
+                      #fffb00,
+                      #48ff00,
+                      #00ffd5,
+                      #002bff,
+                      #7a00ff,
+                      #ff00c8,
+                      #ff0000
+                    );
+                    background-size: 400%;
+                    z-index: -1;
+                    filter: blur(6px);   /* meno sfocato → bordo più netto */
+                    border-radius: 12px;
+                    animation: glowing 12s linear infinite; /* più veloce */
+                    opacity: 1;
+                  }
+                  ha-card::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #111;
+                    z-index: -1;
+                    border-radius: 10px;
+                  }
+                  @keyframes glowing {
+                    0% { background-position: 0 0; }
+                    50% { background-position: 400% 0; }
+                    100% { background-position: 0 0; }
+                  }
+
+            ######### PRIMO PIANO ##########
+
+            - type: custom:button-card
+              name: Primo piano
+              icon: mdi:home-floor-1
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace-primo/0?kiosk
+              style:
+                top: 32.00%
+                left: 12.00%
+                width: 240px
+                height: 45px
+              layout: name_icon
+              styles:
+                card:
+                  - display: flex
+                  - flex-direction: row
+                  - justify-content: flex-start
+                  - align-items: center
+                  - background: rgba(255, 255, 255, 0.1)
+                  - backdrop-filter: blur(10px)
+                  - border: 1px solid rgba(255, 255, 255, 0.2) 
+                  - border-radius: 10px
+                  - padding: 0 24px
+                  - height: 100%
+                  - position: relative
+                  - overflow: hidden
+                name:
+                  - color: white
+                  - font-size: 18px
+                  - font-weight: bold
+                  - margin-right: 100px
+                  - transform: translateY(-5px)
+                icon:
+                  - color: white
+                  - width: 26px
+                  - height: 26px
+                  - margin-left: 160px
+                  - transform: translateY(-5px)
+              card_mod:
+                style: |
+                  ha-card {
+                    position: relative;
+                    z-index: 0;
+                  }
+                  ha-card::before {
+                    content: "";
+                    position: absolute;
+                    top: -4px;
+                    left: -4px;
+                    width: calc(100% + 8px);
+                    height: calc(100% + 8px);
+                    background: linear-gradient(
+                      45deg,
+                      #ff0000,
+                      #ff7300,
+                      #fffb00,
+                      #48ff00,
+                      #00ffd5,
+                      #002bff,
+                      #7a00ff,
+                      #ff00c8,
+                      #ff0000
+                    );
+                    background-size: 400%;
+                    z-index: -1;
+                    filter: blur(6px);   /* meno sfocato → bordo più netto */
+                    border-radius: 12px;
+                    animation: glowing 12s linear infinite; /* più veloce */
+                    opacity: 1;
+                  }
+                  ha-card::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #111;
+                    z-index: -1;
+                    border-radius: 10px;
+                  }
+                  @keyframes glowing {
+                    0% { background-position: 0 0; }
+                    50% { background-position: 400% 0; }
+                    100% { background-position: 0 0; }
+                  }  
+
+            ######### MANSARDA ##########
+                  
+            - type: custom:button-card
+              name: Mansarda
+              icon: mdi:home-roof
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace-mansarda/0?kiosk
+              style:
+                top: 40.00%
+                left: 12.00%
+                width: 240px
+                height: 45px
+              layout: name_icon
+              styles:
+                card:
+                  - display: flex
+                  - flex-direction: row
+                  - justify-content: flex-start
+                  - align-items: center
+                  - background: rgba(255, 255, 255, 0.1)
+                  - backdrop-filter: blur(10px)
+                  - border: 1px solid rgba(255, 255, 255, 0.2) 
+                  - border-radius: 10px
+                  - padding: 0 24px
+                  - height: 100%
+                  - position: relative
+                  - overflow: hidden
+                name:
+                  - color: white
+                  - font-size: 18px
+                  - font-weight: bold
+                  - margin-right: 115px
+                  - transform: translateY(-5px)
+                icon:
+                  - color: white
+                  - width: 26px
+                  - height: 26px
+                  - margin-left: 160px
+                  - transform: translateY(-5px)
+              card_mod:
+                style: |
+                  ha-card {
+                    position: relative;
+                    z-index: 0;
+                  }
+                  ha-card::before {
+                    content: "";
+                    position: absolute;
+                    top: -4px;
+                    left: -4px;
+                    width: calc(100% + 8px);
+                    height: calc(100% + 8px);
+                    background: linear-gradient(
+                      45deg,
+                      #ff0000,
+                      #ff7300,
+                      #fffb00,
+                      #48ff00,
+                      #00ffd5,
+                      #002bff,
+                      #7a00ff,
+                      #ff00c8,
+                      #ff0000
+                    );
+                    background-size: 400%;
+                    z-index: -1;
+                    filter: blur(6px);   /* meno sfocato → bordo più netto */
+                    border-radius: 12px;
+                    animation: glowing 12s linear infinite; /* più veloce */
+                    opacity: 1;
+                  }
+                  ha-card::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #111;
+                    z-index: -1;
+                    border-radius: 10px;
+                  }
+                  @keyframes glowing {
+                    0% { background-position: 0 0; }
+                    50% { background-position: 400% 0; }
+                    100% { background-position: 0 0; }
+                  }

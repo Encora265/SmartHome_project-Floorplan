@@ -1,0 +1,1426 @@
+###############################################################################
+# PACKAGE: Gestione Lavatrice BEKO - versione corretta
+###############################################################################
+
+homeassistant:
+  customize:
+    binary_sensor.lavatrice_in_funzione:
+      friendly_name: Lavatrice in funzione
+    input_datetime.lavatrice_inizio_programma:
+      icon: mdi:clock-start
+    input_datetime.lavatrice_fine_programma:
+      icon: mdi:clock-end
+    input_number.lavatrice_consumo_ultimo_ciclo:
+      icon: mdi:lightning-bolt
+
+###############################################################################
+# SENSORI - Potenza → Consumo Ciclo (kWh)
+###############################################################################
+sensor:
+  - platform: integration
+    source: sensor.sonoff_1001d8e7f6_power_1
+    name: "Lavatrice Consumo Ciclo"
+    unit_prefix: k
+    round: 3
+    method: left
+    unit_time: h
+
+###############################################################################
+# UTILITY METER - Resettabile manualmente all'inizio di ogni ciclo
+###############################################################################
+utility_meter:
+  lavatrice_ciclo:
+    source: sensor.lavatrice_consumo_ciclo
+
+  lavatrice_consumo_giornaliero:
+    source: sensor.lavatrice_consumo_ciclo
+    cycle: daily
+
+  lavatrice_consumo_settimanale:
+    source: sensor.lavatrice_consumo_ciclo
+    cycle: weekly
+
+  lavatrice_consumo_mensile:
+    source: sensor.lavatrice_consumo_ciclo
+    cycle: monthly
+
+  lavatrice_consumo_annuale:
+    source: sensor.lavatrice_consumo_ciclo
+    cycle: yearly
+
+###############################################################################
+# INPUT DATETIME e INPUT NUMBER per memorizzare dati ultimo ciclo
+###############################################################################
+input_datetime:
+  lavatrice_inizio_programma:
+    name: Inizio programma
+    has_date: true
+    has_time: true
+  lavatrice_fine_programma:
+    name: Fine programma
+    has_date: true
+    has_time: true
+
+input_number:
+  lavatrice_consumo_ultimo_ciclo:
+    name: Consumo ultimo ciclo
+    min: 0
+    max: 20
+    step: 0.01
+    unit_of_measurement: "kWh"
+
+  lavatrice_cicli_totali:
+    name: Cicli totali lavatrice
+    unit_of_measurement: "cicli"
+    min: 0
+    max: 100000
+    step: 1
+
+  lavatrice_consumo_totale:
+    name: Consumo totale lavatrice
+    unit_of_measurement: "kWh"
+    min: 0
+    max: 100000
+    step: 0.001
+
+  lavatrice_costo_totale:
+    name: Costo totale lavatrice
+    unit_of_measurement: "€"
+    min: 0
+    max: 100000
+    step: 0.01
+
+  lavatrice_tempo_totale:
+    name: Tempo totale lavatrice
+    unit_of_measurement: "min"
+    min: 0
+    max: 1000000
+    step: 1
+    
+###############################################################################
+# INPUT BOOLEAN per toggle notifiche
+###############################################################################
+input_boolean:
+  lavatrice_notifiche_abilitate:
+    name: Notifiche Lavatrice
+    icon: mdi:bell-ring
+    initial: true  # Notifiche attive di default
+
+  lavatrice_notifiche_vocali_abilitate:
+    name: Notifiche Vocali Nest Hub
+    icon: mdi:google-assistant
+    initial: true  # Attivo di default
+    
+  lavatrice_notifiche_manutenzione_abilitate:
+    name: Notifiche Manutenzione
+    icon: mdi:tools
+    initial: true
+
+###############################################################################
+# COUNTER dei cicli di lavaggio
+###############################################################################
+counter:
+  lavatrice_cicli_giornalieri:
+    name: Cicli Giornalieri Lavatrice
+    icon: mdi:calendar-today
+    restore: false
+
+  lavatrice_cicli_settimanali:
+    name: Cicli Settimanali Lavatrice
+    icon: mdi:calendar-week
+    restore: false
+
+  lavatrice_cicli_mensili:
+    name: Cicli Mensili Lavatrice
+    icon: mdi:calendar-month
+    restore: false
+
+  lavatrice_cicli_annuali:
+    name: Cicli Annuali Lavatrice
+    icon: mdi:calendar-multiple
+    restore: false
+
+  lavatrice_cicli_totali:
+    name: Cicli lavatrice totali
+    initial: 0
+    step: 1
+
+###############################################################################
+# COUNTER manutenzione
+###############################################################################
+  lavatrice_cicli_da_manutenzione_leggera:
+    name: Cicli da ultima manutenzione leggera
+    icon: mdi:broom
+    initial: 0
+    step: 1
+
+  lavatrice_cicli_da_manutenzione_standard:
+    name: Cicli da ultima manutenzione standard
+    icon: mdi:wrench
+    initial: 0
+    step: 1
+
+  lavatrice_cicli_da_manutenzione_completa:
+    name: Cicli da ultima manutenzione completa
+    icon: mdi:tools
+    initial: 0
+    step: 1
+
+###############################################################################
+# SENSORI TEMPLATE
+###############################################################################
+template:
+  - binary_sensor:
+      - name: "Lavatrice in funzione"
+        unique_id: lavatrice_in_funzione
+        state: "{{ states('sensor.sonoff_1001d8e7f6_power_1') | float(0) > 2 }}"
+        device_class: running
+        icon: >
+          {% if is_state('binary_sensor.lavatrice_in_funzione', 'on') %}
+            mdi:washing-machine
+          {% else %}
+            mdi:washing-machine-off
+          {% endif %}
+
+  - sensor:
+      # Orario e durata ultimo ciclo
+      - name: "Ora ultimo avvio lavatrice"
+        unique_id: ora_ultimo_avvio_lavatrice
+        device_class: timestamp
+        state: >
+          {% set val = states('input_datetime.lavatrice_inizio_programma') %}
+          {{ val if val not in ['unknown', 'unavailable', 'none', 'None'] else none }}
+
+      - name: "Durata ultimo ciclo lavatrice"
+        unique_id: durata_ultimo_ciclo_lavatrice
+        unit_of_measurement: "min"
+        icon: mdi:timer-outline
+        state: >
+          {% set start = states('input_datetime.lavatrice_inizio_programma') %}
+          {% set end = states('input_datetime.lavatrice_fine_programma') %}
+          {% if start not in ['unknown', 'unavailable', 'none', 'None']
+                and end not in ['unknown', 'unavailable', 'none', 'None'] %}
+            {{ ((as_datetime(end) - as_datetime(start)).total_seconds() / 60) | round(0) }}
+          {% else %}
+            0
+          {% endif %}
+
+      # Costo ultimo ciclo
+      - name: "Costo ultimo ciclo lavatrice"
+        unique_id: costo_ultimo_ciclo_lavatrice
+        unit_of_measurement: "€"
+        icon: mdi:currency-eur
+        state: >
+          {% set consumo = states('input_number.lavatrice_consumo_ultimo_ciclo') | float(0) %}
+          {% set prezzo = states('input_number.costo_energia') | float(0) %}
+          {{ (consumo * prezzo) | round(2) if prezzo > 0 else 0.0 }}
+
+      # Costo giornaliero
+      - name: "Costo giornaliero lavatrice"
+        unique_id: costo_giornaliero_lavatrice
+        unit_of_measurement: "€"
+        icon: mdi:currency-eur
+        state: >
+          {% set consumo = states('sensor.lavatrice_consumo_giornaliero') | float(0) %}
+          {% set prezzo = states('input_number.costo_energia') | float(0) %}
+          {{ (consumo * prezzo) | round(2) if prezzo > 0 else 0.0 }}
+
+      # Costo settimanale
+      - name: "Costo settimanale lavatrice"
+        unique_id: costo_settimanale_lavatrice
+        unit_of_measurement: "€"
+        icon: mdi:currency-eur
+        state: >
+          {% set consumo = states('sensor.lavatrice_consumo_settimanale') | float(0) %}
+          {% set prezzo = states('input_number.costo_energia') | float(0) %}
+          {{ (consumo * prezzo) | round(2) if prezzo > 0 else 0.0 }}
+
+      # Costo mensile e annuale
+      - name: "Costo Mensile Lavatrice"
+        unique_id: costo_mensile_lavatrice
+        unit_of_measurement: "€"
+        icon: mdi:calendar-month
+        state: >
+          {% set consumo = states('sensor.consumo_lavatrice_mese') | float(0) %}
+          {% set prezzo = states('input_number.costo_energia') | float(0) %}
+          {{ (consumo * prezzo) | round(2) if prezzo > 0 else 0.0 }}
+
+      - name: "Costo Annuale Lavatrice"
+        unique_id: costo_annuale_lavatrice
+        unit_of_measurement: "€"
+        icon: mdi:calendar
+        state: >
+          {% set consumo = states('sensor.consumo_lavatrice_anno') | float(0) %}
+          {% set prezzo = states('input_number.costo_energia') | float(0) %}
+          {{ (consumo * prezzo) | round(2) if prezzo > 0 else 0.0 }}
+
+      # Sensori cicli
+      - name: "Cicli Lavatrice Oggi"
+        unique_id: cicli_lavatrice_oggi
+        icon: mdi:calendar-today
+        unit_of_measurement: "cicli"
+        state: "{{ states('counter.lavatrice_cicli_giornalieri') | int(0) }}"
+
+      - name: "Cicli Lavatrice Settimana"
+        unique_id: cicli_lavatrice_settimana
+        icon: mdi:calendar-week
+        unit_of_measurement: "cicli"
+        state: "{{ states('counter.lavatrice_cicli_settimanali') | int(0) }}"
+
+      - name: "Cicli Lavatrice Mese"
+        unique_id: cicli_lavatrice_mese
+        icon: mdi:calendar-month
+        unit_of_measurement: "cicli"
+        state: "{{ states('counter.lavatrice_cicli_mensili') | int(0) }}"
+
+      - name: "Cicli Lavatrice Anno"
+        unique_id: cicli_lavatrice_anno
+        icon: mdi:calendar
+        unit_of_measurement: "cicli"
+        state: "{{ states('counter.lavatrice_cicli_annuali') | int(0) }}"
+
+      - name: "Cicli Lavatrice Totali"
+        unique_id: cicli_lavatrice_totali
+        icon: mdi:counter
+        unit_of_measurement: "cicli"
+        state: "{{ states('counter.lavatrice_cicli_totali') | int(0) }}"
+
+      # Sensori consumo
+      - name: "Consumo Lavatrice Oggi"
+        unique_id: consumo_lavatrice_oggi
+        state: "{{ states('sensor.lavatrice_consumo_giornaliero') | float(0) }}"
+        unit_of_measurement: "kWh"
+        icon: mdi:flash
+
+      - name: "Consumo Lavatrice Settimana"
+        unique_id: consumo_lavatrice_settimana
+        state: "{{ states('sensor.lavatrice_consumo_settimanale') | float(0) }}"
+        unit_of_measurement: "kWh"
+        icon: mdi:flash
+
+      - name: "Consumo Lavatrice Mese"
+        unique_id: consumo_lavatrice_mese
+        state: "{{ states('sensor.lavatrice_consumo_mensile') | float(0) }}"
+        unit_of_measurement: "kWh"
+        icon: mdi:flash
+
+      - name: "Consumo Lavatrice Anno"
+        unique_id: consumo_lavatrice_anno
+        state: "{{ states('sensor.lavatrice_consumo_annuale') | float(0) }}"
+        unit_of_measurement: "kWh"
+        icon: mdi:flash
+
+      - name: "Consumo Totale Lavatrice"
+        unique_id: consumo_totale_lavatrice
+        state: "{{ states('input_number.lavatrice_consumo_totale') | float(0) }}"
+        unit_of_measurement: "kWh"
+        icon: mdi:flash
+
+###############################################################################
+# SENSORI TEMPLATE MANUTENZIONE
+###############################################################################
+      - name: "Stato Manutenzione Leggera"
+        unique_id: stato_manutenzione_leggera
+        state: >
+          {% set cicli = states('counter.lavatrice_cicli_da_manutenzione_leggera') | int(0) %}
+          {% if cicli >= 20 %}Necessaria{% elif cicli >= 15 %}In scadenza{% else %}OK{% endif %}
+        icon: >
+          {% set cicli = states('counter.lavatrice_cicli_da_manutenzione_leggera') | int(0) %}
+          {% if cicli >= 20 %}mdi:alert-circle{% elif cicli >= 15 %}mdi:alert{% else %}mdi:check-circle{% endif %}
+
+      - name: "Stato Manutenzione Standard"
+        unique_id: stato_manutenzione_standard
+        state: >
+          {% set cicli = states('counter.lavatrice_cicli_da_manutenzione_standard') | int(0) %}
+          {% if cicli >= 30 %}Necessaria{% elif cicli >= 25 %}In scadenza{% else %}OK{% endif %}
+        icon: >
+          {% set cicli = states('counter.lavatrice_cicli_da_manutenzione_standard') | int(0) %}
+          {% if cicli >= 30 %}mdi:alert-circle{% elif cicli >= 25 %}mdi:alert{% else %}mdi:check-circle{% endif %}
+
+      - name: "Stato Manutenzione Completa"
+        unique_id: stato_manutenzione_completa
+        state: >
+          {% set cicli = states('counter.lavatrice_cicli_da_manutenzione_completa') | int(0) %}
+          {% if cicli >= 50 %}Necessaria{% elif cicli >= 45 %}In scadenza{% else %}OK{% endif %}
+        icon: >
+          {% set cicli = states('counter.lavatrice_cicli_da_manutenzione_completa') | int(0) %}
+          {% if cicli >= 50 %}mdi:alert-circle{% elif cicli >= 45 %}mdi:alert{% else %}mdi:check-circle{% endif %}
+
+###############################################################################
+# AUTOMAZIONI
+###############################################################################
+automation:
+  # Inizio lavaggio
+  - alias: "Lavatrice - Inizio lavaggio"
+    id: lavatrice_inizio_lavaggio
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.lavatrice_in_funzione
+        from: "off"
+        to: "on"
+    action:
+      # Salva l'orario di inizio ciclo
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.lavatrice_inizio_programma
+        data:
+          datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+      # Reset del contatore utility meter
+      - service: utility_meter.reset
+        target:
+          entity_id: utility_meter.lavatrice_ciclo
+
+  # Fine lavaggio
+  - alias: "Lavatrice - Fine lavaggio"
+    id: lavatrice_fine_lavaggio
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.lavatrice_in_funzione
+        from: "on"
+        to: "off"
+        for:
+          minutes: 2
+    action:
+      # Salva consumo ultimo ciclo dall'utility meter
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.lavatrice_consumo_ultimo_ciclo
+        data:
+          value: "{{ states('sensor.lavatrice_ciclo') | float(0) }}"
+      # Salva orario fine ciclo
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.lavatrice_fine_programma
+        data:
+          datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+      # Incrementa contatori periodici
+      - service: counter.increment
+        target:
+          entity_id:
+            - counter.lavatrice_cicli_giornalieri
+            - counter.lavatrice_cicli_settimanali
+            - counter.lavatrice_cicli_mensili
+            - counter.lavatrice_cicli_annuali
+            - counter.lavatrice_cicli_totali
+            - counter.lavatrice_cicli_da_manutenzione_leggera
+            - counter.lavatrice_cicli_da_manutenzione_standard
+            - counter.lavatrice_cicli_da_manutenzione_completa
+      # Aggiorna totali cumulativi
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.lavatrice_consumo_totale
+        data:
+          value: >
+            {{ states('input_number.lavatrice_consumo_totale') | float(0)
+               + states('input_number.lavatrice_consumo_ultimo_ciclo') | float(0) }}
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.lavatrice_costo_totale
+        data:
+          value: >
+            {{ states('input_number.lavatrice_costo_totale') | float(0)
+               + states('sensor.costo_ultimo_ciclo_lavatrice') | float(0) }}
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.lavatrice_tempo_totale
+        data:
+          value: >
+            {{ states('input_number.lavatrice_tempo_totale') | float(0)
+               + states('sensor.durata_ultimo_ciclo_lavatrice') | float(0) }}
+      # Notifica vocale e aumento temporaneo volume
+      - variables:
+          volume_attuale: "{{ state_attr('media_player.nesthube6f7', 'volume_level') | float(0.3) }}"
+      - service: media_player.volume_set
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          volume_level: 0.7
+      - service: tts.cloud_say
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          message: >
+            {{ [
+              "Il lavaggio è terminato.",
+              "La lavatrice ha concluso il ciclo.",
+              "Il programma è completato."
+            ] | random }}
+            Il consumo dell'ultimo lavaggio è stato di 
+            {{ states('input_number.lavatrice_consumo_ultimo_ciclo') | float(0) | round(2) }} kilowattora,
+            per un costo stimato di 
+            {{ states('sensor.costo_ultimo_ciclo_lavatrice') | float(0) | round(2) }} euro.
+            Ricordati di svuotare il cestello!
+          language: "it-IT"
+      - delay: "00:00:05"
+      - service: media_player.volume_set
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          volume_level: "{{ volume_attuale }}"
+      # Notifica push
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "Lavatrice"
+          message: >
+            Il ciclo della lavatrice è terminato!
+            Consumo: {{ states('input_number.lavatrice_consumo_ultimo_ciclo') }} kWh
+            Costo: {{ states('sensor.costo_ultimo_ciclo_lavatrice') }} €
+  # Reset contatori giornalieri
+  - alias: "Lavatrice - Reset contatore giornaliero"
+    id: lavatrice_reset_giornaliero
+    trigger:
+      - platform: time
+        at: "00:00:00"
+    action:
+      - service: counter.reset
+        target:
+          entity_id: counter.lavatrice_cicli_giornalieri
+
+  # Reset contatore settimanale (Lunedì)
+  - alias: "Lavatrice - Reset contatore settimanale"
+    id: lavatrice_reset_settimanale
+    trigger:
+      - platform: time
+        at: "00:00:00"
+    condition:
+      - condition: template
+        value_template: "{{ now().weekday() == 0 }}"
+    action:
+      - service: counter.reset
+        target:
+          entity_id: counter.lavatrice_cicli_settimanali
+
+  # Reset contatore mensile (1° giorno del mese)
+  - alias: "Lavatrice - Reset contatore mensile"
+    id: lavatrice_reset_mensile
+    trigger:
+      - platform: time
+        at: "00:00:00"
+    condition:
+      - condition: template
+        value_template: "{{ now().day == 1 }}"
+    action:
+      - service: counter.reset
+        target:
+          entity_id: counter.lavatrice_cicli_mensili
+
+  # Reset contatore annuale (1° gennaio)
+  - alias: "Lavatrice - Reset contatore annuale"
+    id: lavatrice_reset_annuale
+    trigger:
+      - platform: time
+        at: "00:00:00"
+    condition:
+      - condition: template
+        value_template: "{{ now().month == 1 and now().day == 1 }}"
+    action:
+      - service: counter.reset
+        target:
+          entity_id: counter.lavatrice_cicli_annuali
+
+###############################################################################
+# AUTOMAZIONI manutenzione
+###############################################################################
+  # Alert Manutenzione Leggera
+  - alias: "Lavatrice - Alert Manutenzione Leggera"
+    id: lavatrice_alert_manutenzione_leggera
+    trigger:
+      - platform: numeric_state
+        entity_id: counter.lavatrice_cicli_da_manutenzione_leggera
+        above: 19
+    condition:
+      - condition: state
+        entity_id: input_boolean.lavatrice_notifiche_manutenzione_abilitate
+        state: 'on'
+    action:
+      # Notifica push
+      - condition: state
+        entity_id: input_boolean.lavatrice_notifiche_abilitate
+        state: 'on'
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "🧹 Lavatrice - Manutenzione"
+          message: "È ora di fare la manutenzione leggera! (Pulizia guarnizione + vaschetta)"
+      # Notifica vocale
+      - condition: state
+        entity_id: input_boolean.lavatrice_notifiche_vocali_abilitate
+        state: 'on'
+      - service: tts.cloud_say
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          message: "Attenzione: è ora di fare la manutenzione leggera della lavatrice."
+          language: "it-IT"
+
+  # Alert Manutenzione Standard
+  - alias: "Lavatrice - Alert Manutenzione Standard"
+    id: lavatrice_alert_manutenzione_standard
+    trigger:
+      - platform: numeric_state
+        entity_id: counter.lavatrice_cicli_da_manutenzione_standard
+        above: 29
+    condition:
+      - condition: state
+        entity_id: input_boolean.lavatrice_notifiche_manutenzione_abilitate
+        state: 'on'
+    action:
+      # Notifica push
+      - condition: state
+        entity_id: input_boolean.lavatrice_notifiche_abilitate
+        state: 'on'
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "🔧 Lavatrice - Manutenzione"
+          message: "È ora di fare la manutenzione standard! (Pulizia filtro + ciclo pulizia cestello)"
+      # Notifica vocale
+      - condition: state
+        entity_id: input_boolean.lavatrice_notifiche_vocali_abilitate
+        state: 'on'
+      - service: tts.cloud_say
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          message: "Attenzione: è ora di fare la manutenzione standard della lavatrice."
+          language: "it-IT"
+
+  # Alert Manutenzione Completa
+  - alias: "Lavatrice - Alert Manutenzione Completa"
+    id: lavatrice_alert_manutenzione_completa
+    trigger:
+      - platform: numeric_state
+        entity_id: counter.lavatrice_cicli_da_manutenzione_completa
+        above: 49
+    condition:
+      - condition: state
+        entity_id: input_boolean.lavatrice_notifiche_manutenzione_abilitate
+        state: 'on'
+    action:
+      # Notifica push
+      - condition: state
+        entity_id: input_boolean.lavatrice_notifiche_abilitate
+        state: 'on'
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "⚠️ Lavatrice - Manutenzione"
+          message: "È ora di fare la manutenzione completa! (Decalcificazione + controllo tubi)"
+      # Notifica vocale
+      - condition: state
+        entity_id: input_boolean.lavatrice_notifiche_vocali_abilitate
+        state: 'on'
+      - service: tts.cloud_say
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          message: "Attenzione: è ora di fare la manutenzione completa della lavatrice, con decalcificazione."
+          language: "it-IT"
+
+###############################################################################
+# SCRIPT - Popup orizzontale lavatrice
+###############################################################################
+script:
+  lavatrice_popup:
+    alias: "Mostra popup lavatrice"
+    sequence:
+      - action: browser_mod.popup
+        data:
+          size: normal
+          timeout: 0
+          content:
+            type: entities
+            card_mod:
+              style: |
+                .card-header {
+                  padding: 0px !important;
+                }
+            show_header_toggle: false
+            entities:
+              - type: section
+                label: Lavatrice BEKO WTX91232WI
+              - type: custom:hui-element
+                card_type: vertical-stack
+                cards:
+                  - type: horizontal-stack
+                    cards:
+                      - type: picture-entity
+                        entity: binary_sensor.lavatrice_in_funzione
+                        show_name: false
+                        show_state: false
+                        fit_mode: contain
+                        state_image:
+                          "on": /local/elettrodomestici/lavatrice_on.gif
+                          "off": /local/elettrodomestici/lavatrice_off.png
+                        card_mod:
+                          style: |
+                            ha-card {
+                              --ha-card-border-width: 0px;
+                              margin: 0px;
+                              padding: 10px;
+                              background: none;
+                              {% if is_state('binary_sensor.lavatrice_in_funzione', 'on') %}
+                                filter: drop-shadow(0 0 15px rgba(33, 150, 243, 0.6));
+                                animation: pulse 2s ease-in-out infinite;
+                              {% endif %}
+                            }
+                            @keyframes pulse {
+                              0%, 100% { filter: drop-shadow(0 0 10px rgba(33, 150, 243, 0.4)); }
+                              50% { filter: drop-shadow(0 0 20px rgba(33, 150, 243, 0.8)); }
+                            }
+
+                      - type: vertical-stack
+                        cards:
+                          - type: custom:button-card
+                            entity: input_datetime.lavatrice_inizio_programma
+                            icon: mdi:clock-start
+                            show_name: false
+                            show_icon: true
+                            show_state: true
+                            show_label: true
+                            label: >
+                              [[[ 
+                                const e = states['input_datetime.lavatrice_inizio_programma'];
+                                if (!e || e.state === 'unknown' || e.state === '') return '-';
+                                const d = new Date(e.state.replace(' ', 'T'));
+                                return d.toLocaleDateString('it-IT') + ' ' + d.toLocaleTimeString('it-IT', {hour:'2-digit', minute:'2-digit'});
+                              ]]]
+                            state_display: 'Inizio ultimo ciclo'
+                            styles:
+                              grid:
+                                - grid-template-areas: '"i l" "i s"'
+                                - grid-template-columns: 40px 1fr
+                                - grid-template-rows: auto auto
+                                - row-gap: 2px
+                              card:
+                                - "--ha-card-background": rgba(0,0,0,0)
+                                - "--ha-card-box-shadow": none
+                                - padding: 8px
+                                - height: auto
+                              icon:
+                                - color: var(--primary-text-color)
+                                - width: 30px
+                                - height: 30px
+                              label:
+                                - font-size: 14px
+                                - justify-self: start
+                                - white-space: nowrap
+                                - color: >
+                                    [[[
+                                      const e = states['input_datetime.lavatrice_inizio_programma'];
+                                      if (!e || e.state === 'unknown' || e.state === '') return 'var(--secondary-text-color)';
+                                      return 'var(--primary-text-color)';
+                                    ]]]
+                              state:
+                                - font-size: 12px
+                                - justify-self: start
+                                - color: var(--secondary-text-color)
+
+                          - type: custom:button-card
+                            entity: input_datetime.lavatrice_fine_programma
+                            icon: mdi:clock-end
+                            show_name: false
+                            show_icon: true
+                            show_state: true
+                            show_label: true
+                            label: >
+                              [[[ 
+                                const e = states['input_datetime.lavatrice_fine_programma'];
+                                if (!e || e.state === 'unknown' || e.state === '') return '-';
+                                const d = new Date(e.state.replace(' ', 'T'));
+                                return d.toLocaleDateString('it-IT') + ' ' + d.toLocaleTimeString('it-IT',{hour:'2-digit', minute:'2-digit'});
+                              ]]]
+                            state_display: 'Fine ultimo ciclo'
+                            styles:
+                              grid:
+                                - grid-template-areas: '"i l" "i s"'
+                                - grid-template-columns: 40px 1fr
+                                - grid-template-rows: auto auto
+                                - row-gap: 2px
+                              card:
+                                - "--ha-card-background": rgba(0,0,0,0)
+                                - "--ha-card-box-shadow": none
+                                - padding: 8px
+                                - height: auto
+                              icon:
+                                - color: var(--primary-text-color)
+                                - width: 30px
+                                - height: 30px
+                              label:
+                                - font-size: 14px
+                                - justify-self: start
+                                - white-space: nowrap
+                              state:
+                                - font-size: 12px
+                                - justify-self: start
+                                - color: var(--secondary-text-color)
+
+                          - type: custom:button-card
+                            entity: sensor.durata_ultimo_ciclo_lavatrice
+                            icon: mdi:timer-outline
+                            show_name: false
+                            show_icon: true
+                            show_state: true
+                            show_label: true
+                            label: >
+                              [[[ 
+                                const e = states['sensor.durata_ultimo_ciclo_lavatrice'];
+                                if (!e || e.state === 'unknown' || e.state === '' || e.state === 'unavailable' || e.state === '0') return '-';
+                                const minuti = parseInt(e.state);
+                                if (isNaN(minuti) || minuti === 0) return '-';
+                                const ore = Math.floor(minuti / 60);
+                                const min = minuti % 60;
+                                if (ore > 0) return ore + 'h ' + min + 'min';
+                                return min + ' min';
+                              ]]]
+                            state_display: 'Durata ultimo ciclo'
+                            styles:
+                              grid:
+                                - grid-template-areas: '"i l" "i s"'
+                                - grid-template-columns: 40px 1fr
+                                - grid-template-rows: auto auto
+                                - row-gap: 2px
+                              card:
+                                - "--ha-card-background": rgba(0,0,0,0)
+                                - "--ha-card-box-shadow": none
+                                - padding: 8px
+                                - height: auto
+                              icon:
+                                - color: var(--primary-text-color)
+                                - width: 30px
+                                - height: 30px
+                              label:
+                                - font-size: 14px
+                                - justify-self: start
+                                - white-space: nowrap
+                              state:
+                                - font-size: 12px
+                                - justify-self: start
+                                - color: var(--secondary-text-color)
+
+                          - type: custom:button-card
+                            entity: input_number.lavatrice_consumo_ultimo_ciclo
+                            icon: mdi:flash
+                            show_name: false
+                            show_icon: true
+                            show_state: true
+                            show_label: true
+                            label: >
+                              [[[ return states['input_number.lavatrice_consumo_ultimo_ciclo'].state + ' kWh'; ]]]
+                            state_display: 'Ultimo consumo'
+                            styles:
+                              grid:
+                                - grid-template-areas: '"i l" "i s"'
+                                - grid-template-columns: 40px 1fr
+                                - grid-template-rows: auto auto
+                                - row-gap: 2px
+                              card:
+                                - "--ha-card-background": rgba(0,0,0,0)
+                                - "--ha-card-box-shadow": none
+                                - padding: 8px
+                                - height: auto
+                              icon:
+                                - color: var(--primary-text-color)
+                                - width: 30px
+                                - height: 30px
+                              label:
+                                - font-size: 14px
+                                - justify-self: start
+                                - white-space: nowrap
+                              state:
+                                - font-size: 12px
+                                - justify-self: start
+                                - color: var(--secondary-text-color)
+
+                          - type: custom:button-card
+                            entity: sensor.costo_ultimo_ciclo_lavatrice
+                            icon: mdi:currency-eur
+                            show_name: false
+                            show_icon: true
+                            show_state: true
+                            show_label: true
+                            label: >
+                              [[[ return states['sensor.costo_ultimo_ciclo_lavatrice'].state + ' €'; ]]]
+                            state_display: 'Costo ultimo ciclo'
+                            styles:
+                              grid:
+                                - grid-template-areas: '"i l" "i s"'
+                                - grid-template-columns: 40px 1fr
+                                - grid-template-rows: auto auto
+                                - row-gap: 2px
+                              card:
+                                - "--ha-card-background": rgba(0,0,0,0)
+                                - "--ha-card-box-shadow": none
+                                - padding: 8px
+                                - height: auto
+                              icon:
+                                - color: var(--primary-text-color)
+                                - width: 30px
+                                - height: 30px
+                              label:
+                                - font-size: 14px
+                                - justify-self: start
+                                - white-space: nowrap
+                              state:
+                                - font-size: 12px
+                                - justify-self: start
+                                - color: var(--secondary-text-color)
+
+                  - type: custom:bar-card
+                    entity: sensor.sonoff_1001d8e7f6_power_1
+                    name: Consumo Istantaneo
+                    max: 2000
+                    unit_of_measurement: W
+                    show_icon: true
+                    align: split
+                    columns: 1
+                    positions:
+                      icon: inside
+                      indicator: inside
+                      name: inside
+                      value: inside
+                    severity:
+                      - color: "#00e676"
+                        from: 0
+                        to: 5
+                      - color: "#1e90ff"
+                        from: 6
+                        to: 600
+                      - color: "#ff9800"
+                        from: 601
+                        to: 1000
+                      - color: "#f44336"
+                        from: 1001
+                        to: 4000
+                    animation:
+                      - state: "on"
+                        color: "#ffa500"
+                    card_mod:
+                      style: |
+                        ha-card {
+                          --ha-card-background: rgba(0,0,0,0);
+                          --ha-card-box-shadow: none;
+                        }
+                        bar-card-currentbar, bar-card-backgroundbar {
+                          border-radius: 10px !important;
+                        }
+                        bar-card-currentbar {
+                          background: linear-gradient(90deg, 
+                            var(--bar-color) 0%, 
+                            var(--bar-color) 100%) !important;
+                          box-shadow: 0 0 10px var(--bar-color) !important;
+                          transition: all 0.3s ease !important;
+                        }
+
+                  ###############################################################################
+                  # PULSANTI Popup
+                  ###############################################################################
+
+                  - type: custom:paper-buttons-row
+                    buttons:
+                      # ----------------- Impostazioni -----------------
+                      - icon: hass:cog-outline
+                        tap_action:
+                          action: fire-dom-event
+                          browser_mod:
+                            service: browser_mod.popup
+                            data:
+                              title: Impostazioni
+                              style: |
+                                --popup-background-color: var(--secondary-background-color);
+                                --dialog-backdrop-filter: blur(2em) brightness(0.75);
+                              content:
+                                type: vertical-stack
+                                cards:
+                                  - type: entities
+                                    entities:
+                                      - entity: switch.sonoff_1001d8e7f6_1
+                                        name: Alimentazione Lavatrice
+                                        icon: mdi:power-socket-eu
+                                      - entity: binary_sensor.lavatrice_in_funzione
+                                      - type: divider
+                                      - entity: input_boolean.lavatrice_notifiche_abilitate
+                                        name: Notifiche Push
+                                        icon: mdi:cellphone-message
+                                      - entity: input_boolean.lavatrice_notifiche_vocali_abilitate
+                                        name: Notifiche Vocali Nest Hub
+                                        icon: mdi:google-assistant
+                                      - entity: input_boolean.lavatrice_notifiche_manutenzione_abilitate
+                                        name: Alert Manutenzione
+                                        icon: mdi:tools
+                                      - type: divider
+                                      - entity: input_number.costo_energia
+                                      - type: divider
+                                      
+                                      # SEZIONE MANUTENZIONE 👇
+                                      - type: section
+                                        label: 🔧 Stato Manutenzioni
+                                      - entity: sensor.stato_manutenzione_leggera
+                                        name: Manutenzione Leggera
+                                        secondary_info: >
+                                          {{ states('counter.lavatrice_cicli_da_manutenzione_leggera') }}/20 cicli
+                                      - entity: sensor.stato_manutenzione_standard
+                                        name: Manutenzione Standard
+                                        secondary_info: >
+                                          {{ states('counter.lavatrice_cicli_da_manutenzione_standard') }}/30 cicli
+                                      - entity: sensor.stato_manutenzione_completa
+                                        name: Manutenzione Completa
+                                        secondary_info: >
+                                          {{ states('counter.lavatrice_cicli_da_manutenzione_completa') }}/50 cicli
+                                      - type: divider
+                                      
+                                      - type: button
+                                        name: Reset Statistiche Totali
+                                        icon: mdi:refresh
+                                        action_name: RESET
+                                        tap_action:
+                                          action: call-service
+                                          service: script.lavatrice_reset_totali
+                                          confirmation:
+                                            text: "Sei sicuro di voler azzerare tutte le statistiche totali?"
+                                  
+                                  - type: custom:paper-buttons-row
+                                    buttons:
+                                      - icon: mdi:arrow-left
+                                        name: Indietro
+                                        tap_action:
+                                          action: call-service
+                                          service: script.lavatrice_popup
+                                        style:
+                                          button:
+                                            width: 100%
+
+                      # ----------------- Popup Statistiche Lavatrice -----------------
+                      - icon: hass:chart-bar
+                        tap_action:
+                          action: fire-dom-event
+                          browser_mod:
+                            service: browser_mod.popup
+                            data:
+                              title: Statistiche Lavatrice
+                              style: |
+                                --popup-background-color: var(--secondary-background-color);
+                                --dialog-backdrop-filter: blur(2em) brightness(0.75);
+                              content:
+                                type: vertical-stack
+                                cards:
+                                  - type: custom:swipe-card
+                                    start_card: 0
+                                    parameters:
+                                      grabCursor: true
+                                      spaceBetween: 10
+                                      effect: slide
+                                    cards:
+                        
+                                      # ----------------- Scheda 1: Statistiche Testuali -----------------
+                                      - type: markdown
+                                        content: |
+                                          ## 📊 Statistiche Consumo Lavatrice
+                                            
+                                          ### Oggi
+                                          - **Cicli:** {{ states('sensor.cicli_lavatrice_oggi') }}
+                                          - **Consumo:** {{ states('sensor.consumo_lavatrice_oggi') }} kWh
+                                          - **Costo:** {{ states('sensor.costo_giornaliero_lavatrice') }} €
+                                                
+                                          ### Settimana
+                                          - **Cicli:** {{ states('sensor.cicli_lavatrice_settimana') }}
+                                          - **Consumo:** {{ states('sensor.consumo_lavatrice_settimana') }} kWh
+                                          - **Costo:** {{ states('sensor.costo_settimanale_lavatrice') }} €
+                                                
+                                          ### Mese
+                                          - **Cicli:** {{ states('sensor.cicli_lavatrice_mese') }}
+                                          - **Consumo:** {{ states('sensor.consumo_lavatrice_mese') }} kWh
+                                          - **Costo:** {{ states('sensor.costo_mensile_lavatrice') }} €
+                                                
+                                          ### Anno
+                                          - **Cicli:** {{ states('sensor.cicli_lavatrice_anno') }}
+                                          - **Consumo:** {{ states('sensor.consumo_lavatrice_anno') }} kWh
+                                          - **Costo:** {{ states('sensor.costo_annuale_lavatrice') }} €
+                                                
+                                          ---
+                                                
+                                          ### 🏆 Totali Assoluti
+                                          - **Cicli totali:** {{ states('sensor.cicli_lavatrice_totali') }}
+                                          - **Consumo totale:** {{ states('sensor.consumo_totale_lavatrice') }} kWh
+                                          - **Costo totale:** {{ states('input_number.lavatrice_costo_totale') }} €
+                                          - **Tempo totale:** {{ (states('input_number.lavatrice_tempo_totale') | float / 60) | round(1) }} ore
+
+                                      # ----------------- Scheda 2: Grafici MENSILI -----------------
+                                      - type: vertical-stack
+                                        cards:
+                                          - type: custom:apexcharts-card
+                                            header:
+                                              show: true
+                                              title: "📈 Consumo Mese Corrente"
+                                            graph_span: 31d
+                                            span:
+                                              start: month
+                                            series:
+                                              - entity: sensor.lavatrice_consumo_giornaliero
+                                                name: Consumo Giornaliero (kWh)
+                                                type: column
+                                                group_by:
+                                                  func: max
+                                                  duration: 1d
+                                            apex_config:
+                                              chart:
+                                                height: 260
+                                              plotOptions:
+                                                bar:
+                                                  borderRadius: 6
+                                              xaxis:
+                                                labels:
+                                                  show: true
+                                            yaxis:
+                                              - decimals: 2
+                                                min: 0
+                       
+                                          - type: custom:apexcharts-card
+                                            header:
+                                              show: true
+                                              title: "💶 Costo Mese Corrente"
+                                            graph_span: 31d
+                                            span:
+                                              start: month
+                                            series:
+                                              - entity: sensor.costo_giornaliero_lavatrice
+                                                name: Costo Giornaliero (€)
+                                                type: column
+                                                group_by:
+                                                  func: max
+                                                  duration: 1d
+                                            apex_config:
+                                              chart:
+                                                height: 260
+                                              plotOptions:
+                                                bar:
+                                                  borderRadius: 6
+                                              xaxis:
+                                                labels:
+                                                  show: true
+                                            yaxis:
+                                              - decimals: 2
+                                                min: 0
+                        
+                                      # ----------------- Scheda 3: Grafici ANNUALI -----------------
+                                      - type: vertical-stack
+                                        cards:
+                                          - type: custom:apexcharts-card
+                                            header:
+                                              show: true
+                                              title: "📅 Consumo Storico Annuale"
+                                            graph_span: 10y
+                                            series:
+                                              - entity: sensor.lavatrice_consumo_annuale
+                                                name: Consumo Annuale (kWh)
+                                                type: column
+                                                group_by:
+                                                  func: last
+                                                  duration: 1y
+                                            apex_config:
+                                              chart:
+                                                height: 260
+                                              plotOptions:
+                                                bar:
+                                                  borderRadius: 6
+                                              xaxis:
+                                                labels:
+                                                  show: true
+                                            yaxis:
+                                              - decimals: 2
+                                                min: 0
+                        
+                                          - type: custom:apexcharts-card
+                                            header:
+                                              show: true
+                                              title: "🏦 Costo Storico Annuale"
+                                            graph_span: 10y
+                                            series:
+                                              - entity: sensor.costo_annuale_lavatrice
+                                                name: Costo Annuale (€)
+                                                type: column
+                                                group_by:
+                                                  func: last
+                                                  duration: 1y
+                                            apex_config:
+                                              chart:
+                                                height: 260
+                                              plotOptions:
+                                                bar:
+                                                  borderRadius: 6
+                                              xaxis:
+                                                labels:
+                                                  show: true
+                                            yaxis:
+                                              - decimals: 2
+                                                min: 0
+                        
+                                  # ----------------- Pulsante "Indietro" -----------------
+                                  - type: custom:paper-buttons-row
+                                    buttons:
+                                      - icon: mdi:arrow-left
+                                        name: Indietro
+                                        tap_action:
+                                          action: call-service
+                                          service: script.lavatrice_popup
+                                        style:
+                                          button:
+                                            width: 100%
+
+                      # ----------------- Manutenzione -----------------
+                      - icon: hass:tools
+                        tap_action:
+                          action: fire-dom-event
+                          browser_mod:
+                            service: browser_mod.popup
+                            data:
+                              title: Manutenzione Lavatrice
+                              size: wide
+                              style: |
+                                --popup-background-color: var(--secondary-background-color);
+                                --dialog-backdrop-filter: blur(2em) brightness(0.75);
+                                --popup-max-width: 1000px;
+                                --popup-min-height: 600px;
+                              content:
+                                type: vertical-stack
+                                cards:
+                        
+                                  # ----------------- CONTENUTO A 3 COLONNE -----------------
+                                  - type: grid
+                                    columns: 3
+                                    square: false
+                                    cards:
+                        
+                                      # ⭐ COLONNA 1 — Leggera
+                                      - type: entities
+                                        entities:
+                                          - type: section
+                                            label: 🧹 Manutenzione Leggera (ogni 20 cicli)
+                                          - entity: counter.lavatrice_cicli_da_manutenzione_leggera
+                                            name: Cicli dall'ultima manutenzione
+                                            icon: mdi:counter
+                                          - entity: sensor.stato_manutenzione_leggera
+                                            name: Stato
+                                          - type: button
+                                            name: Pulizia guarnizione + vaschetta
+                                            icon: mdi:broom
+                                            action_name: FATTO
+                                            tap_action:
+                                              action: call-service
+                                              service: script.lavatrice_manutenzione_leggera_completata
+                        
+                                      # ⭐ COLONNA 2 — Standard
+                                      - type: entities
+                                        entities:
+                                          - type: section
+                                            label: 🔧 Manutenzione Standard (ogni 30 cicli)
+                                          - entity: counter.lavatrice_cicli_da_manutenzione_standard
+                                            name: Cicli dall'ultima manutenzione
+                                            icon: mdi:counter
+                                          - entity: sensor.stato_manutenzione_standard
+                                            name: Stato
+                                          - type: button
+                                            name: Pulizia filtro + ciclo cestello
+                                            icon: mdi:wrench
+                                            action_name: FATTO
+                                            tap_action:
+                                              action: call-service
+                                              service: script.lavatrice_manutenzione_standard_completata
+                        
+                                      # ⭐ COLONNA 3 — Completa
+                                      - type: entities
+                                        entities:
+                                          - type: section
+                                            label: ⚙️ Manutenzione Completa (ogni 50 cicli)
+                                          - entity: counter.lavatrice_cicli_da_manutenzione_completa
+                                            name: Cicli dall'ultima manutenzione
+                                            icon: mdi:counter
+                                          - entity: sensor.stato_manutenzione_completa
+                                            name: Stato
+                                          - type: button
+                                            name: Decalcificazione + controllo tubi
+                                            icon: mdi:tools
+                                            action_name: FATTO
+                                            tap_action:
+                                              action: call-service
+                                              service: script.lavatrice_manutenzione_completa_completata
+
+                                  # --- SPACER ---
+                                  - type: custom:button-card
+                                    color_type: blank-card
+                                    styles:
+                                      card:
+                                        - height: 10px
+
+                                  # ----------------- FOOTER: INDietro / GUIDA -----------------
+                                  - type: horizontal-stack
+                                    cards:
+                        
+                                      # Pulsante INDietro a sinistra
+                                      - type: custom:paper-buttons-row
+                                        buttons:
+                                          - icon: mdi:arrow-left
+                                            name: Indietro
+                                            tap_action:
+                                              action: call-service
+                                              service: script.lavatrice_popup
+                                            style:
+                                              button:
+                                                width: 100%
+                        
+                                      # Spazio centrale vuoto
+                                      - type: custom:button-card
+                                        color_type: blank
+
+                                         # Pulsante GUIDA a destra
+                                      - type: custom:paper-buttons-row
+                                        buttons:
+                                          - icon: mdi:book-open-variant
+                                            name: GUIDA
+                                            tap_action:
+                                              action: fire-dom-event
+                                              browser_mod:
+                                                service: browser_mod.popup
+                                                data:
+                                                  title: Guida Manutenzione
+                                                  size: normal
+                                                  style: |
+                                                    --popup-background-color: var(--secondary-background-color);
+                                                    --dialog-backdrop-filter: blur(2em) brightness(0.85);
+                                                    --popup-max-width: 700px;
+                                                    --popup-min-height: 420px;
+                                                  content:
+                                                    type: vertical-stack
+                                                    cards:
+                                                      # ----------------- CONTENUTO GUIDA -----------------
+                                                      - type: markdown
+                                                        content: |
+                                                          ## 📋 Guida Manutenzione
+                                        
+                                                          **🧹 Leggera**
+                                                          - Pulire guarnizione oblò con panno e aceto  
+                                                          - Lavare vaschetta detersivo  
+                                        
+                                                          **🔧 Standard**
+                                                          - Pulire filtro di scarico  
+                                                          - Ciclo vuoto 90°C con acido citrico  
+                                        
+                                                          **⚙️ Completa**
+                                                          - Decalcificazione completa  
+                                                          - Controllare tubi e raccordi
+                                        
+                                                      # ----------------- PULSANTE INDIETRO -----------------
+                                                      - type: custom:paper-buttons-row
+                                                        buttons:
+                                                          - icon: mdi:arrow-left
+                                                            name: Indietro
+                                                            tap_action:
+                                                              action: call-service
+                                                              service: script.lavatrice_popup                                                          
+
+                      # ----------------- Info Package -----------------
+                      - icon: hass:information-outline
+                        tap_action:
+                          action: fire-dom-event
+                          browser_mod:
+                            service: browser_mod.popup
+                            data:
+                              title: Info Package
+                              style: |
+                                --popup-background-color: var(--secondary-background-color);
+                                --dialog-backdrop-filter: blur(2em) brightness(0.75);
+                              content:
+                                type: vertical-stack
+                                cards:
+                                  - type: markdown
+                                    content: |
+                                      # 🏠 Controllo Elettrodomestici
+                                      
+                                      ## 📦 Package Lavatrice
+                                      Monitoraggio completo dei consumi e statistiche della lavatrice
+                                      
+                                      ### ✨ Funzionalità:
+                                      - Tracciamento cicli di lavaggio
+                                      - Monitoraggio consumo energetico in tempo reale
+                                      - Calcolo automatico dei costi
+                                      - Statistiche giornaliere, settimanali, mensili e annuali
+                                      - Storico completo dei cicli
+                                      
+                                      ---
+                                      
+                                      ### 📺 Seguimi su YouTube!
+                                      
+                                      Per altri progetti, tutorial e guide sulla domotica, visita il mio canale:
+                                      
+                                      **[SmartHome Project](https://www.youtube.com/channel/UCqftpsaHHm0PCle6vpMvxOg)**
+                                      
+                                      🔔 Iscriviti per non perdere i nuovi video!
+                                      
+                                      ---
+                                      
+                                      💡 *Package creato con Home Assistant*
+                                  
+                                  - type: custom:paper-buttons-row
+                                    buttons:
+                                      - icon: mdi:arrow-left
+                                        name: Indietro
+                                        tap_action:
+                                          action: call-service
+                                          service: script.lavatrice_popup
+                                        style:
+                                          button:
+                                            width: 100
+###############################################################################
+# RESET STATISTICHE TOTALI
+###############################################################################
+  lavatrice_reset_totali:
+    alias: "Reset Statistiche Totali Lavatrice"
+    sequence:
+      - service: input_number.set_value
+        target:
+          entity_id:
+            - input_number.lavatrice_consumo_totale
+            - input_number.lavatrice_costo_totale
+            - input_number.lavatrice_tempo_totale
+        data:
+          value: 0
+      - service: counter.reset
+        target:
+          entity_id: counter.lavatrice_cicli_totali
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "Lavatrice"
+          message: "Statistiche totali azzerate con successo!"
+
+###############################################################################
+# MANUTENZIONI COMPLETE
+###############################################################################          
+  lavatrice_manutenzione_leggera_completata:
+    alias: "Manutenzione Leggera Completata"
+    sequence:
+      - service: counter.reset
+        target:
+          entity_id: counter.lavatrice_cicli_da_manutenzione_leggera
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "🧹 Lavatrice"
+          message: "Manutenzione leggera registrata! Prossima tra 20 cicli."
+
+  lavatrice_manutenzione_standard_completata:
+    alias: "Manutenzione Standard Completata"
+    sequence:
+      - service: counter.reset
+        target:
+          entity_id: counter.lavatrice_cicli_da_manutenzione_standard
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "🔧 Lavatrice"
+          message: "Manutenzione standard registrata! Prossima tra 30 cicli."
+
+  lavatrice_manutenzione_completa_completata:
+    alias: "Manutenzione Completa Completata"
+    sequence:
+      - service: counter.reset
+        target:
+          entity_id: counter.lavatrice_cicli_da_manutenzione_completa
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "⚙️ Lavatrice"
+          message: "Manutenzione completa registrata! Prossima tra 50 cicli."

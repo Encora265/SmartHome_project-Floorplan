@@ -1,0 +1,101 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: ""
+    dismissable: true
+    timeout: 0
+    size: normal
+    style: |
+      :host {
+        --mdc-dialog-scrim-color: transparent !important;
+        background: transparent !important;
+        box-shadow: none !important;
+      }
+    card_mod:
+      style:
+        ha-dialog:
+          $: |
+            .mdc-dialog__container {
+              overflow: hidden !important;   /* elimina scrollbar */
+              background: transparent !important;
+            }
+            .mdc-dialog__surface {
+              overflow: hidden !important;   /* popup fisso */
+              background: transparent !important;
+              box-shadow: none !important;
+              max-width: 400px !important;   /* regola larghezza */
+              max-height: 600px !important;  /* regola altezza */
+            }
+    content:
+      type: picture-elements
+      image: /local/philips.png
+      card_mod:
+        style: |
+          ha-card {
+            transform: scale(0.6);  /* riduce dimensioni */
+            transform-origin: top center;
+            overflow: hidden !important; /* ulteriore blocco scroll */
+          }
+      elements:
+
+             ######### CANALI ##########
+
+        # Pulsante canale ⬆️
+        - type: image
+          image: /local/transparent.png
+          tap_action:
+            action: remote.send_command
+            data:
+              device_id: 55bdb5de160806071bdc3eb784457eb0
+              command: ChannelStepUp
+          style:
+            top: 28%
+            left: 50%
+            width: 15%
+            # border: 1px solid red
+            
+        # Pulsante canale ⬇️
+        - type: image
+          image: /local/transparent.png
+          tap_action:
+            action: remote.send_command
+            data:
+              device_id: 55bdb5de160806071bdc3eb784457eb0
+              command: ChannelStepDown
+          style:
+            top: 32%
+            left: 50%
+            width: 15%
+            # border: 1px solid red
+
+
+             ######### VOLUME ##########
+             
+        # Pulsante volume ⬆️
+        - type: image
+          image: /local/transparent.png
+          tap_action:
+            action: remote.send_command
+            data:
+              device_id: 55bdb5de160806071bdc3eb784457eb0
+              command: VolumeUp
+          style:
+            top: 55%
+            left: 35%
+            width: 15%
+            # border: 1px solid red
+            
+        # Pulsante volume ⬇️
+        - type: image
+          image: /local/transparent.png
+          tap_action:
+            action: remote.send_command
+            data:
+              device_id: 55bdb5de160806071bdc3eb784457eb0
+              command: VolumeDown
+          style:
+            top: 60%
+            left: 35%
+            width: 15%
+            # border: 1px solid red             

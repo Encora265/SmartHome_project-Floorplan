@@ -1,0 +1,1444 @@
+###############################################################################
+# PACKAGE: Gestione Forno Hisense BI61111AX - VERSIONE COMPLETA
+###############################################################################
+
+homeassistant:
+  customize:
+    binary_sensor.forno_in_funzione:
+      friendly_name: Forno in funzione
+      icon: >
+        {% if is_state('binary_sensor.forno_in_funzione', 'on') %}
+          mdi:stove
+        {% else %}
+          mdi:stove-off
+        {% endif %}
+    input_datetime.forno_inizio_programma:
+      icon: mdi:clock-start
+    input_datetime.forno_fine_programma:
+      icon: mdi:clock-end
+    input_number.forno_consumo_ultimo_ciclo:
+      icon: mdi:lightning-bolt
+
+###############################################################################
+# SENSORI - Potenza → Consumo Ciclo (kWh)
+###############################################################################
+sensor:
+  - platform: integration
+    source: sensor.power_cucina_power_a
+    name: "Forno Consumo Ciclo"
+    unit_prefix: k
+    round: 3
+    method: left
+    unit_time: h
+
+###############################################################################
+# UTILITY METER - Resettabile manualmente all'inizio di ogni ciclo
+###############################################################################
+utility_meter:
+  forno_ciclo:
+    source: sensor.forno_consumo_ciclo
+
+  forno_consumo_giornaliero:
+    source: sensor.forno_consumo_ciclo
+    cycle: daily
+
+  forno_consumo_settimanale:
+    source: sensor.forno_consumo_ciclo
+    cycle: weekly
+
+  forno_consumo_mensile:
+    source: sensor.forno_consumo_ciclo
+    cycle: monthly
+
+  forno_consumo_annuale:
+    source: sensor.forno_consumo_ciclo
+    cycle: yearly
+
+###############################################################################
+# INPUT DATETIME e INPUT NUMBER per memorizzare dati ultimo ciclo
+###############################################################################
+input_datetime:
+  forno_inizio_programma:
+    name: Inizio utilizzo forno
+    has_date: true
+    has_time: true
+  forno_fine_programma:
+    name: Fine utilizzo forno
+    has_date: true
+    has_time: true
+
+input_number:
+  forno_consumo_ultimo_ciclo:
+    name: Consumo ultimo utilizzo
+    min: 0
+    max: 10
+    step: 0.01
+    unit_of_measurement: "kWh"
+
+  forno_cicli_totali:
+    name: Utilizzi totali forno
+    unit_of_measurement: "utilizzi"
+    min: 0
+    max: 100000
+    step: 1
+
+  forno_consumo_totale:
+    name: Consumo totale forno
+    unit_of_measurement: "kWh"
+    min: 0
+    max: 100000
+    step: 0.001
+
+  forno_costo_totale:
+    name: Costo totale forno
+    unit_of_measurement: "€"
+    min: 0
+    max: 100000
+    step: 0.01
+
+  forno_tempo_totale:
+    name: Tempo totale forno
+    unit_of_measurement: "min"
+    min: 0
+    max: 1000000
+    step: 1
+    
+###############################################################################
+# INPUT BOOLEAN per toggle notifiche
+###############################################################################
+input_boolean:
+  forno_notifiche_abilitate:
+    name: Notifiche Forno
+    icon: mdi:bell-ring
+    initial: true
+
+  forno_notifiche_vocali_abilitate:
+    name: Notifiche Vocali Nest Hub Forno
+    icon: mdi:google-assistant
+    initial: true
+    
+  forno_notifiche_manutenzione_abilitate:
+    name: Notifiche Manutenzione Forno
+    icon: mdi:tools
+    initial: true
+
+###############################################################################
+# COUNTER degli utilizzi del forno
+###############################################################################
+counter:
+  forno_cicli_giornalieri:
+    name: Utilizzi Giornalieri Forno
+    icon: mdi:calendar-today
+    restore: false
+
+  forno_cicli_settimanali:
+    name: Utilizzi Settimanali Forno
+    icon: mdi:calendar-week
+    restore: false
+
+  forno_cicli_mensili:
+    name: Utilizzi Mensili Forno
+    icon: mdi:calendar-month
+    restore: false
+
+  forno_cicli_annuali:
+    name: Utilizzi Annuali Forno
+    icon: mdi:calendar-multiple
+    restore: false
+
+  forno_cicli_totali:
+    name: Utilizzi forno totali
+    initial: 0
+    step: 1
+
+###############################################################################
+# COUNTER manutenzione forno
+###############################################################################
+  forno_cicli_da_manutenzione_leggera:
+    name: Utilizzi da ultima manutenzione leggera
+    icon: mdi:broom
+    initial: 0
+    step: 1
+
+  forno_cicli_da_manutenzione_standard:
+    name: Utilizzi da ultima manutenzione standard
+    icon: mdi:wrench
+    initial: 0
+    step: 1
+
+  forno_cicli_da_manutenzione_completa:
+    name: Utilizzi da ultima manutenzione completa
+    icon: mdi:tools
+    initial: 0
+    step: 1
+
+###############################################################################
+# SENSORI TEMPLATE
+###############################################################################
+template:
+  - binary_sensor:
+      - name: "Forno in funzione"
+        unique_id: forno_in_funzione
+        state: "{{ states('sensor.power_cucina_power_a') | float(0) > 50 }}"
+        device_class: running
+        icon: >
+          {% if is_state('binary_sensor.forno_in_funzione', 'on') %}
+            mdi:stove
+          {% else %}
+            mdi:stove-off
+          {% endif %}
+
+  - sensor:
+      # Orario e durata ultimo utilizzo
+      - name: "Ora ultimo avvio forno"
+        unique_id: ora_ultimo_avvio_forno
+        device_class: timestamp
+        state: >
+          {% set val = states('input_datetime.forno_inizio_programma') %}
+          {{ val if val not in ['unknown', 'unavailable', 'none', 'None'] else none }}
+
+      - name: "Durata ultimo utilizzo forno"
+        unique_id: durata_ultimo_ciclo_forno
+        unit_of_measurement: "min"
+        icon: mdi:timer-outline
+        state: >
+          {% set start = states('input_datetime.forno_inizio_programma') %}
+          {% set end = states('input_datetime.forno_fine_programma') %}
+          {% if start not in ['unknown', 'unavailable', 'none', 'None']
+                and end not in ['unknown', 'unavailable', 'none', 'None'] %}
+            {{ ((as_datetime(end) - as_datetime(start)).total_seconds() / 60) | round(0) }}
+          {% else %}
+            0
+          {% endif %}
+
+      # Costo ultimo utilizzo
+      - name: "Costo ultimo utilizzo forno"
+        unique_id: costo_ultimo_utilizzo_forno
+        unit_of_measurement: "€"
+        icon: mdi:currency-eur
+        state: >
+          {% set consumo = states('input_number.forno_consumo_ultimo_ciclo') | float(0) %}
+          {% set prezzo = states('input_number.costo_energia') | float(0) %}
+          {{ (consumo * prezzo) | round(2) if prezzo > 0 else 0.0 }}
+
+      # Costo giornaliero
+      - name: "Costo giornaliero forno"
+        unique_id: costo_giornaliero_forno
+        unit_of_measurement: "€"
+        icon: mdi:currency-eur
+        state: >
+          {% set consumo = states('sensor.forno_consumo_giornaliero') | float(0) %}
+          {% set prezzo = states('input_number.costo_energia') | float(0) %}
+          {{ (consumo * prezzo) | round(2) if prezzo > 0 else 0.0 }}
+
+      # Costo settimanale
+      - name: "Costo settimanale forno"
+        unique_id: costo_settimanale_forno
+        unit_of_measurement: "€"
+        icon: mdi:currency-eur
+        state: >
+          {% set consumo = states('sensor.forno_consumo_settimanale') | float(0) %}
+          {% set prezzo = states('input_number.costo_energia') | float(0) %}
+          {{ (consumo * prezzo) | round(2) if prezzo > 0 else 0.0 }}
+
+      # Costo mensile e annuale
+      - name: "Costo Mensile Forno"
+        unique_id: costo_mensile_forno
+        unit_of_measurement: "€"
+        icon: mdi:calendar-month
+        state: >
+          {% set consumo = states('sensor.forno_consumo_mensile') | float(0) %}
+          {% set prezzo = states('input_number.costo_energia') | float(0) %}
+          {{ (consumo * prezzo) | round(2) if prezzo > 0 else 0.0 }}
+
+      - name: "Costo Annuale Forno"
+        unique_id: costo_annuale_forno
+        unit_of_measurement: "€"
+        icon: mdi:calendar
+        state: >
+          {% set consumo = states('sensor.forno_consumo_annuale') | float(0) %}
+          {% set prezzo = states('input_number.costo_energia') | float(0) %}
+          {{ (consumo * prezzo) | round(2) if prezzo > 0 else 0.0 }}
+
+      # Sensori utilizzi
+      - name: "Utilizzi Forno Oggi"
+        unique_id: cicli_forno_oggi
+        icon: mdi:calendar-today
+        unit_of_measurement: "utilizzi"
+        state: "{{ states('counter.forno_cicli_giornalieri') | int(0) }}"
+
+      - name: "Utilizzi Forno Settimana"
+        unique_id: cicli_forno_settimana
+        icon: mdi:calendar-week
+        unit_of_measurement: "utilizzi"
+        state: "{{ states('counter.forno_cicli_settimanali') | int(0) }}"
+
+      - name: "Utilizzi Forno Mese"
+        unique_id: cicli_forno_mese
+        icon: mdi:calendar-month
+        unit_of_measurement: "utilizzi"
+        state: "{{ states('counter.forno_cicli_mensili') | int(0) }}"
+
+      - name: "Utilizzi Forno Anno"
+        unique_id: cicli_forno_anno
+        icon: mdi:calendar
+        unit_of_measurement: "utilizzi"
+        state: "{{ states('counter.forno_cicli_annuali') | int(0) }}"
+
+      - name: "Utilizzi Forno Totali"
+        unique_id: cicli_forno_totali
+        icon: mdi:counter
+        unit_of_measurement: "utilizzi"
+        state: "{{ states('counter.forno_cicli_totali') | int(0) }}"
+
+      # Sensori consumo
+      - name: "Consumo Forno Oggi"
+        unique_id: consumo_forno_oggi
+        state: "{{ states('sensor.forno_consumo_giornaliero') | float(0) }}"
+        unit_of_measurement: "kWh"
+        icon: mdi:flash
+
+      - name: "Consumo Forno Settimana"
+        unique_id: consumo_forno_settimana
+        state: "{{ states('sensor.forno_consumo_settimanale') | float(0) }}"
+        unit_of_measurement: "kWh"
+        icon: mdi:flash
+
+      - name: "Consumo Forno Mese"
+        unique_id: consumo_forno_mese
+        state: "{{ states('sensor.forno_consumo_mensile') | float(0) }}"
+        unit_of_measurement: "kWh"
+        icon: mdi:flash
+
+      - name: "Consumo Forno Anno"
+        unique_id: consumo_forno_anno
+        state: "{{ states('sensor.forno_consumo_annuale') | float(0) }}"
+        unit_of_measurement: "kWh"
+        icon: mdi:flash
+
+      - name: "Consumo Totale Forno"
+        unique_id: consumo_totale_forno
+        state: "{{ states('input_number.forno_consumo_totale') | float(0) }}"
+        unit_of_measurement: "kWh"
+        icon: mdi:flash
+
+###############################################################################
+# SENSORI TEMPLATE MANUTENZIONE FORNO
+###############################################################################
+      - name: "Stato Manutenzione Leggera Forno"
+        unique_id: stato_manutenzione_leggera_forno
+        state: >
+          {% set cicli = states('counter.forno_cicli_da_manutenzione_leggera') | int(0) %}
+          {% if cicli >= 30 %}Necessaria{% elif cicli >= 25 %}In scadenza{% else %}OK{% endif %}
+        icon: >
+          {% set cicli = states('counter.forno_cicli_da_manutenzione_leggera') | int(0) %}
+          {% if cicli >= 30 %}mdi:alert-circle{% elif cicli >= 25 %}mdi:alert{% else %}mdi:check-circle{% endif %}
+
+      - name: "Stato Manutenzione Standard Forno"
+        unique_id: stato_manutenzione_standard_forno
+        state: >
+          {% set cicli = states('counter.forno_cicli_da_manutenzione_standard') | int(0) %}
+          {% if cicli >= 60 %}Necessaria{% elif cicli >= 50 %}In scadenza{% else %}OK{% endif %}
+        icon: >
+          {% set cicli = states('counter.forno_cicli_da_manutenzione_standard') | int(0) %}
+          {% if cicli >= 60 %}mdi:alert-circle{% elif cicli >= 50 %}mdi:alert{% else %}mdi:check-circle{% endif %}
+
+      - name: "Stato Manutenzione Completa Forno"
+        unique_id: stato_manutenzione_completa_forno
+        state: >
+          {% set cicli = states('counter.forno_cicli_da_manutenzione_completa') | int(0) %}
+          {% if cicli >= 100 %}Necessaria{% elif cicli >= 90 %}In scadenza{% else %}OK{% endif %}
+        icon: >
+          {% set cicli = states('counter.forno_cicli_da_manutenzione_completa') | int(0) %}
+          {% if cicli >= 100 %}mdi:alert-circle{% elif cicli >= 90 %}mdi:alert{% else %}mdi:check-circle{% endif %}
+
+###############################################################################
+# AUTOMAZIONI
+###############################################################################
+automation:
+  # Inizio utilizzo forno
+  - alias: "Forno - Inizio utilizzo"
+    id: forno_inizio_utilizzo
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.forno_in_funzione
+        from: "off"
+        to: "on"
+    action:
+      # Salva l'orario di inizio utilizzo
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.forno_inizio_programma
+        data:
+          datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+      # Reset del contatore utility meter
+      - service: utility_meter.reset
+        target:
+          entity_id: utility_meter.forno_ciclo
+
+  # Fine utilizzo forno
+  - alias: "Forno - Fine utilizzo"
+    id: forno_fine_utilizzo
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.forno_in_funzione
+        from: "on"
+        to: "off"
+        for:
+          minutes: 2
+    action:
+      # Salva consumo ultimo utilizzo dall'utility meter
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.forno_consumo_ultimo_ciclo
+        data:
+          value: "{{ states('sensor.forno_ciclo') | float(0) }}"
+      # Salva orario fine utilizzo
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.forno_fine_programma
+        data:
+          datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+      # Incrementa contatori periodici
+      - service: counter.increment
+        target:
+          entity_id:
+            - counter.forno_cicli_giornalieri
+            - counter.forno_cicli_settimanali
+            - counter.forno_cicli_mensili
+            - counter.forno_cicli_annuali
+            - counter.forno_cicli_totali
+            - counter.forno_cicli_da_manutenzione_leggera
+            - counter.forno_cicli_da_manutenzione_standard
+            - counter.forno_cicli_da_manutenzione_completa
+      # Aggiorna totali cumulativi
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.forno_consumo_totale
+        data:
+          value: >
+            {{ states('input_number.forno_consumo_totale') | float(0)
+               + states('input_number.forno_consumo_ultimo_ciclo') | float(0) }}
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.forno_costo_totale
+        data:
+          value: >
+            {{ states('input_number.forno_costo_totale') | float(0)
+               + states('sensor.costo_ultimo_utilizzo_forno') | float(0) }}
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.forno_tempo_totale
+        data:
+          value: >
+            {{ states('input_number.forno_tempo_totale') | float(0)
+               + states('sensor.durata_ultimo_ciclo_forno') | float(0) }}
+      # Notifica vocale e aumento temporaneo volume
+      - condition: state
+        entity_id: input_boolean.forno_notifiche_vocali_abilitate
+        state: 'on'
+      - variables:
+          volume_attuale: "{{ state_attr('media_player.nesthube6f7', 'volume_level') | float(0.3) }}"
+      - service: media_player.volume_set
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          volume_level: 0.7
+      - service: tts.cloud_say
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          message: >
+            {{ [
+              "Il forno si è spento.",
+              "La cottura è terminata.",
+              "Il forno ha completato il ciclo."
+            ] | random }}
+            Il consumo è stato di 
+            {{ states('input_number.forno_consumo_ultimo_ciclo') | float(0) | round(2) }} kilowattora,
+            per un costo stimato di 
+            {{ states('sensor.costo_ultimo_utilizzo_forno') | float(0) | round(2) }} euro.
+          language: "it-IT"
+      - delay: "00:00:05"
+      - service: media_player.volume_set
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          volume_level: "{{ volume_attuale }}"
+      # Notifica push
+      - condition: state
+        entity_id: input_boolean.forno_notifiche_abilitate
+        state: 'on'
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "Forno"
+          message: >
+            Il forno si è spento!
+            Consumo: {{ states('input_number.forno_consumo_ultimo_ciclo') }} kWh
+            Costo: {{ states('sensor.costo_ultimo_utilizzo_forno') }} €
+
+  # Reset contatori giornalieri
+  - alias: "Forno - Reset contatore giornaliero"
+    id: forno_reset_giornaliero
+    trigger:
+      - platform: time
+        at: "00:00:00"
+    action:
+      - service: counter.reset
+        target:
+          entity_id: counter.forno_cicli_giornalieri
+
+  # Reset contatore settimanale (Lunedì)
+  - alias: "Forno - Reset contatore settimanale"
+    id: forno_reset_settimanale
+    trigger:
+      - platform: time
+        at: "00:00:00"
+    condition:
+      - condition: template
+        value_template: "{{ now().weekday() == 0 }}"
+    action:
+      - service: counter.reset
+        target:
+          entity_id: counter.forno_cicli_settimanali
+
+  # Reset contatore mensile (1° giorno del mese)
+  - alias: "Forno - Reset contatore mensile"
+    id: forno_reset_mensile
+    trigger:
+      - platform: time
+        at: "00:00:00"
+    condition:
+      - condition: template
+        value_template: "{{ now().day == 1 }}"
+    action:
+      - service: counter.reset
+        target:
+          entity_id: counter.forno_cicli_mensili
+
+  # Reset contatore annuale (1° gennaio)
+  - alias: "Forno - Reset contatore annuale"
+    id: forno_reset_annuale
+    trigger:
+      - platform: time
+        at: "00:00:00"
+    condition:
+      - condition: template
+        value_template: "{{ now().month == 1 and now().day == 1 }}"
+    action:
+      - service: counter.reset
+        target:
+          entity_id: counter.forno_cicli_annuali
+
+###############################################################################
+# AUTOMAZIONI manutenzione forno
+###############################################################################
+  # Alert Manutenzione Leggera Forno
+  - alias: "Forno - Alert Manutenzione Leggera"
+    id: forno_alert_manutenzione_leggera
+    trigger:
+      - platform: numeric_state
+        entity_id: counter.forno_cicli_da_manutenzione_leggera
+        above: 29
+    condition:
+      - condition: state
+        entity_id: input_boolean.forno_notifiche_manutenzione_abilitate
+        state: 'on'
+    action:
+      # Notifica push
+      - condition: state
+        entity_id: input_boolean.forno_notifiche_abilitate
+        state: 'on'
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "🧹 Forno - Manutenzione"
+          message: "È ora di fare la manutenzione leggera del forno! (Pulizia vetro + interno)"
+      # Notifica vocale
+      - condition: state
+        entity_id: input_boolean.forno_notifiche_vocali_abilitate
+        state: 'on'
+      - service: tts.cloud_say
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          message: "Attenzione: è ora di fare la manutenzione leggera del forno."
+          language: "it-IT"
+
+  # Alert Manutenzione Standard Forno
+  - alias: "Forno - Alert Manutenzione Standard"
+    id: forno_alert_manutenzione_standard
+    trigger:
+      - platform: numeric_state
+        entity_id: counter.forno_cicli_da_manutenzione_standard
+        above: 59
+    condition:
+      - condition: state
+        entity_id: input_boolean.forno_notifiche_manutenzione_abilitate
+        state: 'on'
+    action:
+      # Notifica push
+      - condition: state
+        entity_id: input_boolean.forno_notifiche_abilitate
+        state: 'on'
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "🔧 Forno - Manutenzione"
+          message: "È ora di fare la manutenzione standard! (Pulizia profonda + guarnizioni)"
+      # Notifica vocale
+      - condition: state
+        entity_id: input_boolean.forno_notifiche_vocali_abilitate
+        state: 'on'
+      - service: tts.cloud_say
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          message: "Attenzione: è ora di fare la manutenzione standard del forno."
+          language: "it-IT"
+
+  # Alert Manutenzione Completa Forno
+  - alias: "Forno - Alert Manutenzione Completa"
+    id: forno_alert_manutenzione_completa
+    trigger:
+      - platform: numeric_state
+        entity_id: counter.forno_cicli_da_manutenzione_completa
+        above: 99
+    condition:
+      - condition: state
+        entity_id: input_boolean.forno_notifiche_manutenzione_abilitate
+        state: 'on'
+    action:
+      # Notifica push
+      - condition: state
+        entity_id: input_boolean.forno_notifiche_abilitate
+        state: 'on'
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "⚠️ Forno - Manutenzione"
+          message: "È ora di fare la manutenzione completa! (Controllo elementi riscaldanti + ventilazione)"
+      # Notifica vocale
+      - condition: state
+        entity_id: input_boolean.forno_notifiche_vocali_abilitate
+        state: 'on'
+      - service: tts.cloud_say
+        target:
+          entity_id: media_player.nesthube6f7
+        data:
+          message: "Attenzione: è ora di fare la manutenzione completa del forno, con controllo elementi riscaldanti."
+          language: "it-IT"
+
+###############################################################################
+# SCRIPT - Popup orizzontale forno
+###############################################################################
+script:
+  forno_popup:
+    alias: "Mostra popup forno"
+    sequence:
+      - action: browser_mod.popup
+        data:
+          size: normal
+          timeout: 0
+          content:
+            type: entities
+            card_mod:
+              style: |
+                .card-header {
+                  padding: 0px !important;
+                }
+            show_header_toggle: false
+            entities:
+              - type: section
+                label: 🔥 Forno Hisense BI61111AX
+              - type: custom:hui-element
+                card_type: vertical-stack
+                cards:
+                  - type: horizontal-stack
+                    cards:
+                      - type: picture-entity
+                        entity: binary_sensor.forno_in_funzione
+                        name: "🔥 Forno"
+                        show_name: false
+                        show_state: false
+                        fit_mode: contain
+                        state_image:
+                          "on": /local/elettrodomestici/forno_on.gif
+                          "off": /local/elettrodomestici/forno_off.png
+                        card_mod:
+                          style: |
+                            ha-card {
+                              --ha-card-border-width: 0px;
+                              margin: 0px;
+                              padding: 10px;
+                              background: none;
+                              {% if is_state('binary_sensor.forno_in_funzione', 'on') %}
+                                filter: drop-shadow(0 0 15px rgba(255, 152, 0, 0.6));
+                                animation: pulse 2s ease-in-out infinite;
+                              {% endif %}
+                            }
+                            @keyframes pulse {
+                              0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 152, 0, 0.4)); }
+                              50% { filter: drop-shadow(0 0 20px rgba(255, 152, 0, 0.8)); }
+                            }
+
+                      - type: vertical-stack
+                        cards:
+                          - type: custom:button-card
+                            entity: input_datetime.forno_inizio_programma
+                            icon: mdi:clock-start
+                            show_name: false
+                            show_icon: true
+                            show_state: true
+                            show_label: true
+                            label: >
+                              [[[ 
+                                const e = states['input_datetime.forno_inizio_programma'];
+                                if (!e || e.state === 'unknown' || e.state === '') return '-';
+                                const d = new Date(e.state.replace(' ', 'T'));
+                                return d.toLocaleDateString('it-IT') + ' ' + d.toLocaleTimeString('it-IT', {hour:'2-digit', minute:'2-digit'});
+                              ]]]
+                            state_display: 'Inizio ultimo utilizzo'
+                            styles:
+                              grid:
+                                - grid-template-areas: '"i l" "i s"'
+                                - grid-template-columns: 40px 1fr
+                                - grid-template-rows: auto auto
+                                - row-gap: 2px
+                              card:
+                                - "--ha-card-background": rgba(0,0,0,0)
+                                - "--ha-card-box-shadow": none
+                                - padding: 8px
+                                - height: auto
+                              icon:
+                                - color: var(--primary-text-color)
+                                - width: 30px
+                                - height: 30px
+                              label:
+                                - font-size: 14px
+                                - justify-self: start
+                                - white-space: nowrap
+                                - color: >
+                                    [[[
+                                      const e = states['input_datetime.forno_inizio_programma'];
+                                      if (!e || e.state === 'unknown' || e.state === '') return 'var(--secondary-text-color)';
+                                      return 'var(--primary-text-color)';
+                                    ]]]
+                              state:
+                                - font-size: 12px
+                                - justify-self: start
+                                - color: var(--secondary-text-color)
+
+                          - type: custom:button-card
+                            entity: input_datetime.forno_fine_programma
+                            icon: mdi:clock-end
+                            show_name: false
+                            show_icon: true
+                            show_state: true
+                            show_label: true
+                            label: >
+                              [[[ 
+                                const e = states['input_datetime.forno_fine_programma'];
+                                if (!e || e.state === 'unknown' || e.state === '') return '-';
+                                const d = new Date(e.state.replace(' ', 'T'));
+                                return d.toLocaleDateString('it-IT') + ' ' + d.toLocaleTimeString('it-IT',{hour:'2-digit', minute:'2-digit'});
+                              ]]]
+                            state_display: 'Fine ultimo utilizzo'
+                            styles:
+                              grid:
+                                - grid-template-areas: '"i l" "i s"'
+                                - grid-template-columns: 40px 1fr
+                                - grid-template-rows: auto auto
+                                - row-gap: 2px
+                              card:
+                                - "--ha-card-background": rgba(0,0,0,0)
+                                - "--ha-card-box-shadow": none
+                                - padding: 8px
+                                - height: auto
+                              icon:
+                                - color: var(--primary-text-color)
+                                - width: 30px
+                                - height: 30px
+                              label:
+                                - font-size: 14px
+                                - justify-self: start
+                                - white-space: nowrap
+                              state:
+                                - font-size: 12px
+                                - justify-self: start
+                                - color: var(--secondary-text-color)
+
+                          - type: custom:button-card
+                            entity: sensor.durata_ultimo_ciclo_forno
+                            icon: mdi:timer-outline
+                            show_name: false
+                            show_icon: true
+                            show_state: true
+                            show_label: true
+                            label: >
+                              [[[ 
+                                const e = states['sensor.durata_ultimo_ciclo_forno'];
+                                if (!e || e.state === 'unknown' || e.state === '' || e.state === 'unavailable' || e.state === '0') return '-';
+                                const minuti = parseInt(e.state);
+                                if (isNaN(minuti) || minuti === 0) return '-';
+                                const ore = Math.floor(minuti / 60);
+                                const min = minuti % 60;
+                                if (ore > 0) return ore + 'h ' + min + 'min';
+                                return min + ' min';
+                              ]]]
+                            state_display: 'Durata ultimo utilizzo'
+                            styles:
+                              grid:
+                                - grid-template-areas: '"i l" "i s"'
+                                - grid-template-columns: 40px 1fr
+                                - grid-template-rows: auto auto
+                                - row-gap: 2px
+                              card:
+                                - "--ha-card-background": rgba(0,0,0,0)
+                                - "--ha-card-box-shadow": none
+                                - padding: 8px
+                                - height: auto
+                              icon:
+                                - color: var(--primary-text-color)
+                                - width: 30px
+                                - height: 30px
+                              label:
+                                - font-size: 14px
+                                - justify-self: start
+                                - white-space: nowrap
+                              state:
+                                - font-size: 12px
+                                - justify-self: start
+                                - color: var(--secondary-text-color)
+
+                          - type: custom:button-card
+                            entity: input_number.forno_consumo_ultimo_ciclo
+                            icon: mdi:flash
+                            show_name: false
+                            show_icon: true
+                            show_state: true
+                            show_label: true
+                            label: >
+                              [[[ return states['input_number.forno_consumo_ultimo_ciclo'].state + ' kWh'; ]]]
+                            state_display: 'Ultimo consumo'
+                            styles:
+                              grid:
+                                - grid-template-areas: '"i l" "i s"'
+                                - grid-template-columns: 40px 1fr
+                                - grid-template-rows: auto auto
+                                - row-gap: 2px
+                              card:
+                                - "--ha-card-background": rgba(0,0,0,0)
+                                - "--ha-card-box-shadow": none
+                                - padding: 8px
+                                - height: auto
+                              icon:
+                                - color: var(--primary-text-color)
+                                - width: 30px
+                                - height: 30px
+                              label:
+                                - font-size: 14px
+                                - justify-self: start
+                                - white-space: nowrap
+                              state:
+                                - font-size: 12px
+                                - justify-self: start
+                                - color: var(--secondary-text-color)
+
+                          - type: custom:button-card
+                            entity: sensor.costo_ultimo_utilizzo_forno
+                            icon: mdi:currency-eur
+                            show_name: false
+                            show_icon: true
+                            show_state: true
+                            show_label: true
+                            label: >
+                              [[[ return states['sensor.costo_ultimo_utilizzo_forno'].state + ' €'; ]]]
+                            state_display: 'Costo ultimo utilizzo'
+                            styles:
+                              grid:
+                                - grid-template-areas: '"i l" "i s"'
+                                - grid-template-columns: 40px 1fr
+                                - grid-template-rows: auto auto
+                                - row-gap: 2px
+                              card:
+                                - "--ha-card-background": rgba(0,0,0,0)
+                                - "--ha-card-box-shadow": none
+                                - padding: 8px
+                                - height: auto
+                              icon:
+                                - color: var(--primary-text-color)
+                                - width: 30px
+                                - height: 30px
+                              label:
+                                - font-size: 14px
+                                - justify-self: start
+                                - white-space: nowrap
+                              state:
+                                - font-size: 12px
+                                - justify-self: start
+                                - color: var(--secondary-text-color)
+
+                  - type: custom:bar-card
+                    entity: sensor.power_cucina_power_a
+                    name: Consumo Istantaneo
+                    max: 3000
+                    unit_of_measurement: W
+                    show_icon: true
+                    align: split
+                    columns: 1
+                    positions:
+                      icon: inside
+                      indicator: inside
+                      name: inside
+                      value: inside
+                    severity:
+                      - color: "#00e676"
+                        from: 0
+                        to: 5
+                      - color: "#1e90ff"
+                        from: 6
+                        to: 500
+                      - color: "#ff9800"
+                        from: 501
+                        to: 1500
+                      - color: "#f44336"
+                        from: 1501
+                        to: 4000
+                    animation:
+                      - state: "on"
+                        color: "#ff5722"
+                    card_mod:
+                      style: |
+                        ha-card {
+                          --ha-card-background: rgba(0,0,0,0);
+                          --ha-card-box-shadow: none;
+                        }
+                        bar-card-currentbar, bar-card-backgroundbar {
+                          border-radius: 10px !important;
+                        }
+                        bar-card-currentbar {
+                          background: linear-gradient(90deg, 
+                            var(--bar-color) 0%, 
+                            var(--bar-color) 100%) !important;
+                          box-shadow: 0 0 10px var(--bar-color) !important;
+                          transition: all 0.3s ease !important;
+                        }
+
+                  ###############################################################################
+                  # PULSANTI Popup Forno
+                  ###############################################################################
+
+                  - type: custom:paper-buttons-row
+                    buttons:
+                      # ----------------- Impostazioni -----------------
+                      - icon: hass:cog-outline
+                        tap_action:
+                          action: fire-dom-event
+                          browser_mod:
+                            service: browser_mod.popup
+                            data:
+                              title: Impostazioni Forno
+                              style: |
+                                --popup-background-color: var(--secondary-background-color);
+                                --dialog-backdrop-filter: blur(2em) brightness(0.75);
+                              content:
+                                type: vertical-stack
+                                cards:
+                                  - type: entities
+                                    entities:
+                                      - entity: binary_sensor.forno_in_funzione
+                                      - type: divider
+                                      - entity: input_boolean.forno_notifiche_abilitate
+                                        name: Notifiche Push
+                                        icon: mdi:cellphone-message
+                                      - entity: input_boolean.forno_notifiche_vocali_abilitate
+                                        name: Notifiche Vocali Nest Hub
+                                        icon: mdi:google-assistant
+                                      - entity: input_boolean.forno_notifiche_manutenzione_abilitate
+                                        name: Alert Manutenzione
+                                        icon: mdi:tools
+                                      - type: divider
+                                      - entity: input_number.costo_energia
+                                      - type: divider
+                                      
+                                      # SEZIONE MANUTENZIONE FORNO 👇
+                                      - type: section
+                                        label: 🔧 Stato Manutenzioni Forno
+                                      - entity: sensor.stato_manutenzione_leggera_forno
+                                        name: Manutenzione Leggera
+                                        secondary_info: >
+                                          {{ states('counter.forno_cicli_da_manutenzione_leggera') }}/30 utilizzi
+                                      - entity: sensor.stato_manutenzione_standard_forno
+                                        name: Manutenzione Standard
+                                        secondary_info: >
+                                          {{ states('counter.forno_cicli_da_manutenzione_standard') }}/60 utilizzi
+                                      - entity: sensor.stato_manutenzione_completa_forno
+                                        name: Manutenzione Completa
+                                        secondary_info: >
+                                          {{ states('counter.forno_cicli_da_manutenzione_completa') }}/100 utilizzi
+                                      - type: divider
+                                      
+                                      - type: button
+                                        name: Reset Statistiche Totali
+                                        icon: mdi:refresh
+                                        action_name: RESET
+                                        tap_action:
+                                          action: call-service
+                                          service: script.forno_reset_totali
+                                          confirmation:
+                                            text: "Sei sicuro di voler azzerare tutte le statistiche totali del forno?"
+                                  
+                                  - type: custom:paper-buttons-row
+                                    buttons:
+                                      - icon: mdi:arrow-left
+                                        name: Indietro
+                                        tap_action:
+                                          action: call-service
+                                          service: script.forno_popup
+                                        style:
+                                          button:
+                                            width: 100%
+
+                      # ----------------- Popup Statistiche Forno -----------------
+                      - icon: hass:chart-bar
+                        tap_action:
+                          action: fire-dom-event
+                          browser_mod:
+                            service: browser_mod.popup
+                            data:
+                              title: Statistiche Forno
+                              style: |
+                                --popup-background-color: var(--secondary-background-color);
+                                --dialog-backdrop-filter: blur(2em) brightness(0.75);
+                              content:
+                                type: vertical-stack
+                                cards:
+                                  - type: custom:swipe-card
+                                    start_card: 0
+                                    parameters:
+                                      grabCursor: true
+                                      spaceBetween: 10
+                                      effect: slide
+                                    cards:
+                        
+                                      # ----------------- Scheda 1: Statistiche Testuali -----------------
+                                      - type: markdown
+                                        content: |
+                                          ## 📊 Statistiche Consumo Forno
+                                            
+                                          ### Oggi
+                                          - **Utilizzi:** {{ states('sensor.cicli_forno_oggi') }}
+                                          - **Consumo:** {{ states('sensor.consumo_forno_oggi') }} kWh
+                                          - **Costo:** {{ states('sensor.costo_giornaliero_forno') }} €
+                                                
+                                          ### Settimana
+                                          - **Utilizzi:** {{ states('sensor.cicli_forno_settimana') }}
+                                          - **Consumo:** {{ states('sensor.consumo_forno_settimana') }} kWh
+                                          - **Costo:** {{ states('sensor.costo_settimanale_forno') }} €
+                                                
+                                          ### Mese
+                                          - **Utilizzi:** {{ states('sensor.cicli_forno_mese') }}
+                                          - **Consumo:** {{ states('sensor.consumo_forno_mese') }} kWh
+                                          - **Costo:** {{ states('sensor.costo_mensile_forno') }} €
+                                                
+                                          ### Anno
+                                          - **Utilizzi:** {{ states('sensor.cicli_forno_anno') }}
+                                          - **Consumo:** {{ states('sensor.consumo_forno_anno') }} kWh
+                                          - **Costo:** {{ states('sensor.costo_annuale_forno') }} €
+                                                
+                                          ---
+                                                
+                                          ### 🏆 Totali Assoluti
+                                          - **Utilizzi totali:** {{ states('sensor.cicli_forno_totali') }}
+                                          - **Consumo totale:** {{ states('sensor.consumo_totale_forno') }} kWh
+                                          - **Costo totale:** {{ states('input_number.forno_costo_totale') }} €
+                                          - **Tempo totale:** {{ (states('input_number.forno_tempo_totale') | float / 60) | round(1) }} ore
+
+                                      # ----------------- Scheda 2: Grafici MENSILI -----------------
+                                      - type: vertical-stack
+                                        cards:
+                                          - type: custom:apexcharts-card
+                                            header:
+                                              show: true
+                                              title: "📈 Consumo Mese Corrente"
+                                            graph_span: 31d
+                                            span:
+                                              start: month
+                                            series:
+                                              - entity: sensor.forno_consumo_giornaliero
+                                                name: Consumo Giornaliero (kWh)
+                                                type: column
+                                                group_by:
+                                                  func: max
+                                                  duration: 1d
+                                            apex_config:
+                                              chart:
+                                                height: 260
+                                              plotOptions:
+                                                bar:
+                                                  borderRadius: 6
+                                              xaxis:
+                                                labels:
+                                                  show: true
+                                            yaxis:
+                                              - decimals: 2
+                                                min: 0
+                       
+                                          - type: custom:apexcharts-card
+                                            header:
+                                              show: true
+                                              title: "💶 Costo Mese Corrente"
+                                            graph_span: 31d
+                                            span:
+                                              start: month
+                                            series:
+                                              - entity: sensor.costo_giornaliero_forno
+                                                name: Costo Giornaliero (€)
+                                                type: column
+                                                group_by:
+                                                  func: max
+                                                  duration: 1d
+                                            apex_config:
+                                              chart:
+                                                height: 260
+                                              plotOptions:
+                                                bar:
+                                                  borderRadius: 6
+                                              xaxis:
+                                                labels:
+                                                  show: true
+                                            yaxis:
+                                              - decimals: 2
+                                                min: 0
+                        
+                                      # ----------------- Scheda 3: Grafici ANNUALI -----------------
+                                      - type: vertical-stack
+                                        cards:
+                                          - type: custom:apexcharts-card
+                                            header:
+                                              show: true
+                                              title: "📅 Consumo Storico Annuale"
+                                            graph_span: 10y
+                                            series:
+                                              - entity: sensor.forno_consumo_annuale
+                                                name: Consumo Annuale (kWh)
+                                                type: column
+                                                group_by:
+                                                  func: last
+                                                  duration: 1y
+                                            apex_config:
+                                              chart:
+                                                height: 260
+                                              plotOptions:
+                                                bar:
+                                                  borderRadius: 6
+                                              xaxis:
+                                                labels:
+                                                  show: true
+                                            yaxis:
+                                              - decimals: 2
+                                                min: 0
+                        
+                                          - type: custom:apexcharts-card
+                                            header:
+                                              show: true
+                                              title: "🏦 Costo Storico Annuale"
+                                            graph_span: 10y
+                                            series:
+                                              - entity: sensor.costo_annuale_forno
+                                                name: Costo Annuale (€)
+                                                type: column
+                                                group_by:
+                                                  func: last
+                                                  duration: 1y
+                                            apex_config:
+                                              chart:
+                                                height: 260
+                                              plotOptions:
+                                                bar:
+                                                  borderRadius: 6
+                                              xaxis:
+                                                labels:
+                                                  show: true
+                                            yaxis:
+                                              - decimals: 2
+                                                min: 0
+                        
+                                  # ----------------- Pulsante "Indietro" -----------------
+                                  - type: custom:paper-buttons-row
+                                    buttons:
+                                      - icon: mdi:arrow-left
+                                        name: Indietro
+                                        tap_action:
+                                          action: call-service
+                                          service: script.forno_popup
+                                        style:
+                                          button:
+                                            width: 100%
+
+                      # ----------------- Manutenzione Forno -----------------
+                      - icon: hass:tools
+                        tap_action:
+                          action: fire-dom-event
+                          browser_mod:
+                            service: browser_mod.popup
+                            data:
+                              title: Manutenzione Forno
+                              size: wide
+                              style: |
+                                --popup-background-color: var(--secondary-background-color);
+                                --dialog-backdrop-filter: blur(2em) brightness(0.75);
+                                --popup-max-width: 1000px;
+                                --popup-min-height: 600px;
+                              content:
+                                type: vertical-stack
+                                cards:
+                        
+                                  # ----------------- CONTENUTO A 3 COLONNE -----------------
+                                  - type: grid
+                                    columns: 3
+                                    square: false
+                                    cards:
+                        
+                                      # ⭐ COLONNA 1 — Leggera
+                                      - type: entities
+                                        entities:
+                                          - type: section
+                                            label: 🧹 Manutenzione Leggera (ogni 30 utilizzi)
+                                          - entity: counter.forno_cicli_da_manutenzione_leggera
+                                            name: Utilizzi dall'ultima manutenzione
+                                            icon: mdi:counter
+                                          - entity: sensor.stato_manutenzione_leggera_forno
+                                            name: Stato
+                                          - type: button
+                                            name: Pulizia vetro + interno
+                                            icon: mdi:broom
+                                            action_name: FATTO
+                                            tap_action:
+                                              action: call-service
+                                              service: script.forno_manutenzione_leggera_completata
+                        
+                                      # ⭐ COLONNA 2 — Standard
+                                      - type: entities
+                                        entities:
+                                          - type: section
+                                            label: 🔧 Manutenzione Standard (ogni 60 utilizzi)
+                                          - entity: counter.forno_cicli_da_manutenzione_standard
+                                            name: Utilizzi dall'ultima manutenzione
+                                            icon: mdi:counter
+                                          - entity: sensor.stato_manutenzione_standard_forno
+                                            name: Stato
+                                          - type: button
+                                            name: Pulizia profonda + guarnizioni
+                                            icon: mdi:wrench
+                                            action_name: FATTO
+                                            tap_action:
+                                              action: call-service
+                                              service: script.forno_manutenzione_standard_completata
+                        
+                                      # ⭐ COLONNA 3 — Completa
+                                      - type: entities
+                                        entities:
+                                          - type: section
+                                            label: ⚙️ Manutenzione Completa (ogni 100 utilizzi)
+                                          - entity: counter.forno_cicli_da_manutenzione_completa
+                                            name: Utilizzi dall'ultima manutenzione
+                                            icon: mdi:counter
+                                          - entity: sensor.stato_manutenzione_completa_forno
+                                            name: Stato
+                                          - type: button
+                                            name: Controllo elementi + ventilazione
+                                            icon: mdi:tools
+                                            action_name: FATTO
+                                            tap_action:
+                                              action: call-service
+                                              service: script.forno_manutenzione_completa_completata
+
+                                  # --- SPACER ---
+                                  - type: custom:button-card
+                                    color_type: blank-card
+                                    styles:
+                                      card:
+                                        - height: 10px
+
+                                  # ----------------- FOOTER: INDietro / GUIDA -----------------
+                                  - type: horizontal-stack
+                                    cards:
+                        
+                                      # Pulsante INDietro a sinistra
+                                      - type: custom:paper-buttons-row
+                                        buttons:
+                                          - icon: mdi:arrow-left
+                                            name: Indietro
+                                            tap_action:
+                                              action: call-service
+                                              service: script.forno_popup
+                                            style:
+                                              button:
+                                                width: 100%
+                        
+                                      # Spazio centrale vuoto
+                                      - type: custom:button-card
+                                        color_type: blank
+
+                                         # Pulsante GUIDA a destra
+                                      - type: custom:paper-buttons-row
+                                        buttons:
+                                          - icon: mdi:book-open-variant
+                                            name: GUIDA
+                                            tap_action:
+                                              action: fire-dom-event
+                                              browser_mod:
+                                                service: browser_mod.popup
+                                                data:
+                                                  title: Guida Manutenzione Forno
+                                                  size: normal
+                                                  style: |
+                                                    --popup-background-color: var(--secondary-background-color);
+                                                    --dialog-backdrop-filter: blur(2em) brightness(0.85);
+                                                    --popup-max-width: 700px;
+                                                    --popup-min-height: 420px;
+                                                  content:
+                                                    type: vertical-stack
+                                                    cards:
+                                                      # ----------------- CONTENUTO GUIDA -----------------
+                                                      - type: markdown
+                                                        content: |
+                                                          ## 📋 Guida Manutenzione Forno
+                                        
+                                                          **🧹 Leggera (ogni 30 utilizzi)**
+                                                          - Pulizia vetro interno/esterno  
+                                                          - Pulizia interna con panno umido
+                                        
+                                                          **🔧 Standard (ogni 60 utilizzi)**
+                                                          - Pulizia profonda griglie e teglie  
+                                                          - Controllo e pulizia guarnizioni
+                                        
+                                                          **⚙️ Completa (ogni 100 utilizzi)**
+                                                          - Controllo elementi riscaldanti  
+                                                          - Verifica ventilazione forno
+                                                          - Pulizia canalizzazioni aria
+                                        
+                                                      # ----------------- PULSANTE INDIETRO -----------------
+                                                      - type: custom:paper-buttons-row
+                                                        buttons:
+                                                          - icon: mdi:arrow-left
+                                                            name: Indietro
+                                                            tap_action:
+                                                              action: call-service
+                                                              service: script.forno_popup                                                          
+
+                      # ----------------- Info Package -----------------
+                      - icon: hass:information-outline
+                        tap_action:
+                          action: fire-dom-event
+                          browser_mod:
+                            service: browser_mod.popup
+                            data:
+                              title: Info Package Forno
+                              style: |
+                                --popup-background-color: var(--secondary-background-color);
+                                --dialog-backdrop-filter: blur(2em) brightness(0.75);
+                              content:
+                                type: vertical-stack
+                                cards:
+                                  - type: markdown
+                                    content: |
+                                      # 🏠 Controllo Elettrodomestici
+                                      
+                                      ## 📦 Package Forno
+                                      Monitoraggio completo dei consumi e statistiche del forno
+                                      
+                                      ### ✨ Funzionalità:
+                                      - Tracciamento utilizzi del forno
+                                      - Monitoraggio consumo energetico in tempo reale
+                                      - Calcolo automatico dei costi
+                                      - Statistiche giornaliere, settimanali, mensili e annuali
+                                      - Storico completo degli utilizzi
+                                      - Sistema manutenzione intelligente
+                                      
+                                      ### 🔧 Manutenzione Programmate:
+                                      - **Leggera:** ogni 30 utilizzi (pulizia vetro)
+                                      - **Standard:** ogni 60 utilizzi (pulizia profonda)
+                                      - **Completa:** ogni 100 utilizzi (controllo elementi)
+                                      
+                                      ---
+                                      
+                                      ### 📺 Seguimi su YouTube!
+                                      
+                                      Per altri progetti, tutorial e guide sulla domotica, visita il mio canale:
+                                      
+                                      **[SmartHome Project](https://www.youtube.com/channel/UCqftpsaHHm0PCle6vpMvxOg)**
+                                      
+                                      🔔 Iscriviti per non perdere i nuovi video!
+                                      
+                                      ---
+                                      
+                                      💡 *Package creato con Home Assistant*
+                                  
+                                  - type: custom:paper-buttons-row
+                                    buttons:
+                                      - icon: mdi:arrow-left
+                                        name: Indietro
+                                        tap_action:
+                                          action: call-service
+                                          service: script.forno_popup
+                                        style:
+                                          button:
+                                            width: 100
+
+###############################################################################
+# RESET STATISTICHE TOTALI FORNO
+###############################################################################
+  forno_reset_totali:
+    alias: "Reset Statistiche Totali Forno"
+    sequence:
+      - service: input_number.set_value
+        target:
+          entity_id:
+            - input_number.forno_consumo_totale
+            - input_number.forno_costo_totale
+            - input_number.forno_tempo_totale
+        data:
+          value: 0
+      - service: counter.reset
+        target:
+          entity_id: counter.forno_cicli_totali
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "Forno"
+          message: "Statistiche totali forno azzerate con successo!"
+
+###############################################################################
+# MANUTENZIONI COMPLETE FORNO
+###############################################################################          
+  forno_manutenzione_leggera_completata:
+    alias: "Manutenzione Leggera Forno Completata"
+    sequence:
+      - service: counter.reset
+        target:
+          entity_id: counter.forno_cicli_da_manutenzione_leggera
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "🧹 Forno"
+          message: "Manutenzione leggera forno registrata! Prossima tra 30 utilizzi."
+
+  forno_manutenzione_standard_completata:
+    alias: "Manutenzione Standard Forno Completata"
+    sequence:
+      - service: counter.reset
+        target:
+          entity_id: counter.forno_cicli_da_manutenzione_standard
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "🔧 Forno"
+          message: "Manutenzione standard forno registrata! Prossima tra 60 utilizzi."
+
+  forno_manutenzione_completa_completata:
+    alias: "Manutenzione Completa Forno Completata"
+    sequence:
+      - service: counter.reset
+        target:
+          entity_id: counter.forno_cicli_da_manutenzione_completa
+      - service: notify.mobile_app_enrico_phone
+        data:
+          title: "⚙️ Forno"
+          message: "Manutenzione completa forno registrata! Prossima tra 100 utilizzi."

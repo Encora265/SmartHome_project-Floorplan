@@ -1,0 +1,95 @@
+input_datetime:
+  sveglia_francesca_ora:
+    name: Ora Sveglia Francesca
+    has_date: false
+    has_time: true
+  sveglia_enrico_ora:
+    name: Ora Sveglia Enrico
+    has_date: false
+    has_time: true
+
+input_boolean:
+  sveglia_francesca_attiva:
+    name: Sveglia Francesca Attiva
+  sveglia_enrico_attiva:
+    name: Sveglia Enrico Attiva
+
+  sveglia_francesca_lunedi:
+    name: Francesca - Lunedì
+  sveglia_francesca_martedi:
+    name: Francesca - Martedì
+  sveglia_francesca_mercoledi:
+    name: Francesca - Mercoledì
+  sveglia_francesca_giovedi:
+    name: Francesca - Giovedì
+  sveglia_francesca_venerdi:
+    name: Francesca - Venerdì
+  sveglia_francesca_sabato:
+    name: Francesca - Sabato
+  sveglia_francesca_domenica:
+    name: Francesca - Domenica
+
+  sveglia_enrico_lunedi:
+    name: Enrico - Lunedì
+  sveglia_enrico_martedi:
+    name: Enrico - Martedì
+  sveglia_enrico_mercoledi:
+    name: Enrico - Mercoledì
+  sveglia_enrico_giovedi:
+    name: Enrico - Giovedì
+  sveglia_enrico_venerdi:
+    name: Enrico - Venerdì
+  sveglia_enrico_sabato:
+    name: Enrico - Sabato
+  sveglia_enrico_domenica:
+    name: Enrico - Domenica
+
+automation:
+  - alias: Sveglia Francesca Giornaliera
+    trigger:
+      - platform: time
+        at: input_datetime.sveglia_francesca_ora
+    condition:
+      - condition: state
+        entity_id: input_boolean.sveglia_francesca_attiva
+        state: "on"
+      - condition: template
+        value_template: >
+          {% set giorno = ['lunedi','martedi','mercoledi','giovedi','venerdi','sabato','domenica'][now().weekday()] %}
+          {{ is_state('input_boolean.sveglia_francesca_' ~ giorno, 'on') }}
+    action:
+      - service: media_player.play_media
+        target:
+          entity_id: media_player.mansarda
+        data:
+          media_content_id: "media-source://media_source/local/Highway to Hell.m4a"
+          media_content_type: "music"
+    mode: single
+
+  - alias: Sveglia Enrico Giornaliera
+    trigger:
+      - platform: time
+        at: input_datetime.sveglia_enrico_ora
+    condition:
+      - condition: state
+        entity_id: input_boolean.sveglia_enrico_attiva
+        state: "on"
+      - condition: template
+        value_template: >
+          {% set giorno = ['lunedi','martedi','mercoledi','giovedi','venerdi','sabato','domenica'][now().weekday()] %}
+          {{ is_state('input_boolean.sveglia_enrico_' ~ giorno, 'on') }}
+    action:
+      - service: media_player.play_media
+        target:
+          entity_id: media_player.mansarda
+        data:
+          media_content_id: "media-source://media_source/local/Highway to Hell.m4a"
+          media_content_type: "music"
+    mode: single
+
+
+
+
+
+
+

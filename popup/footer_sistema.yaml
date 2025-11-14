@@ -1,0 +1,318 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Sistema
+    style: >
+      --popup-max-width: calc(385px + 385px + 385px);
+      --ha-card-border-radius: 0;
+    card_mod:
+      style:
+        layout-card:
+          $grid-layout$:
+            # card divider border
+            .: |
+              #root {
+                  margin: -24px 0 !important;
+              }
+            hui-entities-card:
+              $: |
+                .card-content {
+                  padding: var(--tablet-popup-content-padding);
+                  padding-bottom: 0.8em;
+                }
+                ha-card {
+                  border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+                  border-radius: 0;
+                  transition: none;
+                }
+                /* portrait */
+                @media screen and (max-width: 1200px) {
+                  ha-card {
+                    border-right: none;
+                    border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+                  }
+                }
+              $hui-horizontal-stack-card:
+                # horizontal bottom buttons
+                $: |
+                  #root {
+                    justify-content: space-evenly;
+                    margin-top: 1.7em;
+                    max-width: 82vw; /* phone */
+                  }
+    content:
+      type: custom:layout-card
+      layout_type: custom:grid-layout
+      layout:
+        margin: 0
+        grid-template-columns: 385px 385px 385px
+        grid-template-rows: 1fr
+        grid-template-areas: |
+          "hass docker nas"
+        mediaquery:
+          #portrait
+          "(max-width: 1200px)":
+            grid-template-columns: 385px 385px 385px
+            grid-template-rows: 1fr
+            grid-template-areas: |
+              "hass docker nas""
+      cards:
+
+        ### HOME ASSISTANT
+
+        - type: entities
+          view_layout:
+            grid-area: hass
+          title: Home Assistant
+          show_header_toggle: false
+          card_mod:
+            class: header
+          entities:
+
+            - entity: sensor.current_version
+              name: Installata
+              icon: mdi:home-assistant
+
+            - entity: update.home_assistant_core_update
+              name: HA update
+              icon: mdi:update
+
+            - entity: sensor.home_assistant_operating_system_newest_version
+              name: SO
+              icon: mdi:cpu-64-bit
+
+            - entity: update.home_assistant_operating_system_update
+              name: SO update           
+              icon: mdi:update
+              
+            - entity: update.home_assistant_supervisor_update
+              name: Supervisor           
+              icon: mdi:apps
+
+            - entity: update.hacs_update
+              name: HACS
+              icon: hacs:hacs
+              
+            - entity: sensor.uptime
+              name: Ultimo riavvio
+              icon: mdi:clock
+
+            - type: custom:hui-horizontal-stack-card
+              cards:
+
+                - type: custom:button-card
+                  name: Backup
+                  icon: mdi:cloud-upload
+                  tap_action:
+                    action: call-service
+                    service: hassio.backup_full
+                    data:
+                      name: encora265@gmail.com
+                      password: Ce260572fg250873
+                  template: icon_name
+
+                - type: custom:button-card
+                  name: Watchman
+                  icon: mdi:shield-half-full
+                  tap_action:
+                    action: call-service
+                    service: Watchman.report
+                  double_tap_action:
+                    !include watchman.yaml
+                  template: icon_name
+                  
+        ### Rpi_4
+
+        - type: entities
+          view_layout:
+            grid-area: docker
+          title: Raspberry
+          state_color: true
+          show_header_toggle: false
+          card_mod:
+            class: header
+          entities:
+
+            - entity: binary_sensor.rpi_power_status
+              name: Power status
+              icon: mdi:raspberry-pi
+
+            - entity: sensor.processor_temperature
+              name: Temperatura CPU
+              icon: mdi:thermometer
+
+            - entity: sensor.disk_use
+              name: Disco usato
+              icon: mdi:harddisk
+              
+            - entity: sensor.disk_free
+              name: Disco libero
+              icon: mdi:harddisk
+
+            - entity: sensor.memory_use
+              name: Memoria usata
+              icon: mdi:memory
+              
+            - entity: sensor.memory_free
+              name: Memoria libera
+              icon: mdi:memory
+              
+            - type: custom:bar-card
+              width: 55%
+              height: 2em
+              decimal: 0
+              unit_of_measurement: '%'
+              positions: &bar_card_positions
+                icon: outside
+                indicator: 'off'
+                name: outside
+              severity: &bar_card_severity
+                - color: '#6d2525'
+                  from: 85
+                  to: 999
+              entity_row: true
+              entities:
+
+                - entity: sensor.disk_use_percent_config
+                  name: SD
+                  icon: mdi:sd
+
+                - entity: sensor.memory_use_percent
+                  name: RAM
+
+            - type: custom:hui-vertical-stack-card
+              cards:
+                - type: custom:button-card
+                  name: Riavvio server
+                  icon: mdi:reload
+                  tap_action:
+                    action: call-service
+                    service: homeassistant.restart
+                    # service_data:
+                    #   sequence:
+                    #     - service: browser_mod.notification
+                    #       data:
+                    #         message: Restarting server.....
+                    #     - service: browser_mod.delay
+                    #       data:
+                    #         time: 3000
+                    #     - service: homeassistant.restart
+                  template: icon_name
+
+        ### Network
+
+        - type: entities
+          view_layout:
+            grid-area: nas
+          title: Rete
+          show_header_toggle: false
+          card_mod:
+            class: header
+            # no border on last card
+            style: |
+              ha-card {
+                border: none !important;
+              }
+          entities:
+            - entity: binary_sensor.internet_connection
+              name: Internet
+              icon: mdi:wan
+
+            - entity: sensor.speedtest_ping
+              icon: mdi:speedometer
+              name: Ping
+
+            - entity: sensor.speedtest_download
+              name: Download
+              icon: mdi:download
+
+            - entity: sensor.speedtest_upload
+              name: Upload
+              icon: mdi:upload
+
+            - type: custom:hui-horizontal-stack-card
+              cards:
+                - type: custom:button-card
+                  name: Router
+                  icon: mdi:router-wireless
+                  tap_action:
+                    action: url
+                    data:
+                    url_path: http://192.168.1.1/
+                  template: icon_name
+
+                - type: custom:button-card
+                  name: Speedtest
+                  icon: mdi:speedometer
+                  tap_action:
+                    action: call-service
+                    service: shell_command.launch_speedtest_cli
+                  template: icon_name
+
+          footer:
+            type: custom:apexcharts-card
+            layout: minimal
+            graph_span: 1h
+            locale: se
+            apex_config:
+              chart:
+                fontFamily: var(--primary-font-family)
+                height: 135px
+              tooltip:
+                style:
+                  fontSize: 14px
+                x:
+                  show: true
+                  format: dddd HH:mm
+              xaxis:
+                crosshairs:
+                  show: false
+              legend:
+                fontSize: 14px
+                fontWeight: 400
+                itemMargin:
+                  horizontal: 25
+                formatter: |
+                  EVAL: (seriesName, opts) => {
+                    var arr = opts.w.globals.series[opts.seriesIndex],
+                      value = arr[arr.length - 1],
+                      convert = (value/1024).toFixed(2);
+                    return value == null
+                      ? seriesName : value < 1024 ? `${Math.round(value)} kB/s`
+                      : `${convert} MB/s`;
+                  }
+                markers:
+                  width: 26
+                  height: 23
+                  customHTML:
+                    - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+                    - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+                  fillColors:
+                    - none
+                    - none
+              fill:
+                type: gradient
+                gradient:
+                  type: vertical
+                  opacityFrom: 0.8
+                  opacityTo: 0
+                  stops:
+                    - 0
+                    - 99
+                    - 100
+              stroke:
+                width: 3
+            all_series_config:
+              type: area
+              fill_raw: last
+            series:
+              - entity: sensor.speedtest_download
+                name: Down
+                color: green
+              - entity: sensor.speedtest_upload
+                name: Up
+                color: '#385581'
+
+
+

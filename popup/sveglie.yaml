@@ -1,0 +1,72 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: ⏰ Sveglie
+    timeout: 0
+    size: normal
+    style: |
+      :host {
+        filter: drop-shadow(0 0 2rem rgba(255,255,255,0.3));
+        overflow: visible !important;
+      }
+    card_mod:
+      style:
+        ha-dialog:
+          $: |
+            .mdc-dialog__container {
+              overflow: visible !important;
+            }
+            .mdc-dialog__surface {
+              overflow: visible !important;
+              backdrop-filter: blur(20px);
+              background: rgba(18, 18, 18, 0.6);
+              border-radius: 1em;
+              box-shadow: 0 0 2em rgba(255,255,255,0.1);
+            }
+    content:
+      type: custom:mod-card
+      card_mod:
+        style: |
+          :host {
+            all: unset;
+          }
+      card:
+        type: horizontal-stack
+        cards:
+
+          - type: entities
+            title: Sveglia Francesca
+            show_header_toggle: false
+            entities:
+              - entity: input_boolean.sveglia_francesca_attiva
+              - entity: input_datetime.sveglia_francesca_ora
+              - type: section
+                label: Giorni attivi
+              - entity: input_boolean.sveglia_francesca_lunedi
+              - entity: input_boolean.sveglia_francesca_martedi
+              - entity: input_boolean.sveglia_francesca_mercoledi
+              - entity: input_boolean.sveglia_francesca_giovedi
+              - entity: input_boolean.sveglia_francesca_venerdi
+              - entity: input_boolean.sveglia_francesca_sabato
+              - entity: input_boolean.sveglia_francesca_domenica
+
+          - type: entities
+            title: Sveglia Enrico
+            show_header_toggle: false
+            entities:
+              - entity: input_boolean.sveglia_enrico_attiva
+              - entity: input_datetime.sveglia_enrico_ora
+              - type: section
+                label: Giorni attivi
+              - entity: input_boolean.sveglia_enrico_lunedi
+              - entity: input_boolean.sveglia_enrico_martedi
+              - entity: input_boolean.sveglia_enrico_mercoledi
+              - entity: input_boolean.sveglia_enrico_giovedi
+              - entity: input_boolean.sveglia_enrico_venerdi
+              - entity: input_boolean.sveglia_enrico_sabato
+              - entity: input_boolean.sveglia_enrico_domenica
+
+
+
+

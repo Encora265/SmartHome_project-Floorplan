@@ -1,0 +1,79 @@
+switch:
+  template:
+    - base
+    - circle
+    - loader
+  double_tap_action:
+    action: fire-dom-event
+    browser_mod:
+      service: browser_mod.popup
+      data:
+        title: >
+          [[[
+            return !entity || entity.attributes.friendly_name;
+          ]]]
+        card_mod:
+          style:
+            #popup header
+            .:
+        content:
+          type: entities
+          card_mod:
+            style: |
+              #states {
+                padding-top: 0.5em;
+              }
+          entities: >
+            [[[
+              if (entity) {
+                  let switches = [],
+                      id = Boolean(entity.attributes.entity_id)
+                          ? [entity.entity_id].concat(entity.attributes.entity_id)
+                          : [entity.entity_id];
+
+                  for (let i = 0; i < id.length; i++) {
+                      switches.push({
+                          "type": "custom:mushroom-light-card",  // Se usi una scheda specifica per switch, puoi modificarlo
+                          "entity": id[i],
+                          "fill_container": false,
+                          "primary_info": "name",
+                          "secondary_info": "state",
+                          "icon_type": "icon",
+                          "show_brightness_control": false,  // Non applicabile per switch
+                          "use_light_color": false,  // Non applicabile per switch
+                          "show_color_temp_control": false,  // Non applicabile per switch
+                          "show_color_control": false,  // Non applicabile per switch
+                          "collapsible_controls": false
+                      });
+                  }
+                  return switches;
+              }
+            ]]]
+  variables:
+    circle_input: >
+      [[[
+        if (entity && entity.state === 'on') {
+            // Calcola il tempo trascorso dall'accensione
+            let lastChanged = new Date(entity.last_changed);
+            let now = new Date();
+            let diff = Math.floor((now - lastChanged) / 60000); // Differenza in minuti
+            let hours = Math.floor(diff / 60);
+            let minutes = diff % 60;
+            return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
+        } else {
+            return '';  // Restituisce una stringa vuota quando lo switch è spento
+        }
+      ]]]
+    circle_input_unit: ''
+    circle_visibility: >
+      [[[
+        return (entity && entity.state === 'on') ? 'visible' : 'hidden';
+      ]]]
+
+  card_mod:
+    style:
+      .circle:
+        visibility: >
+          [[[
+            return variables.circle_visibility;
+          ]]]

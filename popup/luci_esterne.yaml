@@ -1,0 +1,116 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Luci esterne
+    size: normal
+    style: |
+      :host {
+        --mdc-dialog-scrim-color: rgba(0, 0, 0, 0.6);
+        animation: fadein 0.4s ease-out;
+      }
+    
+      ha-dialog > div {
+        backdrop-filter: blur(16px) brightness(0.9);
+        background-color: rgba(25, 25, 25, 0.3);
+        border-radius: 16px;
+        box-shadow: 0 0 54px 4px rgba(0, 0, 0, 0.4);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        animation: fadein 0.4s ease-out;
+      }
+    
+      @keyframes fadein {
+        0% {
+          opacity: 0;
+          transform: scale(0.96);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+    content:
+      type: vertical-stack
+      cards:
+        - type: entities
+          state_color: true
+          card_mod:
+            class: content
+          entities:
+            - entity: light.luci_esterne
+              secondary_info: last-changed
+            - entity: sensor.time
+            - entity: input_datetime.orario_luci_esterne_on
+            - entity: input_datetime.orario_luci_esterne_off
+            - entity: automation.accensione_luci_esterne_orario_programmato
+            - entity: automation.spegnimento_luci_esterne_orario_programmato
+            - entity: automation.accensione_luci_esterne_tramonto
+
+        - type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              entity: light.luci_esterne
+              icon: mdi:lightbulb-on
+              name: Accendi
+              show_state: false
+              tap_action:
+                action: call-service
+                service: light.turn_on
+                service_data:
+                  entity_id: light.luci_esterne
+              styles:
+                card:
+                  - background-color: >
+                      [[[
+                        return entity.state === 'off'
+                          ? 'var(--button-card-light-color)'
+                          : 'var(--ha-card-background)';
+                      ]]]
+                  - color: >
+                      [[[
+                        return entity.state === 'off'
+                          ? 'var(--primary-text-color)'
+                          : 'var(--disabled-text-color)';
+                      ]]]
+                  - box-shadow: >
+                      [[[
+                        return entity.state === 'off'
+                          ? '0 0 10px var(--button-card-light-color)'
+                          : 'none';
+                      ]]]
+                  - border-radius: 12px
+                  - width: 50%
+        
+            - type: custom:button-card
+              entity: light.luci_esterne
+              icon: mdi:lightbulb-off
+              name: Spegni
+              show_state: false
+              tap_action:
+                action: call-service
+                service: light.turn_off
+                service_data:
+                  entity_id: light.luci_esterne
+              styles:
+                card:
+                  - background-color: >
+                      [[[
+                        return entity.state === 'on'
+                          ? 'var(--button-card-light-color)'
+                          : 'var(--ha-card-background)';
+                      ]]]
+                  - color: >
+                      [[[
+                        return entity.state === 'on'
+                          ? 'var(--primary-text-color)'
+                          : 'var(--disabled-text-color)';
+                      ]]]
+                  - box-shadow: >
+                      [[[
+                        return entity.state === 'on'
+                          ? '0 0 10px var(--button-card-light-color)'
+                          : 'none';
+                      ]]]
+                  - border-radius: 12px
+                  - width: 50%

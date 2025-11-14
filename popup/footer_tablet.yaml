@@ -1,0 +1,105 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: ""  # rimuove il titolo per usare solo immagine
+    timeout: 0
+    size: normal
+    style: |
+      :host {
+        backdrop-filter: blur(15px);
+        background-color: rgba(25, 25, 25, 0.5);
+        border-radius: 1em;
+        box-shadow: 0 0 2em rgba(255,255,255,0.1);
+      }
+    card_mod:
+      style:
+        ha-dialog:
+          $: |
+            .mdc-dialog__container {
+              overflow: visible !important;
+            }
+            .mdc-dialog__surface {
+              overflow: visible !important;
+              background-color: rgba(25, 25, 25, 0.5) !important;
+              backdrop-filter: blur(15px);
+              border-radius: 1em;
+              box-shadow: 0 0 2em rgba(255,255,255,0.1);
+            }
+    content:
+      type: custom:mod-card
+      card_mod:
+        style: |
+          :host {
+            all: unset;
+          }
+      card:
+        type: grid
+        columns: 1
+        square: false
+        cards:
+
+          # HEADER con immagine + pulsante chiudi
+          - type: custom:mod-card
+            card_mod:
+              style: |
+                :host {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  padding: 0.2em 0.5em 0 0.5em;
+                }
+            card:
+              type: horizontal-stack
+              cards:
+                - type: picture
+                  image: /local/images/galaxy.png
+                  style:
+                    border-radius: 0.5em
+                    height: 30px
+                    width: auto
+                - type: custom:button-card
+                  icon: mdi:close
+                  show_name: false
+                  show_icon: true
+                  tap_action:
+                    action: call-service
+                    service: browser_mod.close_popup
+                  styles:
+                    card:
+                      - background: none
+                      - box-shadow: none
+                      - height: 60px
+                      - width: 60px
+                      - margin-left: auto
+                    icon:
+                      - color: white
+                      - width: 24px
+                      - height: 24px
+
+          - type: entities
+            title: Controllo Alimentazione Tablet
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: input_boolean.dashboard_general_management
+              - type: divider
+              - entity: input_boolean.dashboard_power_battery_low
+              - entity: input_number.dashboard_power_battery_low
+              - entity: binary_sensor.dashboard_power_battery_low
+              - type: divider
+              - entity: input_boolean.dashboard_power_battery_high
+              - entity: input_number.dashboard_power_battery_high
+              - entity: binary_sensor.dashboard_power_battery_high
+              - type: divider
+              - entity: sensor.my_wall_panel_battery_level
+              - entity: switch.sonoff_1001edb37d_2
+                name: Alimentazione Tablet
+
+          - type: custom:bar-card
+            width: 55%
+            height: 2em
+            decimal: 0
+            unit_of_measurement: '%'
+
+

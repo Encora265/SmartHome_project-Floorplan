@@ -1,0 +1,59 @@
+#################################################
+  #                                               #
+  #                  TEMPERATURE                  #
+  #                                               #
+  #################################################
+
+  temperature:
+    template:
+      - base
+    show_name: true # Hides Card Name
+    show_state: true # Hides Card state
+    state_display: >
+      [[[ return '&nbsp;'; ]]]
+    custom_fields:
+      circle: >
+        [[[ {
+        const temperature = Math.round(entity.state);
+        return `<svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="20.5" stroke="#313638" stroke-width="1.5" fill="#FFFFFF08" style="
+        transform: rotate(-90deg); transform-origin: 50% 50%;" />
+        <text x="50%" y="54%" fill="#8d8e90" font-size="14" text-anchor="middle" alignment-baseline="middle" dominant-baseline="middle" dominant-baseline="middle">${temperature}°F</text></svg>`; } ]]]
+      graph:
+        card:
+          type: "custom:mini-graph-card"
+          height: 140
+          hours_to_show: 24
+          points_per_hour: 1
+          line_width: 8
+          font_size: 75
+          decimals: 0
+          show:
+            name: false
+            icon: false
+            state: false
+            legend: false
+            labels: false
+            labels_secondary: false
+            points: false
+          color_thresholds:
+            - value: 0
+              color: "#276696"
+            - value: 69
+              color: "#228C22"
+            - value: 75
+              color: "#d35400"
+            - value: 76
+              color: "#c0392b"
+              
+    styles:
+          custom_fields:
+            graph: [bottom: 0%, left: 0%, width: 128%, position: absolute, margin: 0% 0% -13% -14%]
+            icon:
+              - width: 67%
+              - fill: "#9da0a2"
+            circle:
+              - display: initial
+              - width: 90%
+              - margin: -6% -5% 0 0
+              - justify-self: end
+              - opacity: 1

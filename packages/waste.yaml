@@ -1,0 +1,14 @@
+template:
+  - sensor:
+      - name: "Giorni Raccolta"
+        unique_id: giorni_raccolta
+        state: >
+          {% set next = state_attr('calendar.raccolta_differenziata', 'start_time') %}
+          {% if next %}
+            {{ (as_datetime(next).date() - now().date()).days }}
+          {% else %}
+            0
+          {% endif %}
+        attributes:
+          tipo: "{{ state_attr('calendar.raccolta_differenziata', 'message') }}"
+

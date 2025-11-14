@@ -1,0 +1,2869 @@
+button_card_templates: !include_dir_merge_named button_card_templates
+title: Piano Terra
+views:
+
+    #############################################################################################################################################
+    #                                                                                                                                           #
+    #                                                    Floorplan View Piano terra                                                             #
+    #                                                                                                                                           #
+    #############################################################################################################################################
+
+  - title: Piano Terra
+    icon: 'mdi:home-floor-0'
+    panel: true
+    badges: []
+    cards:
+
+        ###################   config-template-card    #####################
+
+      - type: 'custom:config-template-card'
+        entities:
+          - light.parentesi_group
+          - light.luce_tavolo
+          - light.cucina_windcalm_2
+          - light.luce_bagno
+          - light.55pus8009_12_luce_ambientale 
+          - switch.smart_wi_fi_plug
+          - switch.luce_ripostiglio
+          - switch.banco
+          - cover.garage
+          - binary_sensor.internet_connection
+          - vacuum.roborock_q8_max
+          - input_boolean.luce_scala1
+          - media_player.55pus8009_12
+          - fan.cucina_windcalm
+          - binary_sensor.my_wall_panel_motion_detected
+          - binary_sensor.my_wall_panel_face_detected
+          - sensor.my_wall_panel_light
+
+        card:
+
+          ###################   Picture Elements Card    #####################
+          type: picture-elements
+          image: /local/floorplan/transparent.png
+          card_mod:
+            style: |
+              ha-card:first-child {
+                background: rgba(42, 46, 48, 0)
+              }
+          elements:
+
+              #########################    DAY BASE FLOORPLAN OVERLAY    #########################
+
+            - action: none
+              entity: sun.sun
+              hold_action:
+                action: none
+              state_image:
+                above_horizon: /local/floorplan/terrax/p0x_day.png
+                below_horizon: /local/floorplan/transparent.png
+              style:
+                height: auto
+                left: 45%
+                mix-blend-mode: lighten
+                opacity: '${ states[''sensor.sunlight_opacity''].state }'
+                top: 70.00%
+                width: 160%
+              tap_action:
+                action: none
+              type: image
+
+              #########################    Inside overlays for weather    #########################
+
+            - action: none
+              hold_action:
+                action: none
+              image: /local/floorplan/terrax/p0x_night.png
+              style:
+                height: auto
+                left: 45%
+                top: 70.00%
+                width: 160%
+              tap_action:
+                action: none
+              type: image
+
+            - action: none
+              entity: sun.sun
+              hold_action:
+                action: none
+              state_image:
+                above_horizon: /local/floorplan/terrax/p0x_day.png
+                below_horizon: /local/floorplan/transparent.png
+              style:
+                height: auto
+                left: 45%
+                mix-blend-mode: lighten
+                opacity: '${ states[''sensor.sunlight_opacity''].state }'
+                top: 70.00%
+                width: 160%
+              tap_action:
+                action: none
+              type: image
+
+            #################################################
+            #                                               #
+            #          LUCI INDIVIDUALI - RENDERING         #
+            #                                               #
+            #################################################
+
+            ######### PARENTESI - Layer 1: Base bianca ##########
+
+            - action: none
+              entity: light.parentesi_group
+              hold_action:
+                action: none
+              image: /local/floorplan/transparent.png
+              state_image:
+                'on': /local/floorplan/terra/p0_parentesi.png
+              tap_action:
+                action: none
+              type: image
+              style:
+                opacity: >-
+                  ${ ( states["light.parentesi_group"].attributes.brightness ?
+                  states["light.parentesi_group"].attributes.brightness / 255 : 0) -
+                  (states["light.parentesi_group"].attributes.hs_color ?
+                  states["light.parentesi_group"].attributes.hs_color[1]/90 : 0)}
+                mix-blend-mode: lighten
+                left: 45.00%
+                top: 70.00%
+                width: 160%
+            
+            ######### PARENTESI - Layer 2: CCT (bianca calda/fredda) ##########
+   
+            - action: none
+              entity: light.parentesi_group
+              hold_action:
+                action: none
+              image: /local/floorplan/transparent.png
+              state_image:
+                'on': /local/floorplan/terra/p0_parentesi.png  # immagine BIANCA
+              tap_action:
+                action: none
+              type: image
+              style:
+                filter: >-
+                  ${(() => {
+                    const e = states["light.parentesi_group"].attributes;
+                    const kelvin = e.color_temp_kelvin || 4000;
+                    const ratio = Math.min(Math.max((kelvin - 2000) / (6500 - 2000), 0), 1);
+                    const brightness = e.brightness ? e.brightness / 255 : 0.6;
+                    
+                    // Caldo (2000K) = giallo/arancio, Freddo (6500K) = blu
+                    const sepiaLevel = 1 - ratio;  // 1 per caldo, 0 per freddo
+                    const hueRotate = (sepiaLevel - 0.5) * 30;  // ±15°
+                    
+                    return `sepia(${sepiaLevel}) hue-rotate(${hueRotate}deg) brightness(${brightness + 0.1})`;  // ridotto da +0.4 a +0.2
+                  })()}
+                opacity: >-
+                  ${(() => {
+                    const e = states["light.parentesi_group"].attributes;
+                    const sat = e.hs_color ? e.hs_color[1] : 0;
+                    if (e.color_mode !== 'hs' || sat <= 10) {
+                      const brightness = e.brightness ? e.brightness / 255 : 0.6;
+                      return brightness * 0.7;
+                    }
+                    return 0;
+                  })()}
+                mix-blend-mode: lighten
+                left: 45.00%
+                top: 70.00%
+                width: 160%
+            
+            ######### PARENTESI - Layer 3: RGB (colorata) ##########
+
+            - action: none
+              entity: light.parentesi_group
+              hold_action:
+                action: none
+              image: /local/floorplan/transparent.png
+              state_image:
+                'on': /local/floorplan/terra/p0_parentesirgb.png  # immagine ROSSA/COLORATA
+              tap_action:
+                action: none
+              type: image
+              style:
+                filter: >-
+                  ${(() => {
+                    const e = states["light.parentesi_group"].attributes;
+                    const hue = e.hs_color ? e.hs_color[0] : 0;
+                    const sat = e.hs_color ? e.hs_color[1] : 0;
+                    const bright = e.brightness ? e.brightness / 255 : 0.7;
+                    
+                    return `hue-rotate(${hue}deg) saturate(${sat + 20}%) brightness(${0.6 + bright * 0.6})`;
+                  })()}
+                opacity: >-
+                  ${(() => {
+                    const e = states["light.parentesi_group"].attributes;
+                    const sat = e.hs_color ? e.hs_color[1] : 0;
+                    
+                     if (e.color_mode === 'hs' && sat > 10) {
+                      const bright = e.brightness ? e.brightness / 255 : 0.7;
+                      return bright;
+                    }
+                    return 0;
+                  })()}
+                mix-blend-mode: lighten
+                left: 45.00%
+                top: 70.00%
+                width: 160%
+
+            ######### TAVOLO ##########
+
+            - action: none
+              entity: light.luce_tavolo
+              hold_action:
+                action: none
+              image: /local/floorplan/terra/p0_tavolo.png
+              style:
+                left: 45.00%
+                top: 70.00%
+                width: 160%
+                height: auto
+                mix-blend-mode: lighten
+                opacity: "${states['light.luce_tavolo'].state === 'on' ? '1' : '0'}"
+              tap_action:
+                action: none
+              type: image
+
+            ######### RIPOSTIGLIO ##########
+
+            - action: none
+              entity: switch.luce_ripostiglio
+              hold_action:
+                action: none
+              image: /local/floorplan/terra/p0_ripostiglio.png
+              style:
+                left: 45.00%
+                top: 70.00%
+                width: 160%
+                height: auto
+                mix-blend-mode: lighten
+                opacity: "${states['switch.luce_ripostiglio'].state === 'on' ? '1' : '0'}"
+              tap_action:
+                action: none
+              type: image
+
+            ######### SCALA 1 ##########
+
+            - action: none
+              entity: input_boolean.luce_scala1
+              hold_action:
+                action: none
+              image: /local/floorplan/terra/p0_scala1.png
+              style:
+                left: 45.00%
+                top: 70.00%
+                width: 160%
+                height: auto
+                mix-blend-mode: lighten
+                opacity: "${states['input_boolean.luce_scala1'].state === 'on' ? '1' : '0'}"
+              tap_action:
+                action: none
+              type: image
+
+            ######### BANCO ##########
+
+            - action: none
+              entity: switch.banco
+              hold_action:
+                action: none
+              image: /local/floorplan/terra/p0_banco.png
+              style:
+                left: 45.00%
+                top: 70.00%
+                width: 160%
+                height: auto
+                mix-blend-mode: lighten
+                opacity: "${states['switch.banco'].state === 'on' ? '1' : '0'}"
+              tap_action:
+                action: none
+              type: image
+
+            ######### CUCINA ##########
+
+            - action: none
+              entity: light.cucina_windcalm_2
+              hold_action:
+                action: none
+              image: /local/floorplan/terra/p0_cucina.png
+              style:
+                filter: >-
+                  ${(() => {
+                    const e = states['light.cucina_windcalm_2'].attributes;
+                    const kelvin = e.color_temp_kelvin || 4000;
+                    const ratio = (kelvin - 2000) / (6500 - 2000);
+                    const sepiaLevel = 1 - ratio;
+                    const hueRotate = (sepiaLevel - 0.5) * 30;
+                    const brightness = e.brightness ? e.brightness / 255 : 0.6;
+                    return `sepia(${sepiaLevel}) hue-rotate(${hueRotate}deg) brightness(${brightness + 0.6})`;
+                  })()}
+                opacity: >-
+                  ${states['light.cucina_windcalm_2'].state === 'on'
+                    ? ((states['light.cucina_windcalm_2'].attributes.brightness || 180) / 255) * 1.2
+                    : 0}
+                mix-blend-mode: lighten
+                left: 45.00%
+                top: 70.00%
+                width: 160%
+                height: auto
+              tap_action:
+                action: none
+              type: image
+
+            ######### SPECCHIO BAGNO ##########
+
+            - action: none
+              entity: light.luce_bagno
+              hold_action:
+                action: none
+              image:  /local/floorplan/terra/p0_specchio.png
+              style:
+                filter: >-
+                  ${(() => {
+                    const e = states['light.luce_bagno'].attributes;
+                    const kelvin = e.color_temp_kelvin || 4000;
+                    const ratio = (kelvin - 2000) / (6500 - 2000);
+                    const sepiaLevel = 1 - ratio;
+                    const hueRotate = (sepiaLevel - 0.5) * 30;
+                    const brightness = e.brightness ? e.brightness / 255 : 0.6;
+                    return `sepia(${sepiaLevel}) hue-rotate(${hueRotate}deg) brightness(${brightness + 0.6})`;
+                  })()}
+                opacity: >-
+                  ${states['light.luce_bagno'].state === 'on'
+                    ? ((states['light.luce_bagno'].attributes.brightness || 180) / 255) * 1.2
+                    : 0}
+                mix-blend-mode: lighten
+                left: 45.00%
+                top: 70.00%
+                width: 160%
+                height: auto
+              tap_action:
+                action: none
+              type: image
+
+            ######### PHILIPS TV ##########
+            
+            - type: image
+              entity: media_player.55pus8009_12
+              action: none
+              hold_action:
+                action: toggle
+              tap_action:
+                action: none
+              state_image:
+                "on": /local/floorplan/terra/p0_tv.png
+                "off": /local/floorplan/transparent.png
+              style:
+                left: 45.00%
+                top: 70.00%
+                width: 160%
+                height: auto
+                mix-blend-mode: lighten
+
+            ######### AMBILIGHT ##########
+
+            - action: none
+              entity: light.55pus8009_12_luce_ambientale
+              hold_action:
+                action: none
+              image: /local/floorplan/transparent.png
+              state_image:
+                'on': /local/floorplan/terra/p0_ambilight.png
+              tap_action:
+                action: none
+              type: image
+              style:
+                # opacity: >-
+                #   ${ ( states["light.55pus8009_12_luce_ambientale"].attributes.brightness ?
+                #   states["light.55pus8009_12_luce_ambientale"].attributes.brightness / 255 : 0) -
+                #   (states["light.55pus8009_12_luce_ambientale"].attributes.hs_color ?
+                #   states["light.55pus8009_12_luce_ambientale"].attributes.hs_color[1]/90 : 0)}
+                mix-blend-mode: lighten
+                left: 45.00%
+                top: 70.00%
+                width: 160%
+            
+            ######### AMBILIGHT - Layer 2: CCT (bianca calda/fredda) ##########
+   
+            - action: none
+              entity: light.55pus8009_12_luce_ambientale
+              hold_action:
+                action: none
+              image: /local/floorplan/transparent.png
+              state_image:
+                'on': /local/floorplan/terra/p0_ambilight.png  # immagine BIANCA
+              tap_action:
+                action: none
+              type: image
+              style:
+                filter: >-
+                  ${(() => {
+                    const e = states["light.55pus8009_12_luce_ambientale"].attributes;
+                    const kelvin = e.color_temp_kelvin || 4000;
+                    const ratio = Math.min(Math.max((kelvin - 2000) / (6500 - 2000), 0), 1);
+                    const brightness = e.brightness ? e.brightness / 255 : 0.6;
+                    
+                    // Caldo (2000K) = giallo/arancio, Freddo (6500K) = blu
+                    const sepiaLevel = 1 - ratio;  // 1 per caldo, 0 per freddo
+                    const hueRotate = (sepiaLevel - 0.5) * 30;  // ±15°
+                    
+                    return `sepia(${sepiaLevel}) hue-rotate(${hueRotate}deg) brightness(${brightness + 0.1})`;  // ridotto da +0.4 a +0.2
+                  })()}
+                opacity: >-
+                  ${(() => {
+                    const e = states["light.55pus8009_12_luce_ambientale"].attributes;
+                    const sat = e.hs_color ? e.hs_color[1] : 0;
+                    if (e.color_mode !== 'hs' || sat <= 10) {
+                      const brightness = e.brightness ? e.brightness / 255 : 0.6;
+                      return brightness * 0.7;
+                    }
+                    return 0;
+                  })()}
+                mix-blend-mode: lighten
+                left: 45.00%
+                top: 70.00%
+                width: 160%
+            
+            ######### AMBILIGHT - Layer 3: RGB (colorata) ##########
+
+            - action: none
+              entity: light.55pus8009_12_luce_ambientale
+              hold_action:
+                action: none
+              image: /local/floorplan/transparent.png
+              state_image:
+                'on': /local/floorplan/terra/p0_ambilightrgb.png  # immagine ROSSA/COLORATA
+              tap_action:
+                action: none
+              type: image
+              style:
+                filter: >-
+                  ${(() => {
+                    const e = states["light.55pus8009_12_luce_ambientale"].attributes;
+                    const hue = e.hs_color ? e.hs_color[0] : 0;
+                    const sat = e.hs_color ? e.hs_color[1] : 0;
+                    const bright = e.brightness ? e.brightness / 255 : 0.7;
+                    
+                    return `hue-rotate(${hue}deg) saturate(${sat + 20}%) brightness(${0.6 + bright * 0.6})`;
+                  })()}
+                opacity: >-
+                  ${(() => {
+                    const e = states["light.55pus8009_12_luce_ambientale"].attributes;
+                    const sat = e.hs_color ? e.hs_color[1] : 0;
+                    
+                     if (e.color_mode === 'hs' && sat > 10) {
+                      const bright = e.brightness ? e.brightness / 255 : 0.7;
+                      return bright;
+                    }
+                    return 0;
+                  })()}
+                mix-blend-mode: lighten
+                left: 45.00%
+                top: 70.00%
+                width: 160%
+
+            ######### TABLET ##########
+            
+            - action: none
+              entity: binary_sensor.my_wall_panel_motion_detected
+              state_image:
+                "on": /local/floorplan/terra/p0_tablet.png
+                "off": /local/floorplan/transparent.png
+              style:
+                left: 45.00%
+                top: 70.00%
+                width: 160%
+                height: auto
+                mix-blend-mode: lighten
+                opacity: >-
+                  ${ states['binary_sensor.my_wall_panel_motion_detected'].state === 'on'
+                      ? (
+                          states['binary_sensor.my_wall_panel_face_detected'].state === 'on'
+                          ? Math.min(states['sensor.my_wall_panel_light'].state / 100, 0.9)
+                          : Math.min(states['sensor.my_wall_panel_light'].state / 200, 0.5)
+                        )
+                      : 0
+                  }
+              hold_action:
+                action: none
+              tap_action:
+                action: none
+              type: image
+
+            #################################################
+            #                                               #
+            #              PULSANTI TRASPARENTI             #
+            #                                               #
+            #################################################
+
+            ######### PARENTESI ##########
+
+            - type: image
+              entity: light.parentesi_group
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: homeassistant.toggle
+                service_data:
+                  entity_id: light.parentesi_group
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mod-card
+                      card_mod:
+                        style: |
+                          ha-dialog {
+                            position: absolute !important;
+                            top: 150px !important;
+                            left: 300px !important;
+                            transform: none !important;
+                          }
+                      card:
+                        type: custom:mushroom-light-card
+                        entity: light.parentesi_group
+                        fill_container: true
+                        use_light_color: true
+                        show_color_control: true
+                        show_color_temp_control: true
+                        show_brightness_control: true
+                        layout: horizontal
+              style:
+                height: 4.50%
+                left: 54.00%
+                top: 79.00%
+                width: 3.00%
+                # border: 1px solid red
+                template:
+                  - light
+
+            ######### TAVOLO ##########
+
+            - type: image
+              entity: light.luce_tavolo
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: homeassistant.toggle
+                service_data:
+                  entity_id: light.luce_tavolo
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-light-card
+                      entity: light.luce_tavolo
+                      icon: mdi:ceiling-light
+                      use_light_color: false
+                      show_brightness_control: false
+              style:
+                height: 8.50%
+                left: 52.50%
+                top: 22.50%
+                width: 9.00%
+                # border: 1px solid red
+                template:
+                  - light
+
+            ######### RIPOSTIGLIO ##########
+
+            - type: image
+              entity: switch.luce_ripostiglio
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: homeassistant.toggle
+                service_data:
+                  entity_id: switch.luce_ripostiglio
+              style:
+                height: 5.70%
+                left: 70.00%
+                top: 44.30%
+                width: 7.00%
+                # border: 1px solid red
+                template:
+                  - light
+
+            ######### SCALA 1 ##########
+
+            - type: image
+              entity: input_boolean.luce_scala1
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: homeassistant.toggle
+                service_data:
+                  entity_id: input_boolean.luce_scala1
+              style:
+                height: 16.50%
+                left: 68.50%
+                top: 15.50%
+                width: 4.00%
+                # border: 1px solid red
+                template:
+                  - light
+
+            ######### BANCO ##########
+
+            - type: image
+              entity: switch.banco
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: homeassistant.toggle
+                service_data:
+                  entity_id: switch.banco
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-light-card
+                      entity: switch.banco
+                      icon: mdi:ceiling-light
+                      use_light_color: false
+                      show_brightness_control: false   
+              style:
+                height: 16.00%
+                left: 68.25%
+                top: 67.00%
+                width: 5.50%
+                # border: 1px solid red
+                template:
+                  - light
+
+            ######### CUCINA ##########
+
+            - type: image
+              entity: light.cucina_windcalm_2
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: homeassistant.toggle
+                service_data:
+                  entity_id: light.cucina_windcalm_2
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-light-card
+                      entity: light.cucina_windcalm
+                      use_light_color: true
+                      show_brightness_control: false
+                      show_color_temp_control: true
+                      show_color_control: false
+              style:
+                height: 29.00%
+                left: 82.50%
+                top: 60.50%
+                width: 16.00%
+                # border: 1px solid red
+                template:
+                  - light
+
+            ######### SPECCHIO BAGNO ##########
+
+            - type: image
+              entity: light.luce_bagno
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: homeassistant.toggle
+                service_data:
+                  entity_id: light.luce_bagno
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mod-card
+                      card_mod:
+                        style: |
+                          ha-dialog {
+                            position: absolute !important;
+                            top: 150px !important;    /* regola qui verticalmente */
+                            left: 300px !important;   /* regola qui orizzontalmente */
+                            transform: none !important;
+                          }
+                      card:
+                        type: custom:mushroom-light-card
+                        entity: light.luce_bagno
+                        fill_container: true
+                        use_light_color: true
+                        show_color_control: true
+                        show_color_temp_control: true
+                        show_brightness_control: true
+                        layout: horizontal
+              style:
+                height: 3.00%
+                left: 77.80%
+                top: 42.20%
+                width: 5.00%
+                # border: 1px solid red
+                template:
+                  - light
+
+            ######### ROBOROCK ##########
+              
+            - type: image
+              entity: vacuum.roborock_q8_max
+              state_image:
+                "idle": /local/floorplan/roborock/roborockstop.gif
+                "docked": /local/floorplan/roborock/roborockstop.gif
+                "paused": /local/floorplan/roborock/roborockstop.gif
+                "cleaning": /local/floorplan/roborock/roborock_move.gif
+                "returning": /local/floorplan/roborock/roborock_move.gif
+              tap_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-vacuum-card
+                      entity: vacuum.roborock_q8_max
+                      icon_animation: true
+                      layout: horizontal
+                      commands:
+                        - start_pause
+                        - on_off
+                        - return_home
+                        - stop
+                      fill_container: true
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:xiaomi-vacuum-map-card
+                      map_source:
+                        camera: camera.roborock_q8_max_map
+                      calibration_source:
+                        camera: true
+                      entity: vacuum.roborock_q8_max
+                      vacuum_platform: default
+                      map_locked: true
+                      two_finger_pan: true
+                      map_modes:
+                        - template: vacuum_clean_zone
+                        - template: vacuum_goto
+                        - template: vacuum_clean_segment
+                          predefined_selections:
+                            - id: "16"
+                              icon:
+                                name: mdi:broom
+                                x: 28175
+                                "y": 31450
+                              label:
+                                text: Room 16
+                                x: 28175
+                                "y": 31450
+                                offset_y: 35
+                              outline:
+                                - - 25100
+                                  - 29950
+                                - - 31250
+                                  - 29950
+                                - - 31250
+                                  - 32950
+                                - - 25100
+                                  - 32950
+                            - id: "17"
+                              icon:
+                                name: mdi:broom
+                                x: 23300
+                                "y": 32175
+                              label:
+                                text: Room 17
+                                x: 23300
+                                "y": 32175
+                                offset_y: 35
+                              outline:
+                                - - 22200
+                                  - 30850
+                                - - 24400
+                                  - 30850
+                                - - 24400
+                                  - 33500
+                                - - 22200
+                                  - 33500
+                            - id: "18"
+                              icon:
+                                name: mdi:broom
+                                x: 22200
+                                "y": 27475
+                              label:
+                                text: Room 18
+                                x: 22200
+                                "y": 27475
+                                offset_y: 35
+                              outline:
+                                - - 20900
+                                  - 25450
+                                - - 23500
+                                  - 25450
+                                - - 23500
+                                  - 29500
+                                - - 20900
+                                  - 29500
+                            - id: "19"
+                              icon:
+                                name: mdi:broom
+                                x: 22950
+                                "y": 30225
+                              label:
+                                text: Room 19
+                                x: 22950
+                                "y": 30225
+                                offset_y: 35
+                              outline:
+                                - - 21950
+                                  - 29550
+                                - - 23950
+                                  - 29550
+                                - - 23950
+                                  - 30900
+                                - - 21950
+                                  - 30900
+                            - id: "20"
+                              icon:
+                                name: mdi:broom
+                                x: 27850
+                                "y": 27175
+                              label:
+                                text: Room 20
+                                x: 27850
+                                "y": 27175
+                                offset_y: 35
+                              outline:
+                                - - 23450
+                                  - 24450
+                                - - 32250
+                                  - 24450
+                                - - 32250
+                                  - 29900
+                                - - 23450
+                                  - 29900
+                        - template: vacuum_clean_segment
+                          predefined_selections:
+                            - id: "16"
+                              icon:
+                                name: mdi:broom
+                                x: 28175
+                                "y": 31450
+                              label:
+                                text: Room 16
+                                x: 28175
+                                "y": 31450
+                                offset_y: 35
+                              outline:
+                                - - 25100
+                                  - 29950
+                                - - 31250
+                                  - 29950
+                                - - 31250
+                                  - 32950
+                                - - 25100
+                                  - 32950
+                            - id: "17"
+                              icon:
+                                name: mdi:broom
+                                x: 23300
+                                "y": 32175
+                              label:
+                                text: Room 17
+                                x: 23300
+                                "y": 32175
+                                offset_y: 35
+                              outline:
+                                - - 22200
+                                  - 30850
+                                - - 24400
+                                  - 30850
+                                - - 24400
+                                  - 33500
+                                - - 22200
+                                  - 33500
+                            - id: "18"
+                              icon:
+                                name: mdi:broom
+                                x: 22200
+                                "y": 27475
+                              label:
+                                text: Room 18
+                                x: 22200
+                                "y": 27475
+                                offset_y: 35
+                              outline:
+                                - - 20900
+                                  - 25450
+                                - - 23500
+                                  - 25450
+                                - - 23500
+                                  - 29500
+                                - - 20900
+                                  - 29500
+                            - id: "19"
+                              icon:
+                                name: mdi:broom
+                                x: 22950
+                                "y": 30225
+                              label:
+                                text: Room 19
+                                x: 22950
+                                "y": 30225
+                                offset_y: 35
+                              outline:
+                                - - 21950
+                                  - 29550
+                                - - 23950
+                                  - 29550
+                                - - 23950
+                                  - 30900
+                                - - 21950
+                                  - 30900
+                            - id: "20"
+                              icon:
+                                name: mdi:broom
+                                x: 27850
+                                "y": 27175
+                              label:
+                                text: Room 20
+                                x: 27850
+                                "y": 27175
+                                offset_y: 35
+                              outline:
+                                - - 23450
+                                  - 24450
+                                - - 32250
+                                  - 24450
+                                - - 32250
+                                  - 29900
+                                - - 23450
+                                  - 29900
+                        - template: vacuum_clean_segment
+                          predefined_selections:
+                            - id: "16"
+                              icon:
+                                name: mdi:broom
+                                x: 28175
+                                "y": 31450
+                              label:
+                                text: Room 16
+                                x: 28175
+                                "y": 31450
+                                offset_y: 35
+                              outline:
+                                - - 25100
+                                  - 29950
+                                - - 31250
+                                  - 29950
+                                - - 31250
+                                  - 32950
+                                - - 25100
+                                  - 32950
+                            - id: "17"
+                              icon:
+                                name: mdi:broom
+                                x: 23300
+                                "y": 32175
+                              label:
+                                text: Room 17
+                                x: 23300
+                                "y": 32175
+                                offset_y: 35
+                              outline:
+                                - - 22200
+                                  - 30850
+                                - - 24400
+                                  - 30850
+                                - - 24400
+                                  - 33500
+                                - - 22200
+                                  - 33500
+                            - id: "18"
+                              icon:
+                                name: mdi:broom
+                                x: 22200
+                                "y": 27475
+                              label:
+                                text: Room 18
+                                x: 22200
+                                "y": 27475
+                                offset_y: 35
+                              outline:
+                                - - 20900
+                                  - 25450
+                                - - 23500
+                                  - 25450
+                                - - 23500
+                                  - 29500
+                                - - 20900
+                                  - 29500
+                            - id: "19"
+                              icon:
+                                name: mdi:broom
+                                x: 22950
+                                "y": 30225
+                              label:
+                                text: Room 19
+                                x: 22950
+                                "y": 30225
+                                offset_y: 35
+                              outline:
+                                - - 21950
+                                  - 29550
+                                - - 23950
+                                  - 29550
+                                - - 23950
+                                  - 30900
+                                - - 21950
+                                  - 30900
+                            - id: "20"
+                              icon:
+                                name: mdi:broom
+                                x: 27850
+                                "y": 27175
+                              label:
+                                text: Room 20
+                                x: 27850
+                                "y": 27175
+                                offset_y: 35
+                              outline:
+                                - - 23450
+                                  - 24450
+                                - - 32250
+                                  - 24450
+                                - - 32250
+                                  - 29900
+                                - - 23450
+                                  - 29900
+                        - template: vacuum_clean_segment
+                          predefined_selections:
+                            - id: "16"
+                              icon:
+                                name: mdi:broom
+                                x: 28175
+                                "y": 31450
+                              label:
+                                text: Room 16
+                                x: 28175
+                                "y": 31450
+                                offset_y: 35
+                              outline:
+                                - - 25100
+                                  - 29950
+                                - - 31250
+                                  - 29950
+                                - - 31250
+                                  - 32950
+                                - - 25100
+                                  - 32950
+                            - id: "17"
+                              icon:
+                                name: mdi:broom
+                                x: 23300
+                                "y": 32175
+                              label:
+                                text: Room 17
+                                x: 23300
+                                "y": 32175
+                                offset_y: 35
+                              outline:
+                                - - 22200
+                                  - 30850
+                                - - 24400
+                                  - 30850
+                                - - 24400
+                                  - 33500
+                                - - 22200
+                                  - 33500
+                            - id: "18"
+                              icon:
+                                name: mdi:broom
+                                x: 22200
+                                "y": 27475
+                              label:
+                                text: Room 18
+                                x: 22200
+                                "y": 27475
+                                offset_y: 35
+                              outline:
+                                - - 20900
+                                  - 25450
+                                - - 23500
+                                  - 25450
+                                - - 23500
+                                  - 29500
+                                - - 20900
+                                  - 29500
+                            - id: "19"
+                              icon:
+                                name: mdi:broom
+                                x: 22950
+                                "y": 30225
+                              label:
+                                text: Room 19
+                                x: 22950
+                                "y": 30225
+                                offset_y: 35
+                              outline:
+                                - - 21950
+                                  - 29550
+                                - - 23950
+                                  - 29550
+                                - - 23950
+                                  - 30900
+                                - - 21950
+                                  - 30900
+                            - id: "20"
+                              icon:
+                                name: mdi:broom
+                                x: 27850
+                                "y": 27175
+                              label:
+                                text: Room 20
+                                x: 27850
+                                "y": 27175
+                                offset_y: 35
+                              outline:
+                                - - 23450
+                                  - 24450
+                                - - 32250
+                                  - 24450
+                                - - 32250
+                                  - 29900
+                                - - 23450
+                                  - 29900
+                        - template: vacuum_clean_segment
+                          predefined_selections:
+                            - id: "16"
+                              icon:
+                                name: mdi:broom
+                                x: 28175
+                                "y": 31450
+                              label:
+                                text: Room 16
+                                x: 28175
+                                "y": 31450
+                                offset_y: 35
+                              outline:
+                                - - 25100
+                                  - 29950
+                                - - 31250
+                                  - 29950
+                                - - 31250
+                                  - 32950
+                                - - 25100
+                                  - 32950
+                            - id: "17"
+                              icon:
+                                name: mdi:broom
+                                x: 23300
+                                "y": 32175
+                              label:
+                                text: Room 17
+                                x: 23300
+                                "y": 32175
+                                offset_y: 35
+                              outline:
+                                - - 22200
+                                  - 30850
+                                - - 24400
+                                  - 30850
+                                - - 24400
+                                  - 33500
+                                - - 22200
+                                  - 33500
+                            - id: "18"
+                              icon:
+                                name: mdi:broom
+                                x: 22200
+                                "y": 27475
+                              label:
+                                text: Room 18
+                                x: 22200
+                                "y": 27475
+                                offset_y: 35
+                              outline:
+                                - - 20900
+                                  - 25450
+                                - - 23500
+                                  - 25450
+                                - - 23500
+                                  - 29500
+                                - - 20900
+                                  - 29500
+                            - id: "19"
+                              icon:
+                                name: mdi:broom
+                                x: 22950
+                                "y": 30225
+                              label:
+                                text: Room 19
+                                x: 22950
+                                "y": 30225
+                                offset_y: 35
+                              outline:
+                                - - 21950
+                                  - 29550
+                                - - 23950
+                                  - 29550
+                                - - 23950
+                                  - 30900
+                                - - 21950
+                                  - 30900
+                            - id: "20"
+                              icon:
+                                name: mdi:broom
+                                x: 27850
+                                "y": 27175
+                              label:
+                                text: Room 20
+                                x: 27850
+                                "y": 27175
+                                offset_y: 35
+                              outline:
+                                - - 23450
+                                  - 24450
+                                - - 32250
+                                  - 24450
+                                - - 32250
+                                  - 29900
+                                - - 23450
+                                  - 29900
+                        - template: vacuum_clean_segment
+                          predefined_selections:
+                            - id: "16"
+                              icon:
+                                name: mdi:broom
+                                x: 28175
+                                "y": 31450
+                              label:
+                                text: Room 16
+                                x: 28175
+                                "y": 31450
+                                offset_y: 35
+                              outline:
+                                - - 25100
+                                  - 29950
+                                - - 31250
+                                  - 29950
+                                - - 31250
+                                  - 32950
+                                - - 25100
+                                  - 32950
+                            - id: "17"
+                              icon:
+                                name: mdi:broom
+                                x: 23300
+                                "y": 32175
+                              label:
+                                text: Room 17
+                                x: 23300
+                                "y": 32175
+                                offset_y: 35
+                              outline:
+                                - - 22200
+                                  - 30850
+                                - - 24400
+                                  - 30850
+                                - - 24400
+                                  - 33500
+                                - - 22200
+                                  - 33500
+                            - id: "18"
+                              icon:
+                                name: mdi:broom
+                                x: 22200
+                                "y": 27475
+                              label:
+                                text: Room 18
+                                x: 22200
+                                "y": 27475
+                                offset_y: 35
+                              outline:
+                                - - 20900
+                                  - 25450
+                                - - 23500
+                                  - 25450
+                                - - 23500
+                                  - 29500
+                                - - 20900
+                                  - 29500
+                            - id: "19"
+                              icon:
+                                name: mdi:broom
+                                x: 22950
+                                "y": 30225
+                              label:
+                                text: Room 19
+                                x: 22950
+                                "y": 30225
+                                offset_y: 35
+                              outline:
+                                - - 21950
+                                  - 29550
+                                - - 23950
+                                  - 29550
+                                - - 23950
+                                  - 30900
+                                - - 21950
+                                  - 30900
+                            - id: "20"
+                              icon:
+                                name: mdi:broom
+                                x: 27850
+                                "y": 27175
+                              label:
+                                text: Room 20
+                                x: 27850
+                                "y": 27175
+                                offset_y: 35
+                              outline:
+                                - - 23450
+                                  - 24450
+                                - - 32250
+                                  - 24450
+                                - - 32250
+                                  - 29900
+                                - - 23450
+                                  - 29900
+                        - template: vacuum_clean_segment
+                          predefined_selections:
+                            - id: "16"
+                              icon:
+                                name: mdi:broom
+                                x: 28175
+                                "y": 31450
+                              label:
+                                text: Room 16
+                                x: 28175
+                                "y": 31450
+                                offset_y: 35
+                              outline:
+                                - - 25100
+                                  - 29950
+                                - - 31250
+                                  - 29950
+                                - - 31250
+                                  - 32950
+                                - - 25100
+                                  - 32950
+                            - id: "17"
+                              icon:
+                                name: mdi:broom
+                                x: 23300
+                                "y": 32175
+                              label:
+                                text: Room 17
+                                x: 23300
+                                "y": 32175
+                                offset_y: 35
+                              outline:
+                                - - 22200
+                                  - 30850
+                                - - 24400
+                                  - 30850
+                                - - 24400
+                                  - 33500
+                                - - 22200
+                                  - 33500
+                            - id: "18"
+                              icon:
+                                name: mdi:broom
+                                x: 22200
+                                "y": 27475
+                              label:
+                                text: Room 18
+                                x: 22200
+                                "y": 27475
+                                offset_y: 35
+                              outline:
+                                - - 20900
+                                  - 25450
+                                - - 23500
+                                  - 25450
+                                - - 23500
+                                  - 29500
+                                - - 20900
+                                  - 29500
+                            - id: "19"
+                              icon:
+                                name: mdi:broom
+                                x: 22950
+                                "y": 30225
+                              label:
+                                text: Room 19
+                                x: 22950
+                                "y": 30225
+                                offset_y: 35
+                              outline:
+                                - - 21950
+                                  - 29550
+                                - - 23950
+                                  - 29550
+                                - - 23950
+                                  - 30900
+                                - - 21950
+                                  - 30900
+                            - id: "20"
+                              icon:
+                                name: mdi:broom
+                                x: 27850
+                                "y": 27175
+                              label:
+                                text: Room 20
+                                x: 27850
+                                "y": 27175
+                                offset_y: 35
+                              outline:
+                                - - 23450
+                                  - 24450
+                                - - 32250
+                                  - 24450
+                                - - 32250
+                                  - 29900
+                                - - 23450
+                                  - 29900
+                        - template: vacuum_clean_segment
+                          predefined_selections:
+                            - id: "16"
+                              icon:
+                                name: mdi:broom
+                                x: 28175
+                                "y": 31450
+                              label:
+                                text: Room 16
+                                x: 28175
+                                "y": 31450
+                                offset_y: 35
+                              outline:
+                                - - 25100
+                                  - 29950
+                                - - 31250
+                                  - 29950
+                                - - 31250
+                                  - 32950
+                                - - 25100
+                                  - 32950
+                            - id: "17"
+                              icon:
+                                name: mdi:broom
+                                x: 23300
+                                "y": 32175
+                              label:
+                                text: Room 17
+                                x: 23300
+                                "y": 32175
+                                offset_y: 35
+                              outline:
+                                - - 22200
+                                  - 30850
+                                - - 24400
+                                  - 30850
+                                - - 24400
+                                  - 33500
+                                - - 22200
+                                  - 33500
+                            - id: "18"
+                              icon:
+                                name: mdi:broom
+                                x: 22200
+                                "y": 27475
+                              label:
+                                text: Room 18
+                                x: 22200
+                                "y": 27475
+                                offset_y: 35
+                              outline:
+                                - - 20900
+                                  - 25450
+                                - - 23500
+                                  - 25450
+                                - - 23500
+                                  - 29500
+                                - - 20900
+                                  - 29500
+                            - id: "19"
+                              icon:
+                                name: mdi:broom
+                                x: 22950
+                                "y": 30225
+                              label:
+                                text: Room 19
+                                x: 22950
+                                "y": 30225
+                                offset_y: 35
+                              outline:
+                                - - 21950
+                                  - 29550
+                                - - 23950
+                                  - 29550
+                                - - 23950
+                                  - 30900
+                                - - 21950
+                                  - 30900
+                            - id: "20"
+                              icon:
+                                name: mdi:broom
+                                x: 27850
+                                "y": 27175
+                              label:
+                                text: Room 20
+                                x: 27850
+                                "y": 27175
+                                offset_y: 35
+                              outline:
+                                - - 23450
+                                  - 24450
+                                - - 32250
+                                  - 24450
+                                - - 32250
+                                  - 29900
+                                - - 23450
+                                  - 29900
+                        - template: vacuum_clean_segment
+                          predefined_selections:
+                            - id: "16"
+                              icon:
+                                name: mdi:broom
+                                x: 28175
+                                "y": 31450
+                              label:
+                                text: Room 16
+                                x: 28175
+                                "y": 31450
+                                offset_y: 35
+                              outline:
+                                - - 25100
+                                  - 29950
+                                - - 31250
+                                  - 29950
+                                - - 31250
+                                  - 32950
+                                - - 25100
+                                  - 32950
+                            - id: "17"
+                              icon:
+                                name: mdi:broom
+                                x: 23300
+                                "y": 32175
+                              label:
+                                text: Room 17
+                                x: 23300
+                                "y": 32175
+                                offset_y: 35
+                              outline:
+                                - - 22200
+                                  - 30850
+                                - - 24400
+                                  - 30850
+                                - - 24400
+                                  - 33500
+                                - - 22200
+                                  - 33500
+                            - id: "18"
+                              icon:
+                                name: mdi:broom
+                                x: 22200
+                                "y": 27475
+                              label:
+                                text: Room 18
+                                x: 22200
+                                "y": 27475
+                                offset_y: 35
+                              outline:
+                                - - 20900
+                                  - 25450
+                                - - 23500
+                                  - 25450
+                                - - 23500
+                                  - 29500
+                                - - 20900
+                                  - 29500
+                            - id: "19"
+                              icon:
+                                name: mdi:broom
+                                x: 22950
+                                "y": 30225
+                              label:
+                                text: Room 19
+                                x: 22950
+                                "y": 30225
+                                offset_y: 35
+                              outline:
+                                - - 21950
+                                  - 29550
+                                - - 23950
+                                  - 29550
+                                - - 23950
+                                  - 30900
+                                - - 21950
+                                  - 30900
+                            - id: "20"
+                              icon:
+                                name: mdi:broom
+                                x: 27850
+                                "y": 27175
+                              label:
+                                text: Room 20
+                                x: 27850
+                                "y": 27175
+                                offset_y: 35
+                              outline:
+                                - - 23450
+                                  - 24450
+                                - - 32250
+                                  - 24450
+                                - - 32250
+                                  - 29900
+                                - - 23450
+                                  - 29900
+
+              style:
+                height: auto
+                left: 40.50%
+                top: 78.00%
+                width: 3.00%
+                # border: 1px solid red
+                template:
+                  - vacuum
+
+            ######### WIFI ##########
+
+            - type: image
+              image: /local/floorplan/wifi.png
+              entity: binary_sensor.internet_connection
+              style:
+                left: 34.80%
+                top: 84.00%  
+                width: 2.00%
+                height: auto
+                # transform: rotate(-90deg)
+                # border: 1px solid red
+              tap_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: picture
+                      image: /local/floorplan/rete.png
+                      card_mod:
+                        style: |
+                          ha-card {
+                            --ha-card-background: black;
+                          }
+                    title: Scan QR Code for WIFI
+              hold_action: !include popup/footer_sistema.yaml
+
+            ######### TABLET ##########
+
+            - type: image
+              image: /local/floorplan/transparent.png
+              entity: binary_sensor.my_wall_panel_motion_detected
+              style:
+                left: 60.50%
+                top: 38.50%  
+                width: 2.00%
+                height: auto
+                # border: 1px solid red
+              tap_action: !include popup/footer_tablet.yaml
+
+            ######### CAMERA INGRESSO ##########
+
+            # - type: image
+            #   image: /local/floorplan/transparent.png
+            #   entity: camera.ingresso
+            #   style:
+            #     left: 42.00%
+            #     top: 39.30%  
+            #     width: 9.00%
+            #     height: 19.50%
+            #     border: 1px solid red
+            #   tap_action:
+            #     action: fire-dom-event
+            #     browser_mod:
+            #       service: browser_mod.popup
+            #       popup_anchor: true
+            #       data:
+            #         title: Ingresso
+            #         dismissable: true
+            #         size: normal
+            #         content:
+            #           type: custom:frigate-card
+            #           cameras:
+            #             - camera_entity: camera.ingresso
+                        
+            ######### CAMBIO DASHBOARD ##########
+
+            - type: image
+              image: /local/floorplan/transparent.png
+              style:
+                left: 81.20%
+                top: 23.00%  
+                width: 15.00%
+                height: 13.00%
+                # border: 1px solid red
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace-primo/0
+
+            ######### GARAGE ##########
+
+            - type: image
+              entity: cover.garage
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: cover.toggle
+                service_data:
+                  entity_id: cover.garage
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:bubble-card
+                      card_type: cover
+                      entity: cover.garage
+                      icon_open: mdi:garage-open-variant
+                      icon_close: mdi:garage-variant
+                      show_state: true
+                      show_last_updated: false
+                      show_last_changed: false
+                      show_attribute: false
+                      button_action: {}
+                      icon_down: mdi:arrow-down-bold-outline
+                      icon_up: mdi:arrow-up-bold-outline
+                      tap_action:
+                        action: toggle
+              style:
+                left: 34.20%
+                top: 22.00%
+                width: 10.00%
+                height: 30.00%
+                # border: 1px solid red
+                        
+            #################################################
+            #                                               #
+            #                     ICONE                     #
+            #                                               #
+            #################################################
+
+            ######### LAVATRICE ##########
+
+            - type: conditional
+              conditions:
+                - entity: sensor.sonoff_1001d8e7f6_power_1
+                  state_not: "unavailable"
+              elements:
+                - type: custom:mushroom-chips-card
+                  chips:
+                    - type: template
+                      entity: switch.sonoff_1001d8e7f6_1
+                      icon: mdi:washing-machine
+                      icon_color: >
+                        {% set watt = states('sensor.sonoff_1001d8e7f6_power_1') | float(0) %}
+                        {% set is_on = is_state('switch.sonoff_1001d8e7f6_1', 'on') %}
+                        {% if watt > 1000 %}
+                          red
+                        {% elif watt > 300 %}
+                          yellow
+                        {% elif watt > 0 %}
+                          green
+                        {% elif is_on %}
+                          blue
+                        {% else %}
+                          grey
+                        {% endif %}
+                      tap_action:
+                        action: toggle
+                      hold_action:
+                        action: call-service
+                        service: script.lavatrice_popup
+                  alignment: justify
+                  style:
+                    top: 32.0%
+                    left: 76.5%
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --chip-height: 60px; /* Aumenta dimensione del chip */
+                      }
+                      mushroom-template-chip {
+                        --icon-size: 50px; /* Aumenta dimensione dell'icona */
+                      }
+
+            - type: conditional
+              conditions:
+                - entity: sensor.sonoff_1001d8e7f6_power_1
+                  state_not: "unavailable"
+              elements:
+                - type: custom:button-card
+                  entity: sensor.sonoff_1001d8e7f6_power_1
+                  show_state: false
+                  show_name: false
+                  show_icon: false
+                  styles:
+                    card:
+                      - background: none
+                      - box-shadow: none
+                      - border: none
+                      - padding: 0
+                      - font-size: 12px
+                      - color: var(--secondary-text-color)
+                      - text-align: center
+                  custom_fields:
+                    consumo: >
+                      [[[
+                        const watt = parseFloat(states['sensor.sonoff_1001d8e7f6_power_1'].state) || 0;
+                        return watt > 0 ? watt.toFixed(0) + " W" : "";
+                      ]]]
+                  tap_action:
+                    action: toggle
+                  hold_action: !include popup/lavatrice.yaml
+                  style:
+                    top: 34.0%
+                    left: 76.5%
+
+            ######### ASCIUGATRICE ##########
+
+            - type: conditional
+              conditions:
+                - entity: sensor.sonoff_1001d8e7f6_power_2
+                  state_not: "unavailable"
+              elements:
+                - type: custom:mushroom-chips-card
+                  chips:
+                    - type: template
+                      entity: switch.sonoff_1001d8e7f6_2
+                      icon: mdi:tumble-dryer
+                      icon_color: >
+                        {% set watt = states('sensor.sonoff_1001d8e7f6_power_2') | float(0) %}
+                        {% set is_on = is_state('switch.sonoff_1001d8e7f6_2', 'on') %}
+                        {% if watt > 1000 %}
+                          red
+                        {% elif watt > 300 %}
+                          yellow
+                        {% elif watt > 0 %}
+                          green
+                        {% elif is_on %}
+                          blue
+                        {% else %}
+                          grey
+                        {% endif %}
+                      tap_action:
+                        action: toggle
+                      hold_action:
+                        action: call-service
+                        service: script.asciugatrice_popup
+                  alignment: justify
+                  style:
+                    top: 32.00%
+                    left: 79.20%
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --chip-height: 60px; /* Aumenta dimensione del chip */
+                      }
+                      mushroom-template-chip {
+                        --icon-size: 50px; /* Aumenta dimensione dell'icona */
+                      }
+
+            - type: conditional
+              conditions:
+                - entity: sensor.sonoff_1001d8e7f6_power_2
+                  state_not: "unavailable"
+              elements:
+                - type: custom:button-card
+                  entity: sensor.sonoff_1001d8e7f6_power_2
+                  show_state: false
+                  show_name: false
+                  show_icon: false
+                  styles:
+                    card:
+                      - background: none
+                      - box-shadow: none
+                      - border: none
+                      - padding: 0
+                      - font-size: 12px
+                      - color: var(--secondary-text-color)
+                      - text-align: center
+                  custom_fields:
+                    consumo: >
+                      [[[
+                        const watt = parseFloat(states['sensor.sonoff_1001d8e7f6_power_2'].state) || 0;
+                        return watt > 0 ? watt.toFixed(0) + " W" : "";
+                      ]]]
+                  tap_action:
+                    action: toggle
+                  hold_action: !include popup/lavatrice.yaml
+                  style:
+                    top: 34.00%
+                    left: 79.20%
+
+            ######### FRIGORIFERO ##########
+
+            - type: conditional
+              conditions:
+                - entity: sensor.sonoff_1001dc2633_power_2
+                  state_not: "unavailable"
+              elements:
+                - type: custom:mushroom-chips-card
+                  chips:
+                    - type: template
+                      entity: switch.sonoff_1001dc2633
+                      icon: mdi:fridge-outline
+                      icon_color: >
+                        {% set watt = states('sensor.sonoff_1001dc2633_power_2') | float(0) %}
+                        {% set is_on = is_state('switch.sonoff_1001dc2633', 'on') %}
+                        {% if watt > 1000 %}
+                          red
+                        {% elif watt > 300 %}
+                          yellow
+                        {% elif watt > 0 %}
+                          green
+                        {% elif is_on %}
+                          blue
+                        {% else %}
+                          grey
+                        {% endif %}
+                      tap_action:
+                        action: toggle
+                    #   hold_action:
+                    #     action: call-service
+                    #     service: script.lavatrice_popup
+                  alignment: justify
+                  style:
+                    top: 56.00%
+                    left: 74.00%
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --chip-height: 55px; /* Aumenta dimensione del chip */
+                      }
+                      mushroom-template-chip {
+                        --icon-size: 45px; /* Aumenta dimensione dell'icona */
+                      }
+
+            - type: conditional
+              conditions:
+                - entity: sensor.sonoff_1001dc2633_power_2
+                  state_not: "unavailable"
+              elements:
+                - type: custom:button-card
+                  entity: sensor.sonoff_1001dc2633_power_2
+                  show_state: false
+                  show_name: false
+                  show_icon: false
+                  styles:
+                    card:
+                      - background: none
+                      - box-shadow: none
+                      - border: none
+                      - padding: 0
+                      - font-size: 12px
+                      - color: var(--secondary-text-color)
+                      - text-align: center
+                  custom_fields:
+                    consumo: >
+                      [[[
+                        const watt = parseFloat(states['sensor.sonoff_1001dc2633_power_2'].state) || 0;
+                        return watt > 0 ? watt.toFixed(0) + " W" : "";
+                      ]]]
+                  style:
+                    top: 58.50%
+                    left: 74.00%
+
+            ######### FORNO ##########
+
+            - type: conditional
+              conditions:
+                - entity: sensor.power_cucina_power_a
+                  state_not: "unavailable"
+              elements:
+                - type: custom:mushroom-chips-card
+                  chips:
+                    - type: template
+                      entity: sensor.power_cucina_power_a
+                      icon: mdi:stove
+                      icon_color: >
+                        {% set watt = states('sensor.power_cucina_power_a') | float(0) %}
+                        {% set is_on = is_state('ssensor.power_cucina_power_a', 'on') %}
+                        {% if watt > 1000 %}
+                          red
+                        {% elif watt > 300 %}
+                          yellow
+                        {% elif watt > 0 %}
+                          green
+                        {% elif is_on %}
+                          blue
+                        {% else %}
+                          grey
+                        {% endif %}
+                      tap_action:
+                        action: toggle
+                      hold_action:
+                        action: call-service
+                        service: script.forno_popup
+                  alignment: justify
+                  style:
+                    top: 56.00%
+                    left: 77.50%
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --chip-height: 55px; /* Aumenta dimensione del chip */
+                      }
+                      mushroom-template-chip {
+                        --icon-size: 45px; /* Aumenta dimensione dell'icona */
+                      }
+
+            - type: conditional
+              conditions:
+                - entity: sensor.power_cucina_power_a
+                  state_not: "unavailable"
+              elements:
+                - type: custom:button-card
+                  entity: sensor.power_cucina_power_a
+                  show_state: false
+                  show_name: false
+                  show_icon: false
+                  styles:
+                    card:
+                      - background: none
+                      - box-shadow: none
+                      - border: none
+                      - padding: 0
+                      - font-size: 12px
+                      - color: var(--secondary-text-color)
+                      - text-align: center
+                  custom_fields:
+                    consumo: >
+                      [[[
+                        const watt = parseFloat(states['sensor.power_cucina_power_a'].state) || 0;
+                        return watt > 0 ? watt.toFixed(0) + " W" : "";
+                      ]]]
+                  style:
+                    top: 58.50%
+                    left: 77.50%
+
+            ######### LAVASTOVIGLIE ##########
+
+            - type: conditional
+              conditions:
+                - entity: sensor.power_cucina_power_b
+                  state_not: "unavailable"
+              elements:
+                - type: custom:mushroom-chips-card
+                  chips:
+                    - type: template
+                      entity: sensor.power_cucina_power_b
+                      icon: mdi:dishwasher
+                      icon_color: >
+                        {% set watt = states('sensor.power_cucina_power_b') | float(0) %}
+                        {% set is_on = is_state('ssensor.power_cucina_power_b', 'on') %}
+                        {% if watt > 1000 %}
+                          red
+                        {% elif watt > 300 %}
+                          yellow
+                        {% elif watt > 0 %}
+                          green
+                        {% elif is_on %}
+                          blue
+                        {% else %}
+                          grey
+                        {% endif %}
+                      tap_action:
+                        action: toggle
+                      hold_action:
+                        action: call-service
+                        service: script.lavastoviglie_popup
+                  alignment: justify
+                  style:
+                    top: 68.00%
+                    left: 78.00%
+                    transform: rotate(90deg)
+                    transform-origin: center
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --chip-height: 60px; /* Aumenta dimensione del chip */
+                      }
+                      mushroom-template-chip {
+                        --icon-size: 50px; /* Aumenta dimensione dell'icona */
+                      }
+
+            - type: conditional
+              conditions:
+                - entity: sensor.power_cucina_power_b
+                  state_not: "unavailable"
+              elements:
+                - type: custom:button-card
+                  entity: sensor.power_cucina_power_b
+                  show_state: false
+                  show_name: false
+                  show_icon: false
+                  styles:
+                    card:
+                      - background: none
+                      - box-shadow: none
+                      - border: none
+                      - padding: 0
+                      - font-size: 12px
+                      - color: var(--secondary-text-color)
+                      - text-align: center
+                  custom_fields:
+                    consumo: >
+                      [[[
+                        const watt = parseFloat(states['sensor.power_cucina_power_b'].state) || 0;
+                        return watt > 0 ? watt.toFixed(0) + " W" : "";
+                      ]]]
+                  style:
+                    top: 68.00%
+                    left: 75.50%
+                    transform: rotate(90deg)
+                    transform-origin: center
+
+            ######### CAFFE' ##########
+
+            - type: conditional
+              conditions:
+                - entity: sensor.sonoff_1001dc2633_power_1
+                  state_not: "unavailable"
+              elements:
+                - type: custom:mushroom-chips-card
+                  chips:
+                    - type: template
+                      entity: switch.sonoff_1001dc2633_1
+                      icon: mdi:coffee-maker
+                      icon_color: >
+                        {% set watt = states('sensor.sonoff_1001dc2633_power_1') | float(0) %}
+                        {% set is_on = is_state('switch.sonoff_1001dc2633_1', 'on') %}
+                        {% if watt > 1000 %}
+                          red
+                        {% elif watt > 300 %}
+                          yellow
+                        {% elif watt > 0 %}
+                          green
+                        {% elif is_on %}
+                          blue
+                        {% else %}
+                          grey
+                        {% endif %}
+                      tap_action:
+                        action: toggle
+                      hold_action:
+                        action: call-service
+                        service: script.caffe_popup
+                  alignment: justify
+                  style:
+                    top: 51.50%
+                    left: 81.00%
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --chip-height: 55px; /* Aumenta dimensione del chip */
+                      }
+                      mushroom-template-chip {
+                        --icon-size: 450px; /* Aumenta dimensione dell'icona */
+                      }
+
+            - type: conditional
+              conditions:
+                - entity: sensor.sonoff_1001dc2633_power_1
+                  state_not: "unavailable"
+              elements:
+                - type: custom:button-card
+                  entity: sensor.sonoff_1001dc2633_power_1
+                  show_state: false
+                  show_name: false
+                  show_icon: false
+                  styles:
+                    card:
+                      - background: none
+                      - box-shadow: none
+                      - border: none
+                      - padding: 0
+                      - font-size: 12px
+                      - color: var(--secondary-text-color)
+                      - text-align: center
+                  custom_fields:
+                    consumo: >
+                      [[[
+                        const watt = parseFloat(states['sensor.sonoff_1001dc2633_power_1'].state) || 0;
+                        return watt > 0 ? watt.toFixed(0) + " W" : "";
+                      ]]]
+                  style:
+                    top: 51.50%
+                    left: 83.00%
+
+            ######### TV ##########
+
+            - type: conditional
+              conditions:
+                - entity: sensor.smart_wi_fi_plug_potenza
+                  state_not: "unavailable"
+              elements:
+                - type: custom:mushroom-chips-card
+                  chips:
+                    - type: template
+                      entity: switch.smart_wi_fi_plug
+                      icon: cil:tv
+                      icon_color: >
+                        {% set watt = states('sensor.smart_wi_fi_plug_potenza') | float(0) %}
+                        {% set is_on = is_state('switch.smart_wi_fi_plug', 'on') %}
+                        {% if watt > 1000 %}
+                          red
+                        {% elif watt > 300 %}
+                          yellow
+                        {% elif watt > 0 %}
+                          green
+                        {% elif is_on %}
+                          blue
+                        {% else %}
+                          grey
+                        {% endif %}
+                      tap_action:
+                        action: toggle
+                      hold_action: !include popup/telecomando_tv.yaml
+                  alignment: justify
+                  style:
+                    top: 64.80%
+                    left: 39.00%
+                    transform: rotate(-90deg)
+                    transform-origin: center
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --chip-height: 55px; /* Aumenta dimensione del chip */
+                      }
+                      mushroom-template-chip {
+                        --icon-size: 450px; /* Aumenta dimensione dell'icona */
+                      }
+
+            - type: conditional
+              conditions:
+                - entity: sensor.smart_wi_fi_plug_potenza
+                  state_not: "unavailable"
+              elements:
+                - type: custom:button-card
+                  entity: sensor.smart_wi_fi_plug_potenza
+                  show_state: false
+                  show_name: false
+                  show_icon: false
+                  styles:
+                    card:
+                      - background: none
+                      - box-shadow: none
+                      - border: none
+                      - padding: 0
+                      - font-size: 12px
+                      - color: var(--secondary-text-color)
+                      - text-align: center
+                  custom_fields:
+                    consumo: >
+                      [[[
+                        const watt = parseFloat(states['sensor.smart_wi_fi_plug_potenza'].state) || 0;
+                        return watt > 0 ? watt.toFixed(0) + " W" : "";
+                      ]]]
+                  style:
+                    top: 66.70%
+                    left: 41.00%
+                    transform: rotate(-90deg)
+                    transform-origin: center
+
+              #################################################################
+              #                                                               #
+              #                             SIDEBAR                           #
+              #                                                               #
+              #################################################################
+
+            ######### DISPOSITIVI ##########
+
+            - type: custom:button-card
+              name: Dispositivi
+              icon: mdi:lightbulb-group-outline
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace/0?kiosk
+              style:
+                top: 8.00%
+                left: 12.00%
+                width: 240px
+                height: 45px
+              layout: name_icon
+              styles:
+                card:
+                  - display: flex
+                  - flex-direction: row
+                  - justify-content: flex-start
+                  - align-items: center
+                  - background: rgba(255, 255, 255, 0.1)
+                  - backdrop-filter: blur(10px)
+                  - border: 1px solid rgba(255, 255, 255, 0.2) 
+                  - border-radius: 10px
+                  - padding: 0 24px
+                  - height: 100%
+                  - position: relative
+                  - overflow: hidden
+                name:
+                  - color: white
+                  - font-size: 18px
+                  - font-weight: bold
+                  - margin-right: 110px
+                  - transform: translateY(-5px)
+                icon:
+                  - color: white
+                  - width: 28px
+                  - height: 280px
+                  - margin-left: 160px
+                  - transform: translateY(-7px)
+              card_mod:
+                style: |
+                  ha-card {
+                    position: relative;
+                    z-index: 0;
+                  }
+                  ha-card::before {
+                    content: "";
+                    position: absolute;
+                    top: -4px;
+                    left: -4px;
+                    width: calc(100% + 8px);
+                    height: calc(100% + 8px);
+                    background: linear-gradient(
+                      45deg,
+                      #ff0000,
+                      #ff7300,
+                      #fffb00,
+                      #48ff00,
+                      #00ffd5,
+                      #002bff,
+                      #7a00ff,
+                      #ff00c8,
+                      #ff0000
+                    );
+                    background-size: 400%;
+                    z-index: -1;
+                    filter: blur(6px);   /* meno sfocato → bordo più netto */
+                    border-radius: 12px;
+                    animation: glowing 12s linear infinite; /* più veloce */
+                    opacity: 1;
+                  }
+                  ha-card::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #111;
+                    z-index: -1;
+                    border-radius: 10px;
+                  }
+                  @keyframes glowing {
+                    0% { background-position: 0 0; }
+                    50% { background-position: 400% 0; }
+                    100% { background-position: 0 0; }
+                  }  
+
+            ######### MAIN ##########
+
+            - type: custom:button-card
+              name: Casa
+              icon: mdi:home
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace-main/0?kiosk
+              style:
+                top: 16.00%
+                left: 12.00%
+                width: 240px
+                height: 45px
+              layout: name_icon
+              styles:
+                card:
+                  - display: flex
+                  - flex-direction: row
+                  - justify-content: flex-start
+                  - align-items: center
+                  - background: rgba(255, 255, 255, 0.1)
+                  - backdrop-filter: blur(10px)
+                  - border: 1px solid rgba(255, 255, 255, 0.2) 
+                  - border-radius: 10px
+                  - padding: 0 24px
+                  - height: 100%
+                  - position: relative
+                  - overflow: hidden
+                name:
+                  - color: white
+                  - font-size: 18px
+                  - font-weight: bold
+                  - margin-right: 155px
+                  - transform: translateY(-5px)
+                icon:
+                  - color: white
+                  - width: 26px
+                  - height: 26px
+                  - margin-left: 160px
+                  - transform: translateY(-5px)
+              card_mod:
+                style: |
+                  ha-card {
+                    position: relative;
+                    z-index: 0;
+                  }
+                  ha-card::before {
+                    content: "";
+                    position: absolute;
+                    top: -4px;
+                    left: -4px;
+                    width: calc(100% + 8px);
+                    height: calc(100% + 8px);
+                    background: linear-gradient(
+                      45deg,
+                      #ff0000,
+                      #ff7300,
+                      #fffb00,
+                      #48ff00,
+                      #00ffd5,
+                      #002bff,
+                      #7a00ff,
+                      #ff00c8,
+                      #ff0000
+                    );
+                    background-size: 400%;
+                    z-index: -1;
+                    filter: blur(6px);   /* meno sfocato → bordo più netto */
+                    border-radius: 12px;
+                    animation: glowing 12s linear infinite; /* più veloce */
+                    opacity: 1;
+                  }
+                  ha-card::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #111;
+                    z-index: -1;
+                    border-radius: 10px;
+                  }
+                  @keyframes glowing {
+                    0% { background-position: 0 0; }
+                    50% { background-position: 400% 0; }
+                    100% { background-position: 0 0; }
+                  }
+
+            ######### GIARDINO ##########
+
+            - type: custom:button-card
+              name: Giardino
+              icon: mdi:flower
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace-esterno/0?kiosk
+              style:
+                top: 24.00%
+                left: 12.00%
+                width: 240px
+                height: 45px
+              layout: name_icon
+              styles:
+                card:
+                  - display: flex
+                  - flex-direction: row
+                  - justify-content: flex-start
+                  - align-items: center
+                  - background: rgba(255, 255, 255, 0.1)
+                  - backdrop-filter: blur(10px)
+                  - border: 1px solid rgba(255, 255, 255, 0.2) 
+                  - border-radius: 10px
+                  - padding: 0 24px
+                  - height: 100%
+                  - position: relative
+                  - overflow: hidden
+                name:
+                  - color: white
+                  - font-size: 18px
+                  - font-weight: bold
+                  - margin-right: 130px
+                  - transform: translateY(-5px)
+                icon:
+                  - color: white
+                  - width: 26px
+                  - height: 26px
+                  - margin-left: 160px
+                  - transform: translateY(-4px)
+              card_mod:
+                style: |
+                  ha-card {
+                    position: relative;
+                    z-index: 0;
+                  }
+                  ha-card::before {
+                    content: "";
+                    position: absolute;
+                    top: -4px;
+                    left: -4px;
+                    width: calc(100% + 8px);
+                    height: calc(100% + 8px);
+                    background: linear-gradient(
+                      45deg,
+                      #ff0000,
+                      #ff7300,
+                      #fffb00,
+                      #48ff00,
+                      #00ffd5,
+                      #002bff,
+                      #7a00ff,
+                      #ff00c8,
+                      #ff0000
+                    );
+                    background-size: 400%;
+                    z-index: -1;
+                    filter: blur(6px);   /* meno sfocato → bordo più netto */
+                    border-radius: 12px;
+                    animation: glowing 12s linear infinite; /* più veloce */
+                    opacity: 1;
+                  }
+                  ha-card::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #111;
+                    z-index: -1;
+                    border-radius: 10px;
+                  }
+                  @keyframes glowing {
+                    0% { background-position: 0 0; }
+                    50% { background-position: 400% 0; }
+                    100% { background-position: 0 0; }
+                  }
+
+            ######### PRIMO PIANO ##########
+
+            - type: custom:button-card
+              name: Primo piano
+              icon: mdi:home-floor-1
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace-primo/0?kiosk
+              style:
+                top: 32.00%
+                left: 12.00%
+                width: 240px
+                height: 45px
+              layout: name_icon
+              styles:
+                card:
+                  - display: flex
+                  - flex-direction: row
+                  - justify-content: flex-start
+                  - align-items: center
+                  - background: rgba(255, 255, 255, 0.1)
+                  - backdrop-filter: blur(10px)
+                  - border: 1px solid rgba(255, 255, 255, 0.2) 
+                  - border-radius: 10px
+                  - padding: 0 24px
+                  - height: 100%
+                  - position: relative
+                  - overflow: hidden
+                name:
+                  - color: white
+                  - font-size: 18px
+                  - font-weight: bold
+                  - margin-right: 100px
+                  - transform: translateY(-5px)
+                icon:
+                  - color: white
+                  - width: 26px
+                  - height: 26px
+                  - margin-left: 160px
+                  - transform: translateY(-5px)
+              card_mod:
+                style: |
+                  ha-card {
+                    position: relative;
+                    z-index: 0;
+                  }
+                  ha-card::before {
+                    content: "";
+                    position: absolute;
+                    top: -4px;
+                    left: -4px;
+                    width: calc(100% + 8px);
+                    height: calc(100% + 8px);
+                    background: linear-gradient(
+                      45deg,
+                      #ff0000,
+                      #ff7300,
+                      #fffb00,
+                      #48ff00,
+                      #00ffd5,
+                      #002bff,
+                      #7a00ff,
+                      #ff00c8,
+                      #ff0000
+                    );
+                    background-size: 400%;
+                    z-index: -1;
+                    filter: blur(6px);   /* meno sfocato → bordo più netto */
+                    border-radius: 12px;
+                    animation: glowing 12s linear infinite; /* più veloce */
+                    opacity: 1;
+                  }
+                  ha-card::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #111;
+                    z-index: -1;
+                    border-radius: 10px;
+                  }
+                  @keyframes glowing {
+                    0% { background-position: 0 0; }
+                    50% { background-position: 400% 0; }
+                    100% { background-position: 0 0; }
+                  }  
+
+            ######### MANSARDA ##########
+                  
+            - type: custom:button-card
+              name: Mansarda
+              icon: mdi:home-roof
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace-mansarda/0?kiosk
+              style:
+                top: 40.00%
+                left: 12.00%
+                width: 240px
+                height: 45px
+              layout: name_icon
+              styles:
+                card:
+                  - display: flex
+                  - flex-direction: row
+                  - justify-content: flex-start
+                  - align-items: center
+                  - background: rgba(255, 255, 255, 0.1)
+                  - backdrop-filter: blur(10px)
+                  - border: 1px solid rgba(255, 255, 255, 0.2) 
+                  - border-radius: 10px
+                  - padding: 0 24px
+                  - height: 100%
+                  - position: relative
+                  - overflow: hidden
+                name:
+                  - color: white
+                  - font-size: 18px
+                  - font-weight: bold
+                  - margin-right: 115px
+                  - transform: translateY(-5px)
+                icon:
+                  - color: white
+                  - width: 26px
+                  - height: 26px
+                  - margin-left: 160px
+                  - transform: translateY(-5px)
+              card_mod:
+                style: |
+                  ha-card {
+                    position: relative;
+                    z-index: 0;
+                  }
+                  ha-card::before {
+                    content: "";
+                    position: absolute;
+                    top: -4px;
+                    left: -4px;
+                    width: calc(100% + 8px);
+                    height: calc(100% + 8px);
+                    background: linear-gradient(
+                      45deg,
+                      #ff0000,
+                      #ff7300,
+                      #fffb00,
+                      #48ff00,
+                      #00ffd5,
+                      #002bff,
+                      #7a00ff,
+                      #ff00c8,
+                      #ff0000
+                    );
+                    background-size: 400%;
+                    z-index: -1;
+                    filter: blur(6px);   /* meno sfocato → bordo più netto */
+                    border-radius: 12px;
+                    animation: glowing 12s linear infinite; /* più veloce */
+                    opacity: 1;
+                  }
+                  ha-card::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #111;
+                    z-index: -1;
+                    border-radius: 10px;
+                  }
+                  @keyframes glowing {
+                    0% { background-position: 0 0; }
+                    50% { background-position: 400% 0; }
+                    100% { background-position: 0 0; }
+                  }
+
+              #################################################################
+              #                                                               #
+              #                           ANIMAZIONI                          #
+              #                                                               #
+              #################################################################
+
+            ######### GOOGLE HOME ##########
+
+            - action: none
+              image: /local/floorplan/transparent.png
+              entity: media_player.nesthube6f7
+              state_image:
+                "playing": /local/floorplan/musicnotes_animated.gif
+              style:
+                mix-blend-mode: lighten
+                left: 42.00%                
+                top: 52.00%
+                width: 13.00%
+                # transform: rotate(160deg)
+                # border: 1px solid red
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-media-player-card
+                      entity: media_player.nesthube6f7
+                      name: NEST Soggiorno
+                      fill_container: true
+                      volume_controls:
+                        - volume_set
+                        - volume_mute
+                      media_controls:
+                        - on_off
+                        - shuffle
+                        - previous
+                        - play_pause_stop
+                        - next
+                      use_media_info: true
+                      show_volume_level: true
+                      icon: cil:google-home
+                      collapsible_controls: true
+                      layout: horizontal
+              type: image                    
+
+            ######### VENTILATORE SOGGIORNO ##########
+
+            - type: image
+              entity: fan.cucina_windcalm
+              tap_action:
+                action: call-service
+                service: fan.toggle
+                target:
+                  entity_id: fan.cucina_windcalm
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-fan-card
+                      entity: fan.cucina_windcalm
+                      show_percentage_control: true
+                      show_oscillate_control: true
+              style:
+                top: 60.00%
+                left: 58.50%
+                width: 7%
+                opacity: 0.3
+                transform-origin: center
+                transform-box: fill-box
+                transform: translate(-50%, -50%)
+                animation-name: rotation
+                animation-duration: var(--fan-anim-duration, 1s)
+                animation-timing-function: linear
+                animation-iteration-count: infinite
+                animation-play-state: var(--fan-anim-play, paused)
+              state_image:
+                "on": /local/floorplan/windcalm.png
+                "off": /local/floorplan/windcalm.png
+              card_mod:
+                style: |
+                  :host {
+                    {% set speed = state_attr('fan.cucina_windcalm', 'percentage') | default(0) %}
+                    {% if is_state('fan.cucina_windcalm','on') and speed > 0 %}
+                      --fan-anim-duration: {{ ((100 - speed) / 40 + 0.5) | round(2) }}s;
+                      --fan-anim-play: running;
+                    {% else %}
+                      /* Pausa l'animazione, niente salti/shift dell'immagine */
+                      --fan-anim-duration: 1s;
+                      --fan-anim-play: paused;
+                    {% endif %}
+                  }
+            
+                  @keyframes rotation {
+                    0%   { transform: translate(-50%, -50%) rotate(0deg); }
+                    100% { transform: translate(-50%, -50%) rotate(360deg); }
+                  }

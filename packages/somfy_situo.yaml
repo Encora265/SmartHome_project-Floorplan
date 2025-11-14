@@ -1,0 +1,67 @@
+cover:
+  - platform: group
+    name: "tutte_le_tende"
+    entities:
+      - cover.tenda_a_caduta
+      - cover.tenda_a_bracci
+      - cover.cappottina
+
+  - platform: group
+    name: "coperture"
+    entities:
+      - cover.tenda_a_caduta
+      - cover.tenda_a_bracci
+      - cover.cappottina
+      - cover.velux
+      - cover.roller_shutter_2
+
+input_select:
+  tenda_selezionata:
+    name: Tenda Selezionata
+    options:
+      - cover.tenda_a_caduta
+      - cover.tenda_a_bracci
+      - cover.cappottina
+      - cover.tutte_le_tende
+      - cover.velux
+      - cover.roller_shutter_2
+    initial: cover.tutte_le_tende
+
+input_boolean:
+  mostra_selezione_tenda:
+    name: "Mostra Selezione Tenda"
+    initial: false
+
+script:
+  ruota_tenda:
+    sequence:
+      - service: input_select.select_next
+        target:
+          entity_id: input_select.tenda_selezionata
+  apri_tenda:
+    alias: "Apri Tenda"
+    sequence:
+      - service: cover.open_cover
+        data:
+          entity_id: "{{ states('input_select.tenda_selezionata') }}"
+  chiudi_tenda:
+    alias: "Chiudi Tenda"
+    sequence:
+      - service: cover.close_cover
+        data:
+          entity_id: "{{ states('input_select.tenda_selezionata') }}"
+  ferma_tenda:
+    alias: "Ferma Tenda"
+    sequence:
+      - service: cover.stop_cover
+        data:
+          entity_id: "{{ states('input_select.tenda_selezionata') }}"
+          
+automation:
+  - alias: Chiudi popup tende
+    mode: single
+    trigger:
+      - platform: state
+        entity_id: input_select.tenda_selezionata
+    action:
+      - service: browser_mod.close_popup

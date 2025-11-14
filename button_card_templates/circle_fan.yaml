@@ -1,0 +1,109 @@
+circle_fan:
+  styles:
+    card:
+      - --c-stroke-color-on: '#b0b0b0'
+      - --c-stroke-color-off: none
+      - --c-fill-color-on: none
+      - --c-fill-color-off: rgba(255,255,255,0.04)
+      - --c-stroke-width: 2.3
+      - --c-stroke-width-dragging: 4
+      - --c-font-color: '#97989c'
+      - --c-font-size: 14px
+      - --c-unit-font-size: 10.5px
+      - --c-font-weight: 700
+      - --c-letter-spacing: -0.02rem
+    custom_fields:
+      circle:
+        - display: initial
+        - width: 88%
+        - margin: -3% 2% 0 0
+        - justify-self: end
+        - opacity: 1
+  custom_fields:
+    circle: >
+      [[[
+        if (entity) {
+            let r = 22.1,
+                c = r * 2 * Math.PI,
+                tspan = '<tspan dx=".2" dy="-.4">',
+                domain = entity.entity_id.split('.')[0],
+                state = variables.state_on,
+                input = variables.circle_input || ' ',
+                unit = variables.circle_input_unit || '%';
+
+           /* * * * * * * * * * * * * * * * * *
+            *                                 *
+            *               FAN               *
+            *                                 *
+            * * * * * * * * * * * * * * * * * */
+
+            if (domain === 'fan' && state) {
+
+                // wait 0ms for shadow dom
+                setTimeout(() => {
+
+                    // then get elements
+                    let elt = this.shadowRoot,
+                        circle_slider = elt.getElementById('circle_slider'),
+                        circle_value = elt.getElementById('circle_value'),
+                        circle_stroke = elt.getElementById('circle_stroke');
+
+                    // approximate position of thumb relative to circle
+                    circle_slider.style.top = `${(circle_slider.value - 50) / 1.66 - 1}%`;
+
+                    // debug position
+                    let debug = false;
+                    if (debug) circle_slider.style.opacity = 0.3;
+
+                    // pass each event to handler
+                    ['click', 'input', 'mousedown', 'mouseup', 'touchstart', 'touchend'].forEach((event) => {
+                        circle_slider.addEventListener(event, handler, { passive: false })
+                    });
+
+                    function handler(event) {
+
+                        // "this" refers to slider
+                        if (event.target === this) {
+
+                            // bypass button-card tap_action
+                            event.stopPropagation();
+
+                            // update circle_value
+                            circle_value.innerHTML = `${this.value}${tspan}${unit}</tspan>`;
+
+                            // update stroke
+                            circle_stroke.style.strokeDashoffset = c - this.value / 100 * c;
+                            circle_stroke.style.strokeWidth = 'var(--c-stroke-width-dragging)';
+                            
+                            // set cursor while dragging
+                            if (event.type === 'mousedown' || event.type === 'input') {
+                                this.style.cursor = 'grabbing';
+                            } else {
+                                this.style.cursor = 'grab';
+                            }
+
+                            // reset stroke width if value doesn't change
+                            if (input == this.value && (event.type === 'click' || event.type === 'touchend'))
+                                circle_stroke.style.strokeWidth = 'var(--c-stroke-width)';
+
+                            // on release
+                            if (event.type === 'mouseup' || event.type === 'touchend') {
+
+                                // display loader if percentage is 0
+                                if (circle_slider.value == 0 && elt.getElementById('loader')) {
+                                    elt.getElementById('loader').style.display = 'initial';
+                                    elt.getElementById('circle').style.display = 'none';
+                                }
+
+                                // set brightness
+                                hass.callService('fan', 'turn_on', {
+                                    entity_id: entity.entity_id,
+                                    brightness: entity.attributes.percentage
+                                });
+                            }
+                        }
+                    }
+                }, 0);
+
+                return circle(state, input, unit);
+            }
