@@ -29,7 +29,7 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 </div>
 <div align="center">
   <img src="/www/floorplan/terra/p0_night.png" width="49%" alt="Piano Terra - Notte">
-  <img src="/www/floorplan/terrax/p0x_night.png" width="65%" alt="Primo Piano - Giorno">
+  <img src="/www/floorplan/terrax/p0x_night.png" width="50%" alt="Primo Piano - Giorno">
 </div>
 <div align="center">
   <img src="/www/floorplan/primo/p1_night.png" width="49%" alt="Piano Terra - Notte">
@@ -38,6 +38,7 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 
 
 ---
+<details>
 
 ## 🛠️ Configurazione
 
@@ -57,7 +58,11 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
   - weather-card
   - ...e altre
 
+</details>
+
 ---
+
+<details>
 
 ## 🎨 Design
 
@@ -65,6 +70,7 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 - Render con **Sweet_Home_3D**
 - Post-produzione e ottimizzazione immagini con **Gimp**
 
+</details>
 
 ---
 ## 💡 Esempi di Configurazione - LUCI -
