@@ -23,7 +23,7 @@ Il progetto è pensato per essere scalabile, modulare e facilmente riutilizzabil
 
 Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizzato per l'uso su tablet o schermi wall-mounted.
 
-![Piano Terra](www/ui/floorplan/ground_floor.jpg)
+![Piano Terra](/www/floorplan/main/main_night.png)
 ![Primo Piano](www/ui/floorplan/first_floor.jpg)
 ![Giardino](www/ui/floorplan/garden.jpg)
 
