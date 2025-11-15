@@ -67,31 +67,35 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 
 
 ---
+💡 Esempi di Configurazione - LUCI -
 
-### **Configurazione Luce Tavolo**
+### **Luce Tavolo – Overlay Dinamico Base switch on/off**
 
 ```yaml
 ######### TAVOLO ##########
 
 - action: none
-  entity: light.luce_tavolo
+  entity: light.luce_tavolo                                                # Entità della luce collegata alla grafica
   hold_action:
-    action: none
-  image: /local/floorplan/terra/p0_tavolo.png
+    action: none                                                           # Nessuna azione al "pressione prolungata"
+  image: /local/floorplan/terra/p0_tavolo.png                              # Overlay grafico della luce
   style:
-    left: 45.00%
+    left: 45.00%                                                           # Posizionamento dell'immagine nel floorplan
     top: 70.00%
-    width: 160%
+    width: 160%                                                            # Scala dell'immagine nel floorplan
     height: auto
-    mix-blend-mode: lighten
-    opacity: "${states['light.luce_tavolo'].state === 'on' ? '1' : '0'}"
+    mix-blend-mode: lighten                                                # Modalità di fusione per rendere l'effetto luminoso più realistico
+
+    opacity: "${states['light.luce_tavolo'].state === 'on' ? '1' : '0'}"   # Opacità dinamica in base allo stato della luce:
+                                                                           # Se la luce è "on" → opacity = 1 (mostra il bagliore)
+                                                                           # Se la luce è "off" → opacity = 0 (nasconde l'immagine)
   tap_action:
     action: none
-  type: image
+  type: image                                                              # Tipo elemento: immagine
 ```
-### **🎨 Luce Cucina - Effetto Temperatura Colore Dinamico**
+### **🎨 Luce Cucina – Temperatura Colore Dinamica (CCT)**
 
-Elemento avanzato che replica dinamicamente la temperatura colore Kelvin della luce:
+Simulazione realistica della temperatura colore (2000K–6500K) tramite filtri CSS.
 
 ```yaml
 ######### CUCINA ##########
@@ -139,7 +143,16 @@ Elemento avanzato che replica dinamicamente la temperatura colore Kelvin della l
 
 ### **🌈 Sistema Luce Parentesi - Architettura Multi-Layer**
 
-Configurazione avanzata che utilizza **tre layer sovrapposti** per gestire separatamente bianco, CCT e RGB:
+🌈 Sistema Multi-Layer per Luci Avanzate (Bianco, CCT, RGB)
+Questo sistema utilizza 3 layer sovrapposti, ognuno con una funzione specifica:
+
+Layer 1 – Bianco Base (Brightness)
+
+Layer 2 – CCT (Temperatura Colore)
+
+Layer 3 – RGB (Colorazione)
+
+Permette transizioni perfette tra modalità bianca, CCT e RGB.
 
 ```yaml
 ######### PARENTESI - Layer 1: Base bianca ##########
@@ -280,9 +293,8 @@ Configurazione avanzata che utilizza **tre layer sovrapposti** per gestire separ
 
 ## 🎯 **Vantaggi dell'Approccio Multi-Layer**
 
-1. **🎨 Separazione dei Canali**: Bianco, CCT e RGB gestiti indipendentemente
+1. **🎨 Gestione separata**: dei canali Bianco, CCT, RGB
 2. **⚡ Transizioni Fluide**: Nessun salto tra modalità colore
 3. **🔧 Precisione Cromatica**: Riproduzione fedele di temperature e tonalità
 4. **🎭 Effetti Complessi**: Possibilità di blending avanzato tra layer
 
-**Questa è una delle configurazioni più avanzate che abbia visto!** Mostra una profonda comprensione della gestione colore in Home Assistant. 🚀
