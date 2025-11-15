@@ -68,5 +68,25 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 
 ---
 
-## 📁 Struttura
+### **Configurazione Luce Tavolo**
+
+```yaml
+######### TAVOLO ##########
+
+- action: none
+  entity: light.luce_tavolo
+  hold_action:
+    action: none
+  image: /local/floorplan/terra/p0_tavolo.png
+  style:
+    left: 45.00%
+    top: 70.00%
+    width: 160%
+    height: auto
+    mix-blend-mode: lighten
+    opacity: "${states['light.luce_tavolo'].state === 'on' ? '1' : '0'}"
+  tap_action:
+    action: none
+  type: image
+```
 
