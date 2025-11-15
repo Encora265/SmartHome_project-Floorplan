@@ -24,17 +24,16 @@ Il progetto è pensato per essere scalabile, modulare e facilmente riutilizzabil
 Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizzato per l'uso su tablet o schermi wall-mounted.
 
 <div align="center">
-  <img src="/www/floorplan/main/main_day.png" width="45%" alt="Piano Terra - Notte">
-  <img src="/www/floorplan/main/main_night.png" width="45%" alt="Primo Piano - Giorno">
+  <img src="/www/floorplan/main/main_day.png" width="50%" alt="Piano Terra - Notte">
+  <img src="/www/floorplan/main/main_night.png" width="50%" alt="Primo Piano - Giorno">
 </div>
 <div align="center">
   <img src="//www/floorplan/terra/p0_night.png" width="45%" alt="Piano Terra - Notte">
   <img src="/www/floorplan/terrax/p0x_night.png" width="45%" alt="Primo Piano - Giorno">
-</div>
-<div align="center">
   <img src="/www/floorplan/primo/p1_night.png" width="45%" alt="Piano Terra - Notte">
   <img src="/www/floorplan/mansarda/mansarda_nigth.png" width="45%" alt="Primo Piano - Giorno">
 </div>
+
 ---
 
 ## 🛠️ Configurazione
