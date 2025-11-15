@@ -13,7 +13,7 @@ Il progetto è pensato per essere scalabile, modulare e facilmente riutilizzabil
 
 ## 🎥 Dimostrazione
 
-[![Demo Floorplan](https://img.youtube.com/vi/25UP5QQ9EAA&t=355s/0.jpg)](https://www.youtube.com/watch?v=25UP5QQ9EAA&t=355s)
+[![Demo Floorplan](https://github.com/Encora265/SmartHome_project-Floorplan/blob/main/demo.gif)](https://www.youtube.com/watch?v=25UP5QQ9EAA&t=355s)
 
 > ⚠️ Nota: alcune funzionalità mostrate nel video potrebbero differire leggermente dalla versione attuale del repository.
 
