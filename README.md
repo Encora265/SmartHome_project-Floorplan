@@ -51,10 +51,10 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 
 ## 🎨 Design
 
-- Progetto grafico realizzato con **SketchUp** (o altro software)
-- Render con **Enscape** (o altro motore)
-- Post-produzione e ottimizzazione immagini con **Photoshop**
-- Animazioni realizzate con **After Effects** (opzionale)
+- Progetto grafico realizzato con **Sweet_Home_3D** (o altro software)
+- Render con **Swcape**
+- Post-produzione e ottimizzazione immagini con **Gimp**
+
 
 ---
 
