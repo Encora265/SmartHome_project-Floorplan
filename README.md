@@ -29,7 +29,7 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 </div>
 <div align="center">
   <img src="/www/floorplan/terra/p0_night.png" width="49%" alt="Piano Terra - Notte">
-  <img src="/www/floorplan/terrax/p0x_night.png" width="49%" alt="Primo Piano - Giorno">
+  <img src="/www/floorplan/terrax/p0x_night.png" width="65%" alt="Primo Piano - Giorno">
 </div>
 <div align="center">
   <img src="/www/floorplan/primo/p1_night.png" width="49%" alt="Piano Terra - Notte">
@@ -67,7 +67,7 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 
 
 ---
-💡 Esempi di Configurazione - LUCI -
+## 💡 Esempi di Configurazione - LUCI -
 
 ### **Luce Tavolo – Overlay Dinamico Base switch on/off**
 
@@ -75,23 +75,20 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 ######### TAVOLO ##########
 
 - action: none
-  entity: light.luce_tavolo                                                # Entità della luce collegata alla grafica
+  entity: light.luce_tavolo     # Entità della luce collegata alla grafica
   hold_action:
-    action: none                                                           # Nessuna azione al "pressione prolungata"
-  image: /local/floorplan/terra/p0_tavolo.png                              # Overlay grafico della luce
+    action: none      # Nessuna azione al "pressione prolungata"
+  image: /local/floorplan/terra/p0_tavolo.png     # Overlay grafico della luce
   style:
-    left: 45.00%                                                           # Posizionamento dell'immagine nel floorplan
+    left: 45.00%      # Posizionamento dell'immagine nel floorplan
     top: 70.00%
-    width: 160%                                                            # Scala dell'immagine nel floorplan
+    width: 160%     # Scala dell'immagine nel floorplan
     height: auto
-    mix-blend-mode: lighten                                                # Modalità di fusione per rendere l'effetto luminoso più realistico
-
+    mix-blend-mode: lighten     # Modalità di fusione per rendere l'effetto luminoso più realistico
     opacity: "${states['light.luce_tavolo'].state === 'on' ? '1' : '0'}"   # Opacità dinamica in base allo stato della luce:
-                                                                           # Se la luce è "on" → opacity = 1 (mostra il bagliore)
-                                                                           # Se la luce è "off" → opacity = 0 (nasconde l'immagine)
   tap_action:
     action: none
-  type: image                                                              # Tipo elemento: immagine
+  type: image     # Tipo elemento: immagine
 ```
 ### **🎨 Luce Cucina – Temperatura Colore Dinamica (CCT)**
 
