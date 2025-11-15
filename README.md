@@ -23,8 +23,6 @@ Il progetto è pensato per essere scalabile, modulare e facilmente riutilizzabil
 
 Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizzato per l'uso su tablet o schermi wall-mounted.
 
-Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizzato per l'uso su tablet o schermi wall-mounted.
-
 <div align="center">
   <img src="/www/floorplan/main/main_day.png" width="45%" alt="Piano Terra - Notte">
   <img src="/www/floorplan/main/main_night.png" width="45%" alt="Primo Piano - Giorno">
