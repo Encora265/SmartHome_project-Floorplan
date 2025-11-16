@@ -105,7 +105,7 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 ```
 </details>
 
----
+- - - - - - - - 
 
 <details>
 <summary>☀️ / 🌙 Temperatura Colore Dinamica (CCT)</summary>
@@ -160,7 +160,7 @@ Simulazione realistica della temperatura colore (2000K–6500K) tramite filtri C
 
 </details>
 
----
+- - - - - - - - 
 
 <details>
 <summary>🎨🌈 Luce RGB/CCT</summary>
