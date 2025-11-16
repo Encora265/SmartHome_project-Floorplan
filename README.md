@@ -78,28 +78,28 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 ## 💡 Esempi di Configurazione - LUCI -
 
 <details>
-<summary>💡 Switch on/off</summary>
+<summary>⬜ / ⬛ Switch on/off</summary>
 
-### ** – Overlay Dinamico Base (switch on/off)**
+### **– Overlay Dinamico Base (switch on/off)**
 
 ```yaml
 ######### TAVOLO ##########
 
 - action: none
-  entity: light.luce_tavolo     # Entità della luce collegata alla grafica
+  entity: light.luce_tavolo
   hold_action:
-    action: none      # Nessuna azione al "pressione prolungata"
-  image: /local/floorplan/terra/p0_tavolo.png     # Overlay grafico della luce
+    action: none
+  image: /local/floorplan/terra/p0_tavolo.png
   style:
-    left: 45.00%      # Posizionamento dell'immagine nel floorplan
+    left: 45.00%
     top: 70.00%
-    width: 160%     # Scala dell'immagine nel floorplan
+    width: 160%
     height: auto
-    mix-blend-mode: lighten     # Modalità di fusione per rendere l'effetto luminoso più realistico
-    opacity: "${states['light.luce_tavolo'].state === 'on' ? '1' : '0'}"   # Opacità dinamica in base allo stato della luce:
+    mix-blend-mode: lighten
+    opacity: "${states['light.luce_tavolo'].state === 'on' ? '1' : '0'}"
   tap_action:
     action: none
-  type: image     # Tipo elemento: immagine
+  type: image
 
 ```
 </details>
@@ -154,7 +154,11 @@ Simulazione realistica della temperatura colore (2000K–6500K) tramite filtri C
 - **4000K** (Neutro) → Bilanciato
 - **6500K** (Freddo) → Sepia basso, hue-rotate positivo
 
-### **🌈 Sistema Luce Parentesi - Architettura Multi-Layer**
+</details>
+<details>
+<summary>🌈 Luce RGB/CCT</summary>
+
+### **🌈 Luce RGB/CCT - Architettura Multi-Layer**
 
 🌈 Sistema Multi-Layer per Luci Avanzate (Bianco, CCT, RGB)
 Questo sistema utilizza 3 layer sovrapposti, ognuno con una funzione specifica:
@@ -310,4 +314,6 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 2. **⚡ Transizioni Fluide**: Nessun salto tra modalità colore
 3. **🔧 Precisione Cromatica**: Riproduzione fedele di temperature e tonalità
 4. **🎭 Effetti Complessi**: Possibilità di blending avanzato tra layer
+
+</details>
 
