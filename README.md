@@ -937,8 +937,8 @@ Sistema di sveglie avanzato che permette a più utenti di avere sveglie completa
 ---
 
 <details>
-<summary><strong>🎪 Menù Popup</summary></strong>
-</details>
+<summary><strong>🎪 Finestre popup integrate</summary></strong>
+
 
 ---
 
@@ -1054,3 +1054,27 @@ Popup dedicato al controllo completo e monitoraggio del sistema di illuminazione
 
 </details>
 
+---
+
+<details>
+<summary>💡 Popup: Controllo Luci Esterne</summary>
+
+## 🎮 **Telecomando Tende/Velux/tapparelle Trasparente**
+Popup completamente trasparente che sovrappone un dropdown di selezione direttamente su un'immagine di sfondo, creando un'interfaccia immersiva e contestuale per il controllo delle tende.
+
+## 🎨 **Design Trasparente Avanzato**
+- **Rimozione Completa dello Sfondo**
+- **Eliminazione Ombre: box-shadow: none per rimuovere ogni effetto di elevazione**
+- **Surface Invisibile: Dialog surface completamente trasparente**
+- **Picture Elements Integration**
+- **Immagine di Contesto: /local/situo.png come sfondo visivo**
+- **Elementi Sovrapposti: Positioning assoluto per integrazione perfetta**
+- **Z-index Ottimizzato: 10 per garantire visibilità sopra l'immagine**
+
+## 💡 **Caso d'Uso Innovativo**
+- **Controllo Tendine Immersivo**
+- **Selezione Visuale: L'utente vede l'immagine della situazione reale**
+- **Dropdown Contestuale: Il controllo appare nel punto logico dell'immagine**
+- **Esperienza Naturale: Come interagire direttamente con la scena**
+
+</details>
