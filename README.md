@@ -29,7 +29,7 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 </div>
 <div align="center">
   <img src="/www/floorplan/terra/p0_night.png" width="49%" alt="Piano Terra - Notte">
-  <img src="/www/floorplan/terrax/p0x_night.png" width="55%" alt="Primo Piano - Giorno">
+  <img src="/www/floorplan/terrax/p0x_night.png" width="49%" alt="Primo Piano - Giorno">
 </div>
 <div align="center">
   <img src="/www/floorplan/primo/p1_night.png" width="49%" alt="Piano Terra - Notte">
@@ -416,6 +416,7 @@ Esempio di configurazione per lavatrice con indicazione stato e consumo:
       style:
         top: 34.0%
         left: 76.5%
+```
 
 ## 🏗️ **Architettura della Card Lavatrice**
 
@@ -457,6 +458,7 @@ Esempio di configurazione per lavatrice con indicazione stato e consumo:
 | **Acceso senza consumo** | 🔵 Blu | Vuoto | Icona normale |
 
 ## 🎯 **Vantaggi dell’approccio multi-layer per la card**
+
 1. **🎨 Differenziazione visiva**: Cambia colore in base al consumo reale  
 2. **⚡ Informazioni immediate**: Stato e wattaggio in un colpo d’occhio  
 3. **🔧 Interazione intuitiva**: Tap per toggle, hold per popup  
