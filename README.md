@@ -465,3 +465,165 @@ Esempio di configurazione per lavatrice con indicazione stato e consumo:
 4. **🎭 Design modulare**: Facile da riutilizzare per altri elettrodomestici o sensori
 
 </details>
+
+<details>
+<summary>🪟 / 🎚️ Icone Tende/Finestre/Tapparelle (apertura, movimento, stato)</summary>
+
+### **– Icone cover**
+
+Esempio completo per una tapparella/lucernario con:
+
+🟧 Icona dinamica (chiusa / aperta / in movimento / errore)
+
+🟦 Colorazione intelligente (rosso = aperta, giallo = apertura, verde = chiusura, grigio = errore)
+
+📊 Percentuale di apertura sotto l'icona
+
+🖱️ Tap → toggle, Hold → popup tendine
+
+```yaml
+            ######### TAPPARELLA LUCERNARIO ##########
+            
+            - type: custom:button-card
+              entity: cover.roller_shutter_2
+              show_name: false
+              show_state: false
+              icon: >
+                [[[
+                  if (entity.state === 'unavailable' || entity.state === 'unknown') {
+                    return 'mdi:window-shutter';
+                  } else if (entity.state === 'open') {
+                    return 'mdi:window-shutter-open';
+                  } else if (entity.state === 'opening') {
+                    return 'mdi:window-shutter-open';
+                  } else if (entity.state === 'closing') {
+                    return 'mdi:window-shutter';
+                  } else {
+                    return 'mdi:window-shutter';
+                  }
+                ]]]
+              tap_action:
+                action: toggle
+              hold_action: !include popup/tende.yaml
+              styles:
+                card:
+                  - background: none
+                  - box-shadow: none
+                  - border: none
+                  - padding: 0
+                  - height: 55px
+                  - width: 55px
+                icon:
+                  - width: 75%
+                  - height: auto
+                  - color: >
+                      [[[
+                        if (entity.state === 'unavailable' || entity.state === 'unknown') return 'grey';
+                        if (entity.state === 'open') return 'var(--red-color)';
+                        if (entity.state === 'opening') return 'var(--yellow-color)';
+                        if (entity.state === 'closing') return 'var(--green-color)';
+                        return 'var(--secondary-text-color)';
+                      ]]]
+            
+              style:
+                top: 70%
+                left: 80%
+            
+            # Percentuale tapparella
+            - type: custom:button-card
+              entity: cover.roller_shutter_2
+              show_icon: false
+              show_name: false
+              show_state: false
+              styles:
+                card:
+                  - background: none
+                  - box-shadow: none
+                  - border: none
+                  - padding: 0
+                  - font-size: 12px
+                  - color: >
+                      [[[
+                        if (entity.state === 'unavailable' || entity.state === 'unknown') return 'grey';
+                        return 'var(--secondary-text-color)';
+                      ]]]
+              custom_fields:
+                apertura: >
+                  [[[
+                    let state = entity.state;
+                    let pos = states['cover.roller_shutter_2'].attributes.current_position;
+                    if (state === 'unavailable' || state === 'unknown' || pos === undefined) {
+                      return "N/D";  // <-- testo mostrato quando non disponibile
+                    } else {
+                      return pos + "%";
+                    }
+                  ]]]
+              style:
+                top: 72.50%
+                left: 80%
+```
+## 🏗️ Architettura della Card Tapparella
+Layer 1: Icona dinamica
+
+Scopo: Mostrare rapidamente lo stato della tapparella
+
+Cambia automaticamente:
+
+mdi:window-shutter → chiusa / chiusura
+
+mdi:window-shutter-open → aperta / apertura
+
+Icona neutra in caso di errore o stato sconosciuto
+
+Layer 2: Colore di stato
+
+Colorazione intelligente basata su stato:
+
+🔴 Rosso → tapparella aperta
+
+🟡 Giallo → in apertura
+
+🟢 Verde → in chiusura
+
+⚪ Grigio → errore, unavailable
+
+Vantaggio: puoi capire a colpo d’occhio cosa sta facendo il motore
+
+Layer 3: Percentuale di apertura
+
+Percentuale prelevata da current_position
+
+Mostra:
+
+0% → completamente chiusa
+
+100% → completamente aperta
+
+"N/D" → se il sensore non è disponibile
+
+Layer 4: Interazioni
+
+Tap → toggle
+
+Hold → popup personalizzato (popup/tende.yaml)
+
+Nessun bordo, sfondo trasparente → perfetta per floorplan minimalisti
+
+## 🔄 Logica di Transizione
+Stato	Icona	Colore	Percentuale
+Aperta	🪟 Aperta	🔴 Rosso	100%
+In apertura	🪟 Aperta	🟡 Giallo	1–99%
+In chiusura	🪟 Chiusa	🟢 Verde	1–99%
+Chiusa	🪟 Chiusa	Default	0%
+Unavailable	🪟 Neutra	⚪ Grigio	N/D
+🎯 Vantaggi dell’approccio multi-layer
+
+Monitoraggio immediato dello stato e del movimento
+
+Colori chiari e coerenti con altri dispositivi (luci, lavatrice, ecc.)
+
+Perfetta integrazione nei floorplan con Picture Elements
+
+Completamente riutilizzabile per qualunque tapparella/tenda/velux
+
+</details>
