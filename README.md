@@ -1225,8 +1225,14 @@ I pulsanti della dashboard rappresentano l'essenza dell'approccio "Beautifully O
 <summary>🌀 Ventilatore intelligente</summary>
 Integrazione di un ventilatore animato direttamente nel floorplan che combina visualizzazione real-time con controlli contestuali avanzati, creando un'interazione fisica virtuale unica.
 
-<details>
-<summary>📄 **Mostra configurazione YAML**</summary>
+<div align="center">
+
+[**⚙️ Mostra Configurazione YAML**]
+
+</div>
+
+<!-- Contenuto nascosto che appare al click -->
+<div id="yaml-config" style="display: none;">
 
 ```yaml
             ######### VENTILATORE SOGGIORNO ##########
