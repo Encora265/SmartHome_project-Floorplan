@@ -818,17 +818,16 @@ Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e
 
 <details>
 <summary>⚡ Packages elettrodomestici</summary>
+
 Nella repository sono presenti i seguenti packages per il monitoraggio di elettrodomestici tradizionali:
 
-## ⚡ Packages Elettrodomestici
-
 <div align="center">
-  <img src="/www/elettrodomestici/lavatrice_on.gif" width="49%" alt="🧺 Lavatrice">
-  <img src="/www/elettrodomestici/asciugatrice_on.gif" width="49%" alt="🌬️ Asciugatrice">
+  <img src="/www/elettrodomestici/lavatrice_on.gif" width="30%" alt="🧺 Lavatrice">
+  <img src="/www/elettrodomestici/asciugatrice_on.gif" width="30%" alt="🌬️ Asciugatrice">
 </div>
 <div align="center">
-  <img src="/www/elettrodomestici/forno_on.gif" width="49%" alt="🔥 Forno">
-  <img src="/www/elettrodomestici/lavastoviglie_on.gif" width="49%" alt="🍽️ Lavastoviglie">
+  <img src="/www/elettrodomestici/lavastoviglie_on.gif" width="30%" alt="🍽️ Lavastoviglie">  
+  <img src="/www/elettrodomestici/forno_on.gif" width="30%" alt="🔥 Forno">
 </div>
 
 ---
