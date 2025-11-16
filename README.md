@@ -60,7 +60,9 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 
 ---
 
-# <span style="color:#3498db">🎨 Design</span>
+<details>
+
+# <summary>🎨 Design</summary>
 
 ## 🎨 Design
 
