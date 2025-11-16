@@ -76,9 +76,7 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 
 ---
 
-## 💡 Esempi di Configurazione - LUCI -
-
----
+# 💡 Esempi di Configurazione - LUCI -
 
 <details>
 <summary>⬜ / ⬛ Switch on/off</summary>
