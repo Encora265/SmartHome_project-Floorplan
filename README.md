@@ -18,7 +18,7 @@ L’obiettivo è creare un controllo immediato e intuitivo dell’intera casa: l
 
 ## 🖼️ Panoramica del Floorplan
 
-Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizzato per l'uso su tablet o schermi wall-mounted.
+Interfaccia progettata per dashboard moderne con una forte attenzione alla leggibilità e alla resa estetica.
 
 <div align="center">
   <img src="/www/floorplan/main/main_day.png" width="49%" alt="Piano Terra - Notte">
@@ -61,13 +61,14 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 ---
 
 <details>
-# <summary>🎨 Design</summary>
+<summary>🎨 Design</summary>
 
 ## 🎨 Design
 
 - Progetto grafico realizzato con **Sweet_Home_3D**
 - Render con **Sweet_Home_3D**
 - Post-produzione e ottimizzazione immagini con **Gimp**
+Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento rapido su Lovelace.
 
 </details>
 
@@ -936,8 +937,8 @@ Sistema di sveglie avanzato che permette a più utenti di avere sveglie completa
 ---
 
 <details>
-<details>
 <summary><strong>🎪 Menù Popup</summary></strong>
+</details>
 
 ---
 
@@ -1006,6 +1007,50 @@ Popup specializzato per il monitoraggio e controllo dell'alimentazione del table
 - **Affidabilità Operativa**
 - **Zero Downtime: Tablet sempre operativo quando necessario**
 - **Gestione Remota: Controllo completo da qualsiasi dispositivo**
+
+</details>
+
+---
+
+<details>
+<summary>💡 Popup: Controllo Luci Esterne</summary>
+
+Popup dedicato al controllo completo e monitoraggio del sistema di illuminazione esterna, combinando controllo manuale immediato con gestione programmazione automatica.
+
+## 🎨 **Design e Animazioni Avanzate**
+# Effetti Visivi Premium
+- **Glass Morphism Avanzato: backdrop-filter: blur(16px) brightness(0.9) per effetto vetro professionale**
+- **Border Moderni: Radius 16px con bordo semitrasparente rgba(255, 255, 255, 0.1)**
+- **Ombre Profonde: box-shadow: 0 0 54px 4px rgba(0, 0, 0, 0.4) per effetto di profondità**
+
+## Animazioni Fluide
+- **Fade-in Scale: Animazione ingresso da 0.96 a 1 scale con easing**
+- **Transizioni Morbide: 0.4s duration per esperienza utente premium**
+- **Keyframes Personalizzati: Effetto "material design" avanzato**
+
+## 📊 **Sezione Monitoraggio**
+# Entità Principali
+- **light.luci_esterne: Stato luce con last-changed per ultima modifica**
+- **sensor.time: Orario corrente di riferimento**
+- **input_datetime.orario_luci_esterne_on/off: Orari programmati accensione/spegnimento**
+
+## Automazioni Monitorate
+- **automation.accensione_luci_esterne_orario_programmato: Attivazione orario fisso**
+- **automation.spegnimento_luci_esterne_orario_programmato: Disattivazione orario fisso**
+- **automation.accensione_luci_esterne_tramonto: Attivazione sincronizzata tramonto**
+
+## 🎮 **Controlli Manuali Intelligenti**
+# Pulsante Accensione
+- **Icona: mdi:lightbulb-on - chiara identificazione visiva**
+- **Stato Dinamico: Background attivo solo quando luce è spenta**
+- **Effetto Glow: Box-shadow solo quando azione è disponibile**
+- **Feedback Visivo: Colore testo che si adatta allo stato**
+
+# Pulsante Spegnimento
+- **Icona: mdi:lightbulb-off - riconoscimento immediato**
+- **Stato Dinamico: Background attivo solo quando luce è accesa**
+- **Effetto Glow: Box-shadow contestuale allo stato**
+- **Proporzioni: 50% width per bilanciamento perfetto**
 
 </details>
 
