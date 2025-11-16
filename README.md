@@ -610,13 +610,13 @@ Hold → popup personalizzato (popup/tende.yaml)
 Nessun bordo, sfondo trasparente → perfetta per floorplan minimalisti
 
 ## 🔄 Logica di Transizione
-Stato	Icona	Colore	Percentuale
-Aperta	🪟 Aperta	🔴 Rosso	100%
-In apertura	🪟 Aperta	🟡 Giallo	1–99%
-In chiusura	🪟 Chiusa	🟢 Verde	1–99%
-Chiusa	🪟 Chiusa	Default	0%
-Unavailable	🪟 Neutra	⚪ Grigio	N/D
-🎯 Vantaggi dell’approccio multi-layer
+| **Stato**             | **Livello 1**   | **Livello 2** | **Livello 3**        |
+| --------------------- | --------------- | ------------- | -------------------- |
+| **Chiusa**            | 🪟 Icona chiusa | ⚪ Grigio      | Icona normale        |
+| **Apertura in corso** | 🪟 Icona aperta | 🟡 Giallo     | Percentuale apertura |
+| **Chiusura in corso** | 🪟 Icona chiusa | 🟢 Verde      | Percentuale apertura |
+| **Aperta**            | 🪟 Icona aperta | 🔴 Rosso      | Icona normale        |
+| **Non disponibile**   | 🪟 Icona neutra | ⚪ Grigio      | N/D                  |
 
 Monitoraggio immediato dello stato e del movimento
 
