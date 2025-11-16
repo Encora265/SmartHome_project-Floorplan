@@ -820,13 +820,16 @@ Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e
 <summary>⚡ Packages elettrodomestici</summary>
 Nella repository sono presenti i seguenti packages per il monitoraggio di elettrodomestici tradizionali:
 
-🧺 Lavatrice - Monitoraggio consumi e cicli
+## ⚡ Packages Elettrodomestici
 
-🌬️ Asciugatrice - Monitoraggio consumi e cicli
+| Icona | Elettrodomestico | Monitoraggio |
+|-------|------------------|-------------|
+| 🧺 | **Lavatrice** | Consumi • Costi • Cicli • Durata |
+| 🌬️ | **Asciugatrice** | Consumi • Costi • Cicli • Durata |
+| 🔥 | **Forno** | Consumi • Costi • Cicli • Durata |
+| 🍽️ | **Lavastoviglie** | Consumi • Costi • Cicli • Durata |
 
-🔥 Forno - Monitoraggio consumi e cicli
-
-🍽️ Lavastoviglie - Monitoraggio consumi e cicli
+**Funzionalità comuni:** 📊 Monitoraggio consumi • 💰 Calcolo costi • 🔔 Notifiche • 🔧 Manutenzione predittiva
 
 ## 🏗️ **Architettura uniforme**
 Tutti i packages condividono la stessa struttura base e funzionalità, adattate per diversi elettrodomestici. Il sistema monitora dispositivi tradizionali attraverso prese intelligenti che tracciano esclusivamente i consumi energetici.
