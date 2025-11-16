@@ -1,13 +1,10 @@
 # SmartHome_project Floorplan
-# 🏡 Floorplan per Home Assistant
+# <span style="color:#3498db">🏡 Floorplan per Home Assistant</span>
 
-Questo progetto contiene il mio floorplan personalizzato per Home Assistant, realizzato interamente in YAML e ottimizzato per un'interfaccia moderna, fluida e altamente reattiva.
+Questo progetto contiene il mio floorplan personalizzato per Home Assistant: un’interfaccia grafica avanzata basata su immagini, overlay dinamici e controlli interattivi.  
+Il tutto è realizzato **in YAML**, senza moduli esterni complessi, ed è progettato per funzionare in modo fluido su tablet, dashboard wall e dispositivi touch.
 
-Il floorplan combina immagini, overlay dinamici e animazioni per rappresentare graficamente lo stato della casa: luci, sensori, clima, consumi, porte/finestre e molto altro.
-
-L'obiettivo è offrire un controllo intuitivo e immediato dell'abitazione, integrandosi perfettamente con Lovelace e supportando dispositivi RGB, CCT, dimmer, gruppi e automazioni avanzate.
-
-Il progetto è pensato per essere scalabile, modulare e facilmente riutilizzabile, con esempi pronti all'uso per ogni tipologia di entità.
+L’obiettivo è creare un controllo immediato e intuitivo dell’intera casa: luci, sensori, media player, clima, consumi, porte/finestre, automazioni e molto altro.
 
 ---
 
@@ -939,11 +936,11 @@ Sistema di sveglie avanzato che permette a più utenti di avere sveglie completa
 ---
 
 <details>
+<details>
 <summary><strong>🎪 Menù Popup</summary></strong>
 
 ---
 
-<details>
 <details>
 <summary>🔋 Gestione Alimentazione Tablet</summary>
 
