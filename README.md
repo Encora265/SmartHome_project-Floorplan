@@ -1292,7 +1292,8 @@ Integrazione di un ventilatore animato direttamente nel floorplan che combina vi
                     100% { transform: translate(-50%, -50%) rotate(360deg); }
                   }
 ```
-</details>
+
+</div>
 
 ## ✨ **Animazioni Dinamiche Avanzate**
 - **Rotazione Realistica**
