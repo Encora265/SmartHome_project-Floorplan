@@ -76,7 +76,8 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 
 ---
 
-# 💡 Esempi di Configurazione - LUCI -
+<details>
+## 💡 Esempi di Configurazione - LUCI -
 
 <details>
 <summary>⬜ / ⬛ Switch on/off</summary>
@@ -322,6 +323,7 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 3. **🔧 Precisione Cromatica**: Riproduzione fedele di temperature e tonalità
 4. **🎭 Effetti Complessi**: Possibilità di blending avanzato tra layer
 
+</details>
 </details>
 
 ---
