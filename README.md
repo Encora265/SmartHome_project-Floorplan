@@ -822,6 +822,17 @@ Nella repository sono presenti i seguenti packages per il monitoraggio di elettr
 
 ## ⚡ Packages Elettrodomestici
 
+<div align="center">
+  <img src="/www/elettrodomestici/lavatrice_on.gif" width="49%" alt="🧺 Lavatrice">
+  <img src="/www/elettrodomestici/asciugatrice_on.gif" width="49%" alt="🌬️ Asciugatrice">
+</div>
+<div align="center">
+  <img src="/www/elettrodomestici/forno_on.gif" width="49%" alt="🔥 Forno">
+  <img src="/www/elettrodomestici/lavastoviglie_on.gif" width="49%" alt="🍽️ Lavastoviglie">
+</div>
+
+---
+
 | Icona | Elettrodomestico | Monitoraggio |
 |-------|------------------|-------------|
 | 🧺 | **Lavatrice** | Consumi • Costi • Cicli • Durata |
@@ -832,6 +843,7 @@ Nella repository sono presenti i seguenti packages per il monitoraggio di elettr
 **Funzionalità comuni:** 📊 Monitoraggio consumi • 💰 Calcolo costi • 🔔 Notifiche • 🔧 Manutenzione predittiva
 
 ## 🏗️ **Architettura uniforme**
+
 Tutti i packages condividono la stessa struttura base e funzionalità, adattate per diversi elettrodomestici. Il sistema monitora dispositivi tradizionali attraverso prese intelligenti che tracciano esclusivamente i consumi energetici.
 
 ## **⚙️ Funzionalità Comuni a Tutti i Packages**
