@@ -1222,8 +1222,71 @@ I pulsanti della dashboard rappresentano l'essenza dell'approccio "Beautifully O
 ---
 
 <details>
-<summary>🌟 Ventilatore intelligente</summary>
+<summary>🌀 Ventilatore intelligente</summary>
 Integrazione di un ventilatore animato direttamente nel floorplan che combina visualizzazione real-time con controlli contestuali avanzati, creando un'interazione fisica virtuale unica.
+
+<details>
+<summary>📄 **Mostra configurazione YAML**</summary>
+
+```yaml
+            ######### VENTILATORE SOGGIORNO ##########
+
+            - type: image
+              entity: fan.cucina_windcalm
+              tap_action:
+                action: call-service
+                service: fan.toggle
+                target:
+                  entity_id: fan.cucina_windcalm
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-fan-card
+                      entity: fan.cucina_windcalm
+                      show_percentage_control: true
+                      show_oscillate_control: true
+              style:
+                top: 60.00%
+                left: 58.50%
+                width: 7%
+                opacity: 0.3
+                transform-origin: center
+                transform-box: fill-box
+                transform: translate(-50%, -50%)
+                animation-name: rotation
+                animation-duration: var(--fan-anim-duration, 1s)
+                animation-timing-function: linear
+                animation-iteration-count: infinite
+                animation-play-state: var(--fan-anim-play, paused)
+              state_image:
+                "on": /local/floorplan/windcalm.png
+                "off": /local/floorplan/windcalm.png
+              card_mod:
+                style: |
+                  :host {
+                    {% set speed = state_attr('fan.cucina_windcalm', 'percentage') | default(0) %}
+                    {% if is_state('fan.cucina_windcalm','on') and speed > 0 %}
+                      --fan-anim-duration: {{ ((100 - speed) / 40 + 0.5) | round(2) }}s;
+                      --fan-anim-play: running;
+                    {% else %}
+                      /* Pausa l'animazione, niente salti/shift dell'immagine */
+                      --fan-anim-duration: 1s;
+                      --fan-anim-play: paused;
+                    {% endif %}
+                  }
+            
+                  @keyframes rotation {
+                    0%   { transform: translate(-50%, -50%) rotate(0deg); }
+                    100% { transform: translate(-50%, -50%) rotate(360deg); }
+                  }
+```
+</details>
 
 ## ✨ **Animazioni Dinamiche Avanzate**
 - **Rotazione Realistica**
