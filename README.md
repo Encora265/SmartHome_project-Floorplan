@@ -39,8 +39,9 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 
 ---
 <details>
+<summary> 🛠️ Configurazione
 
-## <summary> 🛠️ Configurazione
+## 🛠️ Configurazione
 
 - **Home Assistant**:
   - Picture Elements Card
@@ -63,8 +64,9 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 ---
 
 <details>
+<summary> 🎨 Design
 
-## <summary> 🎨 Design
+## 🎨 Design
 
 - Progetto grafico realizzato con **Sweet_Home_3D**
 - Render con **Sweet_Home_3D**
@@ -75,7 +77,7 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 ---
 ## 💡 Esempi di Configurazione - LUCI -
 
-### **Luce Tavolo – Overlay Dinamico Base switch on/off**
+### **Luce Tavolo – Overlay Dinamico Base (switch on/off)**
 
 ```yaml
 ######### TAVOLO ##########
