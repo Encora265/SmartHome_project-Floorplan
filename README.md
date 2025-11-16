@@ -1226,6 +1226,8 @@ I pulsanti della dashboard rappresentano l'essenza dell'approccio "Beautifully O
 
 Integrazione di un ventilatore animato direttamente nel floorplan che combina visualizzazione real-time con controlli contestuali avanzati, creando un'interazione fisica virtuale unica.
 
+---
+
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
 
@@ -1288,6 +1290,8 @@ Integrazione di un ventilatore animato direttamente nel floorplan che combina vi
                   }
 ```
 </details>
+
+---
 
 ## ✨ **Animazioni Dinamiche Avanzate**
 
