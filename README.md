@@ -840,17 +840,15 @@ Tutti i packages condividono la stessa struttura base e funzionalità, adattate 
 - **Tracciamento Cicli: Durata e frequenza degli utilizzi**
 - **Consumo Energetico: Monitoraggio wattaggio e calcolo kWh**
 - **Calcolo Costi: Conversione automatica consumo → costo**
-
-## **Statistiche e Metriche**
-## **Utilizzi Giornalieri/Settimanali/Mensili
-## **Consumi Periodici e relativi costi
-## **Durata Media dei cicli
-## **Totale Cicli dall'installazione
-
-## **Sistema Notifiche
-## **Alert Fine Ciclo
-## **Notifiche Manutenzione (basate su numero di cicli)
-## **Configurazione Flessibile (push, vocali, toggle)
+- **Statistiche e Metriche**
+- **Utilizzi Giornalieri/Settimanali/Mensili**
+- **Consumi Periodici e relativi costi**
+- **Durata Media dei cicli**
+- **Totale Cicli dall'installazione**
+- **Sistema Notifiche**
+- **Alert Fine Ciclo**
+- **Notifiche Manutenzione (basate su numero di cicli)**
+- **Configurazione Flessibile (push, vocali, toggle)**
 
 ## 🔄 **Differenze Minime tra Packages**
 
@@ -866,3 +864,9 @@ Consapevolezza Energetica dettagliata
 Manutenzione Predittiva basata sull'utilizzo
 Automazione Notifiche contestuali
 Tracking Storico per ottimizzazioni
+
+</details>
+
+---
+
+<details>
