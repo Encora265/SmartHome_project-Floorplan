@@ -35,20 +35,6 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 
 ---
 
-# <span style="color:#3498db">📑 Indice</span>
-
-- [Panoramica](#-panoramica)  
-- [Demo](#-demo)  
-- [Requisiti](#-requisiti)  
-- [Design](#-design)  
-- [Esempi di configurazione](#-esempi-di-configurazione)  
-- [Elementi animati e dinamici](#-elementi-animati-e-dinamici)  
-- [Integrazioni avanzate](#-integrazioni-avanzate)  
-- [Packages inclusi](#-packages-inclusi)  
-- [Licenza](#-licenza)
-
----
-
 <details>
 <summary>🛠️ Configurazione</summary>
 
@@ -74,8 +60,7 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 
 ---
 
-<details>
-<summary>🎨 Design</summary>
+# <span style="color:#3498db">🎨 Design</span>
 
 ## 🎨 Design
 
