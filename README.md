@@ -77,7 +77,10 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 ---
 ## 💡 Esempi di Configurazione - LUCI -
 
-### **Luce Tavolo – Overlay Dinamico Base (switch on/off)**
+<details>
+<summary>💡 Switch on/off</summary>
+
+### ** – Overlay Dinamico Base (switch on/off)**
 
 ```yaml
 ######### TAVOLO ##########
@@ -97,8 +100,13 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
   tap_action:
     action: none
   type: image     # Tipo elemento: immagine
+
 ```
-### **🎨 Luce Cucina – Temperatura Colore Dinamica (CCT)**
+</details>
+<details>
+<summary>☀️ / 🌙 Temperatura Colore Dinamica (CCT)</summary>
+
+### **– Temperatura Colore Dinamica (CCT)**
 
 Simulazione realistica della temperatura colore (2000K–6500K) tramite filtri CSS.
 
