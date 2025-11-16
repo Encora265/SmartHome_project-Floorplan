@@ -35,8 +35,6 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
   <img src="/www/floorplan/primo/p1_night.png" width="49%" alt="Piano Terra - Notte">
   <img src="/www/floorplan/mansarda/mansarda_nigth.png" width="49%" alt="Primo Piano - Giorno">
 </div>
-
-
 ---
 <details>
 <summary>🛠️ Configurazione</summary>
@@ -60,7 +58,6 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
   - ...e altre
 
 </details>
-
 ---
 <details>
 <summary>🎨 Design</summary>
@@ -72,10 +69,9 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 - Post-produzione e ottimizzazione immagini con **Gimp**
 
 </details>
-
 ---
 ## 💡 Esempi di Configurazione - LUCI -
-
+---
 <details>
 <summary>⬜ / ⬛ Switch on/off</summary>
 
@@ -102,8 +98,7 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 
 ```
 </details>
-
-. . . . . . . .
+---
 <details>
 <summary>☀️ / 🌙 Temperatura Colore Dinamica (CCT)</summary>
 
@@ -156,9 +151,7 @@ Simulazione realistica della temperatura colore (2000K–6500K) tramite filtri C
 - **6500K** (Freddo) → Sepia basso, hue-rotate positivo
 
 </details>
-
-- - - - - - - - 
-
+---
 <details>
 <summary>🎨🌈 Luce RGB/CCT</summary>
 
@@ -320,6 +313,5 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 4. **🎭 Effetti Complessi**: Possibilità di blending avanzato tra layer
 
 </details>
-
 ---
 
