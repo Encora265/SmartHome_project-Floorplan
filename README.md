@@ -466,6 +466,8 @@ Esempio di configurazione per lavatrice con indicazione stato e consumo:
 
 </details>
 
+---
+
 <details>
 <summary>🪟 / 🎚️ Icone Tende/Finestre/Tapparelle (apertura, movimento, stato)</summary>
 
@@ -628,7 +630,10 @@ Completamente riutilizzabile per qualunque tapparella/tenda/velux
 
 </details>
 
+---
+
 <details>
+<summary>📹 Telecamera Giardino - Controllo PTZ e AI Integrato</summary>
 
 ### **📹 Telecamera Giardino - Controllo PTZ e AI Integrato**
 
@@ -802,3 +807,5 @@ Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e
 - **🚨 Allarme**: `alarm_control_panel.ezviz_alarm`
 
 </details>
+
+---
