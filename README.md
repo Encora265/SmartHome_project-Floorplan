@@ -1218,3 +1218,43 @@ I pulsanti della dashboard rappresentano l'essenza dell'approccio "Beautifully O
 - **Coerenza: Linguaggio visivo uniforme in tutta l'app**
 
 </details>
+
+---
+
+<details>
+<summary>🌟 Ventilatore intelligente</summary>
+Integrazione di un ventilatore animato direttamente nel floorplan che combina visualizzazione real-time con controlli contestuali avanzati, creando un'interazione fisica virtuale unica.
+
+## ✨ **Animazioni Dinamiche Avanzate**
+- **Rotazione Realistica**
+- **Animazione Fluida: Rotazione 360° continua e naturale**
+- **Velocità Variabile: Sync perfetto con la velocità reale del ventilatore**
+- **Calcolo Dinamico: --fan-anim-duration basato sulla percentuale di velocità**
+- **Transform Ottimizzato: transform-origin: center per rotazione perfetta**
+- **Velocità Alta: Animazione più rapida (minore duration)**
+- **Bassa: Animazione più lenta (maggiore duration)**
+- **Range Ottimizzato: Da 0.5s (massima velocità) a 3s (minima velocità)**
+
+## 🎮 **Sistema di Interazione Multi-Livello**
+- **Tap Action - Toggle Rapido**
+- **One-Click Control: Accensione/spegnimento immediato**
+- **Feedback Istantaneo: Animazione che parte/ferma subito**
+- **Minimo Sforzo: Interazione rapida per uso frequente**
+- **Hold Action - Controllo Avanzato**
+- **Popup Contextuale: Menu controllo Mushroom design**
+- **Anchor Precisione: popup_anchor: true per posizionamento ottimale**
+- **Controlli Granulari:**
+- **Regolazione Percentuale: Controllo fine della velocità**
+- **Oscillazione: Toggle movimento orizzontale**
+- **Interfaccia Nativa: Integrazione seamless con HA**
+
+## 🎨 **Design e Visual Design**
+- **Stato Visivo Dinamico**
+- **Opacità Contestuale: 0.3 per integrazione discreta nel floorplan**
+- **Immagine Coerente: Stessa immagine per stati on/off (animazione fa la differenza)**
+- **Posizionamento Strategico: 60% top, 58.5% left per collocazione realistica**
+- **Effetti di Transizione**
+- **Animation State Management: paused/running per controllo preciso**
+- **Transform Consistency: translate(-50%, -50%) mantenuto durante rotazione**
+- **Smooth Operations: Nessun jump o reset durante cambi di stato**
+</details>
