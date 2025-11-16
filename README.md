@@ -75,6 +75,7 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 </details>
 
 ---
+
 ## 💡 Esempi di Configurazione - LUCI -
 
 <details>
@@ -103,6 +104,7 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 
 ```
 </details>
+---
 <details>
 <summary>☀️ / 🌙 Temperatura Colore Dinamica (CCT)</summary>
 
@@ -155,8 +157,9 @@ Simulazione realistica della temperatura colore (2000K–6500K) tramite filtri C
 - **6500K** (Freddo) → Sepia basso, hue-rotate positivo
 
 </details>
+---
 <details>
-<summary>🌈 Luce RGB/CCT</summary>
+<summary>🎨🌈 Luce RGB/CCT</summary>
 
 ### **🌈 Luce RGB/CCT - Architettura Multi-Layer**
 
@@ -316,4 +319,5 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 4. **🎭 Effetti Complessi**: Possibilità di blending avanzato tra layer
 
 </details>
+---
 
