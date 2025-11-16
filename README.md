@@ -633,7 +633,7 @@ Completamente riutilizzabile per qualunque tapparella/tenda/velux
 ---
 
 <details>
-<summary>📹 Telecamera Giardino - Controllo PTZ e AI Integrato</summary>
+<summary>👁️ Telecamera Giardino - Controllo PTZ e AI Integrato</summary>
 
 ### **📹 Telecamera Giardino - Controllo PTZ e AI Integrato**
 
@@ -807,5 +807,11 @@ Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e
 - **🚨 Allarme**: `alarm_control_panel.ezviz_alarm`
 
 </details>
+</details>
+
+---
+
+<details>
+<summary>📦 Packages Integrati</summary>
 
 ---
