@@ -29,7 +29,7 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 </div>
 <div align="center">
   <img src="/www/floorplan/terra/p0_night.png" width="49%" alt="Piano Terra - Notte">
-  <img src="/www/floorplan/terrax/p0x_night.png" width="50%" alt="Primo Piano - Giorno">
+  <img src="/www/floorplan/terrax/p0x_night.png" width="55%" alt="Primo Piano - Giorno">
 </div>
 <div align="center">
   <img src="/www/floorplan/primo/p1_night.png" width="49%" alt="Piano Terra - Notte">
@@ -330,3 +330,136 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 
 ---
 
+<details>
+<summary>🧩 Esempi di Configurazione - ICONE -</summary>
+
+---
+
+<details>
+<summary>🧺 / 🍽️ Icone elettrodomestici</summary>
+
+### **– Icone elettrodomestici**
+
+Esempio di configurazione per lavatrice con indicazione stato e consumo:
+
+```yaml
+- type: conditional
+  conditions:
+    - entity: sensor.sonoff_1001d8e7f6_power_1
+      state_not: "unavailable"
+  elements:
+    - type: custom:mushroom-chips-card
+      chips:
+        - type: template
+          entity: switch.sonoff_1001d8e7f6_1
+          icon: mdi:washing-machine
+          icon_color: >
+            {% set watt = states('sensor.sonoff_1001d8e7f6_power_1') | float(0) %}
+            {% set is_on = is_state('switch.sonoff_1001d8e7f6_1', 'on') %}
+            {% if watt > 1000 %}
+              red
+            {% elif watt > 300 %}
+              yellow
+            {% elif watt > 0 %}
+              green
+            {% elif is_on %}
+              blue
+            {% else %}
+              grey
+            {% endif %}
+          tap_action:
+            action: toggle
+          hold_action:
+            action: call-service
+            service: script.lavatrice_popup
+      alignment: justify
+      style:
+        top: 32.0%
+        left: 76.5%
+      card_mod:
+        style: |
+          ha-card {
+            --chip-height: 60px;
+          }
+          mushroom-template-chip {
+            --icon-size: 50px;
+          }
+
+- type: conditional
+  conditions:
+    - entity: sensor.sonoff_1001d8e7f6_power_1
+      state_not: "unavailable"
+  elements:
+    - type: custom:button-card
+      entity: sensor.sonoff_1001d8e7f6_power_1
+      show_state: false
+      show_name: false
+      show_icon: false
+      styles:
+        card:
+          - background: none
+          - box-shadow: none
+          - border: none
+          - padding: 0
+          - font-size: 12px
+          - color: var(--secondary-text-color)
+          - text-align: center
+      custom_fields:
+        consumo: >
+          [[[
+            const watt = parseFloat(states['sensor.sonoff_1001d8e7f6_power_1'].state) || 0;
+            return watt > 0 ? watt.toFixed(0) + " W" : "";
+          ]]]
+      tap_action:
+        action: toggle
+      hold_action: !include popup/lavatrice.yaml
+      style:
+        top: 34.0%
+        left: 76.5%
+
+## 🏗️ **Architettura della Card Lavatrice**
+
+### **Layer 1: Stato On/Off**
+- **Scopo**: Mostrare se la lavatrice è accesa o spenta
+- **Logica Colore**:
+  - 🔴 Rosso → consumo > 1000 W
+  - 🟡 Giallo → consumo tra 300 W e 1000 W
+  - 🟢 Verde → consumo basso tra 0 e 300 W
+  - 🔵 Blu → acceso senza consumi significativi
+  - ⚪ Grigio → spento
+- **Effetto**: Icona della lavatrice cambia colore in tempo reale in base ai consumi rilevati dal sensore `sensor.sonoff_1001d8e7f6_power_1`
+
+### **Layer 2: Consumo**
+- **Scopo**: Visualizzare i watt attuali
+- **Attivazione**: Sempre visibile quando la card è presente e il sensore non è `unavailable`
+- **Visualizzazione**:
+  - Testo dinamico con `{{ watt }} W`  
+  - Colore dell’icona riflette la fascia di consumo
+- **Interazione**:
+  - Tap → toggle accensione/spegnimento
+  - Hold → popup informativo con dettagli del consumo o stato della lavatrice
+
+### **Layer 3: Stile e Posizionamento**
+- **Scopo**: Adattare l’icona e la card al floorplan
+- **Parametri**:
+  - `top`, `left` → posizionamento preciso sulla mappa della stanza
+  - `--icon-size`, `--chip-height` → dimensioni icona e chip personalizzate
+  - `alignment: justify` → allineamento visivo nella card
+- **Effetto visivo**: Icona centrale con informazioni di consumo sotto o a lato, senza bordi o sfondo invasivo
+
+## 🔄 **Logica di Transizione Intelligente**
+| Stato | Layer 1 | Layer 2 | Layer 3 |
+|-------|---------|---------|---------|
+| **Spento** | ⚪ Grigio | Vuoto | Icona normale |
+| **Basso consumo** | 🟢 Verde | Valore Watt | Icona normale |
+| **Medio consumo** | 🟡 Giallo | Valore Watt | Icona normale |
+| **Alto consumo** | 🔴 Rosso | Valore Watt | Icona normale |
+| **Acceso senza consumo** | 🔵 Blu | Vuoto | Icona normale |
+
+## 🎯 **Vantaggi dell’approccio multi-layer per la card**
+1. **🎨 Differenziazione visiva**: Cambia colore in base al consumo reale  
+2. **⚡ Informazioni immediate**: Stato e wattaggio in un colpo d’occhio  
+3. **🔧 Interazione intuitiva**: Tap per toggle, hold per popup  
+4. **🎭 Design modulare**: Facile da riutilizzare per altri elettrodomestici o sensori
+
+</details>
