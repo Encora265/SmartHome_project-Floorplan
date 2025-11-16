@@ -817,9 +817,7 @@ Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e
 ---
 
 <details>
-<summary>⚡Packages elettrodomestici</summary>
-
-### **📦 Packages elettrodomestici**
+<summary>⚡ Packages elettrodomestici</summary>
 Nella repository sono presenti i seguenti packages per il monitoraggio di elettrodomestici tradizionali:
 
 🧺 Lavatrice - Monitoraggio consumi e cicli
@@ -870,3 +868,57 @@ Tracking Storico per ottimizzazioni
 ---
 
 <details>
+<summary>⏰ Package: Sistema Sveglie Personalizzate</summary>
+Sistema di sveglie avanzato che permette a più utenti di avere sveglie completamente personalizzabili con giorni della settimana selezionabili individualmente.
+
+## 👥 **Gestione Multi-Utente**
+
+# Profilo utenti
+- **Orario Sveglia: input_datetime.sveglia_francesca_ora**
+- **Attivazione Globale: input_boolean.sveglia_francesca_attiva**
+- **Giorni Attivi: Toggle separati per ogni giorno della settimana**
+
+## 📅 **Sistema Giorni della Settimana**
+
+- **Configurazione Flessibile**
+- **7 Toggle per Utente: Controllo indipendente per ogni giorno**
+- **Nomi Localizzati: Lunedì, Martedì, Mercoledì, etc.**
+- **Combinazioni Libere: Possibilità di selezionare qualsiasi combinazione di giorni**
+
+## 🎵 **Sistema di Allarme Musicale**
+
+- **Riproduzione Media**
+- **File Locali: Riproduzione da media_source/local/**
+- **Brani Personalizzati come sveglia**
+- **Dispositivo Target: media_player.mansarda per la riproduzione**
+
+## 🎛️ **Caratteristiche Avanzate**
+- **Indipendenza dei Profili**
+- **Orari Separati: Ogni utente può avere orari diversi**
+- **Giorni Personalizzati: Weekend e giorni feriali configurabili individualmente**
+- **Attivazione Indipendente: Possibilità di disattivare temporaneamente senza perdere le impostazioni**
+
+# **Gestione dei Giorni**
+- **Array Giorni: Mappatura automatica dei giorni della settimana**
+- **now().weekday(): Integrazione con il sistema datetime di Home Assistant**
+- **Dynamic Entity Names: Costruzione dinamica dei nomi delle entity**
+
+## 💡 **Vantaggi del Sistema**
+- **Flessibilità Totale**
+- **Orari Personalizzabili: Modifica rapida degli orari di sveglia**
+- **Giorni Selettivi: Solo i giorni effettivamente necessari**
+- **Pause Facili: Disattivazione temporanea mantenendo le impostazioni**
+
+# **Automazione Intelligente**
+- **Condizioni Multiple: Controllo sia globale che giornaliero**
+- **Template Dinamici: Adattamento automatico al giorno corrente**
+- **Modalità Single: Prevenzione esecuzioni multiple**
+
+# **Esperienza Utente**
+- **Interfaccia Chiara: Input boolean e datetime nativi di HA**
+- **Feedback Immediato: Stato visibile nell'interfaccia**
+- **Facile Configurazione: Modifica tramite la standard UI**
+
+</details>
+</details>
+
