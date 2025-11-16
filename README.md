@@ -936,3 +936,79 @@ Sistema di sveglie avanzato che permette a più utenti di avere sveglie completa
 </details>
 </details>
 
+---
+
+<details>
+<summary><strong>🎪 Menù Popup</summary></strong>
+
+---
+
+<details>
+<details>
+<summary>🔋 Gestione Alimentazione Tablet</summary>
+
+Popup specializzato per il monitoraggio e controllo dell'alimentazione del tablet wall-mounted, con sistema di protezione batteria intelligente.
+
+## 🎨 **Design Avanzato**
+- **Effetti Visivi Premium**
+- **Glass Morphism: Sfondo con backdrop-filter: blur(15px) per effetto vetro smerigliato**
+- **Trasparenze Controllate: background-color: rgba(25, 25, 25, 0.5) per profondità**
+- **Border Radius Moderni: Angoli arrotondati da 1em per design contemporaneo**
+- **Ombre Soft: box-shadow con rgba per effetto di elevazione sottile**
+
+## **Header Personalizzato**
+- **Logo/Custom Image: Immagine "galaxy.png" come identificativo visivo**
+- **Pulsante Chiudi Custom: Icona MDI con styling minimale e allineamento perfetto**
+- **Layout Flex: Giustificazione spaziata per bilanciamento ottimale**
+
+## ⚡ **Controlli di Alimentazione**
+- **Gestione Generale**
+- **input_boolean.dashboard_general_management: Toggle attivazione/disattivazione sistema**
+- **Protezione Batteria Bassa**
+- **Soglia Configurabile: input_number.dashboard_power_battery_low - valore personalizzabile**
+- **Stato Attivo: input_boolean.dashboard_power_battery_low - attivazione protezione**
+- **Sensore Stato: binary_sensor.dashboard_power_battery_high - rilevamento condizione**
+- **Protezione Batteria Alta**
+- **Soglia Configurabile: input_number.dashboard_power_battery_high - valore personalizzabile**
+- **Stato Attivo: input_boolean.dashboard_power_battery_high - attivazione protezione**
+- **Sensore Stato: binary_sensor.dashboard_power_battery_high - rilevamento condizione**
+
+## 📊 **Monitoraggio Real-time**
+# Dati Batteria
+- **Livello Attuale: sensor.my_wall_panel_battery_level - percentuale batteria in tempo reale**
+- **Controllo Alimentazione: switch.sonoff_1001edb37d_2 - interruttore remoto alimentazione**
+
+# Visualizzazione Grafica
+- **Bar Card Personalizzata: Indicatore visivo livello batteria**
+- **Dimensioni Ottimizzate: 55% width, 2em height per proporzioni bilanciate**
+- **Formattazione Clean: Decimali a 0 con simbolo percentuale**
+
+## 🔧 **Sistema di Protezione Intelligente**
+# Doppia Soglia di Sicurezza
+- **Protezione Scarica Completa: Intervento prima che batteria si esaurisca completamente**
+- **Protezione Sovraccarica: Prevenzione carica eccessiva per prolungare vita batteria**
+
+# Automazioni Collegate
+- **Spegnimento Automatico: Quando batteria raggiunge soglia minima**
+- **Riavvio Automatico: Quando batteria recupera sufficiente carica**
+- **Notifiche Alert: Avvisi per interventi manuali quando necessario**
+
+## 🎛️ **Caratteristiche Tecniche**
+# Gestione Stato
+- **Input Boolean: Configurazione comportamenti protezione**
+- **Input Number: Soglie personalizzabili per diversi scenari d'uso**
+- **Binary Sensor: Rilevamento stati critici in tempo reale**
+- **Integrazione Hardware**
+- **Tablet Wall-Mounted: Dispositivo principale monitorato**
+- **Presa Smart: Controllo remoto alimentazione**
+- **Sensori Batteria: Integrazione con sistema operativo tablet**
+
+## 💡 **Vantaggi del Sistema**
+- **Prolungamento Vita Batteria**
+- **Carica Ottimizzata: Evita cicli di carica/scarica completi**
+- **Affidabilità Operativa**
+- **Zero Downtime: Tablet sempre operativo quando necessario**
+- **Gestione Remota: Controllo completo da qualsiasi dispositivo**
+
+</details>
+
