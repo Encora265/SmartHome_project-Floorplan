@@ -62,7 +62,6 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 </details>
 
 ---
-
 <details>
 <summary>🎨 Design</summary>
 
@@ -75,7 +74,6 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 </details>
 
 ---
-
 ## 💡 Esempi di Configurazione - LUCI -
 
 <details>
@@ -105,8 +103,7 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 ```
 </details>
 
-- - - - - - - - 
-
+. . . . . . . .
 <details>
 <summary>☀️ / 🌙 Temperatura Colore Dinamica (CCT)</summary>
 
