@@ -1227,12 +1227,8 @@ Integrazione di un ventilatore animato direttamente nel floorplan che combina vi
 
 <div align="center">
 
-[**⚙️ Mostra Configurazione YAML**]
-
-</div>
-
-<!-- Contenuto nascosto che appare al click -->
-<div id="yaml-config" style="display: none;">
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
 
 ```yaml
             ######### VENTILATORE SOGGIORNO ##########
@@ -1292,6 +1288,8 @@ Integrazione di un ventilatore animato direttamente nel floorplan che combina vi
                     100% { transform: translate(-50%, -50%) rotate(360deg); }
                   }
 ```
+
+</details>
 
 </div>
 
