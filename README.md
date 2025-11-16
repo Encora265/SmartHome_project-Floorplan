@@ -40,7 +40,7 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 ---
 <details>
 
-## 🛠️ Configurazione
+## <summary> 🛠️ Configurazione
 
 - **Home Assistant**:
   - Picture Elements Card
@@ -64,7 +64,7 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 
 <details>
 
-## 🎨 Design
+## <summary> 🎨 Design
 
 - Progetto grafico realizzato con **Sweet_Home_3D**
 - Render con **Sweet_Home_3D**
