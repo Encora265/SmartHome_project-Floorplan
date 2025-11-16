@@ -331,8 +331,7 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 ---
 
 <details>
-<summary>🧩 <strong>ESEMPI DI CONFIGURAZIONE - ICONE</strong></summary>
-
+<summary style="color: #ff4444; font-weight: bold;">🧩 Esempi di configurazione - ICONE</summary>
 ---
 
 <details>
