@@ -1057,7 +1057,7 @@ Popup dedicato al controllo completo e monitoraggio del sistema di illuminazione
 ---
 
 <details>
-<summary>💡 Popup: Controllo Luci Esterne</summary>
+<summary>🕹️ Popup: Controllo Tende/Velux/tapparelle</summary>
 
 ## 🎮 **Telecomando Tende/Velux/tapparelle Trasparente**
 Popup completamente trasparente che sovrappone un dropdown di selezione direttamente su un'immagine di sfondo, creando un'interfaccia immersiva e contestuale per il controllo delle tende.
@@ -1076,5 +1076,145 @@ Popup completamente trasparente che sovrappone un dropdown di selezione direttam
 - **Selezione Visuale: L'utente vede l'immagine della situazione reale**
 - **Dropdown Contestuale: Il controllo appare nel punto logico dell'immagine**
 - **Esperienza Naturale: Come interagire direttamente con la scena**
+
+</details>
+</details>
+
+---
+
+<details>
+<summary><strong>🎁 Contenuti EXTRA</summary></strong>
+
+
+---
+
+<details>
+<summary>🌟 Pusanti SIDEBAR</summary>
+I pulsanti della dashboard rappresentano l'essenza dell'approccio "Beautifully Organized" - combinano estetica premium con funzionalità avanzate, creando un'esperienza utente coerente e memorabile.
+
+```yaml
+            ######### DISPOSITIVI ##########
+
+            - type: custom:button-card
+              name: Dispositivi
+              icon: mdi:lightbulb-group-outline
+              tap_action:
+                action: navigate
+                navigation_path: /lovelace/0?kiosk
+              style:
+                top: 8.00%
+                left: 12.00%
+                width: 240px
+                height: 45px
+              layout: name_icon
+              styles:
+                card:
+                  - display: flex
+                  - flex-direction: row
+                  - justify-content: flex-start
+                  - align-items: center
+                  - background: rgba(255, 255, 255, 0.1)
+                  - backdrop-filter: blur(10px)
+                  - border: 1px solid rgba(255, 255, 255, 0.2) 
+                  - border-radius: 10px
+                  - padding: 0 24px
+                  - height: 100%
+                  - position: relative
+                  - overflow: hidden
+                name:
+                  - color: white
+                  - font-size: 18px
+                  - font-weight: bold
+                  - margin-right: 110px
+                  - transform: translateY(-5px)
+                icon:
+                  - color: white
+                  - width: 28px
+                  - height: 280px
+                  - margin-left: 160px
+                  - transform: translateY(-7px)
+              card_mod:
+                style: |
+                  ha-card {
+                    position: relative;
+                    z-index: 0;
+                  }
+                  ha-card::before {
+                    content: "";
+                    position: absolute;
+                    top: -4px;
+                    left: -4px;
+                    width: calc(100% + 8px);
+                    height: calc(100% + 8px);
+                    background: linear-gradient(
+                      45deg,
+                      #ff0000,
+                      #ff7300,
+                      #fffb00,
+                      #48ff00,
+                      #00ffd5,
+                      #002bff,
+                      #7a00ff,
+                      #ff00c8,
+                      #ff0000
+                    );
+                    background-size: 400%;
+                    z-index: -1;
+                    filter: blur(6px);   /* meno sfocato → bordo più netto */
+                    border-radius: 12px;
+                    animation: glowing 12s linear infinite; /* più veloce */
+                    opacity: 1;
+                  }
+                  ha-card::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #111;
+                    z-index: -1;
+                    border-radius: 10px;
+                  }
+                  @keyframes glowing {
+                    0% { background-position: 0 0; }
+                    50% { background-position: 400% 0; }
+                    100% { background-position: 0 0; }
+                  }  
+```
+## 🎨 **Caratteristiche Design Avanzate**
+- **Glass Morphism Moderno**
+- **Effetto Vetro Smerigliato: backdrop-filter: blur(10px) per profondità visiva**
+- **Trasparenze Controllate: background: rgba(255, 255, 255, 0.1) per eleganza**
+- **Bordi Sottili: border: 1px solid rgba(255, 255, 255, 0.2) per definizione**
+
+## **Animazioni Dinamiche**
+- **Gradient Animato: Effetto arcobaleno fluido con 9 colori**
+- **Temporizzazione Ottimizzata: 12 secondi per ciclo bilanciato**
+- **Blur Controllato: 6px per bordo netto ma morbido**
+- **Background Scuro: Contrasto perfetto per leggibilità**
+
+## 🎮 **Interazione e Usabilità**
+- **Layout Ottimizzato**
+- **Flexbox Precisione: Allineamento orizzontale perfetto**
+- **Spaziature Calcolate: Margin e padding ottimizzati per touch**
+- **Dimensioni Consistenti: 240px × 45px per uniformità visiva**
+- **Posizionamento Assoluto: Coordinate precise nell'interfaccia**
+- **Feedback Visivo**
+- **Icone MDI: Set coerente di icone material design**
+- **Tipografia Leggibile: Font bold 18px con colore bianco**
+- **Consistenza: Stile uniforme across tutti i pulsanti**
+- **Performance: Animazioni smooth senza lag**
+
+## **Customizzazione**
+- **Temi Dinamici: Adattamento a light/dark mode**
+- **Varianti Colore: Palette coerente ma distinguibile**
+- **Scalabilità: Adattamento a diverse risoluzioni**
+
+## 💡 **Valore Aggiunto**
+- **First Impression: Impatto visivo immediato e professionale**
+- **Intuitività: Icone e label auto-esplicative**
+- **Engagement: Animazioni che invitano all'interazione**
+- **Coerenza: Linguaggio visivo uniforme in tutta l'app**
 
 </details>
