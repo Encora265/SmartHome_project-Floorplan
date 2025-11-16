@@ -77,7 +77,7 @@ Il design è stato realizzato con un approccio visivo pulito e moderno, ottimizz
 ---
 
 <details>
-<summary>💡 Esempi di Configurazione - LUCI -</summary>
+<summary><strong>💡 Esempi di Configurazione - LUCI -</summary></strong>
 
 ---
 
@@ -812,6 +812,57 @@ Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e
 ---
 
 <details>
-<summary>📦 Packages Integrati</summary>
+<summary><strong>📦 Packages Integrati</summary></strong>
 
 ---
+
+<details>
+<summary>⚡Packages elettrodomestici</summary>
+
+### **📦 Packages elettrodomestici**
+Nella repository sono presenti i seguenti packages per il monitoraggio di elettrodomestici tradizionali:
+
+🧺 Lavatrice - Monitoraggio consumi e cicli
+
+🌬️ Asciugatrice - Monitoraggio consumi e cicli
+
+🔥 Forno - Monitoraggio consumi e cicli
+
+🍽️ Lavastoviglie - Monitoraggio consumi e cicli
+
+## 🏗️ **Architettura uniforme**
+Tutti i packages condividono la stessa struttura base e funzionalità, adattate per diversi elettrodomestici. Il sistema monitora dispositivi tradizionali attraverso prese intelligenti che tracciano esclusivamente i consumi energetici.
+
+## **⚙️ Funzionalità Comuni a Tutti i Packages**
+
+- **Monitoraggio Base**
+- **Rilevamento Attività: Identificazione accensione/spegnimento tramite soglie di consumo**
+- **Tracciamento Cicli: Durata e frequenza degli utilizzi**
+- **Consumo Energetico: Monitoraggio wattaggio e calcolo kWh**
+- **Calcolo Costi: Conversione automatica consumo → costo**
+
+## **Statistiche e Metriche**
+## **Utilizzi Giornalieri/Settimanali/Mensili
+## **Consumi Periodici e relativi costi
+## **Durata Media dei cicli
+## **Totale Cicli dall'installazione
+
+## **Sistema Notifiche
+## **Alert Fine Ciclo
+## **Notifiche Manutenzione (basate su numero di cicli)
+## **Configurazione Flessibile (push, vocali, toggle)
+
+## 🔄 **Differenze Minime tra Packages**
+
+Le uniche differenze sono:
+Soglie di Consumo personalizzate per ogni elettrodomestico
+Intervalli Manutenzione specifici per tipo di dispositivo
+Nomi Entity e label personalizzate
+Icone e Temi visivi differenti
+
+## 💡**Valore Aggiunto**
+Nonostante la semplicità del concetto, l'implementazione offre:
+Consapevolezza Energetica dettagliata
+Manutenzione Predittiva basata sull'utilizzo
+Automazione Notifiche contestuali
+Tracking Storico per ottimizzazioni

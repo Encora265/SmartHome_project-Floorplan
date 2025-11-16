@@ -1,0 +1,90 @@
+####################################################
+#               INPUT DATETIME                     #
+####################################################
+input_datetime:
+  orario_luci_esterne_on:
+    name: "Orario luci esterne ON"
+    has_date: false
+    has_time: true
+
+  orario_luci_esterne_off:
+    name: "Orario luci esterne OFF"
+    has_date: false
+    has_time: true
+
+####################################################
+#                  AUTOMAZIONI                    #
+####################################################
+automation:
+  # Automazione per accensione luci esterne all'orario impostato
+  - alias: "Accensione luci esterne - Orario programmato"
+    id: luci_esterne_on
+    trigger:
+      - platform: time
+        at: input_datetime.orario_luci_esterne_on
+    action:
+      - service: light.turn_on
+        target:
+          entity_id: light.luci_esterne
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.nesthube6f7
+          volume_level: 0.5
+      - service: tts.cloud_say
+        data:
+          entity_id: media_player.nesthube6f7
+          message: "Accendo le luci esterne"
+          cache: true
+
+  # Automazione per spegnimento luci esterne all'orario impostato
+  - alias: "Spegnimento luci esterne - Orario programmato"
+    id: luci_esterne_off
+    trigger:
+      - platform: time
+        at: input_datetime.orario_luci_esterne_off
+    # condition:
+    #   - condition: state
+    #     entity_id: light.luci_esterne
+    #     state: "on"
+    action:
+      - service: light.turn_off
+        target:
+          entity_id: light.luci_esterne
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.nesthube6f7
+          volume_level: 0.5
+      - service: tts.cloud_say
+        data:
+          entity_id: media_player.nesthube6f7
+          message: "Spengo le luci esterne"
+          cache: true
+
+  # Automazione per accensione luci esterne al tramonto (+20 minuti)
+  - alias: "Accensione luci esterne - Tramonto"
+    id: luci_esterne_tramonto
+    trigger:
+      - platform: sun
+        event: sunset
+        offset: "+00:20:00"  # 20 minuti dopo il tramonto
+    action:
+      - service: light.turn_on
+        target:
+          entity_id: light.luci_esterne
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.nesthube6f7
+          volume_level: 0.5
+      - service: tts.cloud_say
+        data:
+          entity_id: media_player.nesthube6f7
+          message: "Accendo le luci esterne al tramonto"
+          cache: true
+
+####################################################
+#                  SENSORI                        #
+####################################################
+sensor:
+  - platform: time_date
+    display_options:
+      - "time"
