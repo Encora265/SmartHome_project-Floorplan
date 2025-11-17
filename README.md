@@ -965,6 +965,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
   </div>
 
 </details>
+
 **Popup dedicato al controllo completo e monitoraggio del sistema di illuminazione esterna, combinando controllo manuale immediato con gestione programmazione automatica.**
 
 **🎨 Design e Animazioni Avanzate**
@@ -1011,7 +1012,16 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 
 <details>
 <summary><strong>🕹️ Popup: Controllo Tende/Velux/tapparelle</strong></summary>
+<details>
+  <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
 
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/situo.png" width="35%" alt="situo">
+  </div>
+
+</details>
 **Popup completamente trasparente che sovrappone un dropdown di selezione direttamente su un'immagine di sfondo, creando un'interfaccia immersiva e contestuale per il controllo delle tende.**
 
 **🎨 Design Trasparente Avanzato**
