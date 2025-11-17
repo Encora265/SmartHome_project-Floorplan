@@ -37,7 +37,7 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 
 <details>
 
-## 🛠️ Configurazione
+<summary><strong>🛠️ Configurazione</strong></summary>
 
 - **Home Assistant**:
   - Picture Elements Card
@@ -61,7 +61,7 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 
 <details>
 
-## 🎨 Progettazione
+<summary><strong>🎨 Progettazione</strong></summary>
 
 - Progetto grafico realizzato con **Sweet_Home_3D**
 - Render con **Sweet_Home_3D**
@@ -77,7 +77,7 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 
 <details>
 
-## 🎨 Progettazione💡 Esempi di configurazione - LUCI
+<summary><strong>💡 Esempi di configurazione - LUCI</strong></summary>
 
 </details>
 
