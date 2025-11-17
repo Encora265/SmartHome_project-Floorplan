@@ -176,13 +176,13 @@ Range Temperature:
 <details>
 <summary><strong>🎨🌈 Luce RGB/CCT</strong></summary>
 
-## 🌈 Luce RGB/CCT - Architettura Multi-Layer**
+# 🌈 Luce RGB/CCT - Architettura Multi-Layer
 **Sistema Multi-Layer per Luci Avanzate (Bianco, CCT, RGB).**
 **Questo sistema utilizza 3 layer sovrapposti, ognuno con una funzione specifica:**
 
-**- Layer 1 – Bianco Base (Brightness)**
-**- Layer 2 – CCT (Temperatura Colore)**
-**- Layer 3 – RGB (Colorazione)**
+- Layer 1 – Bianco Base (Brightness)
+- Layer 2 – CCT (Temperatura Colore)
+- Layer 3 – RGB (Colorazione)
 
 Permette transizioni perfette tra modalità bianca, CCT e RGB.
 <details>
