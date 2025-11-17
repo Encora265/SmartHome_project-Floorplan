@@ -35,8 +35,6 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 
 ---
 
-<details>
-
 ## <summary><strong>🛠️ Configurazione</strong></summary>
 
 - **Home Assistant**:
@@ -55,7 +53,6 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
   - weather-card
   - ...e altre
 
-</details>
 
 ---
 
