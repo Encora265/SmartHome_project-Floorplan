@@ -58,21 +58,18 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
     - ...e altre
 </details>
 
-
-
 ---
 
-## 🎨 Progettazione
-
 <details>
-<summary><strong>🎨 Progettazione</strong></summary>
+  <summary><strong>🎨 Progettazione</strong></summary>
+
+  <br>
 
 - Progetto grafico realizzato con **Sweet_Home_3D**
 - Render con **Sweet_Home_3D**
 - Post-produzione e ottimizzazione immagini con **Gimp**
 
 Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento rapido su Lovelace.
-
 </details>
 
 ---
