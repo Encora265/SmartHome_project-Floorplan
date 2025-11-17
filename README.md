@@ -81,7 +81,9 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 
 <details>
 <summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
-– Overlay Dinamico Base (switch on/off)
+
+## Overlay Dinamico Base (switch on/off)
+
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
 
@@ -114,9 +116,7 @@ type: image
 <details>
 <summary><strong>☀️ / 🌙 Temperatura Colore Dinamica (CCT)</strong></summary>
 
-**– Temperatura Colore Dinamica (CCT)**
-
-Simulazione realistica della temperatura colore (2000K–6500K) tramite filtri CSS.
+## Simulazione realistica della temperatura colore (2000K–6500K) tramite filtri CSS.
 
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
@@ -158,10 +158,10 @@ Simulazione realistica della temperatura colore (2000K–6500K) tramite filtri C
 
 Caratteristiche Avanzate:
 
-🎛️ Temperatura Colore Dinamica: Convertie Kelvin (2000K-6500K) in filtri CSS
-💡 Luminosità Reale: Opacity proporzionale al brightness della luce
-🌈 Effetti Visivi: Combinazione di sepia, hue-rotate e brightness
-🔧 Calcolo in Tempo Reale: JavaScript inline per trasformazioni dinamiche
+- 🎛️ Temperatura Colore Dinamica: Convertie Kelvin (2000K-6500K) in filtri CSS
+- 💡 Luminosità Reale: Opacity proporzionale al brightness della luce
+- 🌈 Effetti Visivi: Combinazione di sepia, hue-rotate e brightness
+- 🔧 Calcolo in Tempo Reale: JavaScript inline per trasformazioni dinamiche
 
 Range Temperature:
 
@@ -176,9 +176,9 @@ Range Temperature:
 <details>
 <summary><strong>🎨🌈 Luce RGB/CCT</strong></summary>
 
-# 🌈 Luce RGB/CCT - Architettura Multi-Layer
-**Sistema Multi-Layer per Luci Avanzate (Bianco, CCT, RGB).**
-**Questo sistema utilizza 3 layer sovrapposti, ognuno con una funzione specifica:**
+## 🌈 Luce RGB/CCT - Architettura Multi-Layer
+- Sistema Multi-Layer per Luci Avanzate (Bianco, CCT, RGB).
+- Questo sistema utilizza 3 layer sovrapposti, ognuno con una funzione specifica:
 
 - Layer 1 – Bianco Base (Brightness)
 - Layer 2 – CCT (Temperatura Colore)
