@@ -35,10 +35,9 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 
 ---
 
-## 🛠️ Configurazione
-
 <details>
-<summary><strong>🛠️ Configurazione</strong></summary>
+
+## <summary><strong>🛠️ Configurazione</strong></summary>
 
 - **Home Assistant**:
   - Picture Elements Card
