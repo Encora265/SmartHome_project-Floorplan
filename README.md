@@ -880,7 +880,16 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 <summary><strong>🔋 Gestione Alimentazione Tablet</strong></summary>
 
 **Popup specializzato per il monitoraggio e controllo dell'alimentazione del tablet wall-mounted, con sistema di protezione batteria intelligente.**
+<details>
+  <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
 
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/carica.png" width="35%" alt="tablet">
+  </div>
+
+</details>
 **🎨 Design Avanzato**
 
 **Effetti Visivi Premium**
