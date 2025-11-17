@@ -1116,6 +1116,10 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 ```
 </details>
 
+<div align="center">
+  <img src="/www/repo/pulsante.gif" width="30%" alt="Pulsante">
+</div>
+
 **🎨 Caratteristiche Design Avanzate**
 
 **Glass Morphism Moderno**
