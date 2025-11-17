@@ -75,8 +75,6 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 
 <details>
 
-<details>
-
 <summary><strong>💡 Esempi di configurazione - LUCI</strong></summary>
 
 </details>
