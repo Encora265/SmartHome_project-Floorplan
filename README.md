@@ -303,8 +303,9 @@ width: 160%
 3. 🔧 Precisione Cromatica: Riproduzione fedele di temperature e tonalità
 4. 🎭 Effetti Complessi: Possibilità di blending avanzato tra layer
 
-</details>
 ---
+
+</details>
 </details>
 
 ---
