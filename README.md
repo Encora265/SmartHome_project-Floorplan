@@ -308,6 +308,7 @@ width: 160%
 </details>
 
 ---
+---
 
 <details>
 <summary><strong>🧩 Esempi di configurazione - ICONE</strong></summary>
