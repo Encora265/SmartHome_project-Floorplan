@@ -82,7 +82,7 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 <details>
 <summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
 
-## Overlay Dinamico Base (switch on/off)
+**Overlay Dinamico Base (switch on/off)**
 
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
@@ -116,7 +116,7 @@ type: image
 <details>
 <summary><strong>☀️ / 🌙 Temperatura Colore Dinamica (CCT)</strong></summary>
 
-## Simulazione realistica della temperatura colore (2000K–6500K) tramite filtri CSS.
+**Simulazione realistica della temperatura (2000K–6500K) tramite filtri CSS.**
 
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
@@ -176,7 +176,8 @@ Range Temperature:
 <details>
 <summary><strong>🎨🌈 Luce RGB/CCT</strong></summary>
 
-## 🌈 Luce RGB/CCT - Architettura Multi-Layer
+**🌈 Luce RGB/CCT - Architettura Multi-Layer**
+
 - Sistema Multi-Layer per Luci Avanzate (Bianco, CCT, RGB).
 - Questo sistema utilizza 3 layer sovrapposti, ognuno con una funzione specifica:
 
@@ -317,9 +318,8 @@ width: 160%
 <details>
 <summary><strong>🧺 / 🍽️ Icone elettrodomestici</strong></summary>
 
----
+**Esempio di configurazione per lavatrice con indicazione stato e consumo**
 
-Esempio di configurazione per lavatrice con indicazione stato e consumo:
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
 
@@ -437,14 +437,12 @@ Esempio di configurazione per lavatrice con indicazione stato e consumo:
 <details>
 <summary><strong>🪟 / 🎚️ Icone Tende/Finestre/Tapparelle</strong></summary>
 
----
+**Esempio completo per una tapparella/lucernario con:**
 
-Esempio completo per una tapparella/lucernario con:
-
-🟧 Icona dinamica (chiusa / aperta / in movimento / errore)
-🟦 Colorazione intelligente (rosso = aperta, giallo = apertura, verde = chiusura, grigio = errore)
-📊 Percentuale di apertura sotto l'icona
-🖱️ Tap → toggle, Hold → popup tendine
+- 🟧 Icona dinamica (chiusa / aperta / in movimento / errore)
+- 🟦 Colorazione intelligente (rosso = aperta, giallo = apertura, verde = chiusura, grigio = errore)
+- 📊 Percentuale di apertura sotto l'icona
+- 🖱️ Tap → toggle, Hold → popup tendine
 
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
@@ -574,9 +572,7 @@ Esempio completo per una tapparella/lucernario con:
 <details>
 <summary><strong>👁️ Telecamera Giardino - Controllo PTZ e AI Integrato</strong></summary>
 
----
-
-Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e automazione AI:
+**Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e automazione AI**
 
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
@@ -742,9 +738,7 @@ Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e
 <details>
 <summary><strong>⚡ Packages elettrodomestici</strong></summary>
 
----
-
-Nella repository sono presenti i seguenti packages per il monitoraggio di elettrodomestici tradizionali:
+**Nella repository sono presenti i seguenti packages per il monitoraggio di elettrodomestici tradizionali**
 
 <div align="center">
   <img src="/www/elettrodomestici/lavatrice_on.gif" width="30%" alt="🧺 Lavatrice">
@@ -810,9 +804,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 <details>
 <summary><strong>⏰ Package: Sistema Sveglie Personalizzate</strong></summary>
 
----
-
-Sistema di sveglie avanzato che permette a più utenti di avere sveglie completamente personalizzabili con giorni della settimana selezionabili individualmente.
+**Sistema di sveglie avanzato che permette a più utenti di avere sveglie completamente personalizzabili con giorni della settimana selezionabili individualmente.**
 
 **👥 Gestione Multi-Utente**
 
@@ -878,9 +870,7 @@ Sistema di sveglie avanzato che permette a più utenti di avere sveglie completa
 <details>
 <summary><strong>🔋 Gestione Alimentazione Tablet</strong></summary>
 
----
-
-Popup specializzato per il monitoraggio e controllo dell'alimentazione del tablet wall-mounted, con sistema di protezione batteria intelligente.
+**Popup specializzato per il monitoraggio e controllo dell'alimentazione del tablet wall-mounted, con sistema di protezione batteria intelligente.**
 
 **🎨 Design Avanzato**
 
@@ -948,9 +938,7 @@ Popup specializzato per il monitoraggio e controllo dell'alimentazione del table
 <details>
 <summary><strong>💡 Popup: Controllo Luci Esterne</strong></summary>
 
----
-
-Popup dedicato al controllo completo e monitoraggio del sistema di illuminazione esterna, combinando controllo manuale immediato con gestione programmazione automatica.
+**Popup dedicato al controllo completo e monitoraggio del sistema di illuminazione esterna, combinando controllo manuale immediato con gestione programmazione automatica.**
 
 **🎨 Design e Animazioni Avanzate**
 
@@ -997,9 +985,7 @@ Popup dedicato al controllo completo e monitoraggio del sistema di illuminazione
 <details>
 <summary><strong>🕹️ Popup: Controllo Tende/Velux/tapparelle</strong></summary>
 
----
-
-Popup completamente trasparente che sovrappone un dropdown di selezione direttamente su un'immagine di sfondo, creando un'interfaccia immersiva e contestuale per il controllo delle tende.
+**Popup completamente trasparente che sovrappone un dropdown di selezione direttamente su un'immagine di sfondo, creando un'interfaccia immersiva e contestuale per il controllo delle tende.**
 
 **🎨 Design Trasparente Avanzato**
 
@@ -1033,9 +1019,7 @@ Popup completamente trasparente che sovrappone un dropdown di selezione direttam
 <details>
 <summary><strong>🌟 Pulsanti SIDEBAR</strong></summary>
 
----
-
-I pulsanti della dashboard rappresentano l'essenza dell'approccio "Beautifully Organized" - combinano estetica premium con funzionalità avanzate, creando un'esperienza utente coerente e memorabile.
+**I pulsanti della dashboard rappresentano l'essenza dell'approccio "Beautifully Organized" - combinano estetica premium con funzionalità avanzate, creando un'esperienza utente coerente e memorabile.**
 
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
@@ -1172,9 +1156,7 @@ I pulsanti della dashboard rappresentano l'essenza dell'approccio "Beautifully O
 <details>
 <summary><strong>🌀 Ventilatore intelligente</strong></summary>
 
----
-
-Integrazione di un ventilatore animato direttamente nel floorplan che combina visualizzazione real-time con controlli contestuali avanzati, creando un'interazione fisica virtuale unica.
+**Integrazione di un ventilatore animato direttamente nel floorplan che combina visualizzazione real-time con controlli contestuali avanzati, creando un'interazione fisica virtuale unica.**
 
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
