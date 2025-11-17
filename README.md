@@ -316,6 +316,9 @@ width: 160%
 
 <details>
 <summary><strong>🧺 / 🍽️ Icone elettrodomestici</strong></summary>
+
+---
+
 Esempio di configurazione per lavatrice con indicazione stato e consumo:
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
@@ -572,6 +575,9 @@ Esempio completo per una tapparella/lucernario con:
 
 <details>
 <summary><strong>👁️ Telecamera Giardino - Controllo PTZ e AI Integrato</strong></summary>
+
+---
+
 Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e automazione AI:
 
 <details>
@@ -737,6 +743,9 @@ Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e
 
 <details>
 <summary><strong>⚡ Packages elettrodomestici</strong></summary>
+
+---
+
 Nella repository sono presenti i seguenti packages per il monitoraggio di elettrodomestici tradizionali:
 
 <div align="center">
@@ -803,6 +812,8 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 <details>
 <summary><strong>⏰ Package: Sistema Sveglie Personalizzate</strong></summary>
 
+---
+
 Sistema di sveglie avanzato che permette a più utenti di avere sveglie completamente personalizzabili con giorni della settimana selezionabili individualmente.
 
 **👥 Gestione Multi-Utente**
@@ -868,6 +879,9 @@ Sistema di sveglie avanzato che permette a più utenti di avere sveglie completa
 
 <details>
 <summary><strong>🔋 Gestione Alimentazione Tablet</strong></summary>
+
+---
+
 Popup specializzato per il monitoraggio e controllo dell'alimentazione del tablet wall-mounted, con sistema di protezione batteria intelligente.
 
 **🎨 Design Avanzato**
@@ -936,6 +950,8 @@ Popup specializzato per il monitoraggio e controllo dell'alimentazione del table
 <details>
 <summary><strong>💡 Popup: Controllo Luci Esterne</strong></summary>
 
+---
+
 Popup dedicato al controllo completo e monitoraggio del sistema di illuminazione esterna, combinando controllo manuale immediato con gestione programmazione automatica.
 
 **🎨 Design e Animazioni Avanzate**
@@ -982,6 +998,9 @@ Popup dedicato al controllo completo e monitoraggio del sistema di illuminazione
 
 <details>
 <summary><strong>🕹️ Popup: Controllo Tende/Velux/tapparelle</strong></summary>
+
+---
+
 Popup completamente trasparente che sovrappone un dropdown di selezione direttamente su un'immagine di sfondo, creando un'interfaccia immersiva e contestuale per il controllo delle tende.
 
 **🎨 Design Trasparente Avanzato**
@@ -1010,6 +1029,8 @@ Popup completamente trasparente che sovrappone un dropdown di selezione direttam
 
 <details>
 <summary><strong>🎁 Contenuti EXTRA</strong></summary>
+
+---
 
 <details>
 <summary><strong>🌟 Pulsanti SIDEBAR</strong></summary>
@@ -1150,10 +1171,10 @@ I pulsanti della dashboard rappresentano l'essenza dell'approccio "Beautifully O
 
 ---
 
-### 🌀 Ventilatore intelligente
-
 <details>
 <summary><strong>🌀 Ventilatore intelligente</strong></summary>
+
+---
 
 Integrazione di un ventilatore animato direttamente nel floorplan che combina visualizzazione real-time con controlli contestuali avanzati, creando un'interazione fisica virtuale unica.
 
