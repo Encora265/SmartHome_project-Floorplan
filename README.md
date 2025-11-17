@@ -35,9 +35,10 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 
 ---
 
+<details>
+
 ## 🛠️ Configurazione
 
-<details>
 <summary><strong>🛠️ Configurazione</strong></summary>
 
 - **Home Assistant**:
@@ -60,9 +61,10 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 
 ---
 
+<details>
+
 ## 🎨 Progettazione
 
-<details>
 <summary><strong>🎨 Progettazione</strong></summary>
 
 - Progetto grafico realizzato con **Sweet_Home_3D**
@@ -76,9 +78,11 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 ---
 
 <details>
+
+<details>
 <summary><strong>💡 Esempi di configurazione - LUCI</strong></summary>
 
-### ⬜ / ⬛ Switch on/off
+</details>
 
 <details>
 <summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
