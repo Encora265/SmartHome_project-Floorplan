@@ -811,7 +811,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
   <br>
 
   <div align="center">
-    <img src="/www/repo/sveglie.png" width="35%" alt="Pulsante">
+    <img src="/www/repo/sveglie.png" width="35%" alt="Sveglie">
   </div>
 
 </details>
@@ -1239,7 +1239,16 @@ Nonostante la semplicità del concetto, l'implementazione offre:
       }
 ```
 </details>
+<details>
+  <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
 
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/fan.gif" width="35%" alt="fan">
+  </div>
+
+</details>
 **✨ Animazioni Dinamiche Avanzate**
 
 **Rotazione Realistica**
