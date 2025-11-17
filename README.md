@@ -961,64 +961,52 @@ Accesso: Tramite pulsante "info" nel popup principale
   </div>
 
 </details>
-**🎨 Design Avanzato**
 
-**Effetti Visivi Premium**
-- **Glass Morphism**: Sfondo con backdrop-filter: blur(15px) per effetto vetro smerigliato
-- **Trasparenze Controllate**: background-color: rgba(25, 25, 25, 0.5) per profondità
-- **Border Radius Moderni**: Angoli arrotondati da 1em per design contemporaneo
-- **Ombre Soft**: box-shadow con rgba per effetto di elevazione sottile
-
-**Header Personalizzato**
-- **Logo/Custom Image**: Immagine "galaxy.png" come identificativo visivo
-- **Pulsante Chiudi Custom**: Icona MDI con styling minimale e allineamento perfetto
-- **Layout Flex**: Giustificazione spaziata per bilanciamento ottimale
-
-**⚡ Controlli di Alimentazione**
+# ⚡ Controlli di Alimentazione
 
 **Gestione Generale**
-- **input_boolean.dashboard_general_management**: Toggle attivazione/disattivazione sistema
+- input_boolean.dashboard_general_management: Toggle attivazione/disattivazione sistema
 
 **Protezione Batteria Bassa**
-- **Soglia Configurabile**: input_number.dashboard_power_battery_low - valore personalizzabile
-- **Stato Attivo**: input_boolean.dashboard_power_battery_low - attivazione protezione
-- **Sensore Stato**: binary_sensor.dashboard_power_battery_high - rilevamento condizione
+- Soglia Configurabile**: input_number.dashboard_power_battery_low - valore personalizzabile
+- Stato Attivo**: input_boolean.dashboard_power_battery_low - attivazione protezione
+- Sensore Stato**: binary_sensor.dashboard_power_battery_high - rilevamento condizione
 
 **Protezione Batteria Alta**
-- **Soglia Configurabile**: input_number.dashboard_power_battery_high - valore personalizzabile
-- **Stato Attivo**: input_boolean.dashboard_power_battery_high - attivazione protezione
-- **Sensore Stato**: binary_sensor.dashboard_power_battery_high - rilevamento condizione
+- Soglia Configurabile**: input_number.dashboard_power_battery_high - valore personalizzabile
+- Stato Attivo**: input_boolean.dashboard_power_battery_high - attivazione protezione
+- Sensore Stato**: binary_sensor.dashboard_power_battery_high - rilevamento condizione
 
-**📊 Monitoraggio Real-time**
+# 📊 Monitoraggio Real-time
 
 **Dati Batteria**
-- **Livello Attuale**: sensor.my_wall_panel_battery_level - percentuale batteria in tempo reale
-- **Controllo Alimentazione**: switch.sonoff_1001edb37d_2 - interruttore remoto alimentazione
+- Livello Attuale**: sensor.my_wall_panel_battery_level - percentuale batteria in tempo reale
+- Controllo Alimentazione**: switch.sonoff_1001edb37d_2 - interruttore remoto alimentazione
 
 **Visualizzazione Grafica**
-- **Bar Card Personalizzata**: Indicatore visivo livello batteria
-- **Dimensioni Ottimizzate**: 55% width, 2em height per proporzioni bilanciate
-- **Formattazione Clean**: Decimali a 0 con simbolo percentuale
+- Bar Card Personalizzata**: Indicatore visivo livello batteria
+- Dimensioni Ottimizzate**: 55% width, 2em height per proporzioni bilanciate
+- Formattazione Clean**: Decimali a 0 con simbolo percentuale
 
-**🔧 Sistema di Protezione Intelligente**
+# 🔧 Sistema di Protezione Intelligente
 
 **Doppia Soglia di Sicurezza**
-- **Protezione Scarica Completa**: Intervento prima che batteria si esaurisca completamente
-- **Protezione Sovraccarica**: Prevenzione carica eccessiva per prolungare vita batteria
+- Protezione Scarica Completa**: Intervento prima che batteria si esaurisca completamente
+- Protezione Sovraccarica**: Prevenzione carica eccessiva per prolungare vita batteria
 
 **Automazioni Collegate**
-- **Spegnimento Automatico**: Quando batteria raggiunge soglia minima
-- **Riavvio Automatico**: Quando batteria recupera sufficiente carica
-- **Notifiche Alert**: Avvisi per interventi manuali quando necessario
+- Spegnimento Automatico**: Quando batteria raggiunge soglia minima
+- Riavvio Automatico**: Quando batteria recupera sufficiente carica
+- Notifiche Alert**: Avvisi per interventi manuali quando necessario
 
-**💡 Vantaggi del Sistema**
+# 💡 Vantaggi del Sistema
 
 **Prolungamento Vita Batteria**
-- **Carica Ottimizzata**: Evita cicli di carica/scarica completi
+- Carica Ottimizzata**: Evita cicli di carica/scarica completi
 
 **Affidabilità Operativa**
-- **Zero Downtime**: Tablet sempre operativo quando necessario
-- **Gestione Remota**: Controllo completo da qualsiasi dispositivo
+- Zero Downtime**: Tablet sempre operativo quando necessario
+- Gestione Remota**: Controllo completo da qualsiasi dispositivo
 
 </details>
 
@@ -1039,43 +1027,43 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 **Popup dedicato al controllo completo e monitoraggio del sistema di illuminazione esterna, combinando controllo manuale immediato con gestione programmazione automatica.**
 
-**🎨 Design e Animazioni Avanzate**
+# 🎨 Design e Animazioni Avanzate
 
 **Effetti Visivi Premium**
-- **Glass Morphism Avanzato**: backdrop-filter: blur(16px) brightness(0.9) per effetto vetro professionale
-- **Border Moderni**: Radius 16px con bordo semitrasparente rgba(255, 255, 255, 0.1)
-- **Ombre Profonde**: box-shadow: 0 0 54px 4px rgba(0, 0, 0, 0.4) per effetto di profondità
+- Glass Morphism Avanzato**: backdrop-filter: blur(16px) brightness(0.9) per effetto vetro professionale
+- Border Moderni**: Radius 16px con bordo semitrasparente rgba(255, 255, 255, 0.1)
+- Ombre Profonde**: box-shadow: 0 0 54px 4px rgba(0, 0, 0, 0.4) per effetto di profondità
 
 **Animazioni Fluide**
-- **Fade-in Scale**: Animazione ingresso da 0.96 a 1 scale con easing
-- **Transizioni Morbide**: 0.4s duration per esperienza utente premium
-- **Keyframes Personalizzati**: Effetto "material design" avanzato
+- Fade-in Scale**: Animazione ingresso da 0.96 a 1 scale con easing
+- Transizioni Morbide**: 0.4s duration per esperienza utente premium
+- Keyframes Personalizzati**: Effetto "material design" avanzato
 
-**📊 Sezione Monitoraggio**
+# 📊 Sezione Monitoraggio
 
 **Entità Principali**
-- **light.luci_esterne**: Stato luce con last-changed per ultima modifica
-- **sensor.time**: Orario corrente di riferimento
-- **input_datetime.orario_luci_esterne_on/off**: Orari programmati accensione/spegnimento
+- light.luci_esterne**: Stato luce con last-changed per ultima modifica
+- sensor.time**: Orario corrente di riferimento
+- input_datetime.orario_luci_esterne_on/off**: Orari programmati accensione/spegnimento
 
 **Automazioni Monitorate**
-- **automation.accensione_luci_esterne_orario_programmato**: Attivazione orario fisso
-- **automation.spegnimento_luci_esterne_orario_programmato**: Disattivazione orario fisso
-- **automation.accensione_luci_esterne_tramonto**: Attivazione sincronizzata tramonto
+- automation.accensione_luci_esterne_orario_programmato**: Attivazione orario fisso
+- automation.spegnimento_luci_esterne_orario_programmato**: Disattivazione orario fisso
+- automation.accensione_luci_esterne_tramonto**: Attivazione sincronizzata tramonto
 
-**🎮 Controlli Manuali Intelligenti**
+# 🎮 Controlli Manuali Intelligenti
 
 **Pulsante Accensione**
-- **Icona**: mdi:lightbulb-on - chiara identificazione visiva
-- **Stato Dinamico**: Background attivo solo quando luce è spenta
-- **Effetto Glow**: Box-shadow solo quando azione è disponibile
-- **Feedback Visivo**: Colore testo che si adatta allo stato
+- Icona**: mdi:lightbulb-on - chiara identificazione visiva
+- Stato Dinamico**: Background attivo solo quando luce è spenta
+- Effetto Glow**: Box-shadow solo quando azione è disponibile
+- Feedback Visivo**: Colore testo che si adatta allo stato
 
 **Pulsante Spegnimento**
-- **Icona**: mdi:lightbulb-off - riconoscimento immediato
-- **Stato Dinamico**: Background attivo solo quando luce è accesa
-- **Effetto Glow**: Box-shadow contestuale allo stato
-- **Proporzioni**: 50% width per bilanciamento perfetto
+- Icona**: mdi:lightbulb-off - riconoscimento immediato
+- Stato Dinamico**: Background attivo solo quando luce è accesa
+- Effetto Glow**: Box-shadow contestuale allo stato
+- Proporzioni**: 50% width per bilanciamento perfetto
 
 </details>
 
@@ -1095,23 +1083,23 @@ Accesso: Tramite pulsante "info" nel popup principale
 </details>
 **Popup completamente trasparente che sovrappone un dropdown di selezione direttamente su un'immagine di sfondo, creando un'interfaccia immersiva e contestuale per il controllo delle tende.**
 
-**🎨 Design Trasparente Avanzato**
+# 🎨 Design Trasparente Avanzato
 
 **Rimozione Completa dello Sfondo**
-- **Eliminazione Ombre**: box-shadow: none per rimuovere ogni effetto di elevazione
-- **Surface Invisibile**: Dialog surface completamente trasparente
+- Eliminazione Ombre**: box-shadow: none per rimuovere ogni effetto di elevazione
+- Surface Invisibile**: Dialog surface completamente trasparente
 
 **Picture Elements Integration**
-- **Immagine di Contesto**: /local/situo.png come sfondo visivo
-- **Elementi Sovrapposti**: Positioning assoluto per integrazione perfetta
-- **Z-index Ottimizzato**: 10 per garantire visibilità sopra l'immagine
+- Immagine di Contesto**: /local/situo.png come sfondo visivo
+- Elementi Sovrapposti**: Positioning assoluto per integrazione perfetta
+- Z-index Ottimizzato**: 10 per garantire visibilità sopra l'immagine
 
-**💡 Caso d'Uso Innovativo**
+# 💡 Caso d'Uso Innovativo
 
 **Controllo Tendine Immersivo**
-- **Selezione Visuale**: L'utente vede l'immagine della situazione reale
-- **Dropdown Contestuale**: Il controllo appare nel punto logico dell'immagine
-- **Esperienza Naturale**: Come interagire direttamente con la scena
+- Selezione Visuale**: L'utente vede l'immagine della situazione reale
+- Dropdown Contestuale**: Il controllo appare nel punto logico dell'immagine
+- Esperienza Naturale**: Come interagire direttamente con la scena
 
 </details>
 
