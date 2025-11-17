@@ -76,6 +76,8 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 <details>
 <details>
 
+### 💡 Esempi di configurazione - LUCI
+
 <summary><strong>💡 Esempi di configurazione - LUCI</strong></summary>
 
 <details>
@@ -108,6 +110,8 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 </details>
 
 ---
+
+<details>
 
 ### ☀️ / 🌙 Temperatura Colore Dinamica (CCT)
 
