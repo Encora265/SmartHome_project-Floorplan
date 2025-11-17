@@ -1117,15 +1117,16 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 </details>
 
 <details>
-  <summary><strong>🎛️ Mostra esempio</strong></summary>
+  <summary><strong>📸 Vedi animazione</strong></summary>
 
   <br>
 
   <div align="center">
-    <img src="/www/repo/pulsante.gif" width="30%" alt="Pulsante">
+    <img src="/www/repo/pulsante.gif" width="35%" alt="Pulsante">
   </div>
 
 </details>
+
 
 
 **🎨 Caratteristiche Design Avanzate**
