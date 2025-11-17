@@ -156,14 +156,14 @@ type: image
 
 </details>
 
-**Caratteristiche Avanzate:**
+# Caratteristiche Avanzate:
 
 - 🎛️ Temperatura Colore Dinamica: Convertie Kelvin (2000K-6500K) in filtri CSS
 - 💡 Luminosità Reale: Opacity proporzionale al brightness della luce
 - 🌈 Effetti Visivi: Combinazione di sepia, hue-rotate e brightness
 - 🔧 Calcolo in Tempo Reale: JavaScript inline per trasformazioni dinamiche
 
-Range Temperature:
+**Range Temperature:**
 
 2000K (Caldo) → Sepia alto, hue-rotate negativo
 4000K (Neutro) → Bilanciato
@@ -298,7 +298,7 @@ width: 160%
 | **Bianco CCT** | Alta | Media | 0 |
 | **RGB Colorato** | Bassa | 0 | Alta |
 
-**🎯 Vantaggi dell'Approccio Multi-Layer:**
+# 🎯 Vantaggi dell'Approccio Multi-Layer:
 1. 🎨 Gestione separata dei canali Bianco, CCT, RGB
 2. ⚡ Transizioni Fluide: Nessun salto tra modalità colore
 3. 🔧 Precisione Cromatica: Riproduzione fedele di temperature e tonalità
@@ -404,17 +404,17 @@ width: 160%
 
 **Layer 1: Stato On/Off**
 - **Logica Colore**:
-  - 🔴 Rosso → consumo > 1000 W
-  - 🟡 Giallo → consumo tra 300 W e 1000 W
-  - 🟢 Verde → consumo basso tra 0 e 300 W
-  - 🔵 Blu → acceso senza consumi significativi
-  - ⚪ Grigio → spento
+  - **🔴 Rosso** → consumo > 1000 W
+  - **🟡 Giallo** → consumo tra 300 W e 1000 W
+  - **🟢 Verde** → consumo basso tra 0 e 300 W
+  - **🔵 Blu** → acceso senza consumi significativi
+  - **⚪ Grigio** → spento
 
 **Layer 2: Consumo**
 - Visualizzazione watt attuali in tempo reale
 - Interazione: Tap → toggle, Hold → popup informativo
 
-**🔄 Logica di Transizione:
+# 🔄 Logica di Transizione:
 
 | Stato | Layer 1 | Layer 2 | Layer 3 |
 |-------|---------|---------|---------|
@@ -439,10 +439,10 @@ width: 160%
 
 **Esempio completo per una tapparella/lucernario con:**
 
-- 🟧 Icona dinamica (chiusa / aperta / in movimento / errore)
-- 🟦 Colorazione intelligente (rosso = aperta, giallo = apertura, verde = chiusura, grigio = errore)
-- 📊 Percentuale di apertura sotto l'icona
-- 🖱️ Tap → toggle, Hold → popup tendine
+- **🟧 Icona dinamica** (chiusa / aperta / in movimento / errore)
+- **🟦 Colorazione intelligente** (rosso = aperta, giallo = apertura, verde = chiusura, grigio = errore)
+- **📊 Percentuale di apertura sotto l'icona**
+- **🖱️ Tap → toggle, Hold → popup tendine**
 
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
