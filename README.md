@@ -168,6 +168,8 @@ Range Temperature:
 
 </details>
 
+---
+
 <details>
 <summary><strong>🎨🌈 Luce RGB/CCT</strong></summary>
 
@@ -304,20 +306,11 @@ width: 160%
 
 ---
 
-## 🧩 Esempi di configurazione - ICONE
-
 <details>
 <summary><strong>🧩 Esempi di configurazione - ICONE</strong></summary>
-
-### 🧺 / 🍽️ Icone elettrodomestici
-
 <details>
 <summary><strong>🧺 / 🍽️ Icone elettrodomestici</strong></summary>
-
-**– Icone elettrodomestici**
-
 Esempio di configurazione per lavatrice con indicazione stato e consumo:
-
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
 
@@ -398,6 +391,7 @@ Esempio di configurazione per lavatrice con indicazione stato e consumo:
 ```
 
 </details>
+</details>
 
 **🏗️ Architettura della Card Lavatrice**
 
@@ -432,8 +426,6 @@ Esempio di configurazione per lavatrice con indicazione stato e consumo:
 </details>
 
 ---
-
-### 🪟 / 🎚️ Icone Tende/Finestre/Tapparelle
 
 <details>
 <summary><strong>🪟 / 🎚️ Icone Tende/Finestre/Tapparelle</strong></summary>
@@ -571,8 +563,6 @@ Esempio completo per una tapparella/lucernario con:
 </details>
 
 ---
-
-### 👁️ Telecamera Giardino - Controllo PTZ e AI Integrato
 
 <details>
 <summary><strong>👁️ Telecamera Giardino - Controllo PTZ e AI Integrato</strong></summary>
@@ -737,12 +727,8 @@ Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e
 
 ---
 
-## 📦 Pacchetti Integrati
-
 <details>
 <summary><strong>📦 Pacchetti Integrati</strong></summary>
-
-### ⚡ Packages elettrodomestici
 
 <details>
 <summary><strong>⚡ Packages elettrodomestici</strong></summary>
@@ -810,8 +796,6 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 
 ---
 
-### ⏰ Package: Sistema Sveglie Personalizzate
-
 <details>
 <summary><strong>⏰ Package: Sistema Sveglie Personalizzate</strong></summary>
 
@@ -873,12 +857,8 @@ Sistema di sveglie avanzato che permette a più utenti di avere sveglie completa
 
 ---
 
-## 🎪 Finestre popup integrate
-
 <details>
 <summary><strong>🎪 Finestre popup integrate</strong></summary>
-
-### 🔋 Gestione Alimentazione Tablet
 
 <details>
 <summary><strong>🔋 Gestione Alimentazione Tablet</strong></summary>
@@ -948,8 +928,6 @@ Popup specializzato per il monitoraggio e controllo dell'alimentazione del table
 
 ---
 
-### 💡 Popup: Controllo Luci Esterne
-
 <details>
 <summary><strong>💡 Popup: Controllo Luci Esterne</strong></summary>
 
@@ -997,12 +975,8 @@ Popup dedicato al controllo completo e monitoraggio del sistema di illuminazione
 
 ---
 
-### 🕹️ Popup: Controllo Tende/Velux/tapparelle
-
 <details>
 <summary><strong>🕹️ Popup: Controllo Tende/Velux/tapparelle</strong></summary>
-
-**🎮 Telecomando Tende/Velux/tapparelle Trasparente**
 
 Popup completamente trasparente che sovrappone un dropdown di selezione direttamente su un'immagine di sfondo, creando un'interfaccia immersiva e contestuale per il controllo delle tende.
 
@@ -1029,8 +1003,6 @@ Popup completamente trasparente che sovrappone un dropdown di selezione direttam
 </details>
 
 ---
-
-## 🎁 Contenuti EXTRA
 
 <details>
 <summary><strong>🎁 Contenuti EXTRA</strong></summary>
