@@ -35,23 +35,29 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 
 ---
 
-## <summary><strong>🛠️ Configurazione</strong></summary>
 
-- **Home Assistant**:
-  - Picture Elements Card
-  - Config Template Card
+<details>
+  <summary><strong>🛠️ Configurazione</strong></summary>
 
-- **Integrazioni personalizzate (HACS)**:
-  - button-card
-  - light-entity-card
-  - mini-graph-card
-  - vertical-stack-in-card
-  - slider-entity-row
-  - apexcharts-card
-  - atomic-calendar-revive
-  - vacuum-card
-  - weather-card
-  - ...e altre
+  <br>
+
+  - **Home Assistant**:
+    - Picture Elements Card
+    - Config Template Card
+
+  - **Integrazioni personalizzate (HACS)**:
+    - button-card
+    - light-entity-card
+    - mini-graph-card
+    - vertical-stack-in-card
+    - slider-entity-row
+    - apexcharts-card
+    - atomic-calendar-revive
+    - vacuum-card
+    - weather-card
+    - ...e altre
+</details>
+
 
 
 ---
