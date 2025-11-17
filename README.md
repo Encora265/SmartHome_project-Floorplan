@@ -877,6 +877,77 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 ---
 
 <details>
+<summary><strong>⚡ Popup elettrodomestici</strong></summary>
+
+**Popup specializzato per il monitoraggio e controllo dell'alimentazione del tablet wall-mounted, con sistema di protezione batteria intelligente.**
+<details>
+  <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
+
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/carica.png" width="35%" alt="carica">
+  </div>
+
+</details>
+
+**NB: I popup elettrodomestici sono script integrati nei rispettivi packages che estendono le funzionalità dell'interfaccia principale, fornendo accesso rapido a controlli avanzati, statistiche dettagliate e strumenti di manutenzione.**
+
+# 🎯 Caratteristiche Principali
+- Script nativi: Tutti i popup sono implementati come script YAML all'interno del package stesso
+- Integrazione completa: Si interfacciano perfettamente con le entità e gli automazioni del sistema
+- Design modulare: Struttura a schede per una navigazione intuitiva
+- Responsive: Adattabili a diverse dimensioni dello schermo
+
+# Contenuti:
+- Stato visivo con animazioni CSS personalizzate
+- Timeline ultimo ciclo (inizio, fine, durata)
+- Metriche economiche (consumo kWh, costo ciclo)
+- Consumo istantaneo con grafico a barre animato
+- Toolbar comandi per accesso rapido alle funzioni
+
+# ⚙️ Popup Impostazioni
+Accesso: Tramite pulsante "ingranaggio" nel popup principale
+
+- Funzionalità:
+- Controllo alimentazione elettrica
+- Gestione notifiche (push e vocali)
+- Configurazione costi energetici
+- Monitoraggio stato manutenzioni
+- Reset statistiche totali
+
+# 📊 Popup Statistiche
+Accesso: Tramite pulsante "grafico" nel popup principale
+
+- Scheda riepilogativa: Dati testuali giornalieri/settimanali/mensili/annuali
+- Grafici mensili: Consumo e costi del mese corrente
+- Grafici annuali: Storico consumi e trend pluriennali
+- Totali assoluti: Cicli, consumo, costo e tempo totale
+
+# 🔧 Popup Manutenzione
+Accesso: Tramite pulsante "tools" nel popup principale
+
+- Gestione programmata:
+- Manutenzione Leggera (ogni 20 cicli)
+- Manutenzione Standard (ogni 30 cicli)
+- Manutenzione Completa (ogni 50 cicli)
+- Guida operativa con istruzioni dettagliate
+
+# ℹ️ Popup Informazioni
+Accesso: Tramite pulsante "info" nel popup principale
+
+- Presenta il package con:
+- Descrizione funzionalità
+- Link al canale YouTube
+- Crediti e informazioni tecniche
+
+**Nota Tecnica: Tutti i popup sono progettati per essere autocontenuti nel package, senza dipendenze esterne oltre alle custom card indicate nella documentazione principale.**
+
+</details>
+
+---
+
+<details>
 <summary><strong>🔋 Gestione Alimentazione Tablet</strong></summary>
 
 **Popup specializzato per il monitoraggio e controllo dell'alimentazione del tablet wall-mounted, con sistema di protezione batteria intelligente.**
