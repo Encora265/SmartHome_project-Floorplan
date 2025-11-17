@@ -303,7 +303,6 @@ width: 160%
 3. 🔧 Precisione Cromatica: Riproduzione fedele di temperature e tonalità
 4. 🎭 Effetti Complessi: Possibilità di blending avanzato tra layer
 
----
 
 </details>
 </details>
@@ -312,6 +311,9 @@ width: 160%
 
 <details>
 <summary><strong>🧩 Esempi di configurazione - ICONE</strong></summary>
+
+---
+
 <details>
 <summary><strong>🧺 / 🍽️ Icone elettrodomestici</strong></summary>
 Esempio di configurazione per lavatrice con indicazione stato e consumo:
@@ -731,9 +733,10 @@ Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e
 <details>
 <summary><strong>📦 Pacchetti Integrati</strong></summary>
 
+---
+
 <details>
 <summary><strong>⚡ Packages elettrodomestici</strong></summary>
-
 Nella repository sono presenti i seguenti packages per il monitoraggio di elettrodomestici tradizionali:
 
 <div align="center">
@@ -861,9 +864,10 @@ Sistema di sveglie avanzato che permette a più utenti di avere sveglie completa
 <details>
 <summary><strong>🎪 Finestre popup integrate</strong></summary>
 
+---
+
 <details>
 <summary><strong>🔋 Gestione Alimentazione Tablet</strong></summary>
-
 Popup specializzato per il monitoraggio e controllo dell'alimentazione del tablet wall-mounted, con sistema di protezione batteria intelligente.
 
 **🎨 Design Avanzato**
@@ -978,7 +982,6 @@ Popup dedicato al controllo completo e monitoraggio del sistema di illuminazione
 
 <details>
 <summary><strong>🕹️ Popup: Controllo Tende/Velux/tapparelle</strong></summary>
-
 Popup completamente trasparente che sovrappone un dropdown di selezione direttamente su un'immagine di sfondo, creando un'interfaccia immersiva e contestuale per il controllo delle tende.
 
 **🎨 Design Trasparente Avanzato**
@@ -1008,10 +1011,10 @@ Popup completamente trasparente che sovrappone un dropdown di selezione direttam
 <details>
 <summary><strong>🎁 Contenuti EXTRA</strong></summary>
 
-### 🌟 Pulsanti SIDEBAR
-
 <details>
 <summary><strong>🌟 Pulsanti SIDEBAR</strong></summary>
+
+---
 
 I pulsanti della dashboard rappresentano l'essenza dell'approccio "Beautifully Organized" - combinano estetica premium con funzionalità avanzate, creando un'esperienza utente coerente e memorabile.
 
