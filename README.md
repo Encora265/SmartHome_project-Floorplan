@@ -76,6 +76,9 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 
 <details>
 <summary><strong>💡 Esempi di configurazione - LUCI</strong></summary>
+
+---
+
 <details>
 <summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
 – Overlay Dinamico Base (switch on/off)
@@ -430,7 +433,7 @@ Esempio di configurazione per lavatrice con indicazione stato e consumo:
 <details>
 <summary><strong>🪟 / 🎚️ Icone Tende/Finestre/Tapparelle</strong></summary>
 
-**– Icone cover**
+---
 
 Esempio completo per una tapparella/lucernario con:
 
@@ -566,9 +569,6 @@ Esempio completo per una tapparella/lucernario con:
 
 <details>
 <summary><strong>👁️ Telecamera Giardino - Controllo PTZ e AI Integrato</strong></summary>
-
-**📹 Telecamera Giardino - Controllo PTZ e AI Integrato**
-
 Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e automazione AI:
 
 <details>
