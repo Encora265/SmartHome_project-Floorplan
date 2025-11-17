@@ -38,7 +38,7 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 ## 🛠️ Configurazione
 
 <details>
-<summary>Clicca per vedere i dettagli</summary>
+<summary><strong>🛠️ Configurazione</strong></summary>
 
 - **Home Assistant**:
   - Picture Elements Card
@@ -63,7 +63,7 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 ## 🎨 Progettazione
 
 <details>
-<summary>Clicca per vedere i dettagli</summary>
+<summary><strong>🎨 Progettazione</strong></summary>
 
 - Progetto grafico realizzato con **Sweet_Home_3D**
 - Render con **Sweet_Home_3D**
@@ -78,12 +78,12 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 ## 💡 Esempi di configurazione - LUCI
 
 <details>
-<summary><strong>Clicca per vedere tutti gli esempi</strong></summary>
+<summary><strong>💡 Esempi di configurazione - LUCI</strong></summary>
 
 ### ⬜ / ⬛ Switch on/off
 
 <details>
-<summary>Mostra dettagli</summary>
+<summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
 
 **– Overlay Dinamico Base (switch on/off)**
 
@@ -118,7 +118,7 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 ### ☀️ / 🌙 Temperatura Colore Dinamica (CCT)
 
 <details>
-<summary>Mostra dettagli</summary>
+<summary><strong>☀️ / 🌙 Temperatura Colore Dinamica (CCT)</strong></summary>
 
 **– Temperatura Colore Dinamica (CCT)**
 
@@ -179,7 +179,7 @@ Simulazione realistica della temperatura colore (2000K–6500K) tramite filtri C
 ### 🎨🌈 Luce RGB/CCT
 
 <details>
-<summary>Mostra dettagli</summary>
+<summary><strong>🎨🌈 Luce RGB/CCT</strong></summary>
 
 **🌈 Luce RGB/CCT - Architettura Multi-Layer**
 
@@ -322,12 +322,12 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 ## 🧩 Esempi di configurazione - ICONE
 
 <details>
-<summary><strong>Clicca per vedere tutti gli esempi</strong></summary>
+<summary><strong>🧩 Esempi di configurazione - ICONE</strong></summary>
 
 ### 🧺 / 🍽️ Icone elettrodomestici
 
 <details>
-<summary>Mostra dettagli</summary>
+<summary><strong>🧺 / 🍽️ Icone elettrodomestici</strong></summary>
 
 **– Icone elettrodomestici**
 
@@ -450,7 +450,7 @@ Esempio di configurazione per lavatrice con indicazione stato e consumo:
 ### 🪟 / 🎚️ Icone Tende/Finestre/Tapparelle
 
 <details>
-<summary>Mostra dettagli</summary>
+<summary><strong>🪟 / 🎚️ Icone Tende/Finestre/Tapparelle</strong></summary>
 
 **– Icone cover**
 
@@ -588,7 +588,7 @@ Esempio completo per una tapparella/lucernario con:
 ### 👁️ Telecamera Giardino - Controllo PTZ e AI Integrato
 
 <details>
-<summary>Mostra dettagli</summary>
+<summary><strong>👁️ Telecamera Giardino - Controllo PTZ e AI Integrato</strong></summary>
 
 **📹 Telecamera Giardino - Controllo PTZ e AI Integrato**
 
@@ -752,12 +752,12 @@ Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e
 ## 📦 Pacchetti Integrati
 
 <details>
-<summary><strong>Clicca per vedere tutti i pacchetti</strong></summary>
+<summary><strong>📦 Pacchetti Integrati</strong></summary>
 
 ### ⚡ Packages elettrodomestici
 
 <details>
-<summary>Mostra dettagli</summary>
+<summary><strong>⚡ Packages elettrodomestici</strong></summary>
 
 Nella repository sono presenti i seguenti packages per il monitoraggio di elettrodomestici tradizionali:
 
@@ -825,7 +825,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 ### ⏰ Package: Sistema Sveglie Personalizzate
 
 <details>
-<summary>Mostra dettagli</summary>
+<summary><strong>⏰ Package: Sistema Sveglie Personalizzate</strong></summary>
 
 Sistema di sveglie avanzato che permette a più utenti di avere sveglie completamente personalizzabili con giorni della settimana selezionabili individualmente.
 
@@ -888,12 +888,12 @@ Sistema di sveglie avanzato che permette a più utenti di avere sveglie completa
 ## 🎪 Finestre popup integrate
 
 <details>
-<summary><strong>Clicca per vedere tutti i popup</strong></summary>
+<summary><strong>🎪 Finestre popup integrate</strong></summary>
 
 ### 🔋 Gestione Alimentazione Tablet
 
 <details>
-<summary>Mostra dettagli</summary>
+<summary><strong>🔋 Gestione Alimentazione Tablet</strong></summary>
 
 Popup specializzato per il monitoraggio e controllo dell'alimentazione del tablet wall-mounted, con sistema di protezione batteria intelligente.
 
@@ -963,7 +963,7 @@ Popup specializzato per il monitoraggio e controllo dell'alimentazione del table
 ### 💡 Popup: Controllo Luci Esterne
 
 <details>
-<summary>Mostra dettagli</summary>
+<summary><strong>💡 Popup: Controllo Luci Esterne</strong></summary>
 
 Popup dedicato al controllo completo e monitoraggio del sistema di illuminazione esterna, combinando controllo manuale immediato con gestione programmazione automatica.
 
@@ -1012,7 +1012,7 @@ Popup dedicato al controllo completo e monitoraggio del sistema di illuminazione
 ### 🕹️ Popup: Controllo Tende/Velux/tapparelle
 
 <details>
-<summary>Mostra dettagli</summary>
+<summary><strong>🕹️ Popup: Controllo Tende/Velux/tapparelle</strong></summary>
 
 **🎮 Telecomando Tende/Velux/tapparelle Trasparente**
 
@@ -1045,12 +1045,12 @@ Popup completamente trasparente che sovrappone un dropdown di selezione direttam
 ## 🎁 Contenuti EXTRA
 
 <details>
-<summary><strong>Clicca per vedere i contenuti extra</strong></summary>
+<summary><strong>🎁 Contenuti EXTRA</strong></summary>
 
 ### 🌟 Pulsanti SIDEBAR
 
 <details>
-<summary>Mostra dettagli</summary>
+<summary><strong>🌟 Pulsanti SIDEBAR</strong></summary>
 
 I pulsanti della dashboard rappresentano l'essenza dell'approccio "Beautifully Organized" - combinano estetica premium con funzionalità avanzate, creando un'esperienza utente coerente e memorabile.
 
@@ -1189,7 +1189,7 @@ I pulsanti della dashboard rappresentano l'essenza dell'approccio "Beautifully O
 ### 🌀 Ventilatore intelligente
 
 <details>
-<summary>Mostra dettagli</summary>
+<summary><strong>🌀 Ventilatore intelligente</strong></summary>
 
 Integrazione di un ventilatore animato direttamente nel floorplan che combina visualizzazione real-time con controlli contestuali avanzati, creando un'interazione fisica virtuale unica.
 
@@ -1231,7 +1231,7 @@ Integrazione di un ventilatore animato direttamente nel floorplan che combina vi
     animation-duration: var(--fan-anim-duration, 1s)
     animation-timing-function: linear
     animation-iteration-count: infinite
-    animation-play_state: var(--fan-anim-play, paused)
+    animation-play-state: var(--fan-anim-play, paused)
   state_image:
     "on": /local/floorplan/windcalm.png
     "off": /local/floorplan/windcalm.png
