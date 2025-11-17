@@ -35,8 +35,9 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 
 ---
 
-<details>
+## 🛠️ Configurazione
 
+<details>
 <summary><strong>🛠️ Configurazione</strong></summary>
 
 - **Home Assistant**:
@@ -59,8 +60,9 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 
 ---
 
-<details>
+## 🎨 Progettazione
 
+<details>
 <summary><strong>🎨 Progettazione</strong></summary>
 
 - Progetto grafico realizzato con **Sweet_Home_3D**
@@ -73,12 +75,12 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 
 ---
 
-<details>
-<details>
+## 💡 Esempi di configurazione - LUCI
 
-### 💡 Esempi di configurazione - LUCI
-
+<details>
 <summary><strong>💡 Esempi di configurazione - LUCI</strong></summary>
+
+### ⬜ / ⬛ Switch on/off
 
 <details>
 <summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
@@ -107,11 +109,12 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
     action: none
   type: image
 ```
+
+</details>
+
 </details>
 
 ---
-
-<details>
 
 ### ☀️ / 🌙 Temperatura Colore Dinamica (CCT)
 
@@ -157,6 +160,7 @@ Simulazione realistica della temperatura colore (2000K–6500K) tramite filtri C
     action: none
   type: image
 ```
+
 </details>
 
 **Caratteristiche Avanzate:**
@@ -295,6 +299,7 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
     top: 70.00%
     width: 160%
 ```
+
 </details>
 
 **🏗️ Architettura del Sistema Multi-Layer**
@@ -409,6 +414,7 @@ Esempio di configurazione per lavatrice con indicazione stato e consumo:
         top: 34.0%
         left: 76.5%
 ```
+
 </details>
 
 **🏗️ Architettura della Card Lavatrice**
@@ -543,6 +549,7 @@ Esempio completo per una tapparella/lucernario con:
     top: 72.50%
     left: 80%
 ```
+
 </details>
 
 **🏗️ Architettura della Card Tapparella**
@@ -717,6 +724,7 @@ Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e
     border-radius: 50%
     z-index: 5
 ```
+
 </details>
 
 **🎯 Funzionalità Avanzate**
