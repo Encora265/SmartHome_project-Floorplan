@@ -398,8 +398,6 @@ Esempio di configurazione per lavatrice con indicazione stato e consumo:
         top: 34.0%
         left: 76.5%
 ```
-
-</details>
 </details>
 
 **🏗️ Architettura della Card Lavatrice**
