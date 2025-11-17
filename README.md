@@ -1116,9 +1116,17 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 ```
 </details>
 
-<div align="center">
-  <img src="/www/repo/pulsante.gif" width="30%" alt="Pulsante">
-</div>
+<details>
+  <summary><strong>🎛️ Mostra esempio</strong></summary>
+
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/pulsante.gif" width="30%" alt="Pulsante">
+  </div>
+
+</details>
+
 
 **🎨 Caratteristiche Design Avanzate**
 
