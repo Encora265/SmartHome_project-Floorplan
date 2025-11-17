@@ -74,10 +74,8 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 
 ---
 
-💡 Esempi di configurazione - LUCI
 <details>
 <summary><strong>💡 Esempi di configurazione - LUCI</strong></summary>
-⬜ / ⬛ Switch on/off
 <details>
 <summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
 – Overlay Dinamico Base (switch on/off)
@@ -109,8 +107,6 @@ type: image
 </details>
 
 ---
-
-### ☀️ / 🌙 Temperatura Colore Dinamica (CCT)
 
 <details>
 <summary><strong>☀️ / 🌙 Temperatura Colore Dinamica (CCT)</strong></summary>
@@ -172,9 +168,9 @@ Range Temperature:
 
 </details>
 
-🎨🌈 Luce RGB/CCT
 <details>
 <summary><strong>🎨🌈 Luce RGB/CCT</strong></summary>
+
 🌈 Luce RGB/CCT - Architettura Multi-Layer
 Sistema Multi-Layer per Luci Avanzate (Bianco, CCT, RGB).
 Questo sistema utilizza 3 layer sovrapposti, ognuno con una funzione specifica:
@@ -305,10 +301,6 @@ width: 160%
 </details>
 
 </details>
-
-
-
-
 
 ---
 
