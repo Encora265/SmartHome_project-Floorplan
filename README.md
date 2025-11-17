@@ -338,7 +338,10 @@ RGB Colorato	Bassa	0	Alta
 
 🎭 Effetti Complessi: Possibilità di blending avanzato tra layer
 
-</details> </details>
+</details>
+
+</details>
+
 <details> <summary><strong>🧩 Esempi di configurazione - ICONE</strong></summary>
 <details> <summary>🧺 / 🍽️ Icone elettrodomestici</summary>
 – Icone elettrodomestici
@@ -826,7 +829,9 @@ Vertical Stack	Layout organizzato	custom:vertical-stack-in-card
 
 🚨 Allarme: alarm_control_panel.ezviz_alarm
 
-</details> </details>
+</details>
+</details>
+
 <details> <summary><strong>📦 Packages Integrati</strong></summary>
 <details> <summary>⚡ Packages elettrodomestici</summary>
 Nella repository sono presenti i seguenti packages per il monitoraggio di elettrodomestici tradizionali:
@@ -954,7 +959,9 @@ Feedback Immediato: Stato visibile nell'interfaccia
 
 Facile Configurazione: Modifica tramite la standard UI
 
-</details> </details>
+</details>
+</details>
+
 <details> <summary><strong>🎪 Finestre popup integrate</strong></summary>
 <details> <summary>🔋 Gestione Alimentazione Tablet</summary>
 Popup specializzato per il monitoraggio e controllo dell'alimentazione del tablet wall-mounted, con sistema di protezione batteria intelligente.
@@ -1133,7 +1140,9 @@ Dropdown Contestuale: Il controllo appare nel punto logico dell'immagine
 
 Esperienza Naturale: Come interagire direttamente con la scena
 
-</details> </details>
+</details>
+</details>
+
 <details> <summary><strong>🎁 Contenuti EXTRA</strong></summary>
 <details> <summary>🌟 Pusanti SIDEBAR</summary> I pulsanti della dashboard rappresentano l'essenza dell'approccio "Beautifully Organized" - combinano estetica premium con funzionalità avanzate, creando un'esperienza utente coerente e memorabile.
 <details> <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
@@ -1402,4 +1411,5 @@ Transform Consistency: translate(-50%, -50%) mantenuto durante rotazione
 
 Smooth Operations: Nessun jump o reset durante cambi di stato
 
-</details> </details>
+</details>
+</details>
