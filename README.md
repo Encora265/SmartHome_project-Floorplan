@@ -84,6 +84,11 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 
 ### **– Overlay Dinamico Base (switch on/off)**
 
+---
+
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
+
 ```yaml
 ######### TAVOLO ##########
 
@@ -114,6 +119,11 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 ### **– Temperatura Colore Dinamica (CCT)**
 
 Simulazione realistica della temperatura colore (2000K–6500K) tramite filtri CSS.
+
+---
+
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
 
 ```yaml
 ######### CUCINA ##########
@@ -147,6 +157,9 @@ Simulazione realistica della temperatura colore (2000K–6500K) tramite filtri C
     action: none
   type: image
 ```
+</details>
+
+---
 
 **Caratteristiche Avanzate:**
 - **🎛️ Temperatura Colore Dinamica**: Convertie Kelvin (2000K-6500K) in filtri CSS
@@ -178,6 +191,11 @@ Layer 2 – CCT (Temperatura Colore)
 Layer 3 – RGB (Colorazione)
 
 Permette transizioni perfette tra modalità bianca, CCT e RGB.
+
+---
+
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
 
 ```yaml
 ######### PARENTESI - Layer 1: Base bianca ##########
@@ -282,6 +300,9 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
     top: 70.00%
     width: 160%
 ```
+</details>
+
+---
 
 ## 🏗️ **Architettura del Sistema Multi-Layer**
 
@@ -339,6 +360,11 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 ### **– Icone elettrodomestici**
 
 Esempio di configurazione per lavatrice con indicazione stato e consumo:
+
+---
+
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
 
 ```yaml
 - type: conditional
@@ -415,6 +441,9 @@ Esempio di configurazione per lavatrice con indicazione stato e consumo:
         top: 34.0%
         left: 76.5%
 ```
+</details>
+
+---
 
 ## 🏗️ **Architettura della Card Lavatrice**
 
@@ -480,6 +509,11 @@ Esempio completo per una tapparella/lucernario con:
 📊 Percentuale di apertura sotto l'icona
 
 🖱️ Tap → toggle, Hold → popup tendine
+
+---
+
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
 
 ```yaml
             ######### TAPPARELLA LUCERNARIO ##########
@@ -562,6 +596,10 @@ Esempio completo per una tapparella/lucernario con:
                 top: 72.50%
                 left: 80%
 ```
+</details>
+
+---
+
 ## 🏗️ Architettura della Card Tapparella
 Layer 1: Icona dinamica
 
@@ -636,6 +674,11 @@ Completamente riutilizzabile per qualunque tapparella/tenda/velux
 ### **📹 Telecamera Giardino - Controllo PTZ e AI Integrato**
 
 Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e automazione AI:
+
+---
+
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
 
 ```yaml
 ######### CAMERA GIARDINO ##########
@@ -761,6 +804,9 @@ Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e
     border-radius: 50%
     z-index: 5
 ```
+</details>
+
+---
 
 ## 🎯 **Funzionalità Avanzate**
 
@@ -1092,6 +1138,11 @@ Popup completamente trasparente che sovrappone un dropdown di selezione direttam
 <summary>🌟 Pusanti SIDEBAR</summary>
 I pulsanti della dashboard rappresentano l'essenza dell'approccio "Beautifully Organized" - combinano estetica premium con funzionalità avanzate, creando un'esperienza utente coerente e memorabile.
 
+---
+
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
+
 ```yaml
             ######### DISPOSITIVI ##########
 
@@ -1182,6 +1233,10 @@ I pulsanti della dashboard rappresentano l'essenza dell'approccio "Beautifully O
                     100% { background-position: 0 0; }
                   }  
 ```
+---
+
+</details>
+
 ## 🎨 **Caratteristiche Design Avanzate**
 - **Glass Morphism Moderno**
 - **Effetto Vetro Smerigliato: backdrop-filter: blur(10px) per profondità visiva**
