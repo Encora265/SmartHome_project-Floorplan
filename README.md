@@ -805,7 +805,16 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 <summary><strong>⏰ Package: Sistema Sveglie Personalizzate</strong></summary>
 
 **Sistema di sveglie avanzato che permette a più utenti di avere sveglie completamente personalizzabili con giorni della settimana selezionabili individualmente.**
+<details>
+  <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
 
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/sveglie.png" width="35%" alt="Pulsante">
+  </div>
+
+</details>
 **👥 Gestione Multi-Utente**
 
 **Profilo utenti**
@@ -1117,7 +1126,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 </details>
 
 <details>
-  <summary><strong>📸 Vedi animazione</strong></summary>
+  <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
 
   <br>
 
@@ -1126,8 +1135,6 @@ Nonostante la semplicità del concetto, l'implementazione offre:
   </div>
 
 </details>
-
-
 
 **🎨 Caratteristiche Design Avanzate**
 
