@@ -74,61 +74,53 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 
 ---
 
-## 💡 Esempi di configurazione - LUCI
-
+💡 Esempi di configurazione - LUCI
 <details>
-  <summary><strong>💡 Esempi di configurazione - LUCI</strong></summary>
-
-  <details>
-    <summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
-
-    **– Overlay Dinamico Base (switch on/off)**  
-    Questa configurazione permette di attivare/disattivare un livello grafico in base allo stato della luce.  
-    Funziona sia con luci che con switch, utilizzando la sola proprietà `opacity`.
-
-    <details>
-      <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
+<summary><strong>💡 Esempi di configurazione - LUCI</strong></summary>
+⬜ / ⬛ Switch on/off
+<details>
+<summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
+– Overlay Dinamico Base (switch on/off)
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
 
 ```yaml
 ######### TAVOLO ##########
 
-- action: none
-  entity: light.luce_tavolo
-  hold_action:
-    action: none
-  image: /local/floorplan/terra/p0_tavolo.png
-  style:
-    left: 45.00%
-    top: 70.00%
-    width: 160%
-    height: auto
-    mix-blend-mode: lighten
-    opacity: "${states['light.luce_tavolo'].state === 'on' ? '1' : '0'}"
-  tap_action:
-    action: none
-  type: image
+action: none
+entity: light.luce_tavolo
+hold_action:
+action: none
+image: /local/floorplan/terra/p0_tavolo.png
+style:
+left: 45.00%
+top: 70.00%
+width: 160%
+height: auto
+mix-blend-mode: lighten
+opacity: "${states['light.luce_tavolo'].state === 'on' ? '1' : '0'}"
+tap_action:
+action: none
+type: image
+```
 
-    </details>
+</details>
 
-  </details>
+</details>
 
-  ---
+---
 
-  <details>
-    <summary><strong>☀️ / 🌙 Temperatura Colore Dinamica (CCT)</strong></summary>
+### ☀️ / 🌙 Temperatura Colore Dinamica (CCT)
 
-    **– Temperatura Colore Dinamica (CCT)**  
-    Basata sul valore Kelvin della luce (2000K–6500K).  
-    Usa filtri CSS dinamici per simulare:
+<details>
+<summary><strong>☀️ / 🌙 Temperatura Colore Dinamica (CCT)</strong></summary>
 
-    - **Sepia** → tonalità calde (2000K)  
-    - **Hue-Rotate** → tonalità fredde (6500K)  
-    - **Brightness** → luminosità reale della lampada  
+**– Temperatura Colore Dinamica (CCT)**
 
-    Effetto molto realistico e leggero da renderizzare.
+Simulazione realistica della temperatura colore (2000K–6500K) tramite filtri CSS.
 
-    <details>
-      <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
 
 ```yaml
 ######### CUCINA ##########
@@ -161,158 +153,159 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
   tap_action:
     action: none
   type: image
+```
 
-    </details>
+</details>
 
-    **Caratteristiche avanzate:**
-    - 🎛️ **Calcolo temperatura colore** da 2000K a 6500K  
-    - 💡 **Opacity proporzionale** alla luminosità reale  
-    - 🌈 **Filtri CSS dinamici** per resa naturale  
-    - 🔧 **JavaScript inline** per trasformazioni in tempo reale  
+Caratteristiche Avanzate:
 
-    **Range temperatura colore:**
-    - **2000K** → molto caldo  
-    - **4000K** → neutro  
-    - **6500K** → freddo  
+🎛️ Temperatura Colore Dinamica: Convertie Kelvin (2000K-6500K) in filtri CSS
+💡 Luminosità Reale: Opacity proporzionale al brightness della luce
+🌈 Effetti Visivi: Combinazione di sepia, hue-rotate e brightness
+🔧 Calcolo in Tempo Reale: JavaScript inline per trasformazioni dinamiche
 
-  </details>
+Range Temperature:
 
-  ---
+2000K (Caldo) → Sepia alto, hue-rotate negativo
+4000K (Neutro) → Bilanciato
+6500K (Freddo) → Sepia basso, hue-rotate positivo
 
-  <details>
-    <summary><strong>🎨🌈 Luce RGB/CCT</strong></summary>
+</details>
 
-    **🌈 Architettura Multi-Layer (3 layer sovrapposti)**  
-    Questo approccio permette una simulazione estremamente fedele delle luci:
+🎨🌈 Luce RGB/CCT
+<details>
+<summary><strong>🎨🌈 Luce RGB/CCT</strong></summary>
+🌈 Luce RGB/CCT - Architettura Multi-Layer
+Sistema Multi-Layer per Luci Avanzate (Bianco, CCT, RGB).
+Questo sistema utilizza 3 layer sovrapposti, ognuno con una funzione specifica:
 
-    - **Layer 1 → Bianco base (brightness)**  
-    - **Layer 2 → Temperatura colore (CCT)**  
-    - **Layer 3 → RGB puro (HS)**  
+Layer 1 – Bianco Base (Brightness)
+Layer 2 – CCT (Temperatura Colore)
+Layer 3 – RGB (Colorazione)
 
-    ✔️ Transizioni fluide  
-    ✔️ Nessun conflitto tra modalità  
-    ✔️ Simulazione fedele di qualsiasi luce RGB+CCT  
-
-    <details>
-      <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
+Permette transizioni perfette tra modalità bianca, CCT e RGB.
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
 
 ```yaml
 ######### PARENTESI - Layer 1: Base bianca ##########
 
-- action: none
-  entity: light.parentesi_group
-  hold_action:
-    action: none
-  image: /local/floorplan/transparent.png
-  state_image:
-    'on': /local/floorplan/terra/p0_parentesi.png
-  tap_action:
-    action: none
-  type: image
-  style:
-    opacity: >-
-      ${ ( states["light.parentesi_group"].attributes.brightness ?
-      states["light.parentesi_group"].attributes.brightness / 255 : 0) -
-      (states["light.parentesi_group"].attributes.hs_color ?
-      states["light.parentesi_group"].attributes.hs_color[1]/90 : 0)}
-    mix-blend-mode: lighten
-    left: 45.00%
-    top: 70.00%
-    width: 160%
+action: none
+entity: light.parentesi_group
+hold_action:
+action: none
+image: /local/floorplan/transparent.png
+state_image:
+'on': /local/floorplan/terra/p0_parentesi.png
+tap_action:
+action: none
+type: image
+style:
+opacity: >-
+${ ( states["light.parentesi_group"].attributes.brightness ?
+states["light.parentesi_group"].attributes.brightness / 255 : 0) -
+(states["light.parentesi_group"].attributes.hs_color ?
+states["light.parentesi_group"].attributes.hs_color[1]/90 : 0)}
+mix-blend-mode: lighten
+left: 45.00%
+top: 70.00%
+width: 160%
 
-######### PARENTESI - Layer 2: CCT ##########
+######### PARENTESI - Layer 2: CCT (bianca calda/fredda) ##########
 
-- action: none
-  entity: light.parentesi_group
-  hold_action:
-    action: none
-  image: /local/floorplan/transparent.png
-  state_image:
-    'on': /local/floorplan/terra/p0_parentesi.png
-  tap_action:
-    action: none
-  type: image
-  style:
-    filter: >-
-      ${(() => {
-        const e = states["light.parentesi_group"].attributes;
-        const kelvin = e.color_temp_kelvin || 4000;
-        const ratio = Math.min(Math.max((kelvin - 2000) / (6500 - 2000), 0), 1);
-        const brightness = e.brightness ? e.brightness / 255 : 0.6;
-        const sepiaLevel = 1 - ratio;
-        const hueRotate = (sepiaLevel - 0.5) * 30;
-        return `sepia(${sepiaLevel}) hue-rotate(${hueRotate}deg) brightness(${brightness + 0.1})`;
-      })()}
-    opacity: >-
-      ${(() => {
-        const e = states["light.parentesi_group"].attributes;
-        const sat = e.hs_color ? e.hs_color[1] : 0;
-        if (e.color_mode !== 'hs' || sat <= 10) {
-          const brightness = e.brightness ? e.brightness / 255 : 0.6;
-          return brightness * 0.7;
-        }
-        return 0;
-      })()}
-    mix-blend-mode: lighten
-    left: 45.00%
-    top: 70.00%
-    width: 160%
+action: none
+entity: light.parentesi_group
+hold_action:
+action: none
+image: /local/floorplan/transparent.png
+state_image:
+'on': /local/floorplan/terra/p0_parentesi.png
+tap_action:
+action: none
+type: image
+style:
+filter: >-
+${(() => {
+const e = states["light.parentesi_group"].attributes;
+const kelvin = e.color_temp_kelvin || 4000;
+const ratio = Math.min(Math.max((kelvin - 2000) / (6500 - 2000), 0), 1);
+const brightness = e.brightness ? e.brightness / 255 : 0.6;
+  const sepiaLevel = 1 - ratio;
+  const hueRotate = (sepiaLevel - 0.5) * 30;
+  
+  return `sepia(${sepiaLevel}) hue-rotate(${hueRotate}deg) brightness(${brightness + 0.1})`;
+})()}
+opacity: >-
+${(() => {
+const e = states["light.parentesi_group"].attributes;
+const sat = e.hs_color ? e.hs_color[1] : 0;
+if (e.color_mode !== 'hs' || sat <= 10) {
+const brightness = e.brightness ? e.brightness / 255 : 0.6;
+return brightness * 0.7;
+}
+return 0;
+})()}
+mix-blend-mode: lighten
+left: 45.00%
+top: 70.00%
+width: 160%
 
-######### PARENTESI - Layer 3: RGB ##########
+######### PARENTESI - Layer 3: RGB (colorata) ##########
 
-- action: none
-  entity: light.parentesi_group
-  hold_action:
-    action: none
-  image: /local/floorplan/transparent.png
-  state_image:
-    'on': /local/floorplan/terra/p0_parentesirgb.png
-  tap_action:
-    action: none
-  type: image
-  style:
-    filter: >-
-      ${(() => {
-        const e = states["light.parentesi_group"].attributes;
-        const hue = e.hs_color ? e.hs_color[0] : 0;
-        const sat = e.hs_color ? e.hs_color[1] : 0;
-        const bright = e.brightness ? e.brightness / 255 : 0.7;
-        return `hue-rotate(${hue}deg) saturate(${sat + 20}%) brightness(${0.6 + bright * 0.6})`;
-      })()}
-    opacity: >-
-      ${(() => {
-        const e = states["light.parentesi_group"].attributes;
-        const sat = e.hs_color ? e.hs_color[1] : 0;
-        if (e.color_mode === 'hs' && sat > 10) {
-          const bright = e.brightness ? e.brightness / 255 : 0.7;
-          return bright;
-        }
-        return 0;
-      })()}
-    mix-blend-mode: lighten
-    left: 45.00%
-    top: 70.00%
-    width: 160%
+action: none
+entity: light.parentesi_group
+hold_action:
+action: none
+image: /local/floorplan/transparent.png
+state_image:
+'on': /local/floorplan/terra/p0_parentesirgb.png
+tap_action:
+action: none
+type: image
+style:
+filter: >-
+${(() => {
+const e = states["light.parentesi_group"].attributes;
+const hue = e.hs_color ? e.hs_color[0] : 0;
+const sat = e.hs_color ? e.hs_color[1] : 0;
+const bright = e.brightness ? e.brightness / 255 : 0.7;
+  return `hue-rotate(${hue}deg) saturate(${sat + 20}%) brightness(${0.6 + bright * 0.6})`;
+})()}
+opacity: >-
+${(() => {
+const e = states["light.parentesi_group"].attributes;
+const sat = e.hs_color ? e.hs_color[1] : 0;
+   if (e.color_mode === 'hs' && sat > 10) {
+    const bright = e.brightness ? e.brightness / 255 : 0.7;
+    return bright;
+  }
+  return 0;
+})()}
+mix-blend-mode: lighten
+left: 45.00%
+top: 70.00%
+width: 160%
+```
+</details>
 
-    </details>
+**🏗️ Architettura del Sistema Multi-Layer**
 
-    **Architettura del Sistema Multi-Layer**
+| Modalità | Layer 1 | Layer 2 | Layer 3 |
+|----------|---------|---------|---------|
+| **Spento** | 0 | 0 | 0 |
+| **Bianco CCT** | Alta | Media | 0 |
+| **RGB Colorato** | Bassa | 0 | Alta |
 
-    | Modalità          | Layer 1 | Layer 2 | Layer 3 |
-    |-------------------|---------|---------|---------|
-    | **Spento**        | 0       | 0       | 0       |
-    | **Bianco CCT**    | Alto    | Medio   | 0       |
-    | **RGB Colorato**  | Basso   | 0       | Alto    |
-
-    **Vantaggi del sistema:**
-    1. 🎨 Gestione separata dei tre canali  
-    2. ⚡ Transizioni ultra fluide  
-    3. 🔧 Massima precisione cromatica  
-    4. 🎭 Effetti complessi con mix-blend-mode  
-
-  </details>
+**🎯 Vantaggi dell'Approccio Multi-Layer:**
+1. 🎨 Gestione separata dei canali Bianco, CCT, RGB
+2. ⚡ Transizioni Fluide: Nessun salto tra modalità colore
+3. 🔧 Precisione Cromatica: Riproduzione fedele di temperature e tonalità
+4. 🎭 Effetti Complessi: Possibilità di blending avanzato tra layer
 
 </details>
+
+</details>
+
 
 
 
