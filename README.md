@@ -304,10 +304,9 @@ width: 160%
 4. 🎭 Effetti Complessi: Possibilità di blending avanzato tra layer
 
 </details>
-
+---
 </details>
 
----
 ---
 
 <details>
