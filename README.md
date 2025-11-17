@@ -886,7 +886,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
   <br>
 
   <div align="center">
-    <img src="/www/repo/carica.png" width="35%" alt="tablet">
+    <img src="/www/repo/carica.png" width="35%" alt="carica">
   </div>
 
 </details>
