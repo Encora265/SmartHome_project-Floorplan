@@ -955,7 +955,16 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 
 <details>
 <summary><strong>💡 Popup: Controllo Luci Esterne</strong></summary>
+<details>
+  <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
 
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/luci_ext.png" width="35%" alt="luci_ext">
+  </div>
+
+</details>
 **Popup dedicato al controllo completo e monitoraggio del sistema di illuminazione esterna, combinando controllo manuale immediato con gestione programmazione automatica.**
 
 **🎨 Design e Animazioni Avanzate**
