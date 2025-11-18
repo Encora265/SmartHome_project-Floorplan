@@ -704,7 +704,10 @@ width: 160%
   <br>
 
   <div align="center">
-    <img src="/www/weather-icons/cloudy-day-1.svg" width="35%" alt="tenda">
+    <img src="/www/weather-icons/cloudy-day-1.svg" width="10%" alt="tenda">
+    <img src="/www/weather-icons/cloudy-day-1.svg" width="10%" alt="tenda">
+    <img src="/www/weather-icons/cloudy-day-1.svg" width="10%" alt="tenda">
+    <img src="/www/weather-icons/cloudy-day-1.svg" width="10%" alt="tenda">
   </div>
 
 </details>
