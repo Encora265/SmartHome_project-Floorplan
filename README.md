@@ -719,6 +719,7 @@ width: 160%
 
 </details>
 </details>
+</details>
 
 # 👆 Tap - Popup Controllo Camera
 - **Streaming Live**: Integrazione Frigate Card per video in tempo reale
