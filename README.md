@@ -580,174 +580,6 @@ width: 160%
 ---
 
 <details>
-<summary><strong>👁️ Telecamera Giardino - Controllo PTZ e AI Integrato</strong></summary>
-
-**Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e automazione AI**
-
-<details>
-<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
-
-```yaml
-######### CAMERA GIARDINO ##########
-
-- type: state-icon
-  entity: camera.giardino
-  icon: mdi:cctv
-  tap_action:
-    action: fire-dom-event
-    browser_mod:
-      service: browser_mod.popup
-      data:
-        title: Giardino
-        dismissable: true
-        size: normal
-        content:
-          type: custom:vertical-stack-in-card
-          cards:
-            - type: custom:frigate-card
-              style: |
-                ha-card {
-                  height: 250px;
-                }
-              cameras:
-                - camera_entity: camera.giardino
-              live:
-                controls:
-                  ptz:
-                    mode: "off"
-            
-            - type: custom:vertical-stack-in-card
-              horizontal: true
-              style: |
-                ha-card {
-                  padding: 8px !important;
-                }
-              cards:
-                - type: custom:button-card
-                  color_type: card
-                  color: "rgba(0, 0, 0, 0.7)"
-                  icon: mdi:arrow-left-drop-circle-outline
-                  tap_action:
-                    action: call-service
-                    service: button.press
-                    service_data:
-                      entity_id: button.giardino_ptz_sinistra
-                
-                - type: custom:button-card
-                  color_type: card
-                  color: "rgba(0, 0, 0, 0.7)"
-                  icon: mdi:arrow-up-drop-circle-outline
-                  tap_action:
-                    action: call-service
-                    service: button.press
-                    service_data:
-                      entity_id: button.giardino_ptz_su
-                
-                - type: custom:button-card
-                  color_type: card
-                  color: "rgba(0, 0, 0, 0.7)"
-                  icon: mdi:arrow-down-drop-circle-outline
-                  tap_action:
-                    action: call-service
-                    service: button.press
-                    service_data:
-                      entity_id: button.giardino_ptz_giu
-                
-                - type: custom:button-card
-                  color_type: card
-                  color: "rgba(0, 0, 0, 0.7)"
-                  icon: mdi:arrow-right-drop-circle-outline
-                  tap_action:
-                    action: call-service
-                    service: button.press
-                    service_data:
-                      entity_id: button.giardino_ptz_destra
-                
-                - type: custom:button-card
-                  entity: automation.notifica_con_ai_lettura_smart_speaker
-                  color_type: card
-                  icon: mdi:google-assistant
-                  name: AI
-                  tap_action:
-                    action: call-service
-                    service: automation.toggle
-                    service_data:
-                      entity_id: automation.notifica_con_ai_lettura_smart_speaker
-                  state:
-                    - value: "on"
-                      color: "rgba(76, 175, 80, 0.7)"
-                      icon: mdi:google
-                    - value: "off"
-                      color: "rgba(0, 0, 0, 0.7)"
-                      icon: mdi:google
-  
-  hold_action:
-    action: fire-dom-event
-    browser_mod:
-      service: browser_mod.popup
-      data:
-        dismissable: true
-        size: normal
-        content:
-          type: custom:mushroom-alarm-control-panel-card
-          entity: alarm_control_panel.ezviz_alarm
-          states:
-            - armed_home
-            - armed_away
-          fill_container: true
-  style:
-    color: '#cf07f2'
-    left: 27.20%
-    top: 70%
-    width: 2vw
-    height: 2vw
-    transform: |
-      translate(-50%, -50%) scaleX(-1)
-      rotate(20deg)
-    background-color: '#ffffff00'
-    box-shadow: '0px 0px 28px 0px rgba(0,0,0,0.1)'
-    border-radius: 50%
-    z-index: 5
-```
-</details>
-<details>
-  <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
-
-  <br>
-
-  <div align="center">
-    <img src="/www/repo/camera.gif" width="35%" alt="camera">
-  </div>
-
-</details>
-
-# 👆 Tap - Popup Controllo Camera
-- **Streaming Live**: Integrazione Frigate Card per video in tempo reale
-- **Controlli PTZ**: 4 direzioni (su, giù, sinistra, destra)
-- **Automazione AI**: Toggle riconoscimento con Google Gemini
-- **Design Responsivo**: Layout ottimizzato mobile/tablet
-
-# 👆 Hold - Controllo Allarme
-- **Popup Secondario**: Pannello allarme EZVIZ
-- **Stati Allarme**: armed_home e armed_away
-- **Interfaccia Mushroom**: Design moderno
-
-# 🔧 Componenti Integrati:
-
-| Componente | Funzione | Custom Card |
-|------------|----------|-------------|
-| **Frigate** | Streaming live | custom:frigate-card |
-| **Button** | Controlli PTZ | custom:button-card |
-| **Mushroom** | Allarme | custom:mushroom-alarm-control-panel-card |
-| **Vertical Stack** | Layout | custom:vertical-stack-in-card |
-
-</details>
-
-</details>
-
----
-
-<details>
 <summary><strong>📦 Pacchetti Integrati</strong></summary>
 
 ---
@@ -1010,6 +842,174 @@ Accesso: Tramite pulsante "info" nel popup principale
 </details>
 
 **Nota Tecnica: Tutti i popup sono progettati per essere autocontenuti nel package, senza dipendenze esterne oltre alle custom card indicate nella documentazione principale.**
+
+</details>
+
+---
+
+<details>
+<summary><strong>👁️ Telecamera Giardino - Controllo PTZ e AI Integrato</strong></summary>
+
+**Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e automazione AI**
+
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
+
+```yaml
+######### CAMERA GIARDINO ##########
+
+- type: state-icon
+  entity: camera.giardino
+  icon: mdi:cctv
+  tap_action:
+    action: fire-dom-event
+    browser_mod:
+      service: browser_mod.popup
+      data:
+        title: Giardino
+        dismissable: true
+        size: normal
+        content:
+          type: custom:vertical-stack-in-card
+          cards:
+            - type: custom:frigate-card
+              style: |
+                ha-card {
+                  height: 250px;
+                }
+              cameras:
+                - camera_entity: camera.giardino
+              live:
+                controls:
+                  ptz:
+                    mode: "off"
+            
+            - type: custom:vertical-stack-in-card
+              horizontal: true
+              style: |
+                ha-card {
+                  padding: 8px !important;
+                }
+              cards:
+                - type: custom:button-card
+                  color_type: card
+                  color: "rgba(0, 0, 0, 0.7)"
+                  icon: mdi:arrow-left-drop-circle-outline
+                  tap_action:
+                    action: call-service
+                    service: button.press
+                    service_data:
+                      entity_id: button.giardino_ptz_sinistra
+                
+                - type: custom:button-card
+                  color_type: card
+                  color: "rgba(0, 0, 0, 0.7)"
+                  icon: mdi:arrow-up-drop-circle-outline
+                  tap_action:
+                    action: call-service
+                    service: button.press
+                    service_data:
+                      entity_id: button.giardino_ptz_su
+                
+                - type: custom:button-card
+                  color_type: card
+                  color: "rgba(0, 0, 0, 0.7)"
+                  icon: mdi:arrow-down-drop-circle-outline
+                  tap_action:
+                    action: call-service
+                    service: button.press
+                    service_data:
+                      entity_id: button.giardino_ptz_giu
+                
+                - type: custom:button-card
+                  color_type: card
+                  color: "rgba(0, 0, 0, 0.7)"
+                  icon: mdi:arrow-right-drop-circle-outline
+                  tap_action:
+                    action: call-service
+                    service: button.press
+                    service_data:
+                      entity_id: button.giardino_ptz_destra
+                
+                - type: custom:button-card
+                  entity: automation.notifica_con_ai_lettura_smart_speaker
+                  color_type: card
+                  icon: mdi:google-assistant
+                  name: AI
+                  tap_action:
+                    action: call-service
+                    service: automation.toggle
+                    service_data:
+                      entity_id: automation.notifica_con_ai_lettura_smart_speaker
+                  state:
+                    - value: "on"
+                      color: "rgba(76, 175, 80, 0.7)"
+                      icon: mdi:google
+                    - value: "off"
+                      color: "rgba(0, 0, 0, 0.7)"
+                      icon: mdi:google
+  
+  hold_action:
+    action: fire-dom-event
+    browser_mod:
+      service: browser_mod.popup
+      data:
+        dismissable: true
+        size: normal
+        content:
+          type: custom:mushroom-alarm-control-panel-card
+          entity: alarm_control_panel.ezviz_alarm
+          states:
+            - armed_home
+            - armed_away
+          fill_container: true
+  style:
+    color: '#cf07f2'
+    left: 27.20%
+    top: 70%
+    width: 2vw
+    height: 2vw
+    transform: |
+      translate(-50%, -50%) scaleX(-1)
+      rotate(20deg)
+    background-color: '#ffffff00'
+    box-shadow: '0px 0px 28px 0px rgba(0,0,0,0.1)'
+    border-radius: 50%
+    z-index: 5
+```
+</details>
+<details>
+  <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
+
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/camera.gif" width="35%" alt="camera">
+  </div>
+
+</details>
+
+# 👆 Tap - Popup Controllo Camera
+- **Streaming Live**: Integrazione Frigate Card per video in tempo reale
+- **Controlli PTZ**: 4 direzioni (su, giù, sinistra, destra)
+- **Automazione AI**: Toggle riconoscimento con Google Gemini
+- **Design Responsivo**: Layout ottimizzato mobile/tablet
+
+# 👆 Hold - Controllo Allarme
+- **Popup Secondario**: Pannello allarme EZVIZ
+- **Stati Allarme**: armed_home e armed_away
+- **Interfaccia Mushroom**: Design moderno
+
+# 🔧 Componenti Integrati:
+
+| Componente | Funzione | Custom Card |
+|------------|----------|-------------|
+| **Frigate** | Streaming live | custom:frigate-card |
+| **Button** | Controlli PTZ | custom:button-card |
+| **Mushroom** | Allarme | custom:mushroom-alarm-control-panel-card |
+| **Vertical Stack** | Layout | custom:vertical-stack-in-card |
+
+</details>
 
 </details>
 
