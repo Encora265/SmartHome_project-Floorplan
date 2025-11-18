@@ -537,7 +537,7 @@ width: 160%
     ]]]
   tap_action:
     action: toggle
-  hold_action: !include popup/tende.yaml
+ \
   styles:
     card:
       - background: none
@@ -645,6 +645,84 @@ width: 160%
 </details>
 
 ---
+
+<details>
+<summary><strong>🃏 Esempi di configurazione - CARDS</strong></summary>
+
+---
+
+<details>
+<summary><strong>⛅ / ☀️ Card Meteo</strong></summary>
+
+**Esempio di configurazione card meteo**
+
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
+
+```yaml
+            - type: conditional
+              conditions:
+                - entity: weather.casa
+                  state_not: "unavailable"
+              elements:
+                - type: image
+                  entity: weather.casa
+                  state_image:
+                    "sunny": /local/weather-icons/day.svg
+                    "clear-night": /local/weather-icons/night.svg
+                    "partlycloudy": /local/weather-icons/partly-cloudy-day.svg
+                    "cloudy": /local/weather-icons/cloudy-day-1.svg
+                    "rainy": /local/weather-icons/rainy-6.svg
+                  style:
+                    left: 80.00%
+                    top: 15.00%
+                    width: 6.00%
+                    height: auto
+                    mix-blend-mode: lighten
+                  tap_action:
+                    action: none
+ 
+            - type: state-label
+              entity: weather.casa
+              attribute: temperature
+              style:
+                left: 88.00%
+                top: 15.00%
+                color: white
+                font-size: 40px
+                font-weight: bold
+                font-family: Roboto
+                text-shadow: 1px 1px 2px black
+              suffix: " °C"
+              tap_action:
+                action: none
+```
+# 🌡️ Card Meteo Condizionale
+Una card Home Assistant elegante che mostra le condizioni meteorologiche con:
+Icona dinamica che cambia in base allo stato (sole, notte serena, nuvoloso, pioggia)
+Temperatura in tempo reale visualizzata in grande con styling moderno
+Design responsivo con posizionamento preciso al 80-88% della larghezza
+Interattività ottimizzata - visualizzazione pulita senza azioni al tap
+Effetti visivi avanzati con mix-blend-mode e text-shadow
+
+# 🎯Funzionalità chiave:
+Si attiva solo quando weather.casa è disponibile
+Icone personalizzate nella cartella /local/weather-icons/
+Stile coerente con font Roboto e colori bilanciati
+</details>
+</details>
+
+---
+
+
+
+
+
+
+
+
+
+
 
 <details>
 <summary><strong>📦 Pacchetti Integrati</strong></summary>
