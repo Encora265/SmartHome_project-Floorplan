@@ -960,11 +960,11 @@ Accesso: Tramite pulsante "tools" nel popup principale
   <br>
 
   <div align="center">
-    <img src="/www/repo/manutenzione.png" width="35%" alt="manutenzione">
+    <img src="/www/repo/manutenzione.png" width="50%" alt="manutenzione">
   </div>
 
   </details>
-  
+
 - Gestione programmata:
 - Manutenzione Leggera (ogni 20 cicli)
 - Manutenzione Standard (ogni 30 cicli)
