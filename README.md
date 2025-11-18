@@ -597,7 +597,16 @@ width: 160%
 ```
 
 </details>
+<details>
+  <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
 
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/tenda.gif" width="35%" alt="tenda">
+  </div>
+
+</details>
 # 🏗️ Architettura della Card Tapparella
 
 **Layer 1: Icona dinamica**
