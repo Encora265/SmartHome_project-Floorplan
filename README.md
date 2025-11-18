@@ -849,9 +849,11 @@ Accesso: Tramite pulsante "info" nel popup principale
 ---
 
 <details>
-<summary><strong>👁️ Telecamera Giardino - Controllo PTZ e AI Integrato</strong></summary>
+<summary><strong>👁️ Popup telecamera - Controllo PTZ e AI Integrato</strong></summary>
 
-**Icona interattiva che apre un popup avanzato con controlli PTZ, streaming live e automazione AI**
+---
+
+**Popup avanzato con controlli PTZ, streaming live e automazione AI**
 
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
