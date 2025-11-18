@@ -725,8 +725,6 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 <details>
 <summary><strong>🎪 Finestre popup integrate</strong></summary>
 
----
-
 <details>
 <summary><strong>⚡ Popup elettrodomestici</strong></summary>
 
@@ -852,8 +850,6 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 <details>
 <summary><strong>👁️ Popup telecamera - Controllo PTZ e AI Integrato</strong></summary>
-
----
 
 **Popup avanzato con controlli PTZ, streaming live e automazione AI**
 
@@ -1187,8 +1183,6 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 <details>
 <summary><strong>🎁 Contenuti EXTRA</strong></summary>
-
----
 
 <details>
 <summary><strong>🌟 Pulsanti SIDEBAR</strong></summary>
