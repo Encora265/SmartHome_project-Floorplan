@@ -33,53 +33,65 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
   <img src="/www/floorplan/mansarda/mansarda_nigth.png" width="49%" alt="Primo Piano - Giorno">
 </div>
 
----
-
 <details>
-  <summary><strong>🌳 Mappa</strong></summary>
-```
+<summary><strong>🌳 Struttura del Repository</strong></summary>
+
+<br>
+
+**Mappa completa dell'organizzazione del progetto:**
+
+<pre>
 SmartHome_project Floorplan
 ├── 🎥 Dimostrazione
 ├── 🖼️ Panoramica Floorplan
 │
-├── 🛠️ Configurazione                  
+├── 🛠️ Configurazione
 │   └── Lista integrazioni
 │
-├── 🎨 Progettazione                     
+├── 🎨 Progettazione
 │   └── Tool utilizzati
 │
-├── 💡 Esempi configurazione - LUCI      
-│   ├── ⬜ Switch on/off                  
+├── 💡 Esempi configurazione - LUCI
+│   ├── ⬜ Switch on/off
 │   │   └── ⚙️ YAML
-│   ├── ☀️ CCT                          
+│   ├── ☀️ CCT
 │   │   └── ⚙️ YAML
-│   └── 🎨 RGB                           
+│   └── 🎨 RGB
 │       └── ⚙️ YAML
 │
-├── 🧩 Esempi configurazione - ICONE     
-│   ├── 🧺 Elettrodomestici            
+├── 🧩 Esempi configurazione - ICONE
+│   ├── 🧺 Elettrodomestici
 │   │   └── ⚙️ YAML
-│   ├── 🪟 Cover                         
+│   ├── 🪟 Cover
 │   │   └── ⚙️ YAML
 │   └── (altri...)
 │
-├── 📦 Pacchetti Integrati                
-│   ├── ⚡ Elettrodomestici             
-│   └── ⏰ Sveglie                     
+├── 📦 Pacchetti Integrati
+│   ├── ⚡ Elettrodomestici
+│   └── ⏰ Sveglie
 │
-├── 🎪 Finestre popup integrate          
-│   ├── ⚡ Popup elettrodomestici       
-│   ├── 👁️ Popup telecamera              
-│   ├── 🔋 Tablet                        
-│   ├── 💡 Luci Esterne                  
-│   └── 🕹️ Tende                         
+├── 🎪 Finestre popup integrate
+│   ├── ⚡ Popup elettrodomestici
+│   ├── 👁️ Popup telecamera
+│   ├── 🔋 Tablet
+│   ├── 💡 Luci Esterne
+│   └── 🕹️ Tende
 │
-└── 🎁 Contenuti EXTRA                   
-    ├── 🌟 Sidebar                       
-    └── 🌀 Ventilatore                   
+└── 🎁 Contenuti EXTRA
+    ├── 🌟 Sidebar
+    └── 🌀 Ventilatore
+</pre>
+
+**Spiegazione della struttura:**
+- **📁 Sezioni Principali**: Ogni categoria principale rappresenta un'area funzionale del progetto
+- **📂 Sottosezioni**: Organizzate per tipo di componente o funzionalità
+- **⚙️ Configurazioni**: Esempi YAML pratici e immediatamente utilizzabili
+- **🎨 Elementi Visivi**: Icone, animazioni e componenti UI
+- **🔧 Packages**: Componenti riutilizzabili e sistemi automatizzati
 
 </details>
 
+---
 
 <details>
   <summary><strong>🛠️ Configurazione</strong></summary>
