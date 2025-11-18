@@ -708,7 +708,16 @@ width: 160%
     border-radius: 50%
     z-index: 5
 ```
+<details>
+  <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
 
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/camera.gif" width="35%" alt="camera">
+  </div>
+
+</details>
 </details>
 
 # 👆 Tap - Popup Controllo Camera
