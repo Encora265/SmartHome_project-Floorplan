@@ -576,6 +576,7 @@ width: 160%
 - Riutilizzabile per qualunque tapparella/tenda/velux
 
 </details>
+</details>
 
 ---
 
