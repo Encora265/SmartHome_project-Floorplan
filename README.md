@@ -915,6 +915,16 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 - Toolbar comandi per accesso rapido alle funzioni
 
 # ⚙️ Popup Impostazioni
+<details>
+  <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
+
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/impo.png" width="35%" alt="impo">
+  </div>
+
+</details>
 Accesso: Tramite pulsante "ingranaggio" nel popup principale
 
 - Funzionalità:
