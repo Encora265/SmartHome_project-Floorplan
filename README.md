@@ -41,6 +41,57 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 
   <br>
 
+## 🌳 **Struttura del README.md**
+```
+SmartHome_project Floorplan
+├── 🎥 Dimostrazione
+├── 🖼️ Panoramica Floorplan
+│
+├── 🛠️ Configurazione                  
+│   └── Lista integrazioni
+│
+├── 🎨 Progettazione                     
+│   └── Tool utilizzati
+│
+├── 💡 Esempi configurazione - LUCI      
+│   ├── ⬜ Switch on/off                  
+│   │   └── ⚙️ YAML
+│   ├── ☀️ CCT                          
+│   │   └── ⚙️ YAML
+│   └── 🎨 RGB                           
+│       └── ⚙️ YAML
+│
+├── 🧩 Esempi configurazione - ICONE     
+│   ├── 🧺 Elettrodomestici            
+│   │   └── ⚙️ YAML
+│   ├── 🪟 Cover                         
+│   │   └── ⚙️ YAML
+│   └── (altri...)
+│
+├── 📦 Pacchetti Integrati                
+│   ├── ⚡ Elettrodomestici             
+│   └── ⏰ Sveglie                     
+│
+├── 🎪 Finestre popup integrate          
+│   ├── ⚡ Popup elettrodomestici       
+│   ├── 👁️ Popup telecamera              
+│   ├── 🔋 Tablet                        
+│   ├── 💡 Luci Esterne                  
+│   └── 🕹️ Tende                         
+│
+└── 🎁 Contenuti EXTRA                   
+    ├── 🌟 Sidebar                       
+    └── 🌀 Ventilatore                   
+</details>
+
+---
+
+
+<details>
+  <summary><strong>🛠️ Configurazione</strong></summary>
+
+  <br>
+
   - **Home Assistant**:
     - Picture Elements Card
     - Config Template Card
@@ -1177,6 +1228,8 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 <details>
 <summary><strong>🎁 Contenuti EXTRA</strong></summary>
+
+---
 
 <details>
 <summary><strong>🌟 Pulsanti SIDEBAR</strong></summary>
