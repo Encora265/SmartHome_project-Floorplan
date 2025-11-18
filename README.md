@@ -976,6 +976,8 @@ Accesso: Tramite pulsante "tools" nel popup principale
     <img src="/www/repo/guida.png" width="35%" alt="guida">
   </div>
 
+</details>
+
 # ℹ️ Popup Informazioni
 Accesso: Tramite pulsante "info" nel popup principale
 
@@ -991,6 +993,8 @@ Accesso: Tramite pulsante "info" nel popup principale
   <div align="center">
     <img src="/www/repo/info.png" width="35%" alt="info">
   </div>
+
+</details>
 
 **Nota Tecnica: Tutti i popup sono progettati per essere autocontenuti nel package, senza dipendenze esterne oltre alle custom card indicate nella documentazione principale.**
 
