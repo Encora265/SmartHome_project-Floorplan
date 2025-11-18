@@ -844,8 +844,6 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 </details>
 
-</details>
-
 ---
 
 <details>
@@ -1012,8 +1010,6 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 </details>
 
-</details>
-
 ---
 
 <details>
@@ -1079,8 +1075,6 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 </details>
 
-</details>
-
 ---
 
 <details>
@@ -1135,8 +1129,6 @@ Accesso: Tramite pulsante "info" nel popup principale
 - **Stato Dinamico**: Background attivo solo quando luce è accesa
 - **Effetto Glow**: Box-shadow contestuale allo stato
 - ***Proporzioni**: 50% width per bilanciamento perfetto
-
-</details>
 
 </details>
 
