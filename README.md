@@ -35,13 +35,8 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 
 ---
 
-
 <details>
-  <summary><strong>🛠️ Configurazione</strong></summary>
-
-  <br>
-
-## 🌳 **Struttura del README.md**
+  <summary><strong>🌳 Mappa</strong></summary>
 ```
 SmartHome_project Floorplan
 ├── 🎥 Dimostrazione
@@ -82,9 +77,8 @@ SmartHome_project Floorplan
 └── 🎁 Contenuti EXTRA                   
     ├── 🌟 Sidebar                       
     └── 🌀 Ventilatore                   
-</details>
 
----
+</details>
 
 
 <details>
