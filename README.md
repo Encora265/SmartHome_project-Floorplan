@@ -725,6 +725,8 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 <details>
 <summary><strong>🎪 Finestre popup integrate</strong></summary>
 
+---
+
 <details>
 <summary><strong>⚡ Popup elettrodomestici</strong></summary>
 
