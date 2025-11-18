@@ -299,6 +299,7 @@ width: 160%
   </div>
 
 </details>
+
 # 🏗️ Architettura del Sistema Multi-Layer
 
 | Modalità | Layer 1 | Layer 2 | Layer 3 |
@@ -708,6 +709,7 @@ width: 160%
     border-radius: 50%
     z-index: 5
 ```
+</details>
 <details>
   <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
 
@@ -717,8 +719,6 @@ width: 160%
     <img src="/www/repo/camera.gif" width="35%" alt="camera">
   </div>
 
-</details>
-</details>
 </details>
 
 # 👆 Tap - Popup Controllo Camera
