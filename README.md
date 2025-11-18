@@ -931,7 +931,16 @@ Accesso: Tramite pulsante "grafico" nel popup principale
 - Grafici mensili: Consumo e costi del mese corrente
 - Grafici annuali: Storico consumi e trend pluriennali
 - Totali assoluti: Cicli, consumo, costo e tempo totale
+<details>
+  <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
 
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/stats.gif" width="35%" alt="stats">
+  </div>
+
+</details>
 # 🔧 Popup Manutenzione
 Accesso: Tramite pulsante "tools" nel popup principale
 
