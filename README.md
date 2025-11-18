@@ -698,7 +698,16 @@ width: 160%
                 action: none
 ```
 </details>
+<details>
+  <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
 
+  <br>
+
+  <div align="center">
+    <img src="/www/weather-icons/cloudy-day-1.svg" width="35%" alt="tenda">
+  </div>
+
+</details>
 # 🌡️ Card Meteo Condizionale
 Una card Home Assistant elegante che mostra le condizioni meteorologiche con:
 Icona dinamica che cambia in base allo stato (sole, notte serena, nuvoloso, pioggia)
