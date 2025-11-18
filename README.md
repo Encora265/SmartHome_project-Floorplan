@@ -697,6 +697,8 @@ width: 160%
               tap_action:
                 action: none
 ```
+</details>
+
 # 🌡️ Card Meteo Condizionale
 Una card Home Assistant elegante che mostra le condizioni meteorologiche con:
 Icona dinamica che cambia in base allo stato (sole, notte serena, nuvoloso, pioggia)
@@ -706,9 +708,10 @@ Interattività ottimizzata - visualizzazione pulita senza azioni al tap
 Effetti visivi avanzati con mix-blend-mode e text-shadow
 
 # 🎯Funzionalità chiave:
-Si attiva solo quando weather.casa è disponibile
-Icone personalizzate nella cartella /local/weather-icons/
-Stile coerente con font Roboto e colori bilanciati
+- Si attiva solo quando weather.casa è disponibile
+- Icone personalizzate nella cartella /local/weather-icons/
+- Stile coerente con font Roboto e colori bilanciati
+
 </details>
 </details>
 
