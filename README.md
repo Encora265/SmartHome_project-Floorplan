@@ -288,16 +288,6 @@ left: 45.00%
 top: 70.00%
 width: 160%
 ```
-<details>
-  <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
-
-  <br>
-
-  <div align="center">
-    <img src="/www/repo/rgb.gif" width="35%" alt="rgb">
-  </div>
-
-</details>
 </details>
 
 # 🏗️ Architettura del Sistema Multi-Layer
@@ -314,6 +304,16 @@ width: 160%
 3. 🔧 Precisione Cromatica: Riproduzione fedele di temperature e tonalità
 4. 🎭 Effetti Complessi: Possibilità di blending avanzato tra layer
 
+
+</details>
+<details>
+  <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
+
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/rgb.gif" width="35%" alt="rgb">
+  </div>
 
 </details>
 </details>
