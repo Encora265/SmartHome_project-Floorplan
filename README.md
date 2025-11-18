@@ -951,14 +951,30 @@ Accesso: Tramite pulsante "grafico" nel popup principale
   </div>
 
 </details>
+
 # 🔧 Popup Manutenzione
 Accesso: Tramite pulsante "tools" nel popup principale
+<details>
+  <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
 
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/manutenzione.png" width="35%" alt="manutenzione">
+  </div>
 - Gestione programmata:
 - Manutenzione Leggera (ogni 20 cicli)
 - Manutenzione Standard (ogni 30 cicli)
 - Manutenzione Completa (ogni 50 cicli)
 - Guida operativa con istruzioni dettagliate
+<details>
+  <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
+
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/guida.png" width="35%" alt="guida">
+  </div>
 
 # ℹ️ Popup Informazioni
 Accesso: Tramite pulsante "info" nel popup principale
@@ -967,6 +983,14 @@ Accesso: Tramite pulsante "info" nel popup principale
 - Descrizione funzionalità
 - Link al canale YouTube
 - Crediti e informazioni tecniche
+<details>
+  <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
+
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/info.png" width="35%" alt="info">
+  </div>
 
 **Nota Tecnica: Tutti i popup sono progettati per essere autocontenuti nel package, senza dipendenze esterne oltre alle custom card indicate nella documentazione principale.**
 
