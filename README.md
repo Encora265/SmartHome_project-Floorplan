@@ -962,6 +962,9 @@ Accesso: Tramite pulsante "tools" nel popup principale
   <div align="center">
     <img src="/www/repo/manutenzione.png" width="35%" alt="manutenzione">
   </div>
+
+  </details>
+  
 - Gestione programmata:
 - Manutenzione Leggera (ogni 20 cicli)
 - Manutenzione Standard (ogni 30 cicli)
