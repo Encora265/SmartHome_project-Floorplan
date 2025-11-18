@@ -960,7 +960,7 @@ Accesso: Tramite pulsante "tools" nel popup principale
   <br>
 
   <div align="center">
-    <img src="/www/repo/manutenzione.png" width="50%" alt="manutenzione">
+    <img src="/www/repo/manutenzione.png" width="90%" alt="manutenzione">
   </div>
 
   </details>
