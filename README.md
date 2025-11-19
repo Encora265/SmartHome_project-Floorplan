@@ -173,7 +173,7 @@ type: image
 
 <details>
 <summary><strong>☀️ / 🌙 Temperatura Colore Dinamica (CCT)</strong></summary>
-<hr>
+<br>
 
 **Simulazione realistica della temperatura (2000K–6500K) tramite filtri CSS.**
 
@@ -234,7 +234,7 @@ type: image
 
 <details>
 <summary><strong>🎨🌈 Luce RGB/CCT</strong></summary>
-<hr>
+<br>
 
 # 🌈 Luce RGB/CCT - Architettura Multi-Layer
 
