@@ -612,6 +612,7 @@ width: 160%
   </div>
 
 </details>
+
 # 🏗️ Architettura della Card Tapparella
 
 **Layer 1: Icona dinamica**
@@ -751,7 +752,7 @@ Mostra lo stato della tenda, la percentuale di apertura e consente il controllo 
 - 🟢 Verde → in chiusura
 - ⚪ Grigio → fermo/chiuso
 
-**Testo posizione in tempo reale con:**
+**Layer 2: percentuale in tempo reale con:**
 - ▲ = apertura + percentuale
 - ▼ = chiusura + percentuale
 - ✔ = aperto + percentuale
@@ -957,7 +958,139 @@ Una card interattiva per il controllo completo dell'impianto di irrigazione con:
 ---
 
 <details>
-<summary><strong>🎪 Finestre popup integrate</strong></summary>
+<summary><strong>💧 / 🚿 ⚡ Card — Potenza Istantanea (Gauge Meter)</strong></summary>
+
+Questa card mostra la potenza elettrica istantanea dell’abitazione utilizzando una gauge card personalizzata tramite hui-element.
+Il colore dell’indicatore varia progressivamente in base al consumo, offrendo una rappresentazione visiva immediata e intuitiva del carico elettrico attuale.
+
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
+
+```yaml
+            ######### POTENZA ISTANTANEA ##########
+
+            - type: custom:hui-element
+              card_type: gauge
+              entity: sensor.wifi_digital_meter_potenza
+              name: Potenza istantanea
+              min: 0
+              max: 3500
+              needle: true
+              segments:
+                - from: 0
+                  color: '#4D8DF7'
+                - from: 100
+                  color: '#5096E5'
+                - from: 200
+                  color: '#53A0D3'
+                - from: 300
+                  color: '#57AAC2'
+                - from: 400
+                  color: '#5AB3B0'
+                - from: 500
+                  color: '#5EBD9F'
+                - from: 600
+                  color: '#61C78D'
+                - from: 700
+                  color: '#64D07B'
+                - from: 800
+                  color: '#68DA6A'
+                - from: 900
+                  color: '#6BE458'
+                - from: 1000
+                  color: '#6FEE47'
+                - from: 1100
+                  color: '#7AEF48'
+                - from: 1200
+                  color: '#85F149'
+                - from: 1300
+                  color: '#91F24A'
+                - from: 1400
+                  color: '#9CF44B'
+                - from: 1500
+                  color: '#A8F54C'
+                - from: 1600
+                  color: '#B3F74D'
+                - from: 1700
+                  color: '#BEF84E'
+                - from: 1800
+                  color: '#CAFA4F'
+                - from: 1900
+                  color: '#D5FB50'
+                - from: 2000
+                  color: '#E1FD52'
+                - from: 2100
+                  color: '#E1F050'
+                - from: 2200
+                  color: '#E2E44E'
+                - from: 2300
+                  color: '#E2D74C'
+                - from: 2400
+                  color: '#E3CB4A'
+                - from: 2500
+                  color: '#E4BE49'
+                - from: 2600
+                  color: '#E4B247'
+                - from: 2700
+                  color: '#E5A545'
+                - from: 2800
+                  color: '#E59943'
+                - from: 2900
+                  color: '#E68C41'
+                - from: 3000
+                  color: '#E78040'
+                - from: 3100
+                  color: '#E7733E'
+                - from: 3200
+                  color: '#E8673C'
+                - from: 3300
+                  color: '#E85A3A'
+                - from: 3400
+                  color: '#E94E38'
+                - from: 3500
+                  color: '#EA4237'
+              hold_action:
+                action: navigate
+                navigation_path: /energy?kiosk
+              style:
+                top: 55%
+                left: 12%
+                width: 150px
+                transform: translate(-50%, -50%)
+```
+## 📊 Gauge dinamica
+
+- Scala da 0 a 3500 W
+- Ago attivo grazie a needle: true
+- Colorazione progressiva a 36 livelli, che va:
+- dal blu → consumi bassi
+- al verde → consumi medi
+- al giallo/arancio → consumi elevati
+- al rosso → rischio sovraccarico
+
+**Questo rende immediata la lettura del carico elettrico e della situazione energetica attuale.**
+
+## 🖱️ Azioni
+
+**Hold Action:**
+→ Naviga automaticamente alla pagina Energia (/energy?kiosk) per una visualizzazione dettagliata dei consumi (modalità kiosk integrata).
+
+## 🧩 Scopo della card
+
+**Questa card fornisce una vista compatta ma estremamente informativa del consumo elettrico in tempo reale ideale per:**
+
+- monitorare il carico istantaneo
+- evitare sovraccarichi
+- verificare l’attivazione di elettrodomestici energivori
+- accedere rapidamente alla dashboard energetica di Home Assistant
+
+</details>
+</details>
+
+---
+
+<details>
+<summary><strong>🎪 Finestre POPUP</strong></summary>
 
 ---
 
