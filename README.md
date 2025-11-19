@@ -138,6 +138,7 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 
 <details>
 <summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
+<br>
 
 **Overlay Dinamico Base (switch on/off)**
 
@@ -172,6 +173,7 @@ type: image
 
 <details>
 <summary><strong>☀️ / 🌙 Temperatura Colore Dinamica (CCT)</strong></summary>
+<hr>
 
 **Simulazione realistica della temperatura (2000K–6500K) tramite filtri CSS.**
 
@@ -232,6 +234,7 @@ type: image
 
 <details>
 <summary><strong>🎨🌈 Luce RGB/CCT</strong></summary>
+<hr>
 
 # 🌈 Luce RGB/CCT - Architettura Multi-Layer
 
@@ -384,6 +387,7 @@ width: 160%
 
 <details>
 <summary><strong>🧺 / 🍽️ Icone elettrodomestici</strong></summary>
+<hr>
 
 **Esempio di configurazione per lavatrice con indicazione stato e consumo**
 
@@ -508,6 +512,7 @@ width: 160%
 
 <details>
 <summary><strong>🪟 Finestre/Tapparelle</strong></summary>
+<hr>
 
 **Esempio completo per una tapparella/lucernario con:**
 
@@ -653,6 +658,7 @@ width: 160%
 
 <details>
 <summary><strong>🏖️ Icone Tende da sole</strong></summary>
+<hr>
 
 **🏖️ Card — Tenda da Sole (Awning Control)**
 
@@ -773,6 +779,7 @@ Mostra lo stato della tenda, la percentuale di apertura e consente il controllo 
 
 <details>
 <summary><strong>⛅ / ☀️ Card Meteo</strong></summary>
+<hr>
 
 **Esempio di configurazione card meteo**
 
@@ -857,6 +864,7 @@ Effetti visivi avanzati con mix-blend-mode e text-shadow
 
 <details>
 <summary><strong>💧 / 🚿 Honeycomb irrigazione</strong></summary>
+<hr>
 
 **Esempio di configurazione card Honeycomb**
 
@@ -958,7 +966,7 @@ Una card interattiva per il controllo completo dell'impianto di irrigazione con:
 
 <details>
 <summary><strong>⚡ Card — Potenza Istantanea (Gauge Meter)</strong></summary>
-<div style="width: 40%; margin: 6px auto; border-bottom: 1px solid #d0d7de;"></div>
+<hr>
 
 Questa card mostra la potenza elettrica istantanea dell’abitazione utilizzando una gauge card personalizzata tramite hui-element.
 Il colore dell’indicatore varia progressivamente in base al consumo, offrendo una rappresentazione visiva immediata e intuitiva del carico elettrico attuale.
@@ -1109,6 +1117,7 @@ Il colore dell’indicatore varia progressivamente in base al consumo, offrendo 
 
 <details>
 <summary><strong>⚡ Popup elettrodomestici</strong></summary>
+<hr>
 
 **Popup specializzato per il monitoraggio e controllo dell'alimentazione del tablet wall-mounted, con sistema di protezione batteria intelligente.**
 <details>
@@ -1230,6 +1239,7 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 <details>
 <summary><strong>👁️ Popup telecamera - Controllo PTZ e AI Integrato</strong></summary>
+<hr>
 
 **Popup avanzato con controlli PTZ, streaming live e automazione AI**
 
@@ -1396,6 +1406,7 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 <details>
 <summary><strong>🔋 Gestione Alimentazione Tablet</strong></summary>
+<hr>
 
 **Popup specializzato per il monitoraggio e controllo dell'alimentazione del tablet wall-mounted, con sistema di protezione batteria intelligente.**
 <details>
@@ -1461,6 +1472,8 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 <details>
 <summary><strong>💡 Popup: Controllo Luci Esterne</strong></summary>
+<hr>
+
 <details>
   <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
 
@@ -1518,6 +1531,8 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 <details>
 <summary><strong>🕹️ Popup: Controllo Tende/Velux/tapparelle</strong></summary>
+<hr>
+
 <details>
   <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
 
@@ -1562,6 +1577,7 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 <details>
 <summary><strong>⚡ Packages elettrodomestici</strong></summary>
+<hr>
 
 **Nella repository sono presenti i seguenti packages per il monitoraggio di elettrodomestici tradizionali**
 
@@ -1628,6 +1644,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 
 <details>
 <summary><strong>⏰ Package: Sistema Sveglie Personalizzate</strong></summary>
+<hr>
 
 **Sistema di sveglie avanzato che permette a più utenti di avere sveglie completamente personalizzabili con giorni della settimana selezionabili individualmente.**
 <details>
@@ -1704,6 +1721,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 
 <details>
 <summary><strong>🌟 Pulsanti SIDEBAR</strong></summary>
+<hr>
 
 **I pulsanti della dashboard rappresentano l'essenza dell'approccio "Beautifully Organized" - combinano estetica premium con funzionalità avanzate, creando un'esperienza utente coerente e memorabile.**
 
@@ -1852,6 +1870,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 
 <details>
 <summary><strong>🌀 Ventilatore intelligente</strong></summary>
+<hr>
 
 **Integrazione di un ventilatore animato direttamente nel floorplan che combina visualizzazione real-time con controlli contestuali avanzati, creando un'interazione fisica virtuale unica.**
 
