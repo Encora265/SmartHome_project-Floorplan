@@ -732,7 +732,6 @@ Effetti visivi avanzati con mix-blend-mode e text-shadow
 - Stile coerente con font Roboto e colori bilanciati
 
 </details>
-</details>
 
 ---
 
@@ -814,10 +813,10 @@ Effetti visivi avanzati con mix-blend-mode e text-shadow
 
 </details>
 
-# 💧 Card Irrigazione Avanzata
+## 💧 Card Irrigazione Avanzata
 Una card interattiva per il controllo completo dell'impianto di irrigazione con:
 
-# 🎯 Interazioni Multi-livello:
+## 🎯 Interazioni Multi-livello:
 - Tap: Attiva/disattiva tutti i getti
 - Hold: Apre menu contestuale con controllo singoli zone
 
@@ -833,6 +832,7 @@ Una card interattiva per il controllo completo dell'impianto di irrigazione con:
 - Area trasparente clickabile
 - Stile invisibile che si integra nel floorplan
 
+</details>
 </details>
 
 
