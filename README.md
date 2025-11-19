@@ -502,7 +502,7 @@ width: 160%
 ---
 
 <details>
-<summary><strong>🪟 / 🎚️ Icone Tende/Finestre/Tapparelle</strong></summary>
+<summary><strong>🪟 / 🎚️ Icone Finestre/Tapparelle</strong></summary>
 
 **Esempio completo per una tapparella/lucernario con:**
 
@@ -646,6 +646,122 @@ width: 160%
 
 ---
 
+<details>
+<summary><strong>🪟 / 🎚️ Icone Tende da sole</strong></summary>
+
+**Esempio completo per una tenda da sole con:**
+
+- 🎨 **Icone colorate** in tempo reale (rosso/verde/giallo/grigio)
+- 📊 **Percentuale live** con indicatori di direzione (▲/▼/✔)
+- 👆 **Interazioni**: Tap per toggle, Hold per popup avanzato
+- 🔄 **Aggiornamento fluido** ogni 500ms
+- 🎯 **Posizionamento assoluto** per layout personalizzati
+
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
+
+```yaml
+            ######### TENDA DA SOLE #########
+            #📦 Required Packages tende.yaml#
+            
+            - type: conditional
+              conditions:
+                - entity: cover.tenda_a_bracci_virtual
+                  state_not: "unavailable"
+              elements:
+                - type: custom:button-card
+                  tap_action:
+                    action: toggle
+                    entity: cover.tenda_a_bracci_virtual
+                  hold_action: !include popup/tende.yaml
+                  triggers_update:
+                    - entity: input_number.tende_refresher_500ms
+                  show_state: false
+                  show_name: false
+                  show_icon: true
+                  icon: mdi:awning-outline
+                  styles:
+                    icon:
+                      - width: 45px
+                      - height: 45px
+                      - color: >
+                          [[[ 
+                            const s = states['cover.tenda_a_bracci_virtual']?.state || 'unknown';
+                            if (s === 'open') return '#ff0000';
+                            if (s === 'opening') return '#ffff00';
+                            if (s === 'closing') return '#00ff00';
+                            return '#9e9e9e';
+                          ]]]
+                    card:
+                      - background: none
+                      - box-shadow: none
+                      - border: none
+                      - padding: 0
+                      - overflow: visible
+                    custom_fields:
+                      apertura:
+                        - position: absolute
+                        - bottom: -5px
+                        - left: 50%
+                        - transform: translateX(-50%)
+                        - font-size: 11px
+                        - font-weight: bold
+                        - text-align: center
+                        - text-shadow: 0px 0px 3px rgba(0,0,0,0.8)
+                        - white-space: nowrap
+                  custom_fields:
+                    apertura: >
+                      [[[
+                        const s = states['cover.tenda_a_bracci_virtual']?.state || 'unknown';
+                        const pos = parseFloat(states['sensor.tenda_a_bracci_percentuale_fluida']?.state || 0);
+                        if (s === 'opening') return '▲ ' + pos.toFixed(0) + '%';
+                        if (s === 'closing') return '▼ ' + pos.toFixed(0) + '%';
+                        if (s === 'open') return '✔ ' + pos.toFixed(0) + '%';
+                        return pos.toFixed(0) + '%';
+                      ]]]
+                  style:
+                    top: 86%
+                    left: 75%
+```
+
+</details>
+<details>
+  <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
+
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/tenda.gif" width="35%" alt="tenda">
+  </div>
+
+</details>
+# 🏗️ Architettura della Card Tapparella
+
+**Layer 1: Icona dinamica**
+- Cambia automaticamente:
+  - mdi:window-shutter → chiusa / chiusura
+  - mdi:window-shutter-open → aperta / apertura
+
+**Layer 2: Colore di stato**
+- 🔴 Rosso → tenda aperta
+- 🟡 Giallo → in apertura
+- 🟢 Verde → in chiusura
+- ⚪ Grigio → fermo/chiuso
+
+**Testo posizione in tempo reale con:**
+- ▲ = apertura + percentuale
+- ▼ = chiusura + percentuale
+- ✔ = aperto + percentuale
+- Solo percentuale = fermo
+
+**Interazioni:**
+- Tap = toggle apertura/chiusura
+- Hold = popup tende avanzato
+
+</details>
+</details>
+
+---
 <details>
 <summary><strong>🃏 Esempi di configurazione - CARDS</strong></summary>
 
