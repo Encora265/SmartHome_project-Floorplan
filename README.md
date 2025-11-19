@@ -834,7 +834,7 @@ Una card interattiva per il controllo completo dell'impianto di irrigazione con:
 - Stile invisibile che si integra nel floorplan
 
 </details>
-</details>
+
 
 
 
