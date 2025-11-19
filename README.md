@@ -387,6 +387,12 @@ width: 160%
 
 **Esempio di configurazione per lavatrice con indicazione stato e consumo**
 
+# Requisiti
+| Componente | File | Obbligatorio |
+|------------|------|--------------|
+| **📦packages** | `lavatrice.yaml` | ✅ **SÌ** | per lo script contenuto
+
+
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
 
@@ -460,7 +466,6 @@ width: 160%
           ]]]
       tap_action:
         action: toggle
-      hold_action: !include popup/lavatrice.yaml
       style:
         top: 34.0%
         left: 76.5%
@@ -646,7 +651,7 @@ width: 160%
 ---
 
 <details>
-<summary><strong>🪟 / 🎚️ Icone Tende da sole</strong></summary>
+<summary><strong>🏖️ Icone Tende da sole</strong></summary>
 
 **🏖️ Card — Tenda da Sole (Awning Control)**
 
@@ -948,13 +953,6 @@ Una card interattiva per il controllo completo dell'impianto di irrigazione con:
 
 </details>
 </details>
-
-
-
-
-
-
-
 
 ---
 
