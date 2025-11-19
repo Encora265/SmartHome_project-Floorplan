@@ -704,9 +704,9 @@ width: 160%
   <br>
 
   <div align="center">
-    <img src="/www/weather-icons/clear-day.svg" width="5%" alt="tenda">
-    <img src="/www/weather-icons/clear-night.svg" width="5%" alt="tenda">
-    <img src="/www/weather-icons/cloudy.svg" width="10%" alt="tenda">
+    <img src="/www/weather-icons/clear-day.svg" width="8%" alt="tenda">
+    <img src="/www/weather-icons/clear-night.svg" width="8%" alt="tenda">
+    <img src="/www/weather-icons/cloudy.svg" width="12%" alt="tenda">
     <img src="/www/weather-icons/rain.svg" width="10%" alt="tenda">
     <img src="/www/weather-icons/sleet.svg" width="10%" alt="tenda">
     <img src="/www/weather-icons/snow.svg" width="10%" alt="tenda">
@@ -717,6 +717,7 @@ width: 160%
   </div>
 
 </details>
+
 # 🌡️ Card Meteo Condizionale
 Una card Home Assistant elegante che mostra le condizioni meteorologiche con:
 Icona dinamica che cambia in base allo stato (sole, notte serena, nuvoloso, pioggia)
@@ -735,6 +736,105 @@ Effetti visivi avanzati con mix-blend-mode e text-shadow
 
 ---
 
+<details>
+<summary><strong>💧 / 🚿 Honeycomb irrigazione</strong></summary>
+
+**Esempio di configurazione card Honeycomb**
+
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
+
+```yaml
+            ######### IRRIGAZIONE ##########
+
+            - type: image
+              entity: switch.irrigazione_group
+              image: /local/floorplan/transparent.png
+              tap_action:
+                action: call-service
+                service: switch.toggle
+                service_data:
+                  entity_id: switch.getti_group
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                honeycomb_menu:
+                  entity:
+                    - switch.sonoff_1000162117_1
+                    - switch.sonoff_1000162117_2
+                    - switch.sonoff_1000162117_3
+                    - switch.sonoff_1000162117_4
+                  buttons:
+                    - icon: 'mdi:sprinkler'
+                      entity: switch.sonoff_1000162117_1
+                      tap_action:
+                        action: toggle
+                    - icon: 'mdi:sprinkler'
+                      entity: switch.sonoff_1000162117_2
+                      tap_action:
+                        action: toggle
+                    - icon: 'mdi:sprinkler-variant'
+                      entity: switch.getti_group
+                      tap_action:
+                        action: toggle
+                    - icon: 'mdi:water'
+                      entity: switch.sonoff_1000162117_3                      
+                      tap_action:
+                        action: toggle
+                    - icon: 'mdi:flower'
+                      entity: switch.sonoff_1000162117_4
+                      tap_action:
+                        action: toggle
+                    - icon: 'mdi:watering-can-outline'
+                      entity: switch.irrigazione_group
+                      tap_action:
+                        action: toggle
+              style:
+                left: 69%
+                top: 85%
+                width: 15%
+                height: 9%
+                transform: |
+                  translate(-55%, -100%)        /* centro */
+                  rotate(-18.5deg)               /* inclinazione “di taglio” */
+                  skewX(60deg)                 /* effetto parallelogramma */
+                clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+                # border: 1px solid red 
+```
+</details>
+<details>
+  <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
+
+  <br>
+
+  <div align="center">
+    <img src="/www/weather-icons/clear-day.svg" width="8%" alt="tenda">
+
+  </div>
+
+</details>
+
+# 💧 Card Irrigazione Avanzata
+Una card interattiva per il controllo completo dell'impianto di irrigazione con:
+
+# 🎯 Interazioni Multi-livello:
+- Tap: Attiva/disattiva tutti i getti
+- Hold: Apre menu contestuale con controllo singoli zone
+
+# 🔧 Controlli Granulari:
+- 4 zone irrigazione indipendenti (getti 1-4)
+- Controllo gruppo getti
+- Gestione irrigazione completa
+- Icone tematiche per ogni funzione
+
+# 🎨 Design Innovativo:
+- Forma geometrica parallelogramma con trasformazioni CSS
+- Posizionamento preciso con rotazione personalizzata
+- Area trasparente clickabile
+- Stile invisibile che si integra nel floorplan
+
+</details>
+</details>
 
 
 
@@ -742,8 +842,7 @@ Effetti visivi avanzati con mix-blend-mode e text-shadow
 
 
 
-
-
+---
 
 <details>
 <summary><strong>📦 Pacchetti Integrati</strong></summary>
