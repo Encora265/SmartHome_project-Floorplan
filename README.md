@@ -958,7 +958,7 @@ Una card interattiva per il controllo completo dell'impianto di irrigazione con:
 
 <details>
 <summary><strong>⚡ Card — Potenza Istantanea (Gauge Meter)</strong></summary>
-<div style="border-bottom: 1px solid #d0d7de; margin: 4px 0 12px;"></div>
+<div style="width: 40%; margin: 6px auto; border-bottom: 1px solid #d0d7de;"></div>
 
 Questa card mostra la potenza elettrica istantanea dell’abitazione utilizzando una gauge card personalizzata tramite hui-element.
 Il colore dell’indicatore varia progressivamente in base al consumo, offrendo una rappresentazione visiva immediata e intuitiva del carico elettrico attuale.
