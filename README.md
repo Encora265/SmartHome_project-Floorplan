@@ -704,10 +704,13 @@ width: 160%
   <br>
 
   <div align="center">
+    <img src="/www/weather-icons/clear-day.svg" width="10%" alt="tenda">
+    <img src="/www/weather-icons/clear-night.svg" width="10%" alt="tenda">
+    <img src="/www/weather-icons/cloudy.svg" width="10%" alt="tenda">
     <img src="/www/weather-icons/cloudy-day-1.svg" width="10%" alt="tenda">
-    <img src="/www/weather-icons/cloudy-day-1.svg" width="10%" alt="tenda">
-    <img src="/www/weather-icons/cloudy-day-1.svg" width="10%" alt="tenda">
-    <img src="/www/weather-icons/cloudy-day-1.svg" width="10%" alt="tenda">
+    <img src="/www/weather-icons/cloudy-day-2.svg" width="10%" alt="tenda">
+    <img src="/www/weather-icons/cloudy-day-3.svg" width="10%" alt="tenda">
+    <img src="/www/weather-icons/cloudy-night-1.svg" width="10%" alt="tenda">
   </div>
 
 </details>
