@@ -1057,6 +1057,8 @@ Il colore dell’indicatore varia progressivamente in base al consumo, offrendo 
                 width: 150px
                 transform: translate(-50%, -50%)
 ```
+</details>
+
 <details>
   <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
 
