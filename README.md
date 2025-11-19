@@ -507,7 +507,7 @@ width: 160%
 ---
 
 <details>
-<summary><strong>🪟 / 🎚️ Icone Finestre/Tapparelle</strong></summary>
+<summary><strong>🪟 / ![alt text](image.png) Icone Finestre/Tapparelle</strong></summary>
 
 **Esempio completo per una tapparella/lucernario con:**
 
