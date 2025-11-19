@@ -236,7 +236,7 @@ type: image
 <summary><strong>🎨🌈 Luce RGB/CCT</strong></summary>
 <br>
 
-# 🌈 Luce RGB/CCT - Architettura Multi-Layer
+## 🌈 Luce RGB/CCT - Architettura Multi-Layer
 
 - Sistema Multi-Layer per Luci Avanzate (Bianco, CCT, RGB).
 - Questo sistema utilizza 3 layer sovrapposti, ognuno con una funzione specifica:
@@ -360,7 +360,7 @@ width: 160%
 
 </details>
 
-# 🏗️ Architettura del Sistema Multi-Layer
+## 🏗️ Architettura del Sistema Multi-Layer
 
 | Modalità | Layer 1 | Layer 2 | Layer 3 |
 |----------|---------|---------|---------|
@@ -368,7 +368,7 @@ width: 160%
 | **Bianco CCT** | Alta | Media | 0 |
 | **RGB Colorato** | Bassa | 0 | Alta |
 
-# 🎯 Vantaggi dell'Approccio Multi-Layer:
+## 🎯 Vantaggi dell'Approccio Multi-Layer:
 1. 🎨 Gestione separata dei canali Bianco, CCT, RGB
 2. ⚡ Transizioni Fluide: Nessun salto tra modalità colore
 3. 🔧 Precisione Cromatica: Riproduzione fedele di temperature e tonalità
@@ -387,11 +387,11 @@ width: 160%
 
 <details>
 <summary><strong>🧺 / 🍽️ Icone elettrodomestici</strong></summary>
-<hr>
+<br>
 
 **Esempio di configurazione per lavatrice con indicazione stato e consumo**
 
-# Requisiti
+## Requisiti
 | Componente | File | Obbligatorio |
 |------------|------|--------------|
 | **📦packages** | `lavatrice.yaml` | ✅ **SÌ** | per lo script contenuto
@@ -476,7 +476,7 @@ width: 160%
 ```
 </details>
 
-# 🏗️ Architettura della Card Lavatrice
+## 🏗️ Architettura della Card Lavatrice
 
 **Layer 1: Stato On/Off**
 - **Logica Colore**:
@@ -490,7 +490,7 @@ width: 160%
 - Visualizzazione watt attuali in tempo reale
 - Interazione: Tap → toggle, Hold → popup informativo
 
-# 🔄 Logica di Transizione:
+## 🔄 Logica di Transizione:
 
 | Stato | Layer 1 | Layer 2 | Layer 3 |
 |-------|---------|---------|---------|
@@ -500,7 +500,7 @@ width: 160%
 | **Alto consumo** | 🔴 Rosso | Valore Watt | Icona normale |
 | **Acceso senza consumo** | 🔵 Blu | Vuoto | Icona normale |
 
-# 🎯 Vantaggi:
+## 🎯 Vantaggi:
 1. 🎨 Differenziazione visiva in base al consumo reale
 2. ⚡ Informazioni immediate: Stato e wattaggio in un colpo d'occhio
 3. 🔧 Interazione intuitiva: Tap per toggle, hold per popup
@@ -512,7 +512,7 @@ width: 160%
 
 <details>
 <summary><strong>🪟 Finestre/Tapparelle</strong></summary>
-<hr>
+<br>
 
 **Esempio completo per una tapparella/lucernario con:**
 
@@ -618,7 +618,7 @@ width: 160%
 
 </details>
 
-# 🏗️ Architettura della Card Tapparella
+## 🏗️ Architettura della Card Tapparella
 
 **Layer 1: Icona dinamica**
 - Cambia automaticamente:
@@ -636,7 +636,7 @@ width: 160%
 - 100% → completamente aperta
 - "N/D" → se il sensore non è disponibile
 
-# 🔄 Logica di Transizione:**
+## 🔄 Logica di Transizione:**
 
 | Stato | Livello 1 | Livello 2 | Livello 3 |
 |-------|-----------|-----------|-----------|
@@ -658,7 +658,7 @@ width: 160%
 
 <details>
 <summary><strong>🏖️ Icone Tende da sole</strong></summary>
-<hr>
+<br>
 
 **🏖️ Card — Tenda da Sole (Awning Control)**
 
@@ -750,7 +750,7 @@ Mostra lo stato della tenda, la percentuale di apertura e consente il controllo 
 
 </details>
 
-# 🏗️ Architettura della Card Tenda da sole
+## 🏗️ Architettura della Card Tenda da sole
 
 **Layer 1: Colore di stato**
 - 🔴 Rosso → tenda aperta
@@ -779,7 +779,7 @@ Mostra lo stato della tenda, la percentuale di apertura e consente il controllo 
 
 <details>
 <summary><strong>⛅ / ☀️ Card Meteo</strong></summary>
-<hr>
+<br>
 
 **Esempio di configurazione card meteo**
 
@@ -845,7 +845,7 @@ Mostra lo stato della tenda, la percentuale di apertura e consente il controllo 
 
 </details>
 
-# 🌡️ Card Meteo Condizionale
+## 🌡️ Card Meteo Condizionale
 Una card Home Assistant elegante che mostra le condizioni meteorologiche con:
 Icona dinamica che cambia in base allo stato (sole, notte serena, nuvoloso, pioggia)
 Temperatura in tempo reale visualizzata in grande con styling moderno
@@ -853,7 +853,7 @@ Design responsivo con posizionamento preciso al 80-88% della larghezza
 Interattività ottimizzata - visualizzazione pulita senza azioni al tap
 Effetti visivi avanzati con mix-blend-mode e text-shadow
 
-# 🎯Funzionalità chiave:
+## 🎯Funzionalità chiave:
 - Si attiva solo quando weather.casa è disponibile
 - Icone personalizzate nella cartella /local/weather-icons/
 - Stile coerente con font Roboto e colori bilanciati
@@ -864,7 +864,7 @@ Effetti visivi avanzati con mix-blend-mode e text-shadow
 
 <details>
 <summary><strong>💧 / 🚿 Honeycomb irrigazione</strong></summary>
-<hr>
+<br>
 
 **Esempio di configurazione card Honeycomb**
 
@@ -948,13 +948,13 @@ Una card interattiva per il controllo completo dell'impianto di irrigazione con:
 - Tap: Attiva/disattiva tutti i getti
 - Hold: Apre menu contestuale con controllo singoli zone
 
-# 🔧 Controlli Granulari:
+## 🔧 Controlli Granulari:
 - 4 zone irrigazione indipendenti (getti 1-4)
 - Controllo gruppo getti
 - Gestione irrigazione completa
 - Icone tematiche per ogni funzione
 
-# 🎨 Design Innovativo:
+## 🎨 Design Innovativo:
 - Forma geometrica parallelogramma con trasformazioni CSS
 - Posizionamento preciso con rotazione personalizzata
 - Area trasparente clickabile
@@ -966,7 +966,7 @@ Una card interattiva per il controllo completo dell'impianto di irrigazione con:
 
 <details>
 <summary><strong>⚡ Card — Potenza Istantanea (Gauge Meter)</strong></summary>
-<hr>
+<br>
 
 Questa card mostra la potenza elettrica istantanea dell’abitazione utilizzando una gauge card personalizzata tramite hui-element.
 Il colore dell’indicatore varia progressivamente in base al consumo, offrendo una rappresentazione visiva immediata e intuitiva del carico elettrico attuale.
@@ -1117,7 +1117,7 @@ Il colore dell’indicatore varia progressivamente in base al consumo, offrendo 
 
 <details>
 <summary><strong>⚡ Popup elettrodomestici</strong></summary>
-<hr>
+<br>
 
 **Popup specializzato per il monitoraggio e controllo dell'alimentazione del tablet wall-mounted, con sistema di protezione batteria intelligente.**
 <details>
@@ -1133,20 +1133,20 @@ Il colore dell’indicatore varia progressivamente in base al consumo, offrendo 
 
 **NB: I popup elettrodomestici sono script integrati nei rispettivi packages che estendono le funzionalità dell'interfaccia principale, fornendo accesso rapido a controlli avanzati, statistiche dettagliate e strumenti di manutenzione.**
 
-# 🎯 Caratteristiche Principali
+## 🎯 Caratteristiche Principali
 - Script nativi: Tutti i popup sono implementati come script YAML all'interno del package stesso
 - Integrazione completa: Si interfacciano perfettamente con le entità e gli automazioni del sistema
 - Design modulare: Struttura a schede per una navigazione intuitiva
 - Responsive: Adattabili a diverse dimensioni dello schermo
 
-# Contenuti:
+## Contenuti:
 - Stato visivo con animazioni CSS personalizzate
 - Timeline ultimo ciclo (inizio, fine, durata)
 - Metriche economiche (consumo kWh, costo ciclo)
 - Consumo istantaneo con grafico a barre animato
 - Toolbar comandi per accesso rapido alle funzioni
 
-# ⚙️ Popup Impostazioni
+## ⚙️ Popup Impostazioni
 <details>
   <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
 
@@ -1166,7 +1166,7 @@ Accesso: Tramite pulsante "ingranaggio" nel popup principale
 - Monitoraggio stato manutenzioni
 - Reset statistiche totali
 
-# 📊 Popup Statistiche
+## 📊 Popup Statistiche
 Accesso: Tramite pulsante "grafico" nel popup principale
 
 - Scheda riepilogativa: Dati testuali giornalieri/settimanali/mensili/annuali
@@ -1184,7 +1184,7 @@ Accesso: Tramite pulsante "grafico" nel popup principale
 
 </details>
 
-# 🔧 Popup Manutenzione
+## 🔧 Popup Manutenzione
 Accesso: Tramite pulsante "tools" nel popup principale
 <details>
   <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
@@ -1213,7 +1213,7 @@ Accesso: Tramite pulsante "tools" nel popup principale
 
 </details>
 
-# ℹ️ Popup Informazioni
+## ℹ️ Popup Informazioni
 Accesso: Tramite pulsante "info" nel popup principale
 
 - Presenta il package con:
@@ -1239,7 +1239,7 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 <details>
 <summary><strong>👁️ Popup telecamera - Controllo PTZ e AI Integrato</strong></summary>
-<hr>
+<br>
 
 **Popup avanzato con controlli PTZ, streaming live e automazione AI**
 
@@ -1380,18 +1380,18 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 </details>
 
-# 👆 Tap - Popup Controllo Camera
+## 👆 Tap - Popup Controllo Camera
 - **Streaming Live**: Integrazione Frigate Card per video in tempo reale
 - **Controlli PTZ**: 4 direzioni (su, giù, sinistra, destra)
 - **Automazione AI**: Toggle riconoscimento con Google Gemini
 - **Design Responsivo**: Layout ottimizzato mobile/tablet
 
-# 👆 Hold - Controllo Allarme
+## 👆 Hold - Controllo Allarme
 - **Popup Secondario**: Pannello allarme EZVIZ
 - **Stati Allarme**: armed_home e armed_away
 - **Interfaccia Mushroom**: Design moderno
 
-# 🔧 Componenti Integrati:
+## 🔧 Componenti Integrati:
 
 | Componente | Funzione | Custom Card |
 |------------|----------|-------------|
@@ -1406,7 +1406,7 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 <details>
 <summary><strong>🔋 Gestione Alimentazione Tablet</strong></summary>
-<hr>
+<br>
 
 **Popup specializzato per il monitoraggio e controllo dell'alimentazione del tablet wall-mounted, con sistema di protezione batteria intelligente.**
 <details>
@@ -1420,7 +1420,7 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 </details>
 
-# ⚡ Controlli di Alimentazione
+## ⚡ Controlli di Alimentazione
 
 **Gestione Generale**
 - input_boolean.dashboard_general_management: Toggle attivazione/disattivazione sistema
@@ -1435,7 +1435,7 @@ Accesso: Tramite pulsante "info" nel popup principale
 - **Stato Attivo**: input_boolean.dashboard_power_battery_high - attivazione protezione
 - **Sensore Stato**: binary_sensor.dashboard_power_battery_high - rilevamento condizione
 
-# 📊 Monitoraggio Real-time
+## 📊 Monitoraggio Real-time
 
 **Dati Batteria**
 - **Livello Attuale**: sensor.my_wall_panel_battery_level - percentuale batteria in tempo reale
@@ -1446,7 +1446,7 @@ Accesso: Tramite pulsante "info" nel popup principale
 - **Dimensioni Ottimizzate**: 55% width, 2em height per proporzioni bilanciate
 - **Formattazione Clean**: Decimali a 0 con simbolo percentuale
 
-# 🔧 Sistema di Protezione Intelligente
+## 🔧 Sistema di Protezione Intelligente
 
 **Doppia Soglia di Sicurezza**
 - **Protezione Scarica Completa**: Intervento prima che batteria si esaurisca completamente
@@ -1457,10 +1457,10 @@ Accesso: Tramite pulsante "info" nel popup principale
 - **Riavvio Automatico**: Quando batteria recupera sufficiente carica
 - **Notifiche Alert**: Avvisi per interventi manuali quando necessario
 
-# 💡 Vantaggi del Sistema
+## 💡 Vantaggi del Sistema
 
 **Prolungamento Vita Batteria**
-- Carica Ottimizzata**: Evita cicli di carica/scarica completi
+- **Carica Ottimizzata**: Evita cicli di carica/scarica completi
 
 **Affidabilità Operativa**
 - **Zero Downtime**: Tablet sempre operativo quando necessario
@@ -1472,7 +1472,7 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 <details>
 <summary><strong>💡 Popup: Controllo Luci Esterne</strong></summary>
-<hr>
+<br>
 
 <details>
   <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
@@ -1487,7 +1487,7 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 **Popup dedicato al controllo completo e monitoraggio del sistema di illuminazione esterna, combinando controllo manuale immediato con gestione programmazione automatica.**
 
-# 🎨 Design e Animazioni Avanzate
+## 🎨 Design e Animazioni Avanzate
 
 **Effetti Visivi Premium**
 - **Glass Morphism Avanzato**: backdrop-filter: blur(16px) brightness(0.9) per effetto vetro professionale
@@ -1499,7 +1499,7 @@ Accesso: Tramite pulsante "info" nel popup principale
 - **Transizioni Morbide**: 0.4s duration per esperienza utente premium
 - **Keyframes Personalizzati**: Effetto "material design" avanzato
 
-# 📊 Sezione Monitoraggio
+## 📊 Sezione Monitoraggio
 
 **Entità Principali**
 - **light.luci_esterne**: Stato luce con last-changed per ultima modifica
@@ -1511,7 +1511,7 @@ Accesso: Tramite pulsante "info" nel popup principale
 - **automation.spegnimento_luci_esterne_orario_programmato**: Disattivazione orario fisso
 - **automation.accensione_luci_esterne_tramonto**: Attivazione sincronizzata tramonto
 
-# 🎮 Controlli Manuali Intelligenti
+## 🎮 Controlli Manuali Intelligenti
 
 **Pulsante Accensione**
 - **Icona**: mdi:lightbulb-on - chiara identificazione visiva
@@ -1531,7 +1531,7 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 <details>
 <summary><strong>🕹️ Popup: Controllo Tende/Velux/tapparelle</strong></summary>
-<hr>
+<br>
 
 <details>
   <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
@@ -1546,7 +1546,7 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 **Popup completamente trasparente che sovrappone un dropdown di selezione direttamente su un'immagine di sfondo, creando un'interfaccia immersiva e contestuale per il controllo delle tende.**
 
-# 🎨 Design Trasparente Avanzato
+## 🎨 Design Trasparente Avanzato
 
 **Rimozione Completa dello Sfondo**
 - **Eliminazione Ombre**: box-shadow: none per rimuovere ogni effetto di elevazione
@@ -1557,7 +1557,7 @@ Accesso: Tramite pulsante "info" nel popup principale
 - **Elementi Sovrapposti**: Positioning assoluto per integrazione perfetta
 - **Z-index Ottimizzato**: 10 per garantire visibilità sopra l'immagine
 
-# 💡 Caso d'Uso Innovativo
+## 💡 Caso d'Uso Innovativo
 
 **Controllo Tendine Immersivo**
 - **Selezione Visuale**: L'utente vede l'immagine della situazione reale
@@ -1577,7 +1577,7 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 <details>
 <summary><strong>⚡ Packages elettrodomestici</strong></summary>
-<hr>
+<br>
 
 **Nella repository sono presenti i seguenti packages per il monitoraggio di elettrodomestici tradizionali**
 
@@ -1599,11 +1599,11 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 **Funzionalità comuni:** 📊 Monitoraggio consumi • 💰 Calcolo costi • 🔔 Notifiche • 🔧 Manutenzione predittiva
 
-# 🏗️ Architettura uniforme
+## 🏗️ Architettura uniforme
 
 Tutti i packages condividono la stessa struttura base e funzionalità, adattate per diversi elettrodomestici. Il sistema monitora dispositivi tradizionali attraverso prese intelligenti che tracciano esclusivamente i consumi energetici.
 
-# ⚙️ Funzionalità Comuni a Tutti i Packages
+## ⚙️ Funzionalità Comuni a Tutti i Packages
 
 **Monitoraggio Base**
 - **Rilevamento Attività**: Identificazione accensione/spegnimento tramite soglie di consumo
@@ -1622,7 +1622,7 @@ Tutti i packages condividono la stessa struttura base e funzionalità, adattate 
 - Notifiche Manutenzione (basate su numero di cicli)
 - Configurazione Flessibile (push, vocali, toggle)
 
-# 🔄 Differenze Minime tra Packages
+## 🔄 Differenze Minime tra Packages
 
 Le uniche differenze sono:
 - Soglie di Consumo personalizzate per ogni elettrodomestico
@@ -1630,7 +1630,7 @@ Le uniche differenze sono:
 - Nomi Entity e label personalizzate
 - Icone e Temi visivi differenti
 
-# 💡 Valore Aggiunto
+## 💡 Valore Aggiunto
 
 Nonostante la semplicità del concetto, l'implementazione offre:
 - Consapevolezza Energetica dettagliata
@@ -1644,7 +1644,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 
 <details>
 <summary><strong>⏰ Package: Sistema Sveglie Personalizzate</strong></summary>
-<hr>
+<br>
 
 **Sistema di sveglie avanzato che permette a più utenti di avere sveglie completamente personalizzabili con giorni della settimana selezionabili individualmente.**
 <details>
@@ -1658,28 +1658,28 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 
 </details>
 
-# 👥 Gestione Multi-Utente
+## 👥 Gestione Multi-Utente
 
 **Profilo utenti**
 - **Orario Sveglia**: input_datetime.sveglia_francesca_ora
 - **Attivazione Globale**: input_boolean.sveglia_francesca_attiva
 - **Giorni Attivi**: Toggle separati per ogni giorno della settimana
 
-# 📅 Sistema Giorni della Settimana
+## 📅 Sistema Giorni della Settimana
 
 **Configurazione Flessibile**
 - **7 Toggle per Utente**: Controllo indipendente per ogni giorno
 - **Nomi Localizzati**: Lunedì, Martedì, Mercoledì, etc.
 - **Combinazioni Libere**: Possibilità di selezionare qualsiasi combinazione di giorni
 
-# 🎵 Sistema di Allarme Musicale
+## 🎵 Sistema di Allarme Musicale
 
 **Riproduzione Media**
 - **File Locali**: Riproduzione da media_source/local/
 - **Brani Personalizzati** come sveglia
 - **Dispositivo Target**: media_player.mansarda per la riproduzione
 
-# 🎛️ Caratteristiche Avanzate
+## 🎛️ Caratteristiche Avanzate
 
 **Indipendenza dei Profili**
 - **Orari Separati**: Ogni utente può avere orari diversi
@@ -1691,7 +1691,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 - **now().weekday()**: Integrazione con il sistema datetime di Home Assistant
 - **Dynamic Entity Names**: Costruzione dinamica dei nomi delle entity
 
-# 💡 Vantaggi del Sistema
+## 💡 Vantaggi del Sistema
 
 **Flessibilità Totale**
 - **Orari Personalizzabili**: Modifica rapida degli orari di sveglia
@@ -1721,7 +1721,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 
 <details>
 <summary><strong>🌟 Pulsanti SIDEBAR</strong></summary>
-<hr>
+<br>
 
 **I pulsanti della dashboard rappresentano l'essenza dell'approccio "Beautifully Organized" - combinano estetica premium con funzionalità avanzate, creando un'esperienza utente coerente e memorabile.**
 
@@ -1831,7 +1831,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 
 </details>
 
-# 🎨 Caratteristiche Design Avanzate
+## 🎨 Caratteristiche Design Avanzate
 
 **Glass Morphism Moderno**
 - **Effetto Vetro Smerigliato**: backdrop-filter: blur(10px) per profondità visiva
@@ -1844,7 +1844,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 - **Blur Controllato**: 6px per bordo netto ma morbido
 - **Background Scuro**: Contrasto perfetto per leggibilità
 
-# 🎮 Interazione e Usabilità
+## 🎮 Interazione e Usabilità
 
 **Layout Ottimizzato**
 - **Flexbox Precisione**: Allineamento orizzontale perfetto
@@ -1858,7 +1858,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 - **Consistenza**: Stile uniforme across tutti i pulsanti
 - **Performance**: Animazioni smooth senza lag
 
-# 💡 Valore Aggiunto
+## 💡 Valore Aggiunto
 - **First Impression**: Impatto visivo immediato e professionale
 - **Intuitività**: Icone e label auto-esplicative
 - **Engagement**: Animazioni che invitano all'interazione
@@ -1870,7 +1870,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 
 <details>
 <summary><strong>🌀 Ventilatore intelligente</strong></summary>
-<hr>
+<br>
 
 **Integrazione di un ventilatore animato direttamente nel floorplan che combina visualizzazione real-time con controlli contestuali avanzati, creando un'interazione fisica virtuale unica.**
 
@@ -1946,7 +1946,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 
 </details>
 
-# ✨ Animazioni Dinamiche Avanzate
+## ✨ Animazioni Dinamiche Avanzate
 
 **Rotazione Realistica**
 - **Animazione Fluida**: Rotazione 360° continua e naturale
@@ -1959,7 +1959,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 - **Velocità Bassa**: Animazione più lenta (maggiore duration)
 - **Range Ottimizzato**: Da 0.5s (massima velocità) a 3s (minima velocità)
 
-# 🎮 Sistema di Interazione Multi-Livello
+## 🎮 Sistema di Interazione Multi-Livello
 
 **Tap Action - Toggle Rapido**
 - **One-Click Control**: Accensione/spegnimento immediato
@@ -1974,7 +1974,7 @@ Nonostante la semplicità del concetto, l'implementazione offre:
   - Oscillazione: Toggle movimento orizzontale
   - Interfaccia Nativa: Integrazione seamless con HA
 
-# 🎨 Design e Visual Design
+## 🎨 Design e Visual Design
 
 **Stato Visivo Dinamico**
 - **Opacità Contestuale**: 0.3 per integrazione discreta nel floorplan
