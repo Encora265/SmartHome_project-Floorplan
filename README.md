@@ -648,13 +648,16 @@ width: 160%
 <details>
 <summary><strong>🪟 / 🎚️ Icone Tende da sole</strong></summary>
 
-**Esempio completo per una tenda da sole con:**
+**🏖️ Card — Tenda da Sole (Awning Control)**
 
-- 🎨 **Icone colorate** in tempo reale (rosso/verde/giallo/grigio)
-- 📊 **Percentuale live** con indicatori di direzione (▲/▼/✔)
-- 👆 **Interazioni**: Tap per toggle, Hold per popup avanzato
-- 🔄 **Aggiornamento fluido** ogni 500ms
-- 🎯 **Posizionamento assoluto** per layout personalizzati
+Questa card gestisce la tenda da sole a bracci all’interno del floorplan.
+Mostra lo stato della tenda, la percentuale di apertura e consente il controllo diretto tramite tap/hold.
+
+# Requisiti
+| Componente | File | Obbligatorio |
+|------------|------|--------------|
+| **📦packages/tende.yaml** | `tende.yaml` | ✅ **SÌ** |
+| **🎪popup/tende.yaml** | `ui_lovelace.yaml` | ❌ Opzionale |
 
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
@@ -734,14 +737,10 @@ width: 160%
   </div>
 
 </details>
-# 🏗️ Architettura della Card Tapparella
 
-**Layer 1: Icona dinamica**
-- Cambia automaticamente:
-  - mdi:window-shutter → chiusa / chiusura
-  - mdi:window-shutter-open → aperta / apertura
+# 🏗️ Architettura della Card Tenda da sole
 
-**Layer 2: Colore di stato**
+**Layer 1: Colore di stato**
 - 🔴 Rosso → tenda aperta
 - 🟡 Giallo → in apertura
 - 🟢 Verde → in chiusura
