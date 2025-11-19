@@ -642,7 +642,6 @@ width: 160%
 - Riutilizzabile per qualunque tapparella/tenda/velux
 
 </details>
-</details>
 
 ---
 
@@ -663,7 +662,7 @@ width: 160%
 ```yaml
             ######### TENDA DA SOLE #########
             #📦 Required Packages tende.yaml#
-            
+
             - type: conditional
               conditions:
                 - entity: cover.tenda_a_bracci_virtual
