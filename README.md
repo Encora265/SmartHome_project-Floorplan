@@ -953,7 +953,6 @@ Una card interattiva per il controllo completo dell'impianto di irrigazione con:
 - Stile invisibile che si integra nel floorplan
 
 </details>
-</details>
 
 ---
 
@@ -1058,6 +1057,17 @@ Il colore dell’indicatore varia progressivamente in base al consumo, offrendo 
                 width: 150px
                 transform: translate(-50%, -50%)
 ```
+<details>
+  <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
+
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/potenza.png" width="35%" alt="potenza">
+  </div>
+
+</details>
+
 ## 📊 Gauge dinamica
 
 - Scala da 0 a 3500 W
