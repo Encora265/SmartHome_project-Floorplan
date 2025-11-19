@@ -391,13 +391,7 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 <summary><strong>🧺 / 🍽️ Icone elettrodomestici</strong></summary>
 <br>
 
-**Esempio di configurazione per lavatrice con indicazione stato e consumo**
-
-## Requisiti
-| Componente | File | Obbligatorio |
-|------------|------|--------------|
-| **📦packages** | `lavatrice.yaml` | ✅ **SÌ** | per lo script contenuto
-
+**Esempio di configurazione icona lavatrice con indicazione di stato e consumo**
 
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
@@ -476,6 +470,20 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
         top: 34.0%
         left: 76.5%
 ```
+</details>
+
+<details>
+  <summary><strong>▶️ REQUISITI</strong></summary>
+
+| Componente | File | Obbligatorio |
+|------------|------|--------------|
+| **📦 packages** | `lavatrice.yaml` | ✅ SÌ |
+| **🎨 Card custom** | `custom:mushroom-chips-card` | ✅ SÌ |
+| **🎨 Card custom** | `custom:button-card` | ✅ SÌ |
+| **🎨 Card custom** | `card-mod` | ✅ SÌ |
+
+  </div>
+
 </details>
 
 ## 🏗️ Architettura della Card Lavatrice
