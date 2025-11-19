@@ -215,7 +215,7 @@ type: image
 
 </details>
 
-# Caratteristiche Avanzate:
+## Caratteristiche Avanzate:
 
 - 🎛️ Temperatura Colore Dinamica: Convertie Kelvin (2000K-6500K) in filtri CSS
 - 💡 Luminosità Reale: Opacity proporzionale al brightness della luce
@@ -238,14 +238,8 @@ type: image
 
 ## 🌈 Luce RGB/CCT - Architettura Multi-Layer
 
-- Sistema Multi-Layer per Luci Avanzate (Bianco, CCT, RGB).
-- Questo sistema utilizza 3 layer sovrapposti, ognuno con una funzione specifica:
+**Sistema Multi-Layer per Luci Avanzate (Bianco, CCT, RGB).**
 
-- Layer 1 – Bianco Base (Brightness)
-- Layer 2 – CCT (Temperatura Colore)
-- Layer 3 – RGB (Colorazione)
-
-Permette transizioni perfette tra modalità bianca, CCT e RGB.
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
 
@@ -359,6 +353,14 @@ width: 160%
   </div>
 
 </details>
+
+**- Questo sistema utilizza 3 layer sovrapposti, ognuno con una funzione specifica:**
+
+- Layer 1 – Bianco Base (Brightness)
+- Layer 2 – CCT (Temperatura Colore)
+- Layer 3 – RGB (Colorazione)
+
+Permette transizioni perfette tra modalità bianca, CCT e RGB.
 
 ## 🏗️ Architettura del Sistema Multi-Layer
 
@@ -646,7 +648,7 @@ width: 160%
 | **Aperta** | 🪟 Icona aperta | 🔴 Rosso | Icona normale |
 | **N/D** | 🪟 Icona neutra | ⚪ Grigio | N/D |
 
-# 🎯 Vantaggi:
+## 🎯 Vantaggi:
 - Monitoraggio immediato dello stato e del movimento
 - Colori chiari e coerenti
 - Perfetta integrazione nei floorplan
@@ -660,12 +662,10 @@ width: 160%
 <summary><strong>🏖️ Icone Tende da sole</strong></summary>
 <br>
 
-**🏖️ Card — Tenda da Sole (Awning Control)**
+**Questa card gestisce la tenda da sole a bracci all’interno del floorplan.**
+**Mostra lo stato della tenda, la percentuale di apertura e consente il controllo diretto tramite tap/hold.**
 
-Questa card gestisce la tenda da sole a bracci all’interno del floorplan.
-Mostra lo stato della tenda, la percentuale di apertura e consente il controllo diretto tramite tap/hold.
-
-# Requisiti
+## Requisiti
 | Componente | File | Obbligatorio |
 |------------|------|--------------|
 | **📦packages/tende.yaml** | `tende.yaml` | ✅ **SÌ** |
@@ -1126,7 +1126,7 @@ Il colore dell’indicatore varia progressivamente in base al consumo, offrendo 
   <br>
 
   <div align="center">
-    <img src="/www/repo/carica.png" width="35%" alt="carica">
+    <img src="/www/repo/lavatrice.png" width="35%" alt="popup">
   </div>
 
 </details>
