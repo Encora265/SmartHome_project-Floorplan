@@ -957,77 +957,6 @@ Una card interattiva per il controllo completo dell'impianto di irrigazione con:
 ---
 
 <details>
-<summary><strong>📦 Pacchetti Integrati</strong></summary>
-
----
-
-<details>
-<summary><strong>⚡ Packages elettrodomestici</strong></summary>
-
-**Nella repository sono presenti i seguenti packages per il monitoraggio di elettrodomestici tradizionali**
-
-<div align="center">
-  <img src="/www/elettrodomestici/lavatrice_on.gif" width="30%" alt="🧺 Lavatrice">
-  <img src="/www/elettrodomestici/asciugatrice_on.gif" width="30%" alt="🌬️ Asciugatrice">
-</div>
-<div align="center">
-  <img src="/www/elettrodomestici/lavastoviglie_on.gif" width="30%" alt="🍽️ Lavastoviglie">
-  <img src="/www/elettrodomestici/forno_on.gif" width="30%" alt="🔥 Forno">
-</div>
-
-| Icona | Elettrodomestico | Monitoraggio |
-|-------|------------------|-------------|
-| 🧺 | **Lavatrice** | Consumi • Costi • Cicli • Durata |
-| 🌬️ | **Asciugatrice** | Consumi • Costi • Cicli • Durata |
-| 🔥 | **Forno** | Consumi • Costi • Cicli • Durata |
-| 🍽️ | **Lavastoviglie** | Consumi • Costi • Cicli • Durata |
-
-**Funzionalità comuni:** 📊 Monitoraggio consumi • 💰 Calcolo costi • 🔔 Notifiche • 🔧 Manutenzione predittiva
-
-# 🏗️ Architettura uniforme
-
-Tutti i packages condividono la stessa struttura base e funzionalità, adattate per diversi elettrodomestici. Il sistema monitora dispositivi tradizionali attraverso prese intelligenti che tracciano esclusivamente i consumi energetici.
-
-# ⚙️ Funzionalità Comuni a Tutti i Packages
-
-**Monitoraggio Base**
-- **Rilevamento Attività**: Identificazione accensione/spegnimento tramite soglie di consumo
-- **Tracciamento Cicli**: Durata e frequenza degli utilizzi
-- **Consumo Energetico**: Monitoraggio wattaggio e calcolo kWh
-- **Calcolo Costi**: Conversione automatica consumo → costo
-
-**Statistiche e Metriche**
-- Utilizzi Giornalieri/Settimanali/Mensili
-- Consumi Periodici e relativi costi
-- Durata Media dei cicli
-- Totale Cicli dall'installazione
-
-**Sistema Notifiche**
-- Alert Fine Ciclo
-- Notifiche Manutenzione (basate su numero di cicli)
-- Configurazione Flessibile (push, vocali, toggle)
-
-# 🔄 Differenze Minime tra Packages
-
-Le uniche differenze sono:
-- Soglie di Consumo personalizzate per ogni elettrodomestico
-- Intervalli Manutenzione specifici per tipo di dispositivo
-- Nomi Entity e label personalizzate
-- Icone e Temi visivi differenti
-
-# 💡 Valore Aggiunto
-
-Nonostante la semplicità del concetto, l'implementazione offre:
-- Consapevolezza Energetica dettagliata
-- Manutenzione Predittiva basata sull'utilizzo
-- Automazione Notifiche contestuali
-- Tracking Storico per ottimizzazioni
-
-</details>
-
----
-
-<details>
 <summary><strong>🎪 Finestre popup integrate</strong></summary>
 
 ---
@@ -1481,6 +1410,77 @@ Accesso: Tramite pulsante "info" nel popup principale
 ---
 
 <details>
+<summary><strong>📦 Pacchetti Integrati</strong></summary>
+
+---
+
+<details>
+<summary><strong>⚡ Packages elettrodomestici</strong></summary>
+
+**Nella repository sono presenti i seguenti packages per il monitoraggio di elettrodomestici tradizionali**
+
+<div align="center">
+  <img src="/www/elettrodomestici/lavatrice_on.gif" width="30%" alt="🧺 Lavatrice">
+  <img src="/www/elettrodomestici/asciugatrice_on.gif" width="30%" alt="🌬️ Asciugatrice">
+</div>
+<div align="center">
+  <img src="/www/elettrodomestici/lavastoviglie_on.gif" width="30%" alt="🍽️ Lavastoviglie">
+  <img src="/www/elettrodomestici/forno_on.gif" width="30%" alt="🔥 Forno">
+</div>
+
+| Icona | Elettrodomestico | Monitoraggio |
+|-------|------------------|-------------|
+| 🧺 | **Lavatrice** | Consumi • Costi • Cicli • Durata |
+| 🌬️ | **Asciugatrice** | Consumi • Costi • Cicli • Durata |
+| 🔥 | **Forno** | Consumi • Costi • Cicli • Durata |
+| 🍽️ | **Lavastoviglie** | Consumi • Costi • Cicli • Durata |
+
+**Funzionalità comuni:** 📊 Monitoraggio consumi • 💰 Calcolo costi • 🔔 Notifiche • 🔧 Manutenzione predittiva
+
+# 🏗️ Architettura uniforme
+
+Tutti i packages condividono la stessa struttura base e funzionalità, adattate per diversi elettrodomestici. Il sistema monitora dispositivi tradizionali attraverso prese intelligenti che tracciano esclusivamente i consumi energetici.
+
+# ⚙️ Funzionalità Comuni a Tutti i Packages
+
+**Monitoraggio Base**
+- **Rilevamento Attività**: Identificazione accensione/spegnimento tramite soglie di consumo
+- **Tracciamento Cicli**: Durata e frequenza degli utilizzi
+- **Consumo Energetico**: Monitoraggio wattaggio e calcolo kWh
+- **Calcolo Costi**: Conversione automatica consumo → costo
+
+**Statistiche e Metriche**
+- Utilizzi Giornalieri/Settimanali/Mensili
+- Consumi Periodici e relativi costi
+- Durata Media dei cicli
+- Totale Cicli dall'installazione
+
+**Sistema Notifiche**
+- Alert Fine Ciclo
+- Notifiche Manutenzione (basate su numero di cicli)
+- Configurazione Flessibile (push, vocali, toggle)
+
+# 🔄 Differenze Minime tra Packages
+
+Le uniche differenze sono:
+- Soglie di Consumo personalizzate per ogni elettrodomestico
+- Intervalli Manutenzione specifici per tipo di dispositivo
+- Nomi Entity e label personalizzate
+- Icone e Temi visivi differenti
+
+# 💡 Valore Aggiunto
+
+Nonostante la semplicità del concetto, l'implementazione offre:
+- Consapevolezza Energetica dettagliata
+- Manutenzione Predittiva basata sull'utilizzo
+- Automazione Notifiche contestuali
+- Tracking Storico per ottimizzazioni
+
+</details>
+
+---
+
+<details>
 <summary><strong>⏰ Package: Sistema Sveglie Personalizzate</strong></summary>
 
 **Sistema di sveglie avanzato che permette a più utenti di avere sveglie completamente personalizzabili con giorni della settimana selezionabili individualmente.**
@@ -1824,5 +1824,3 @@ Accesso: Tramite pulsante "info" nel popup principale
 </details>
 
 </details>
-
----
