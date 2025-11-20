@@ -924,14 +924,14 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 
   <div align="center">
     <img src="/www/weather-icons/wind.svg" width="10%" alt="tenda">
-    <img src="/www/weather-icons/clear-night.svg" width="8%" alt="tenda">
+    <img src="/www/weather-icons/clear-night.svg" width="10%" alt="tenda">
     <img src="/www/weather-icons/cloudy.svg" width="12%" alt="tenda">
     <img src="/www/weather-icons/rain.svg" width="10%" alt="tenda">
     <img src="/www/weather-icons/sleet.svg" width="10%" alt="tenda">
     <img src="/www/weather-icons/snow.svg" width="10%" alt="tenda">
-    <img src="/www/weather-icons/cloudy-night-1.svg" width="10%" alt="tenda">
-    <img src="/www/weather-icons/day.svg" width="10%" alt="tenda">
-    <img src="/www/weather-icons/night.svg" width="10%" alt="tenda">
+    <img src="/www/weather-icons/cloudy-night-1.svg" width="15%" alt="tenda">
+    <img src="/www/weather-icons/day.svg" width="15%" alt="tenda">
+    <img src="/www/weather-icons/night.svg" width="15%" alt="tenda">
     <img src="/www/weather-icons/fog.svg" width="10%" alt="tenda">
   </div>
 
@@ -1021,13 +1021,31 @@ Effetti visivi avanzati con mix-blend-mode e text-shadow
                 # border: 1px solid red 
 ```
 </details>
+
+<details>
+  <summary><strong>🛠️ REQUISITI</strong></summary>
+
+| Componente                   | File / Entità                      | Obbligatorio |
+| ---------------------------- | ---------------------------------- | ------------ |
+| 🟢 Entità gruppo irrigazione | `switch.irrigazione_group`         | ✅            |
+| 💧 Getti irrigazione         | `switch.getti_group`               | ✅            |
+| 🌿 Settori individuali       | `switch.sonoff_1000162117_1-4`     | ⚠️           |
+| 🧩 Integrazione              | `browser_mod`                      | ✅            |
+| 🐝 Honeycomb Menu            | Configurazione browser_mod         | ⚠️           |
+| 🖼️ Immagine base            | `/local/floorplan/transparent.png` | ⚠️           |
+| 🧩 Custom card               | Nessuna                            | ❌            |
+
+  </div>
+
+</details>
+
 <details>
   <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
 
   <br>
 
   <div align="center">
-    <img src="/www/weather-icons/clear-day.svg" width="8%" alt="tenda">
+    <img src="/www/repo/honeycomb.gif" width="8%" alt="tenda">
 
   </div>
 
