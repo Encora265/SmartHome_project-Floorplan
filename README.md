@@ -189,6 +189,7 @@ type: image
 </details>
 
 </details>
+</details>
 
 ---
 
