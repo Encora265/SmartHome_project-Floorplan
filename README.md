@@ -688,7 +688,7 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
   <br>
 
   <div align="center">
-    <img src="/www/repo/tenda.gif" width="35%" alt="tenda">
+    <img src="/www/repo/tapparella.gif" width="35%" alt="tenda">
   </div>
 
 </details>
