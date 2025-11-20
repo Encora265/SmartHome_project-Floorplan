@@ -164,6 +164,18 @@ tap_action:
 action: none
 type: image
 ```
+</details>
+
+<details>
+  <summary><strong>🛠️ REQUISITI</strong></summary>
+
+| Componente                | File / Entità                          | Obbligatorio |
+| ------------------------- | -------------------------------------- | ------------ |
+| **📝 Entità YAML**        | `light.luce_tavolo`              | ✅ SÌ         |
+| **📄 Immagini**           | `/local/floorplan/terra/p0_tavolo.png` | ✅ SÌ         |
+| **🎨 Card nativa**        | `type: image`                          | ✅ SÌ         |
+
+  </div>
 
 </details>
 
@@ -212,6 +224,18 @@ type: image
     action: none
   type: image
 ```
+</details>
+
+<details>
+  <summary><strong>🛠️ REQUISITI</strong></summary>
+
+| Componente                | File / Entità                          | Obbligatorio |
+| ------------------------- | -------------------------------------- | ------------ |
+| **📝 Entità YAML**        | `light.cucina_windcalm_2`              | ✅ SÌ         |
+| **📄 Immagini**           | `/local/floorplan/terra/p0_cucina.png` | ✅ SÌ         |
+| **🎨 Card nativa**        | `type: image`                          | ✅ SÌ         |
+
+  </div>
 
 </details>
 
@@ -349,6 +373,7 @@ width: 160%
 
 | Componente                | File / Entità                                | Obbligatorio |
 | ------------------------- | -------------------------------------------- | ------------ |
+| **📝 Entità YAML**        | `light.parentesi_group`                      | ✅ SÌ         |
 | **📄 Immagini**           | `/local/floorplan/terra/p0_parentesi.png`    | ✅ SÌ         |
 | **📄 Immagini**           | `/local/floorplan/terra/p0_parentesirgb.png` | ✅ SÌ         |
 | **📄 Immagini**           | `/local/floorplan/transparent.png`           | ✅ SÌ         |
@@ -492,6 +517,8 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 
 | Componente | File | Obbligatorio |
 |------------|------|--------------|
+| **📝 Entità YAML** | `sensor.sonoff_1001d8e7f6_power_1` | ✅ SÌ         |
+| **📦 packages** | `lavatrice.yaml` | ✅ SÌ |
 | **📦 packages** | `lavatrice.yaml` | ✅ SÌ |
 | **🎨 Card custom** | `custom:mushroom-chips-card` | ✅ SÌ |
 | **🎨 Card custom** | `custom:button-card` | ✅ SÌ |
