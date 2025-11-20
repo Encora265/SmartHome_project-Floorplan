@@ -10,7 +10,7 @@ L'obiettivo è creare un controllo immediato e intuitivo dell'intera casa: luci,
 
 ## 🎥 Dimostrazione
 
-[![Demo Floorplan](\www\repo)](https://www.youtube.com/watch?v=25UP5QQ9EAA&t=355s)
+[![Demo Floorplan] (/www/repo/demo.gif)](https://www.youtube.com/watch?v=25UP5QQ9EAA&t=355s)
 
 > ⚠️ Nota: alcune funzionalità mostrate nel video potrebbero differire leggermente dalla versione attuale del repository.
 
@@ -2581,5 +2581,63 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 - **Smooth Operations**: Nessun jump o reset durante cambi di stato
 
 </details>
+</details>
 
+---
+
+<details>
+<summary><strong>🚧 Progetti Futuri</strong></summary>
+
+---
+
+<details>
+<summary><strong>🏠 3D Floorplan Card</strong></summary>
+<br>
+
+Uno dei miei obiettivi più ambiziosi è l'implementazione di una Floorplan 3D interattiva per la gestione completa della casa smart. Questo progetto è attualmente in fase di pianificazione e verrà realizzato non appena l'hardware a mia disposizione lo permetterà.
+
+📋 Prerequisiti Necessari:
+🖥️ Hardware più potente per gestire rendering 3D
+
+🎨 Software di modellazione 3D per creare il floorplan
+
+🔌 Sensori aggiuntivi per tracking preciso room-by-room
+
+📡 Maggiore potenza di calcolo per elaborazione in tempo reale
+
+💡 Funzionalità Previste:
+Visualizzazione 3D realistica dell'intera abitazione
+
+Controlli interattivi direttamente sul modello 3D
+
+Tracking in tempo reale di persone e dispositivi
+
+Overlay informazioni su stati dispositivi e sensori
+
+Animazioni fluide per transizioni e cambiamenti stato
+
+</details>
+
+---
+
+<details>
+<summary><strong>🏗️ Floorplan 3D “Wireframe Project”</strong></summary>
+<br>
+
+**Un approccio minimalista e futuristico alla visualizzazione della smart home, dove l'essenziale diventa estetico. Il wireframe non è solo una limitazione tecnica, ma una scelta di design consapevole che valorizza la struttura e le connessioni.**
+
+<details>
+Un approccio minimalista e futuristico alla visualizzazione della smart home, dove l'essenziale diventa estetico. Il wireframe non è solo una limitazione tecnica, ma una scelta di design consapevole che valorizza la struttura e le connessioni.
+
+<div align="center">
+  <img src="/www/repo/www/wireframe.png" width="30%" alt="🧺 Lavatrice">
+
+## ✨ Estetica Wireframe:
+
+- 🔷 Linee pulite e geometrie essenziali
+- 🎨 Palette colori cyberpunk (blu neon, verdi elettrici)
+- ✨ Effetti glow sugli elementi attivi
+- 🔳 Contrasto alto per massima leggibilità
+
+</details>
 </details>
