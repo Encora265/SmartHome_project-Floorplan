@@ -342,6 +342,20 @@ left: 45.00%
 top: 70.00%
 width: 160%
 ```
+<details>
+  <summary><strong>🛠️ REQUISITI</strong></summary>
+
+| Componente                | File / Entità                                | Obbligatorio |
+| ------------------------- | -------------------------------------------- | ------------ |
+| **📄 Immagini**           | `/local/floorplan/terra/p0_parentesi.png`    | ✅ SÌ         |
+| **📄 Immagini**           | `/local/floorplan/terra/p0_parentesirgb.png` | ✅ SÌ         |
+| **📄 Immagini**           | `/local/floorplan/transparent.png`           | ✅ SÌ         |
+| **🎨 Card nativa**        | `type: image`                                | ✅ SÌ         |
+
+  </div>
+
+</details>
+
 </details>
 <details>
   <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
@@ -473,7 +487,7 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 </details>
 
 <details>
-  <summary><strong>▶️ REQUISITI</strong></summary>
+  <summary><strong>🛠️ REQUISITI</strong></summary>
 
 | Componente | File | Obbligatorio |
 |------------|------|--------------|
