@@ -176,7 +176,7 @@ type: image
 | **🎨 Card nativa**        | `type: image`                          | ✅ SÌ         |
 
   </div>
-
+</details>
 <details>
   <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
 
@@ -255,7 +255,7 @@ type: image
   <br>
 
   <div align="center">
-    <img src="/www/repo/cct.gif" width="35%" alt="rgb">
+    <img src="/www/repo/cct.gif" width="50%" alt="rgb">
   </div>
 
 </details>
