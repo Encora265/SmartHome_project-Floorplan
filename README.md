@@ -10,7 +10,7 @@ L'obiettivo è creare un controllo immediato e intuitivo dell'intera casa: luci,
 
 ## 🎥 Dimostrazione
 
-[![Demo Floorplan](https://github.com/Encora265/SmartHome_project-Floorplan/blob/main/demo.gif)](https://www.youtube.com/watch?v=25UP5QQ9EAA&t=355s)
+[![Demo Floorplan](\www\repo)](https://www.youtube.com/watch?v=25UP5QQ9EAA&t=355s)
 
 > ⚠️ Nota: alcune funzionalità mostrate nel video potrebbero differire leggermente dalla versione attuale del repository.
 
@@ -1239,6 +1239,163 @@ Il colore dell’indicatore varia progressivamente in base al consumo, offrendo 
 - evitare sovraccarichi
 - verificare l’attivazione di elettrodomestici energivori
 - accedere rapidamente alla dashboard energetica di Home Assistant
+
+</details>
+
+---
+
+<details>
+<summary><strong>🧹 Card Controllo Roborock per Home Assistant</strong></summary>
+<br>
+
+**Una card personalizzata per il controllo avanzato dell'aspirapolvere Roborock Q8 Max in Home Assistant, con interfaccia visiva interattiva e mappa integrata.**
+
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
+
+```yaml
+            ######### ROBOROCK ##########
+              
+            - type: image
+              entity: vacuum.roborock_q8_max
+              state_image:
+                "idle": /local/floorplan/roborock/roborockstop.gif
+                "docked": /local/floorplan/roborock/roborockstop.gif
+                "paused": /local/floorplan/roborock/roborockstop.gif
+                "cleaning": /local/floorplan/roborock/roborock_move.gif
+                "returning": /local/floorplan/roborock/roborock_move.gif
+              tap_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:mushroom-vacuum-card
+                      entity: vacuum.roborock_q8_max
+                      icon_animation: true
+                      layout: horizontal
+                      commands:
+                        - start_pause
+                        - on_off
+                        - return_home
+                        - stop
+                      fill_container: true
+              hold_action:
+                action: fire-dom-event
+                browser_mod:
+                  service: browser_mod.popup
+                  popup_anchor: true
+                  data:
+                    dismissable: true
+                    size: normal
+                    content:
+                      type: custom:xiaomi-vacuum-map-card
+                      map_source:
+                        camera: camera.roborock_q8_max_map
+                      calibration_source:
+                        camera: true
+                      entity: vacuum.roborock_q8_max
+                      vacuum_platform: default
+                      map_locked: true
+                      two_finger_pan: true
+                      map_modes:
+                        - template: vacuum_clean_zone
+                        - template: vacuum_goto
+                        - template: vacuum_clean_segment
+                          predefined_selections:
+                            - id: "16"
+                              icon:
+                                name: mdi:broom
+                                x: 28175
+                                "y": 31450
+                              label:
+                                text: Room 16
+                                x: 28175
+                                "y": 31450
+                                offset_y: 35
+                              outline:
+                                - - 25100
+                                  - 29950
+                                - - 31250
+                                  - 29950
+                                - - 31250
+                                  - 32950
+                                - - 25100
+                                  - 32950
+                            - id: "17"
+                              icon:
+                                name: mdi:broom
+                                x: 23300
+                                "y": 32175
+                              label:
+                                text: Room 17
+                                x: 23300
+                                "y": 32175
+                                offset_y: 35
+                              outline:
+                                - - 22200
+                                  - 30850
+                                - - 24400
+                                  - 30850
+                                - - 24400
+                                  - 33500
+                                - - 22200
+                                  - 33500
+              style:
+                height: auto
+                left: 40.50%
+                top: 78.00%
+                width: 3.00%
+                # border: 1px solid red
+                template:
+                  - vacuum
+```
+</details>
+
+<details>
+  <summary><strong>🛠️ REQUISITI</strong></summary>
+
+| Componente / Integrazione                     | Necessario | Note                                                      |
+| --------------------------------------------- | :--------: | --------------------------------------------------------- |
+| **Vacuum entity** (`vacuum.roborock_q8_max`)  |      ✅     | Qualsiasi aspirapolvere compatibile con HA                |
+| **Map camera** (`camera.roborock_q8_max_map`) |      ✅     | Necessaria per la Xiaomi Vacuum Map Card                  |
+| **browser_mod**                               |      ✅     | Usato per popup tap/hold                                  |
+| **Mushroom Vacuum Card**                      |      ✅     | Per il popup comandi rapidi                               |
+| **Xiaomi Vacuum Map Card**                    |      ✅     | Per mappa interattiva, segmenti e zone                    |
+| **GIF personalizzate**                        |     ⚠️     | Percorsi: `/local/floorplan/roborock/...`                 |
+| **Templating picture-elements**               |     ⚠️     | Posizionamento dell’icona sul floorplan                   |
+| **Segmenti mappa preconfigurati**             |     ⚠️     | Necessario se si vogliono le stanze cliccabili            |
+| **Integrazione Roborock / Xiaomi**            |     ⚠️     | Qualsiasi metodo (ufficiale, Valetudo, Xiaomi Miot, ecc.) |
+
+  </div>
+
+</details>
+
+<details>
+  <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
+
+  <br>
+
+  <div align="center">
+    <img src="\www\floorplan\roborock\roborock_move.gif" width="35%" alt="potenza">
+  </div>
+
+</details>
+
+## 🖱️ Azioni
+
+**Tap Action:**
+Apre un popup con la Mushroom Vacuum Card, che permette di avviare, fermare, mettere in pausa, spegnere e mandare l’aspirapolvere alla base.
+
+**Hold Action:**
+Apre la Xiaomi Vacuum Map Card, completa di mappa interattiva, zoom, pan a due dita e modalità avanzate:
+- pulizia zona
+- vai a punto specifico
+- pulizia segmenti/stanze
+Sono incluse numerose stanze preconfigurate con icone, label e poligoni precisi.
 
 </details>
 </details>
