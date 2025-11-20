@@ -2642,9 +2642,6 @@ Uno dei miei obiettivi futuri è l'implementazione di una Floorplan 3D interatti
 
 **Un approccio minimalista e futuristico alla visualizzazione della smart home, dove l'essenziale diventa estetico. Il wireframe non è solo una limitazione tecnica, ma una scelta di design consapevole che valorizza la struttura e le connessioni.**
 
-<details>
-Un approccio minimalista e futuristico alla visualizzazione della smart home, dove l'essenziale diventa estetico. Il wireframe non è solo una limitazione tecnica, ma una scelta di design consapevole che valorizza la struttura e le connessioni.
-
 <div align="center">
   <img src="/www/repo/wireframe.png" width="30%" alt="wireframe">
  </div>
@@ -2655,6 +2652,8 @@ Un approccio minimalista e futuristico alla visualizzazione della smart home, do
 - 🎨 Palette colori cyberpunk (blu neon, verdi elettrici)
 - ✨ Effetti glow sugli elementi attivi
 - 🔳 Contrasto alto per massima leggibilità
+
+</details>
 
 </details>
 </details>
