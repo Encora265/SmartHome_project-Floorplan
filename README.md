@@ -1179,6 +1179,22 @@ Il colore dell’indicatore varia progressivamente in base al consumo, offrendo 
 </details>
 
 <details>
+  <summary><strong>🛠️ REQUISITI</strong></summary>
+
+| Componente            | File / Entità                       | Obbligatorio |
+| --------------------- | ----------------------------------- | ------------ |
+| ⚡ Sensore potenza     | `sensor.wifi_digital_meter_potenza` | ✅            |
+| 🧩 Custom wrapper     | `custom:hui-element`                | ✅            |
+| 🖼️ Picture Elements  | Floorplan                           | ✔️           |
+| 🔗 Navigazione (hold) | `/energy?kiosk`                     | ⚠️ opzionale |
+| 📄 File esterni       | —                                   | ❌            |
+
+
+  </div>
+
+</details>
+
+<details>
   <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
 
   <br>
@@ -1479,6 +1495,27 @@ Accesso: Tramite pulsante "info" nel popup principale
     z-index: 5
 ```
 </details>
+
+<details>
+  <summary><strong>🛠️ REQUISITI</strong></summary>
+
+| Componente | File / Entità | Obbligatorio |
+|------------|---------------|--------------|
+| 📷 Telecamera | `camera.giardino` | ✅ |
+| 🎮 PTZ Sinistra | `button.giardino_ptz_sinistra` | ⚠️ |
+| 🎮 PTZ Su | `button.giardino_ptz_su` | ⚠️ |
+| 🎮 PTZ Giù | `button.giardino_ptz_giu` | ⚠️ |
+| 🎮 PTZ Destra | `button.giardino_ptz_destra` | ⚠️ |
+| 🧠 Automazione AI | `automation.notifica_con_ai_lettura_smart_speaker` | ⚠️ |
+| 🚨 Allarme | `alarm_control_panel.ezviz_alarm` | ⚠️ |
+| 🧩 Custom Card | `custom:frigate-card` | ⚠️ |
+| 🧩 Custom Card | `custom:button-card` | ✅ |
+| 🧩 Custom Card | `custom:vertical-stack-in-card` | ⚠️ |
+| 🧩 Custom Card | `custom:mushroom-alarm-control-panel-card` | ⚠️ |
+| 🧩 Browser Mod | `browser_mod` | ✅ |
+
+</details>
+
 <details>
   <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
 
@@ -1931,6 +1968,16 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 </details>
 
 <details>
+  <summary><strong>🛠️ REQUISITI</strong></summary>
+
+| Requisito                | Necessario | Installazione   |
+| ------------------------ | ---------- | --------------- |
+| **Button Card**          | ✔️         | HACS → Frontend |
+| **Card Mod**             | ✔️         | HACS → Frontend |
+
+</details>
+
+<details>
   <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
 
   <br>
@@ -2045,6 +2092,20 @@ Nonostante la semplicità del concetto, l'implementazione offre:
       }
 ```
 </details>
+
+<details>
+  <summary><strong>🛠️ REQUISITI</strong></summary>
+
+| Componente          | Necessario | Motivo                       |
+| ------------------- | ---------- | ---------------------------- |
+| **Browser_mod**     | ✔️         | Popup avanzato               |
+| **Card_mod**        | ✔️         | Animazione, variabili, Jinja |
+| **Mushroom**        | ✔️         | Fan card nel popup           |
+| Fan standard entity | ✔️         | Per `fan.toggle`             |
+| Floorplan image     | ✔️         | `state_image`                |
+
+</details>
+
 <details>
   <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
 
