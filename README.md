@@ -517,8 +517,7 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 
 | Componente | File | Obbligatorio |
 |------------|------|--------------|
-| **📝 Entità YAML** | `sensor.sonoff_1001d8e7f6_power_1` | ✅ SÌ         |
-| **📦 packages** | `lavatrice.yaml` | ✅ SÌ |
+| **📝 Entità YAML** | `sensor.sonoff_1001d8e7f6_power_1` | ✅ SÌ |
 | **📦 packages** | `lavatrice.yaml` | ✅ SÌ |
 | **🎨 Card custom** | `custom:mushroom-chips-card` | ✅ SÌ |
 | **🎨 Card custom** | `custom:button-card` | ✅ SÌ |
@@ -657,8 +656,23 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
     top: 72.50%
     left: 80%
 ```
+</details>
+
+<details>
+  <summary><strong>🛠️ REQUISITI</strong></summary>
+
+| Componente         | File / Entità                                         | Obbligatorio       |
+| ------------------ | ----------------------------------------------------- | ------------------ |
+| **📝 Entità YAML** | `cover.roller_shutter_2`                              | ✅ SÌ               |
+| **🎨 Card custom** | `custom:button-card`                                  | ✅ SÌ               |
+| **🎨 Tema**        | Variabili CSS (`--red-color`, `--yellow-color`, ecc.) | ⚠️ Se non presenti |
+| **📦 Packages**    | nessuno                                               | ❌ NO               |
+| **📄 Immagini**    | nessuna                                               | ❌ NO               |
+
+  </div>
 
 </details>
+
 <details>
   <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
 
@@ -714,12 +728,6 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 
 **Questa card gestisce la tenda da sole a bracci all’interno del floorplan.**
 **Mostra lo stato della tenda, la percentuale di apertura e consente il controllo diretto tramite tap/hold.**
-
-## Requisiti
-| Componente | File | Obbligatorio |
-|------------|------|--------------|
-| **📦packages/tende.yaml** | `tende.yaml` | ✅ **SÌ** |
-| **🎪popup/tende.yaml** | `ui_lovelace.yaml` | ❌ Opzionale |
 
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
@@ -787,8 +795,25 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
                     top: 86%
                     left: 75%
 ```
+</details>
+
+<details>
+  <summary><strong>🛠️ REQUISITI</strong></summary>
+
+| Componente                                     | Necessario          | Note                  |
+| ---------------------------------------------- | ------------------- | --------------------- |
+| **`cover.tenda_a_bracci_virtual`**             | ✅                   | entità principale     |
+| **`sensor.tenda_a_bracci_percentuale_fluida`** | ✅                   | percentuale fluida    |
+| **`input_number.tende_refresher_500ms`**       | ⚠️ Opzionale        | refresh real-time     |
+| **`custom:button-card`**                       | ✅                   | HACS richiesto        |
+| **`conditional card`**                         | nativo              | nessun requisito      |
+| **Popup** `popup/tende.yaml`                   | ⚠️ Se vuoi il popup | necessita browser_mod |
+| **Colori tema**                                | ❌                   | usa colori fissi      |
+
+  </div>
 
 </details>
+
 <details>
   <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
 
@@ -875,13 +900,30 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
                 action: none
 ```
 </details>
+
+<details>
+  <summary><strong>🛠️ REQUISITI</strong></summary>
+
+| Componente                         | File / Entità                | Obbligatorio               |
+| ---------------------------------- | ---------------------------- | -------------------------- |
+| 🌤️ **Entità meteo**               | `weather.casa`               | ✅ SÌ                       |
+| 🌡️ **Temperatura (attributo)**    | `attribute: temperature`     | ✅ SÌ                       |
+| 🖼️ **Icone meteo personalizzate** | `/local/weather-icons/*.svg` | ⚠️ SÌ se vuoi icone custom |
+| 🧩 **Custom card**                 | Nessuna                      | ❌ NO                       |
+| 🅰️ **Font**                       | Roboto                       | ⚠️ consigliato             |
+
+
+  </div>
+
+</details>
+
 <details>
   <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
 
   <br>
 
   <div align="center">
-    <img src="/www/weather-icons/clear-day.svg" width="8%" alt="tenda">
+    <img src="/www/weather-icons/wind.svg" width="10%" alt="tenda">
     <img src="/www/weather-icons/clear-night.svg" width="8%" alt="tenda">
     <img src="/www/weather-icons/cloudy.svg" width="12%" alt="tenda">
     <img src="/www/weather-icons/rain.svg" width="10%" alt="tenda">
