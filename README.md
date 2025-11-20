@@ -342,6 +342,8 @@ left: 45.00%
 top: 70.00%
 width: 160%
 ```
+</details>
+
 <details>
   <summary><strong>🛠️ REQUISITI</strong></summary>
 
