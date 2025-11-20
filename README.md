@@ -1737,27 +1737,6 @@ Accesso: Tramite pulsante "info" nel popup principale
 
 **Questa sezione contiene template sensor utili per calcolare l’intensità luminosa in base alla posizione del sole e alla copertura nuvolosa, e un valore derivato per gestire la trasparenza o l’opacità di overlay grafici.**
 
-## 1️⃣ Sunlight pct
-
-- Tipo: sensor.template
-- ID univoco: sunlight_pct_sensor
-
-**Funzione: calcola la percentuale di luce solare presente in base a:**
-
-- Elevazione del sole (sun.sun.elevation)
-- Copertura nuvolosa (sensor.pirate_weather_cloud_coverage)
-- Unità di misura: lux (lx)
-- Device class: illuminance
-
-## 2️⃣ Sunlight Opacity
-
-- Tipo: sensor.template
-- ID univoco: sensor_sunlight_opacity
-
-**Funzione: restituisce un valore di opacità normalizzato tra 0 e 1, utile per regolare overlay o elementi grafici in automazioni o dashboard.**
-
-**Calcolo:** divide la percentuale di luce solare (sensor.sunlight_pct) per 100.
-
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
 
@@ -1800,6 +1779,29 @@ template:
 | **Sensori**         | `sun.sun`                                | ✅ SÌ         |
 | **Sensori meteo**   | `sensor.pirate_weather_cloud_coverage`   | ✅ SÌ         |
 | **Template Sensor** | `configuration.yaml` o `packages/*.yaml` | ✅ SÌ         |
+
+</details>
+
+## 1️⃣ Sunlight pct
+
+- Tipo: sensor.template
+- ID univoco: sunlight_pct_sensor
+
+**Funzione: calcola la percentuale di luce solare presente in base a:**
+
+- Elevazione del sole (sun.sun.elevation)
+- Copertura nuvolosa (sensor.pirate_weather_cloud_coverage)
+- Unità di misura: lux (lx)
+- Device class: illuminance
+
+## 2️⃣ Sunlight Opacity
+
+- Tipo: sensor.template
+- ID univoco: sensor_sunlight_opacity
+
+**Funzione: restituisce un valore di opacità normalizzato tra 0 e 1, utile per regolare overlay o elementi grafici in automazioni o dashboard.**
+
+**Calcolo:** divide la percentuale di luce solare (sensor.sunlight_pct) per 100.
 
 </details>
 
@@ -1899,25 +1901,26 @@ template:
 | **Template sensor**           | `sensor.garage_state_virtual`  | ✅ SÌ         |
 | **Template sensor refresher** | `sensor.refresher_1s`          | ✅ SÌ         |
 
+</details>
 
 ### Funzionalità principali
 
-**Script di controllo garage**
+## Script di controllo garage
 open_garage: apre il garage solo se il contatto indica che è chiuso.
 close_garage: chiude il garage solo se il contatto indica che è aperto.
 Gli script utilizzano switch.turn_on verso il Sonoff Mini D con logica inching attiva.
 
-**Cover template**
+## Cover template
 garage_virtual: cover virtuale con device class garage.
 Valore derivato dal sensore di contatto (binary_sensor.garage_contact).
 Permette apertura/chiusura tramite i servizi definiti negli script.
 Icona dinamica (mdi:garage / mdi:garage-open) in base allo stato.
 
-**Template sensor**
+## Template sensor
 Stato Garage: sensore virtuale che indica “Aperto” o “Chiuso” in base al contatto.
 Icona dinamica che riflette lo stato del garage.
 
-**Refresher**
+## Refresher
 Sensore refresher_1s aggiornato ogni secondo tramite time_pattern.
 Utile per aggiornare card o automazioni basate sullo stato del garage in tempo reale.
 
@@ -1961,23 +1964,21 @@ template:
 
 </details>
 
-**Giorni Raccolta**
+## Giorni Raccolta
 
 - Tipo: sensor.template
 - ID univoco: giorni_raccolta
 
-### Funzione: calcola automaticamente il numero di giorni fino al prossimo evento nel calendario calendar.raccolta_differenziata.
+## Funzione: 
 
-**Logica:**
+- Calcola automaticamente il numero di giorni fino al prossimo evento nel calendario calendar.raccolta_differenziata.
+
+## Logica:
 
 - Recupera l’attributo start_time del calendario.
 - Converte la data dell’evento in oggetto datetime.
 - Sottrae la data corrente (now().date()) per ottenere il numero di giorni.
 - Se non c’è nessun evento programmato, restituisce 0.
-
-**Attributi aggiuntivi:**
-
-tipo: il tipo di raccolta differenziata, preso dal messaggio (message) dell’evento del calendario.
 
 </details>
 </details>
