@@ -312,21 +312,43 @@ SmartHome_project Floorplan
 
   <br>
 
-  - **Home Assistant**:
+  - **Home Assistant Core**:
     - Picture Elements Card
     - Config Template Card
+    - Template Sensor
+    - Template Cover
+    - Script
 
   - **Integrazioni personalizzate (HACS)**:
-    - button-card
-    - light-entity-card
-    - mini-graph-card
-    - vertical-stack-in-card
-    - slider-entity-row
-    - apexcharts-card
-    - atomic-calendar-revive
-    - vacuum-card
-    - weather-card
-    - ...e altre
+    - **Essenziali** (usate in tutto il progetto):
+      - button-card
+      - card-mod
+      - browser-mod
+      - mushroom (multiple cards)
+    
+    - **Grafici e Visualizzazioni**:
+      - mini-graph-card
+      - apexcharts-card
+      - bar-card
+    
+    - **Controlli Specifici**:
+      - light-entity-card
+      - slider-entity-row
+      - vacuum-card
+      - vertical-stack-in-card
+    
+    - **Utility**:
+      - atomic-calendar-revive
+      - weather-card
+      - frigate-card
+      - xiaomi-vacuum-map-card
+      - hui-element
+
+  - **Integrazioni Dispositivi**:
+    - Sonoff (eWeLink)
+    - EZVIZ
+    - Roborock
+    - Pirate Weather (o altra integrazione meteo)
 </details>
 
 ---
