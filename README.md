@@ -356,7 +356,6 @@ width: 160%
 
 </details>
 
-</details>
 <details>
   <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
 
