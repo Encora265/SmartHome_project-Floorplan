@@ -10,7 +10,7 @@ L'obiettivo è creare un controllo immediato e intuitivo dell'intera casa: luci,
 
 ## 🎥 Dimostrazione
 
-[![Demo Floorplan] (/www/repo/demo.gif)](https://www.youtube.com/watch?v=25UP5QQ9EAA&t=355s)
+[![Demo Floorplan] (https://github.com/Encora265/SmartHome_project-Floorplan/blob/main/www/repo/demo.gif)](https://www.youtube.com/watch?v=25UP5QQ9EAA&t=355s)
 
 > ⚠️ Nota: alcune funzionalità mostrate nel video potrebbero differire leggermente dalla versione attuale del repository.
 
@@ -2594,27 +2594,22 @@ Nonostante la semplicità del concetto, l'implementazione offre:
 <summary><strong>🏠 3D Floorplan Card</strong></summary>
 <br>
 
-Uno dei miei obiettivi più ambiziosi è l'implementazione di una Floorplan 3D interattiva per la gestione completa della casa smart. Questo progetto è attualmente in fase di pianificazione e verrà realizzato non appena l'hardware a mia disposizione lo permetterà.
+Uno dei miei obiettivi futuri è l'implementazione di una Floorplan 3D interattiva per la gestione completa della casa smart. Questo progetto è attualmente in fase di pianificazione e verrà realizzato non appena l'hardware a mia disposizione lo permetterà.
 
-📋 Prerequisiti Necessari:
-🖥️ Hardware più potente per gestire rendering 3D
+## 📋 Prerequisiti Necessari:
 
-🎨 Software di modellazione 3D per creare il floorplan
+- 🖥️ Hardware più potente per gestire rendering 3D
+- 🎨 Software di modellazione 3D per creare il floorplan
+- 🔌 Sensori aggiuntivi per tracking preciso room-by-room
+- 📡 Maggiore potenza di calcolo per elaborazione in tempo reale
 
-🔌 Sensori aggiuntivi per tracking preciso room-by-room
+## 💡 Funzionalità Previste:
 
-📡 Maggiore potenza di calcolo per elaborazione in tempo reale
-
-💡 Funzionalità Previste:
-Visualizzazione 3D realistica dell'intera abitazione
-
-Controlli interattivi direttamente sul modello 3D
-
-Tracking in tempo reale di persone e dispositivi
-
-Overlay informazioni su stati dispositivi e sensori
-
-Animazioni fluide per transizioni e cambiamenti stato
+- Visualizzazione 3D realistica dell'intera abitazione
+- Controlli interattivi direttamente sul modello 3D
+- Tracking in tempo reale di persone e dispositivi
+- Overlay informazioni su stati dispositivi e sensori
+- Animazioni fluide per transizioni e cambiamenti stato
 
 </details>
 
@@ -2630,7 +2625,7 @@ Animazioni fluide per transizioni e cambiamenti stato
 Un approccio minimalista e futuristico alla visualizzazione della smart home, dove l'essenziale diventa estetico. Il wireframe non è solo una limitazione tecnica, ma una scelta di design consapevole che valorizza la struttura e le connessioni.
 
 <div align="center">
-  <img src="/www/repo/www/wireframe.png" width="30%" alt="🧺 Lavatrice">
+  <img src="/www/repo/wireframe.png" width="30%" alt="wireframe">
 
 ## ✨ Estetica Wireframe:
 
