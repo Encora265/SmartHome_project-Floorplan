@@ -260,8 +260,6 @@ type: image
 <summary><strong>🎨🌈 Luce RGB/CCT</strong></summary>
 <br>
 
-## 🌈 Luce RGB/CCT - Architettura Multi-Layer
-
 **Sistema Multi-Layer per Luci Avanzate (Bianco, CCT, RGB).**
 
 <details>
@@ -523,6 +521,17 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 | **🎨 Card custom** | `custom:button-card` | ✅ SÌ |
 | **🎨 Card custom** | `card-mod` | ✅ SÌ |
 
+  </div>
+
+</details>
+
+<details>
+  <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
+
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/elettrodomestici.png" width="35%" alt="icona">
   </div>
 
 </details>
