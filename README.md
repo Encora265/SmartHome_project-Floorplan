@@ -10,7 +10,7 @@ L'obiettivo è creare un controllo immediato e intuitivo dell'intera casa: luci,
 
 ## 🎥 Dimostrazione
 
-[![Demo Floorplan] (https://github.com/Encora265/SmartHome_project-Floorplan/blob/main/www/repo/demo.gif)](https://www.youtube.com/watch?v=25UP5QQ9EAA&t=355s)
+[![demo](www/repo/demo.gif)](https://www.youtube.com/watch?v=25UP5QQ9EAA&t=355s)
 
 > ⚠️ Nota: alcune funzionalità mostrate nel video potrebbero differire leggermente dalla versione attuale del repository.
 
@@ -2626,6 +2626,7 @@ Un approccio minimalista e futuristico alla visualizzazione della smart home, do
 
 <div align="center">
   <img src="/www/repo/wireframe.png" width="30%" alt="wireframe">
+ </div>
 
 ## ✨ Estetica Wireframe:
 
