@@ -1808,10 +1808,8 @@ template:
 ---
 
 <details>
-<summary><strong>🗓️ Template: Giorni Raccolta</strong></summary>
+<summary><strong>🗓️ 🚗 Template/Package: Garage Virtual</strong></summary>
 <br>
-
-🚗 Template/Package: Garage Virtual
 
 **Questo package gestisce un garage controllato tramite Sonoff Mini D con contatto pulito e logica inching su eWeLink. Permette di aprire/chiudere il garage automaticamente con script condizionati, e fornisce sensori virtuali per monitorare lo stato attuale.**
 
