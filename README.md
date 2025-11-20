@@ -421,7 +421,7 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 ---
 
 <details>
-<summary><strong>🧩 Esempi di configurazione - ICONE</strong></summary>
+<summary><strong>⭐ Esempi di configurazione - ICONE</strong></summary>
 
 ---
 
@@ -1727,7 +1727,263 @@ Accesso: Tramite pulsante "info" nel popup principale
 ---
 
 <details>
-<summary><strong>📦 Pacchetti Integrati</strong></summary>
+<summary><strong>🧩 TEMPLATE</strong></summary>
+
+---
+
+<details>
+<summary><strong>🌞 Sensori di luce solare</strong></summary>
+<br>
+
+**Questa sezione contiene template sensor utili per calcolare l’intensità luminosa in base alla posizione del sole e alla copertura nuvolosa, e un valore derivato per gestire la trasparenza o l’opacità di overlay grafici.**
+
+## 1️⃣ Sunlight pct
+
+- Tipo: sensor.template
+- ID univoco: sunlight_pct_sensor
+
+**Funzione: calcola la percentuale di luce solare presente in base a:**
+
+- Elevazione del sole (sun.sun.elevation)
+- Copertura nuvolosa (sensor.pirate_weather_cloud_coverage)
+- Unità di misura: lux (lx)
+- Device class: illuminance
+
+## 2️⃣ Sunlight Opacity
+
+- Tipo: sensor.template
+- ID univoco: sensor_sunlight_opacity
+
+**Funzione: restituisce un valore di opacità normalizzato tra 0 e 1, utile per regolare overlay o elementi grafici in automazioni o dashboard.**
+
+**Calcolo:** divide la percentuale di luce solare (sensor.sunlight_pct) per 100.
+
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
+
+```yaml
+template:
+  - sensor:
+      - name: "Sunlight pct"
+        unique_id: sunlight_pct_sensor
+        state: >
+          {%- set elevation = state_attr('sun.sun','elevation') | float %}
+          {%- set cloud_coverage = states('sensor.pirate_weather_cloud_coverage') | float %}
+          {%- set cloud_factor = (1 - (0.75 * ( cloud_coverage / 100) ** 3 )) %}
+          {%- set min_elevation = -6 %}
+          {%- set max_elevation = 90 %}
+          {%- set adjusted_elevation = elevation - min_elevation %}
+          {%- set adjusted_elevation = [adjusted_elevation,0] | max %}
+          {%- set adjusted_elevation = [adjusted_elevation,max_elevation - min_elevation] | min %}
+          {%- set adjusted_elevation = adjusted_elevation / (max_elevation - min_elevation) %}
+          {%- set adjusted_elevation = adjusted_elevation %}
+          {%- set adjusted_elevation = adjusted_elevation * 100 %}
+          {%- set brightness = adjusted_elevation * cloud_factor %}
+          {{ brightness | round }}
+        unit_of_measurement: 'lx'
+        device_class: 'illuminance'
+
+  - sensor:
+      - name: "Sunlight Opacity"
+        unique_id: sensor_sunlight_opacity
+        state: > 
+          {%- set sunpct = states('sensor.sunlight_pct') | float %}
+          {{ sunpct / 100 | float }}
+```
+</details>
+
+<details>
+  <summary><strong>🛠️ REQUISITI</strong></summary>
+
+| Componente          | File / Entità                            | Obbligatorio |
+| ------------------- | ---------------------------------------- | ------------ |
+| **Sensori**         | `sun.sun`                                | ✅ SÌ         |
+| **Sensori meteo**   | `sensor.pirate_weather_cloud_coverage`   | ✅ SÌ         |
+| **Template Sensor** | `configuration.yaml` o `packages/*.yaml` | ✅ SÌ         |
+
+</details>
+
+---
+
+<details>
+<summary><strong>🗓️ Template: Giorni Raccolta</strong></summary>
+<br>
+
+🚗 Template/Package: Garage Virtual
+
+**Questo package gestisce un garage controllato tramite Sonoff Mini D con contatto pulito e logica inching su eWeLink. Permette di aprire/chiudere il garage automaticamente con script condizionati, e fornisce sensori virtuali per monitorare lo stato attuale.**
+
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
+
+```yaml
+script:
+  open_garage:
+    alias: "Apri garage"
+    sequence:
+      - condition: state
+        entity_id: binary_sensor.garage_contact
+        state: "off"   # esegue solo se CHIUSO
+      - service: switch.turn_on
+        target:
+          entity_id: switch.sonoff_100253c202_1
+    mode: single
+
+  close_garage:
+    alias: "Chiudi garage"
+    sequence:
+      - condition: state
+        entity_id: binary_sensor.garage_contact
+        state: "on"    # esegue solo se APERTO
+      - service: switch.turn_on
+        target:
+          entity_id: switch.sonoff_100253c202_1
+    mode: single
+
+
+cover:
+  - platform: template
+    covers:
+      garage_virtual:
+        device_class: garage
+        friendly_name: "Garage"
+        value_template: "{{ is_state('binary_sensor.garage_contact', 'on') }}"
+        open_cover:
+          service: script.open_garage
+        close_cover:
+          service: script.close_garage
+        icon_template: >
+          {% if is_state('binary_sensor.garage_contact', 'on') %}
+            mdi:garage-open
+          {% else %}
+            mdi:garage
+          {% endif %}
+
+
+template:
+  - sensor:
+      - name: "Stato Garage"
+        unique_id: garage_state_virtual
+        state: >
+          {% if is_state('binary_sensor.garage_contact', 'on') %}
+            Aperto
+          {% else %}
+            Chiuso
+          {% endif %}
+        icon: >
+          {% if is_state('binary_sensor.garage_contact', 'on') %}
+            mdi:garage-open
+          {% else %}
+            mdi:garage
+          {% endif %}
+
+
+  - trigger:
+      - platform: time_pattern
+        seconds: "/1"
+    sensor:
+      - name: "refresher_1s"
+        state: "{{ now().timestamp() }}"
+
+```
+</details>
+
+<details>
+  <summary><strong>🛠️ REQUISITI</strong></summary>
+
+| Componente                    | File / Entità                  | Obbligatorio |
+| ----------------------------- | ------------------------------ | ------------ |
+| **Binary sensor**             | `binary_sensor.garage_contact` | ✅ SÌ         |
+| **Switch**                    | `switch.sonoff_100253c202_1`   | ✅ SÌ         |
+| **Template cover**            | `cover.garage_virtual`         | ✅ SÌ         |
+| **Template sensor**           | `sensor.garage_state_virtual`  | ✅ SÌ         |
+| **Template sensor refresher** | `sensor.refresher_1s`          | ✅ SÌ         |
+
+
+### Funzionalità principali
+
+**Script di controllo garage**
+open_garage: apre il garage solo se il contatto indica che è chiuso.
+close_garage: chiude il garage solo se il contatto indica che è aperto.
+Gli script utilizzano switch.turn_on verso il Sonoff Mini D con logica inching attiva.
+
+**Cover template**
+garage_virtual: cover virtuale con device class garage.
+Valore derivato dal sensore di contatto (binary_sensor.garage_contact).
+Permette apertura/chiusura tramite i servizi definiti negli script.
+Icona dinamica (mdi:garage / mdi:garage-open) in base allo stato.
+
+**Template sensor**
+Stato Garage: sensore virtuale che indica “Aperto” o “Chiuso” in base al contatto.
+Icona dinamica che riflette lo stato del garage.
+
+**Refresher**
+Sensore refresher_1s aggiornato ogni secondo tramite time_pattern.
+Utile per aggiornare card o automazioni basate sullo stato del garage in tempo reale.
+
+</details>
+
+---
+
+<details>
+<summary><strong>🗓️ Template: Giorni Raccolta</strong></summary>
+<br>
+
+**Questa sezione contiene un template sensor che calcola quanti giorni mancano alla prossima raccolta differenziata.**
+
+<details>
+<summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
+
+```yaml
+template:
+  - sensor:
+      - name: "Giorni Raccolta"
+        unique_id: giorni_raccolta
+        state: >
+          {% set next = state_attr('calendar.raccolta_differenziata', 'start_time') %}
+          {% if next %}
+            {{ (as_datetime(next).date() - now().date()).days }}
+          {% else %}
+            0
+          {% endif %}
+        attributes:
+          tipo: "{{ state_attr('calendar.raccolta_differenziata', 'message') }}"
+```
+</details>
+
+<details>
+  <summary><strong>🛠️ REQUISITI</strong></summary>
+
+| Componente          | File / Entità                            | Obbligatorio |
+| ------------------- | ---------------------------------------- | ------------ |
+| **Calendario**      | `calendar.raccolta_differenziata`        | ✅ SÌ         |
+| **Template Sensor** | `configuration.yaml` o `packages/*.yaml` | ✅ SÌ         |
+
+**Giorni Raccolta**
+
+- Tipo: sensor.template
+- ID univoco: giorni_raccolta
+
+### Funzione: calcola automaticamente il numero di giorni fino al prossimo evento nel calendario calendar.raccolta_differenziata.
+
+**Logica:**
+
+- Recupera l’attributo start_time del calendario.
+- Converte la data dell’evento in oggetto datetime.
+- Sottrae la data corrente (now().date()) per ottenere il numero di giorni.
+- Se non c’è nessun evento programmato, restituisce 0.
+
+**Attributi aggiuntivi:**
+
+tipo: il tipo di raccolta differenziata, preso dal messaggio (message) dell’evento del calendario.
+
+</details>
+</details>
+
+---
+
+<details>
+<summary><strong>📦 PACCHETTI Integrati</strong></summary>
 
 ---
 
