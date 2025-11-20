@@ -1959,6 +1959,8 @@ template:
 | **Calendario**      | `calendar.raccolta_differenziata`        | ✅ SÌ         |
 | **Template Sensor** | `configuration.yaml` o `packages/*.yaml` | ✅ SÌ         |
 
+</details>
+
 **Giorni Raccolta**
 
 - Tipo: sensor.template
