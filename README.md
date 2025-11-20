@@ -177,6 +177,15 @@ type: image
 
   </div>
 
+<details>
+  <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
+
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/switch.gif" width="35%" alt="rgb">
+  </div>
+
 </details>
 
 </details>
@@ -235,6 +244,17 @@ type: image
 | **📄 Immagini**           | `/local/floorplan/terra/p0_cucina.png` | ✅ SÌ         |
 | **🎨 Card nativa**        | `type: image`                          | ✅ SÌ         |
 
+  </div>
+
+</details>
+
+<details>
+  <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
+
+  <br>
+
+  <div align="center">
+    <img src="/www/repo/cct.gif" width="35%" alt="rgb">
   </div>
 
 </details>
