@@ -1045,7 +1045,7 @@ Effetti visivi avanzati con mix-blend-mode e text-shadow
   <br>
 
   <div align="center">
-    <img src="/www/repo/honeycomb.gif" width="8%" alt="tenda">
+    <img src="/www/repo/honeycomb.gif" width="35%" alt="irrigazione">
 
   </div>
 
