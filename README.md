@@ -1375,7 +1375,7 @@ Il colore dell’indicatore varia progressivamente in base al consumo, offrendo 
 </details>
 
 <details>
-  <summary><strong>🖼️ VEDI ESEMPIO</strong></summary>
+  <summary><strong>▶️ VEDI ESEMPIO</strong></summary>
 
   <br>
 
