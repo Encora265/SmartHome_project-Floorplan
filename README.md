@@ -34,16 +34,12 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 </div>
 
 <details>
-<summary><strong>🌳 Struttura del Repository (Navigazione Rapida)</strong></summary>
+<summary><strong>🌳STRUTTURA REPO</strong></summary>
 
 <br>
 
-**Clicca su qualsiasi voce per navigare direttamente alla sezione corrispondente:**
-
 <pre>
 
-# 🌳 Struttura Completa del Repository
-```
 SmartHome_project Floorplan
 │
 ├── [📹 Dimostrazione](#dimostrazione)
@@ -111,13 +107,11 @@ SmartHome_project Floorplan
 └── [🚧 Progetti Futuri](#futuro)
     ├── [🏠 3D Floorplan Card](#futuro-3d)
     └── [🏗️ Wireframe Project](#futuro-wireframe)
-```
+
 </pre>
 
 **Ogni sezione include:**
 • 🎬 Demo animate • ⚙️ Codice YAML • 🛠️ Requisiti tecnici
-
----
 
 <details>
 <summary><strong>📊 LEGENDA</strong></summary>
