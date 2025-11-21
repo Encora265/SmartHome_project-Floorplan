@@ -239,9 +239,11 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 
 <br>
 
+<details>
 <summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
+<br>
 
-**Overlay Dinamico Base (switch on/off)**
+**Simulazione realistica della temperatura (2000K–6500K) tramite filtri CSS.**
 
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
