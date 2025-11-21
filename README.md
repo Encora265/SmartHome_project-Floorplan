@@ -203,7 +203,7 @@ SmartHome_project Floorplan
 ---
 
 <details>
-<h2 id="progettazione">📹 Prpgettazione</h2>
+<h2 id="progettazione"></h2>
   <summary><strong>🎨 Progettazione</strong></summary>
 
   <br>
@@ -218,13 +218,13 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 ---
 
 <details>
-<h2 id="esempi-configurazione-luci">📹 💡 Esempi Configurazione - LUCI</h2>
+<h2 id="esempi-configurazione-luci"></h2>
 <summary><strong>💡 Esempi di configurazione - LUCI</strong></summary>
 
 ---
 
-<a id="-switch-onoff"></a>
 <details>
+<h2 id="switch-onoff"></h2>
 <summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
 <br>
 
