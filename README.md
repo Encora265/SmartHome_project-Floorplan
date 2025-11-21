@@ -37,8 +37,6 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 
 <br>
 
-<pre>
-
 SmartHome_project Floorplan
 │
 ├── 📹 [Dimostrazione](#dimostrazione)
@@ -87,10 +85,7 @@ SmartHome_project Floorplan
     ├── [🏠 3D Floorplan Card](#futuro-3d)
     └── [🏗️ Wireframe Project](#futuro-wireframe)
 
-</pre>
-
 </details>
-
 
 **Ogni sezione include:**
 • 🎬 Demo animate • ⚙️ Codice YAML • 🛠️ Requisiti tecnici
