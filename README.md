@@ -34,222 +34,77 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 </div>
 
 <details>
-<summary><strong>🌳 Struttura del Repository</strong></summary>
+<summary><strong>🌳 Struttura del Repository (Navigazione Rapida)</strong></summary>
 
 <br>
 
-**Mappa completa dell'organizzazione del progetto:**
+**Clicca su qualsiasi voce per navigare direttamente alla sezione corrispondente:**
 
 <pre>
 SmartHome_project Floorplan
 │
-├── 📹 Dimostrazione
+├── <a href="#dimostrazione">📹 Dimostrazione</a>
 │   └── Video YouTube + GIF demo
 │
-├── 🖼️ Panoramica Floorplan
+├── <a href="#panoramica-floorplan">🖼️ Panoramica Floorplan</a>
 │   ├── Main Day/Night
 │   ├── Piano Terra
 │   ├── Piano Terra Esterno
 │   ├── Primo Piano
 │   └── Mansarda
 │
-├── 🛠️ Configurazione
+├── <a href="#configurazione">🛠️ Configurazione</a>
 │   ├── Home Assistant Core
-│   │   ├── Picture Elements Card
-│   │   └── Config Template Card
 │   └── Integrazioni HACS
-│       ├── button-card
-│       ├── light-entity-card
-│       ├── mini-graph-card
-│       ├── vertical-stack-in-card
-│       ├── slider-entity-row
-│       ├── apexcharts-card
-│       ├── atomic-calendar-revive
-│       ├── vacuum-card
-│       └── weather-card
 │
-├── 🎨 Progettazione
-│   ├── Sweet Home 3D (progetto)
-│   ├── Sweet Home 3D (render)
-│   └── GIMP (post-produzione)
+├── <a href="#progettazione">🎨 Progettazione</a>
+│   ├── Sweet Home 3D
+│   └── GIMP
 │
-├── 💡 Esempi Configurazione - LUCI
-│   ├── ⬜ Switch On/Off
-│   │   ├── ⚙️ Configurazione YAML
-│   │   ├── 🛠️ Requisiti
-│   │   └── ▶️ Demo GIF
-│   │
-│   ├── ☀️ CCT (Temperatura Colore)
-│   │   ├── ⚙️ Configurazione YAML
-│   │   ├── 🛠️ Requisiti
-│   │   ├── ▶️ Demo GIF
-│   │   └── 📚 Documentazione tecnica
-│   │       ├── Range temperature (2000K-6500K)
-│   │       ├── Filtri CSS dinamici
-│   │       └── Calcoli luminosità
-│   │
-│   └── 🎨 RGB/CCT Multi-Layer
-│       ├── ⚙️ Configurazione YAML
-│       ├── 🛠️ Requisiti
-│       ├── ▶️ Demo GIF
-│       └── 📚 Sistema Multi-Layer
-│           ├── Layer 1: Base bianca
-│           ├── Layer 2: CCT
-│           ├── Layer 3: RGB
-│           └── Tabella transizioni
+├── <a href="#esempi-luci">💡 Esempi Configurazione - LUCI</a>
+│   ├── <a href="#switch-on-off">⬜ Switch On/Off</a>
+│   ├── <a href="#cct-temperatura">☀️ CCT (Temperatura Colore)</a>
+│   └── <a href="#rgb-cct">🎨 RGB/CCT Multi-Layer</a>
 │
-├── 🧩 Esempi Configurazione - ICONE
-│   ├── 🧺 Elettrodomestici
-│   │   ├── ⚙️ Configurazione YAML
-│   │   ├── 🛠️ Requisiti
-│   │   ├── 🖼️ Screenshot
-│   │   └── 📊 Architettura card
-│   │       ├── Layer stato on/off
-│   │       ├── Layer consumo
-│   │       └── Tabella logica colori
-│   │
-│   ├── 🪟 Cover (Tapparelle/Finestre)
-│   │   ├── ⚙️ Configurazione YAML
-│   │   ├── 🛠️ Requisiti
-│   │   ├── ▶️ Demo GIF
-│   │   └── 📚 Sistema multi-layer
-│   │       ├── Icone dinamiche
-│   │       ├── Colori di stato
-│   │       └── Percentuale apertura
-│   │
-│   └── 🏖️ Tende da Sole
-│       ├── ⚙️ Configurazione YAML
-│       ├── 🛠️ Requisiti
-│       ├── ▶️ Demo GIF
-│       └── 📚 Controlli avanzati
-│           ├── Indicatori movimento
-│           ├── Percentuale fluida
-│           └── Popup integrato
+├── <a href="#esempi-icone">🧩 Esempi Configurazione - ICONE</a>
+│   ├── <a href="#elettrodomestici">🧺 Elettrodomestici</a>
+│   ├── <a href="#cover-tapparelle">🪟 Cover (Tapparelle/Finestre)</a>
+│   └── <a href="#tende-sole">🏖️ Tende da Sole</a>
 │
-├── 🃏 Esempi Configurazione - CARDS
-│   ├── ⛅ Card Meteo
-│   │   ├── ⚙️ Configurazione YAML
-│   │   ├── 🛠️ Requisiti
-│   │   ├── 🖼️ Gallery icone SVG
-│   │   └── 📚 Features
-│   │       ├── Icone dinamiche
-│   │       ├── Temperatura real-time
-│   │       └── Design responsivo
-│   │
-│   ├── 💧 Honeycomb Irrigazione
-│   │   ├── ⚙️ Configurazione YAML
-│   │   ├── 🛠️ Requisiti
-│   │   ├── ▶️ Demo GIF
-│   │   └── 📚 Sistema multi-zona
-│   │       ├── 4 settori indipendenti
-│   │       ├── Controllo gruppo
-│   │       └── Menu honeycomb
-│   │
-│   ├── ⚡ Gauge Potenza Istantanea
-│   │   ├── ⚙️ Configurazione YAML
-│   │   ├── 🛠️ Requisiti
-│   │   ├── 🖼️ Screenshot
-│   │   └── 📊 Sistema colorazione
-│   │       ├── 36 livelli gradiente
-│   │       ├── Range 0-3500W
-│   │       └── Navigazione energia
-│   │
-│   └── 🧹 Roborock Control
-│       ├── ⚙️ Configurazione YAML
-│       ├── 🛠️ Requisiti
-│       ├── ▶️ Demo GIF
-│       └── 📚 Popup multi-livello
-│           ├── Tap: Comandi rapidi
-│           ├── Hold: Mappa interattiva
-│           └── Segmenti preconfigurati
+├── <a href="#esempi-cards">🃏 Esempi Configurazione - CARDS</a>
+│   ├── <a href="#card-meteo">⛅ Card Meteo</a>
+│   ├── <a href="#honeycomb-irrigazione">💧 Honeycomb Irrigazione</a>
+│   ├── <a href="#potenza-istantanea">⚡ Potenza Istantanea</a>
+│   └── <a href="#controllo-roborock">🧹 Controllo Roborock</a>
 │
-├── 📦 Pacchetti Integrati
-│   ├── ⚡ Elettrodomestici
-│   │   ├── 🧺 Lavatrice
-│   │   │   ├── 📊 Popup principale
-│   │   │   ├── ⚙️ Popup impostazioni
-│   │   │   ├── 📈 Popup statistiche
-│   │   │   ├── 🔧 Popup manutenzione
-│   │   │   └── ℹ️ Popup info
-│   │   ├── 🌬️ Asciugatrice
-│   │   ├── 🍽️ Lavastoviglie
-│   │   └── 🔥 Forno
-│   │
-│   └── ⏰ Sistema Sveglie
-│       ├── 👥 Multi-utente
-│       ├── 📅 Giorni selezionabili
-│       ├── 🎵 Allarme musicale
-│       └── 🎛️ Controlli indipendenti
+├── <a href="#pacchetti-integrati">📦 Pacchetti Integrati</a>
+│   ├── <a href="#packages-elettrodomestici">⚡ Elettrodomestici</a>
+│   └── <a href="#sistema-sveglie">⏰ Sistema Sveglie</a>
 │
-├── 🎪 Finestre POPUP Integrate
-│   ├── ⚡ Elettrodomestici
-│   │   ├── Stato e animazioni
-│   │   ├── Timeline cicli
-│   │   ├── Metriche economiche
-│   │   └── Toolbar comandi
-│   │
-│   ├── 👁️ Telecamere PTZ
-│   │   ├── Tap: Controlli PTZ
-│   │   │   ├── Streaming live
-│   │   │   ├── 4 direzioni
-│   │   │   └── Toggle AI
-│   │   └── Hold: Pannello allarme
-│   │
-│   ├── 🔋 Tablet Management
-│   │   ├── Protezione batteria
-│   │   ├── Controlli alimentazione
-│   │   └── Monitoraggio real-time
-│   │
-│   ├── 💡 Luci Esterne
-│   │   ├── Glass morphism design
-│   │   ├── Animazioni fade-in
-│   │   └── Monitoraggio automazioni
-│   │
-│   └── 🕹️ Controllo Tende
-│       ├── Popup trasparente
-│       ├── Dropdown contestuale
-│       └── Picture elements integration
+├── <a href="#finestre-popup">🎪 Finestre POPUP Integrate</a>
+│   ├── <a href="#popup-elettrodomestici">⚡ Elettrodomestici</a>
+│   ├── <a href="#popup-telecamera">👁️ Telecamere PTZ</a>
+│   ├── <a href="#gestione-tablet">🔋 Gestione Tablet</a>
+│   ├── <a href="#controllo-luci-esterne">💡 Luci Esterne</a>
+│   └── <a href="#controllo-tende">🕹️ Controllo Tende</a>
 │
-├── 🧩 TEMPLATE
-│   ├── 🌞 Sensori Luce Solare
-│   │   ├── Sunlight pct
-│   │   │   ├── Calcolo elevazione sole
-│   │   │   └── Compensazione nuvole
-│   │   └── Sunlight Opacity
-│   │       └── Valore normalizzato 0-1
-│   │
-│   ├── 🚗 Garage Virtual
-│   │   ├── Script open/close
-│   │   ├── Cover template
-│   │   ├── Sensore stato
-│   │   └── Refresher 1s
-│   │
-│   └── 🗓️ Giorni Raccolta
-│       ├── Calcolo giorni mancanti
-│       └── Attributo tipo raccolta
+├── <a href="#template">🧩 TEMPLATE</a>
+│   ├── <a href="#sensori-sole">🌞 Sensori Luce Solare</a>
+│   ├── <a href="#garage-virtuale">🚗 Garage Virtual</a>
+│   └── <a href="#giorni-raccolta">🗓️ Giorni Raccolta</a>
 │
-├── 🎁 Contenuti EXTRA
-│   ├── 🌟 Sidebar Buttons
-│   │   ├── Glass morphism
-│   │   ├── Gradient animato
-│   │   └── Layout ottimizzato
-│   │
-│   └── 🌀 Ventilatore Animato
-│       ├── Rotazione dinamica
-│       ├── Tap: Toggle rapido
-│       └── Hold: Controllo avanzato
+├── <a href="#contenuti-extra">🎁 Contenuti EXTRA</a>
+│   ├── <a href="#pulsanti-sidebar">🌟 Pulsanti Sidebar</a>
+│   └── <a href="#ventilatore-intelligente">🌀 Ventilatore Intelligente</a>
 │
-└── 🚧 Progetti Futuri
-    ├── 🏠 3D Floorplan Card
-    │   ├── Requisiti hardware
-    │   └── Funzionalità previste
-    │
-    └── 🏗️ Wireframe Project
-        ├── Estetica minimalista
-        └── Palette cyberpunk
+└── <a href="#progetti-futuri">🚧 Progetti Futuri</a>
+    ├── <a href="#floorplan-3d">🏠 3D Floorplan</a>
+    └── <a href="#wireframe">🏗️ Wireframe Project</a>
 </pre>
 
-<details>
+**Ogni sezione include:**
+• 🎬 Demo animate • ⚙️ Codice YAML • 🛠️ Requisiti tecnici
+</details>
 <summary><strong>📊 LEGENDA</strong></summary>
 
 ## 📊 Legenda Simboli
@@ -306,7 +161,7 @@ SmartHome_project Floorplan
 </details>
 
 ---
-
+<a id="configurazione"></a>
 <details>
   <summary><strong>🛠️ Configurazione</strong></summary>
 
@@ -352,7 +207,7 @@ SmartHome_project Floorplan
 </details>
 
 ---
-
+<a id="progettazione"></a>
 <details>
   <summary><strong>🎨 Progettazione</strong></summary>
 
@@ -366,12 +221,13 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 </details>
 
 ---
-
+<a id="esempi-luci"></a>
 <details>
 <summary><strong>💡 Esempi di configurazione - LUCI</strong></summary>
 
 ---
 
+<a id="switch-on-off"></a>
 <details>
 <summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
 <br>
