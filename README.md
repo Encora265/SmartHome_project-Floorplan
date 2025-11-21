@@ -39,49 +39,69 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 
 SmartHome_project Floorplan
 │
-├── 📹 [Dimostrazione](#dimostrazione)
+├── [📹 Dimostrazione](#dimostrazione)
+│   └── Video YouTube + GIF demo
 │
-├── 🖼️ [Panoramica Floorplan](#panoramica)
+├── [🖼️ Panoramica Floorplan](#panoramica)
+│   ├── Main Day/Night
+│   ├── Piano Terra
+│   ├── Piano Terra Esterno
+│   ├── Primo Piano
+│   └── Mansarda
 │
-├── 🛠️ [Configurazione](#configurazione)
+├── [🛠️ Configurazione](#configurazione)
+│   ├── Home Assistant Core
+│   └── Integrazioni HACS
 │
-├── 💡 Esempi Configurazione - LUCI
+├── [💡 Esempi Configurazione - LUCI](#luci)
 │   ├── [⬜ Switch On/Off](#luci-switch)
+│   │   ├── ⚙️ Configurazione YAML
+│   │   ├── 🛠️ Requisiti
+│   │   └── ▶️ Demo GIF
+│   │
 │   ├── [☀️ CCT (Temperatura Colore)](#luci-cct)
+│   │   ├── ⚙️ Configurazione YAML
+│   │   ├── 🛠️ Requisiti
+│   │   ├── ▶️ Demo GIF
+│   │   └── 📚 Documentazione tecnica
+│   │
 │   └── [🎨 RGB/CCT Multi-Layer](#luci-rgb)
+│       ├── ⚙️ Configurazione YAML
+│       ├── 🛠️ Requisiti
+│       └── 📚 Sistema Multi-Layer
 │
-├── 🧩 Esempi Configurazione - ICONE
+├── [🧩 Esempi Configurazione - ICONE](#icone)
 │   ├── [🧺 Elettrodomestici](#icone-elettrodomestici)
-│   ├── [🪟 Cover](#icone-cover)
+│   ├── [🪟 Cover (Tapparelle/Finestre)](#icone-cover)
 │   └── [🏖️ Tende da Sole](#icone-tende)
 │
-├── 🃏 Esempi Configurazione - CARDS
+├── [🃏 Esempi Configurazione - CARDS](#cards)
 │   ├── [⛅ Card Meteo](#card-meteo)
 │   ├── [💧 Honeycomb Irrigazione](#card-irrigazione)
-│   ├── [⚡ Gauge Potenza](#card-potenza)
+│   ├── [⚡ Gauge Potenza Istantanea](#card-potenza)
 │   └── [🧹 Roborock Control](#card-roborock)
 │
-├── 📦 Pacchetti Integrati
+├── [📦 Pacchetti Integrati](#packages)
 │   ├── [⚡ Elettrodomestici](#packages-elettrodomestici)
 │   └── [⏰ Sistema Sveglie](#packages-sveglie)
 │
-├── 🎪 Finestre POPUP Integrate
+├── [🎪 Finestre POPUP Integrate](#popup)
 │   ├── [⚡ Elettrodomestici](#popup-elettrodomestici)
 │   ├── [👁️ Telecamere PTZ](#popup-camera)
 │   ├── [🔋 Tablet Management](#popup-tablet)
 │   ├── [💡 Luci Esterne](#popup-luci)
 │   └── [🕹️ Controllo Tende](#popup-tende)
 │
-├── 🧩 TEMPLATE
+├── [🧩 TEMPLATE](#template)
 │   ├── [🌞 Sensori Luce Solare](#template-sunlight)
 │   ├── [🚗 Garage Virtual](#template-garage)
 │   └── [🗓️ Giorni Raccolta](#template-raccolta)
 │
-├── 🎁 Contenuti EXTRA
+├── [🎁 Contenuti EXTRA](#extra)
 │   ├── [🌟 Sidebar Buttons](#extra-sidebar)
 │   └── [🌀 Ventilatore Animato](#extra-ventilatore)
 │
-└── 🚧 Progetti Futuri
+└── [🚧 Progetti Futuri](#futuro)
     ├── [🏠 3D Floorplan Card](#futuro-3d)
     └── [🏗️ Wireframe Project](#futuro-wireframe)
 
