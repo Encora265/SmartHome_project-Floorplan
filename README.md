@@ -234,9 +234,12 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 
 <details>
 <summary><strong>💡 LUCI</strong></summary>
+
 <br>
 
-<h3 id="luci-switch">⬜ / ⬛ Switch on/off</h3>
+<summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
+
+<br>
 
 **Overlay Dinamico Base (switch on/off)**
 
