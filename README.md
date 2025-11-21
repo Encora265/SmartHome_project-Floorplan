@@ -535,6 +535,7 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 
 </details>
 </details>
+</details>
 
 ---
 
