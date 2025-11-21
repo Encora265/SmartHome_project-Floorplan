@@ -237,8 +237,6 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 
 ---
 
-<br>
-
 <details>
 <summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
 <br>
@@ -537,7 +535,7 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 
 </details>
 </details>
-
+</details>
 ---
 
 <details>
