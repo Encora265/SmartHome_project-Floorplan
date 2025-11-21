@@ -370,7 +370,6 @@ type: image
 6500K (Freddo) → Sepia basso, hue-rotate positivo
 
 </details>
-</details>
 
 ---
 
@@ -533,7 +532,6 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 4. 🎭 Effetti Complessi: Possibilità di blending avanzato tra layer
 
 
-</details>
 </details>
 </details>
 
