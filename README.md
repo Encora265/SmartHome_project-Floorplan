@@ -233,7 +233,9 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 ---
 
 <details>
-<summary><strong>💡 LUCI</strong></summary>
+<summary><strong>💡 Esempi di configurazione - LUCI</strong></summary>
+
+---
 
 <br>
 
