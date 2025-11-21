@@ -1,4 +1,3 @@
-# SmartHome_project Floorplan
 # <span style="color:#3498db">🏡 Floorplan per Home Assistant</span>
 
 Questo progetto contiene il mio floorplan personalizzato per Home Assistant: un'interfaccia grafica avanzata basata su immagini, overlay dinamici e controlli interattivi.
@@ -237,11 +236,9 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 
 ---
 
-<details>
-<summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
-<br>
+<h2 id="luci-switch">⬜ / ⬛ Switch On/Off</h2>
 
-**Simulazione realistica della temperatura (2000K–6500K) tramite filtri CSS.**
+**Overlay Dinamico Base (switch on/off)**
 
 <details>
 <summary><strong>⚙️ MOSTRA CONFIGURAZIONE YAML</strong></summary>
