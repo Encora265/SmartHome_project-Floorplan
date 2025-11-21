@@ -17,8 +17,7 @@ L'obiettivo è creare un controllo immediato e intuitivo dell'intera casa: luci,
 
 ---
 
-## 🖼️ Panoramica del Floorplan
-<h2 id="dimostrazione">📹 Dimostrazione</h2>
+<h2 id="panoramica">🖼️ Panoramica del Floorplan</h2>
 
 Interfaccia progettata per dashboard moderne con una forte attenzione alla leggibilità e alla resa estetica.
 
@@ -46,75 +45,74 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 
 ** 🌳 Struttura Completa del Repository**
 
-```
 SmartHome_project Floorplan
 │
-├── [📹 Dimostrazione](#dimostrazione)
-│   └── Video YouTube + GIF demo
+├── 📹 Dimostrazione
+│ └── Video YouTube + GIF demo
 │
-├── [🖼️ Panoramica Floorplan](#panoramica)
-│   ├── Main Day/Night
-│   ├── Piano Terra
-│   ├── Piano Terra Esterno
-│   ├── Primo Piano
-│   └── Mansarda
+├── 🖼️ Panoramica Floorplan
+│ ├── Main Day/Night
+│ ├── Piano Terra
+│ ├── Piano Terra Esterno
+│ ├── Primo Piano
+│ └── Mansarda
 │
-├── [🛠️ Configurazione](#configurazione)
-│   ├── Home Assistant Core
-│   └── Integrazioni HACS
+├── 🛠️ Configurazione
+│ ├── Home Assistant Core
+│ └── Integrazioni HACS
 │
-├── [💡 Esempi Configurazione - LUCI](#luci)
-│   ├── [⬜ Switch On/Off](#luci-switch)
-│   │   ├── ⚙️ Configurazione YAML
-│   │   ├── 🛠️ Requisiti
-│   │   └── ▶️ Demo GIF
-│   │
-│   ├── [☀️ CCT (Temperatura Colore)](#luci-cct)
-│   │   ├── ⚙️ Configurazione YAML
-│   │   ├── 🛠️ Requisiti
-│   │   ├── ▶️ Demo GIF
-│   │   └── 📚 Documentazione tecnica
-│   │
-│   └── [🎨 RGB/CCT Multi-Layer](#luci-rgb)
-│       ├── ⚙️ Configurazione YAML
-│       ├── 🛠️ Requisiti
-│       └── 📚 Sistema Multi-Layer
+├── 💡 Esempi Configurazione - LUCI
+│ ├── ⬜ Switch On/Off
+│ │ ├── ⚙️ Configurazione YAML
+│ │ ├── 🛠️ Requisiti
+│ │ └── ▶️ Demo GIF
+│ │
+│ ├── ☀️ CCT (Temperatura Colore)
+│ │ ├── ⚙️ Configurazione YAML
+│ │ ├── 🛠️ Requisiti
+│ │ ├── ▶️ Demo GIF
+│ │ └── 📚 Documentazione tecnica
+│ │
+│ └── 🎨 RGB/CCT Multi-Layer
+│ ├── ⚙️ Configurazione YAML
+│ ├── 🛠️ Requisiti
+│ └── 📚 Sistema Multi-Layer
 │
-├── [🧩 Esempi Configurazione - ICONE](#icone)
-│   ├── [🧺 Elettrodomestici](#icone-elettrodomestici)
-│   ├── [🪟 Cover (Tapparelle/Finestre)](#icone-cover)
-│   └── [🏖️ Tende da Sole](#icone-tende)
+├── 🧩 Esempi Configurazione - ICONE
+│ ├── 🧺 Elettrodomestici
+│ ├── 🪟 Cover (Tapparelle/Finestre)
+│ └── 🏖️ Tende da Sole
 │
-├── [🃏 Esempi Configurazione - CARDS](#cards)
-│   ├── [⛅ Card Meteo](#card-meteo)
-│   ├── [💧 Honeycomb Irrigazione](#card-irrigazione)
-│   ├── [⚡ Gauge Potenza Istantanea](#card-potenza)
-│   └── [🧹 Roborock Control](#card-roborock)
+├── 🃏 Esempi Configurazione - CARDS
+│ ├── ⛅ Card Meteo
+│ ├── 💧 Honeycomb Irrigazione
+│ ├── ⚡ Gauge Potenza Istantanea
+│ └── 🧹 Roborock Control
 │
-├── [📦 Pacchetti Integrati](#packages)
-│   ├── [⚡ Elettrodomestici](#packages-elettrodomestici)
-│   └── [⏰ Sistema Sveglie](#packages-sveglie)
+├── 📦 Pacchetti Integrati
+│ ├── ⚡ Elettrodomestici
+│ └── ⏰ Sistema Sveglie
 │
-├── [🎪 Finestre POPUP Integrate](#popup)
-│   ├── [⚡ Elettrodomestici](#popup-elettrodomestici)
-│   ├── [👁️ Telecamere PTZ](#popup-camera)
-│   ├── [🔋 Tablet Management](#popup-tablet)
-│   ├── [💡 Luci Esterne](#popup-luci)
-│   └── [🕹️ Controllo Tende](#popup-tende)
+├── 🎪 Finestre POPUP Integrate
+│ ├── ⚡ Elettrodomestici
+│ ├── 👁️ Telecamere PTZ
+│ ├── 🔋 Tablet Management
+│ ├── 💡 Luci Esterne
+│ └── 🕹️ Controllo Tende
 │
-├── [🧩 TEMPLATE](#template)
-│   ├── [🌞 Sensori Luce Solare](#template-sunlight)
-│   ├── [🚗 Garage Virtual](#template-garage)
-│   └── [🗓️ Giorni Raccolta](#template-raccolta)
+├── 🧩 TEMPLATE
+│ ├── 🌞 Sensori Luce Solare
+│ ├── 🚗 Garage Virtual
+│ └── 🗓️ Giorni Raccolta
 │
-├── [🎁 Contenuti EXTRA](#extra)
-│   ├── [🌟 Sidebar Buttons](#extra-sidebar)
-│   └── [🌀 Ventilatore Animato](#extra-ventilatore)
+├── 🎁 Contenuti EXTRA
+│ ├── 🌟 Sidebar Buttons
+│ └── 🌀 Ventilatore Animato
 │
-└── [🚧 Progetti Futuri](#futuro)
-    ├── [🏠 3D Floorplan Card](#futuro-3d)
-    └── [🏗️ Wireframe Project](#futuro-wireframe)
-```
+└── 🚧 Progetti Futuri
+├── 🏠 3D Floorplan Card
+└── 🏗️ Wireframe Project
+
 </pre>
 
 **Ogni sezione include:**
@@ -178,11 +176,12 @@ SmartHome_project Floorplan
 
 ---
 
+<h2 id="configurazione">🛠️ Configurazione</h2>
 <details>
-<h2 id="configurazione">📹 Configurazione</h2>
-  <summary><strong>🛠️ Configurazione</strong></summary>
+<summary><strong>🛠️ ESPANDI DETTAGLI CONFIGURAZIONE</strong></summary>
+<br>
 
-  <br>
+Questa sezione descrive l'infrastruttura tecnica necessaria per far funzionare il progetto. Troverai l'elenco completo di tutti i componenti di Home Assistant e delle integrazioni HACS richieste.
 
   - **Home Assistant Core**:
     - Picture Elements Card
@@ -225,9 +224,9 @@ SmartHome_project Floorplan
 
 ---
 
+<h2 id="progettazione">🎨 Progettazione</h2>
 <details>
-<h2 id="progettazione"></h2>
-  <summary><strong>🎨 Progettazione</strong></summary>
+<summary><strong>🔼 ESPANDI DETTAGLI PROGETTAZIONE</strong></summary>
 
   <br>
 
@@ -241,14 +240,10 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 ---
 
 <details>
-<h2 id="esempi-configurazione-luci"></h2>
-<summary><strong>💡 Esempi di configurazione - LUCI</strong></summary>
-
----
-
-<details id="luci-switch">
-<summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
+<summary><strong>🔼 ESPANDI SEZIONE LUCI</strong></summary>
 <br>
+
+<h3 id="luci-switch">⬜ / ⬛ Switch on/off</h3>
 
 **Overlay Dinamico Base (switch on/off)**
 
