@@ -112,7 +112,10 @@ SmartHome_project Floorplan
 
 </details>
 
+---
+
 <details>
+```
 <summary><strong>📊 LEGENDA</strong></summary>
 
 ## 📊 Legenda Simboli
