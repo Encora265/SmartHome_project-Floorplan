@@ -286,8 +286,9 @@ type: image
   <div align="center">
     <img src="/www/repo/switch.gif" width="35%" alt=""switch on/off"> 
   </div>
-   </details>
   </details>
+  </details>
+
 ---
 
 <details>
