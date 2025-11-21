@@ -116,7 +116,6 @@ SmartHome_project Floorplan
 
 **Ogni sezione include:**
 • 🎬 Demo animate • ⚙️ Codice YAML • 🛠️ Requisiti tecnici
-</details>
 
 ---
 
