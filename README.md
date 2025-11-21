@@ -33,7 +33,7 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 </div>
 
 <details>
-<summary><strong>🌳STRUTTURA REPO</strong></summary>
+<summary><strong>🌳 STRUTTURA REPO</strong></summary>
 
 <br>
 
@@ -41,73 +41,56 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 
 SmartHome_project Floorplan
 │
-├── [📹 Dimostrazione](#dimostrazione)
-│   └── Video YouTube + GIF demo
+├── 📹 [Dimostrazione](#dimostrazione)
 │
-├── [🖼️ Panoramica Floorplan](#panoramica)
-│   ├── Main Day/Night
-│   ├── Piano Terra
-│   ├── Piano Terra Esterno
-│   ├── Primo Piano
-│   └── Mansarda
+├── 🖼️ [Panoramica Floorplan](#panoramica)
 │
-├── [🛠️ Configurazione](#configurazione)
-│   ├── Home Assistant Core
-│   └── Integrazioni HACS
+├── 🛠️ [Configurazione](#configurazione)
 │
-├── [💡 Esempi Configurazione - LUCI](#luci)
+├── 💡 Esempi Configurazione - LUCI
 │   ├── [⬜ Switch On/Off](#luci-switch)
-│   │   ├── ⚙️ Configurazione YAML
-│   │   ├── 🛠️ Requisiti
-│   │   └── ▶️ Demo GIF
-│   │
 │   ├── [☀️ CCT (Temperatura Colore)](#luci-cct)
-│   │   ├── ⚙️ Configurazione YAML
-│   │   ├── 🛠️ Requisiti
-│   │   ├── ▶️ Demo GIF
-│   │   └── 📚 Documentazione tecnica
-│   │
 │   └── [🎨 RGB/CCT Multi-Layer](#luci-rgb)
-│       ├── ⚙️ Configurazione YAML
-│       ├── 🛠️ Requisiti
-│       └── 📚 Sistema Multi-Layer
 │
-├── [🧩 Esempi Configurazione - ICONE](#icone)
+├── 🧩 Esempi Configurazione - ICONE
 │   ├── [🧺 Elettrodomestici](#icone-elettrodomestici)
-│   ├── [🪟 Cover (Tapparelle/Finestre)](#icone-cover)
+│   ├── [🪟 Cover](#icone-cover)
 │   └── [🏖️ Tende da Sole](#icone-tende)
 │
-├── [🃏 Esempi Configurazione - CARDS](#cards)
+├── 🃏 Esempi Configurazione - CARDS
 │   ├── [⛅ Card Meteo](#card-meteo)
 │   ├── [💧 Honeycomb Irrigazione](#card-irrigazione)
-│   ├── [⚡ Gauge Potenza Istantanea](#card-potenza)
+│   ├── [⚡ Gauge Potenza](#card-potenza)
 │   └── [🧹 Roborock Control](#card-roborock)
 │
-├── [📦 Pacchetti Integrati](#packages)
+├── 📦 Pacchetti Integrati
 │   ├── [⚡ Elettrodomestici](#packages-elettrodomestici)
 │   └── [⏰ Sistema Sveglie](#packages-sveglie)
 │
-├── [🎪 Finestre POPUP Integrate](#popup)
+├── 🎪 Finestre POPUP Integrate
 │   ├── [⚡ Elettrodomestici](#popup-elettrodomestici)
 │   ├── [👁️ Telecamere PTZ](#popup-camera)
 │   ├── [🔋 Tablet Management](#popup-tablet)
 │   ├── [💡 Luci Esterne](#popup-luci)
 │   └── [🕹️ Controllo Tende](#popup-tende)
 │
-├── [🧩 TEMPLATE](#template)
+├── 🧩 TEMPLATE
 │   ├── [🌞 Sensori Luce Solare](#template-sunlight)
 │   ├── [🚗 Garage Virtual](#template-garage)
 │   └── [🗓️ Giorni Raccolta](#template-raccolta)
 │
-├── [🎁 Contenuti EXTRA](#extra)
+├── 🎁 Contenuti EXTRA
 │   ├── [🌟 Sidebar Buttons](#extra-sidebar)
 │   └── [🌀 Ventilatore Animato](#extra-ventilatore)
 │
-└── [🚧 Progetti Futuri](#futuro)
+└── 🚧 Progetti Futuri
     ├── [🏠 3D Floorplan Card](#futuro-3d)
     └── [🏗️ Wireframe Project](#futuro-wireframe)
 
 </pre>
+
+</details>
+
 
 **Ogni sezione include:**
 • 🎬 Demo animate • ⚙️ Codice YAML • 🛠️ Requisiti tecnici
