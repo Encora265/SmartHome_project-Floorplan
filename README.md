@@ -43,55 +43,78 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 **Clicca su qualsiasi voce per navigare direttamente alla sezione corrispondente:**
 
 <pre>
+
+** 🌳 Struttura Completa del Repository**
+
+```
 SmartHome_project Floorplan
 │
-├── <a href="#dimostrazione">📹 Dimostrazione</a>
+├── [📹 Dimostrazione](#dimostrazione)
+│   └── Video YouTube + GIF demo
 │
-├── <a href="#panoramica-floorplan">🖼️ Panoramica Floorplan</a>
+├── [🖼️ Panoramica Floorplan](#panoramica)
+│   ├── Main Day/Night
+│   ├── Piano Terra
+│   ├── Piano Terra Esterno
+│   ├── Primo Piano
+│   └── Mansarda
 │
-├── <a href="#configurazione">🛠️ Configurazione</a>
+├── [🛠️ Configurazione](#configurazione)
+│   ├── Home Assistant Core
+│   └── Integrazioni HACS
 │
-├── <a href="#progettazione">🎨 Progettazione</a>
+├── [💡 Esempi Configurazione - LUCI](#luci)
+│   ├── [⬜ Switch On/Off](#luci-switch)
+│   │   ├── ⚙️ Configurazione YAML
+│   │   ├── 🛠️ Requisiti
+│   │   └── ▶️ Demo GIF
+│   │
+│   ├── [☀️ CCT (Temperatura Colore)](#luci-cct)
+│   │   ├── ⚙️ Configurazione YAML
+│   │   ├── 🛠️ Requisiti
+│   │   ├── ▶️ Demo GIF
+│   │   └── 📚 Documentazione tecnica
+│   │
+│   └── [🎨 RGB/CCT Multi-Layer](#luci-rgb)
+│       ├── ⚙️ Configurazione YAML
+│       ├── 🛠️ Requisiti
+│       └── 📚 Sistema Multi-Layer
 │
-├── <a href="#esempi-configurazione-luci">💡 Esempi Configurazione - LUCI</a>
-│   ├── <a href="#switch-onoff">⬜ Switch On/Off</a>
-│   ├── <a href="#cct-temperatura-colore">☀️ CCT (Temperatura Colore)</a>
-│   └── <a href="#rgbcct">🎨 RGB/CCT Multi-Layer</a>
+├── [🧩 Esempi Configurazione - ICONE](#icone)
+│   ├── [🧺 Elettrodomestici](#icone-elettrodomestici)
+│   ├── [🪟 Cover (Tapparelle/Finestre)](#icone-cover)
+│   └── [🏖️ Tende da Sole](#icone-tende)
 │
-├── <a href="#esempi-configurazione-icone">🧩 Esempi Configurazione - ICONE</a>
-│   ├── <a href="#icone-elettrodomestici">🧺 Elettrodomestici</a>
-│   ├── <a href="#cover-tapparelle-finestre">🪟 Cover (Tapparelle/Finestre)</a>
-│   └── <a href="#icone-tende-da-sole">🏖️ Tende da Sole</a>
+├── [🃏 Esempi Configurazione - CARDS](#cards)
+│   ├── [⛅ Card Meteo](#card-meteo)
+│   ├── [💧 Honeycomb Irrigazione](#card-irrigazione)
+│   ├── [⚡ Gauge Potenza Istantanea](#card-potenza)
+│   └── [🧹 Roborock Control](#card-roborock)
 │
-├── <a href="#esempi-configurazione-cards">🃏 Esempi Configurazione - CARDS</a>
-│   ├── <a href="#card-meteo">⛅ Card Meteo</a>
-│   ├── <a href="#honeycomb-irrigazione">💧 Honeycomb Irrigazione</a>
-│   ├── <a href="#potenza-istantanea">⚡ Potenza Istantanea</a>
-│   └── <a href="#controllo-roborock">🧹 Controllo Roborock</a>
+├── [📦 Pacchetti Integrati](#packages)
+│   ├── [⚡ Elettrodomestici](#packages-elettrodomestici)
+│   └── [⏰ Sistema Sveglie](#packages-sveglie)
 │
-├── <a href="#pacchetti-integrati">📦 Pacchetti Integrati</a>
-│   ├── <a href="#packages-elettrodomestici">⚡ Elettrodomestici</a>
-│   └── <a href="#sistema-sveglie">⏰ Sistema Sveglie</a>
+├── [🎪 Finestre POPUP Integrate](#popup)
+│   ├── [⚡ Elettrodomestici](#popup-elettrodomestici)
+│   ├── [👁️ Telecamere PTZ](#popup-camera)
+│   ├── [🔋 Tablet Management](#popup-tablet)
+│   ├── [💡 Luci Esterne](#popup-luci)
+│   └── [🕹️ Controllo Tende](#popup-tende)
 │
-├── <a href="#finestre-popup">🎪 Finestre POPUP</a>
-│   ├── <a href="#popup-elettrodomestici">⚡ Elettrodomestici</a>
-│   ├── <a href="#popup-telecamere-ptz">👁️ Telecamere PTZ</a>
-│   ├── <a href="#gestione-tablet">🔋 Gestione Tablet</a>
-│   ├── <a href="#popup-luci-esterne">💡 Luci Esterne</a>
-│   └── <a href="#controllo-tende">🕹️ Controllo Tende</a>
+├── [🧩 TEMPLATE](#template)
+│   ├── [🌞 Sensori Luce Solare](#template-sunlight)
+│   ├── [🚗 Garage Virtual](#template-garage)
+│   └── [🗓️ Giorni Raccolta](#template-raccolta)
 │
-├── <a href="#template">🧩 TEMPLATE</a>
-│   ├── <a href="#sensori-luce-solare">🌞 Sensori Luce Solare</a>
-│   ├── <a href="#garage-virtual">🚗 Garage Virtual</a>
-│   └── <a href="#giorni-raccolta">🗓️ Giorni Raccolta</a>
+├── [🎁 Contenuti EXTRA](#extra)
+│   ├── [🌟 Sidebar Buttons](#extra-sidebar)
+│   └── [🌀 Ventilatore Animato](#extra-ventilatore)
 │
-├── <a href="#contenuti-extra">🎁 Contenuti EXTRA</a>
-│   ├── <a href="#pulsanti-sidebar">🌟 Pulsanti Sidebar</a>
-│   └── <a href="#ventilatore-intelligente">🌀 Ventilatore Intelligente</a>
-│
-└── <a href="#progetti-futuri">🚧 Progetti Futuri</a>
-    ├── <a href="#3d-floorplan-card">🏠 3D Floorplan</a>
-    └── <a href="#wireframe-project">🏗️ Wireframe Project</a>
+└── [🚧 Progetti Futuri](#futuro)
+    ├── [🏠 3D Floorplan Card](#futuro-3d)
+    └── [🏗️ Wireframe Project](#futuro-wireframe)
+```
 </pre>
 
 **Ogni sezione include:**
@@ -223,8 +246,7 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 
 ---
 
-<details>
-<h2 id="switch-onoff"></h2>
+<details id="luci-switch">
 <summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
 <br>
 
@@ -271,8 +293,10 @@ type: image
   <br>
 
   <div align="center">
-    <img src="/www/repo/switch.gif" width="35%" alt="rgb">
-  </div>
+    <img src="/www/repo/switch.gif" width="35%" alt=""switch on/off"> 
+  </div></details>
+  </details> ```
+
 
 </details>
 
