@@ -291,9 +291,6 @@ type: image
   </details>
   </details>
 
-</details>
-</details>
-
 ---
 
 <details>
@@ -980,6 +977,7 @@ Permette transizioni perfette tra modalità bianca, CCT e RGB.
 </details>
 
 ---
+
 <details>
 <summary><strong>🃏 Esempi di configurazione - CARDS</strong></summary>
 
