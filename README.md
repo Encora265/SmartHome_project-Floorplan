@@ -285,7 +285,8 @@ type: image
     <img src="/www/repo/switch.gif" width="35%" alt=""switch on/off"> 
   </div>
   </details>
- 
+  </details> 
+
 ---
 
 <details>
@@ -368,6 +369,7 @@ type: image
 4000K (Neutro) → Bilanciato
 6500K (Freddo) → Sepia basso, hue-rotate positivo
 
+</details>
 </details>
 
 ---
