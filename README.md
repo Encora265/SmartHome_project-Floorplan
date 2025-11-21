@@ -9,6 +9,7 @@ L'obiettivo è creare un controllo immediato e intuitivo dell'intera casa: luci,
 ---
 
 ## 🎥 Dimostrazione
+<h2 id="panoramica-floorplan">📹 Dimostrazione</h2>
 
 [![demo](www/repo/demo.gif)](https://www.youtube.com/watch?v=25UP5QQ9EAA&t=355s)
 
@@ -17,6 +18,7 @@ L'obiettivo è creare un controllo immediato e intuitivo dell'intera casa: luci,
 ---
 
 ## 🖼️ Panoramica del Floorplan
+<h2 id="dimostrazione">📹 Dimostrazione</h2>
 
 Interfaccia progettata per dashboard moderne con una forte attenzione alla leggibilità e alla resa estetica.
 
@@ -43,53 +45,53 @@ Interfaccia progettata per dashboard moderne con una forte attenzione alla leggi
 <pre>
 SmartHome_project Floorplan
 │
-├── <a href="#-dimostrazione">📹 Dimostrazione</a>
+├── <a href="#dimostrazione">📹 Dimostrazione</a>
 │
-├── <a href="#-panoramica-del-floorplan">🖼️ Panoramica Floorplan</a>
+├── <a href="#panoramica-floorplan">🖼️ Panoramica Floorplan</a>
 │
-├── <a href="#-configurazione">🛠️ Configurazione</a>
+├── <a href="#configurazione">🛠️ Configurazione</a>
 │
-├── <a href="#-progettazione">🎨 Progettazione</a>
+├── <a href="#progettazione">🎨 Progettazione</a>
 │
-├── <a href="#-esempi-di-configurazione---luci">💡 Esempi Configurazione - LUCI</a>
-│   ├── <a href="#-switch-onoff">⬜ Switch On/Off</a>
-│   ├── <a href="#-temperatura-colore-dinamica-cct">☀️ CCT (Temperatura Colore)</a>
-│   └── <a href="#-luce-rgbcct">🎨 RGB/CCT Multi-Layer</a>
+├── <a href="#esempi-configurazione-luci">💡 Esempi Configurazione - LUCI</a>
+│   ├── <a href="#switch-onoff">⬜ Switch On/Off</a>
+│   ├── <a href="#cct-temperatura-colore">☀️ CCT (Temperatura Colore)</a>
+│   └── <a href="#rgbcct">🎨 RGB/CCT Multi-Layer</a>
 │
-├── <a href="#-esempi-di-configurazione---icone">🧩 Esempi Configurazione - ICONE</a>
-│   ├── <a href="#-icone-elettrodomestici">🧺 Elettrodomestici</a>
-│   ├── <a href="#-finestretapparelle">🪟 Cover (Tapparelle/Finestre)</a>
-│   └── <a href="#-icone-tende-da-sole">🏖️ Tende da Sole</a>
+├── <a href="#esempi-configurazione-icone">🧩 Esempi Configurazione - ICONE</a>
+│   ├── <a href="#icone-elettrodomestici">🧺 Elettrodomestici</a>
+│   ├── <a href="#cover-tapparelle-finestre">🪟 Cover (Tapparelle/Finestre)</a>
+│   └── <a href="#icone-tende-da-sole">🏖️ Tende da Sole</a>
 │
-├── <a href="#-esempi-di-configurazione---cards">🃏 Esempi Configurazione - CARDS</a>
-│   ├── <a href="#-card-meteo">⛅ Card Meteo</a>
-│   ├── <a href="#-honeycomb-irrigazione">💧 Honeycomb Irrigazione</a>
-│   ├── <a href="#-card--potenza-istantanea-gauge-meter">⚡ Potenza Istantanea</a>
-│   └── <a href="#-card-controllo-roborock-per-home-assistant">🧹 Controllo Roborock</a>
+├── <a href="#esempi-configurazione-cards">🃏 Esempi Configurazione - CARDS</a>
+│   ├── <a href="#card-meteo">⛅ Card Meteo</a>
+│   ├── <a href="#honeycomb-irrigazione">💧 Honeycomb Irrigazione</a>
+│   ├── <a href="#potenza-istantanea">⚡ Potenza Istantanea</a>
+│   └── <a href="#controllo-roborock">🧹 Controllo Roborock</a>
 │
-├── <a href="#-pacchetti-integrati">📦 Pacchetti Integrati</a>
-│   ├── <a href="#-packages-elettrodomestici">⚡ Elettrodomestici</a>
-│   └── <a href="#-package-sistema-sveglie-personalizzate">⏰ Sistema Sveglie</a>
+├── <a href="#pacchetti-integrati">📦 Pacchetti Integrati</a>
+│   ├── <a href="#packages-elettrodomestici">⚡ Elettrodomestici</a>
+│   └── <a href="#sistema-sveglie">⏰ Sistema Sveglie</a>
 │
-├── <a href="#-finestre-popup">🎪 Finestre POPUP</a>
-│   ├── <a href="#-popup-elettrodomestici">⚡ Elettrodomestici</a>
-│   ├── <a href="#-popup-telecamera---controllo-ptz-e-ai-integrato">👁️ Telecamere PTZ</a>
-│   ├── <a href="#-gestione-alimentazione-tablet">🔋 Gestione Tablet</a>
-│   ├── <a href="#-popup-controllo-luci-esterne">💡 Luci Esterne</a>
-│   └── <a href="#-popup-controllo-tendeveluxtapparelle">🕹️ Controllo Tende</a>
+├── <a href="#finestre-popup">🎪 Finestre POPUP</a>
+│   ├── <a href="#popup-elettrodomestici">⚡ Elettrodomestici</a>
+│   ├── <a href="#popup-telecamere-ptz">👁️ Telecamere PTZ</a>
+│   ├── <a href="#gestione-tablet">🔋 Gestione Tablet</a>
+│   ├── <a href="#popup-luci-esterne">💡 Luci Esterne</a>
+│   └── <a href="#controllo-tende">🕹️ Controllo Tende</a>
 │
-├── <a href="#-template">🧩 TEMPLATE</a>
-│   ├── <a href="#-sensori-di-luce-solare">🌞 Sensori Luce Solare</a>
-│   ├── <a href="#-templatepackage-garage-virtual">🚗 Garage Virtual</a>
-│   └── <a href="#-template-giorni-raccolta">🗓️ Giorni Raccolta</a>
+├── <a href="#template">🧩 TEMPLATE</a>
+│   ├── <a href="#sensori-luce-solare">🌞 Sensori Luce Solare</a>
+│   ├── <a href="#garage-virtual">🚗 Garage Virtual</a>
+│   └── <a href="#giorni-raccolta">🗓️ Giorni Raccolta</a>
 │
-├── <a href="#-contenuti-extra">🎁 Contenuti EXTRA</a>
-│   ├── <a href="#-pulsanti-sidebar">🌟 Pulsanti Sidebar</a>
-│   └── <a href="#-ventilatore-intelligente">🌀 Ventilatore Intelligente</a>
+├── <a href="#contenuti-extra">🎁 Contenuti EXTRA</a>
+│   ├── <a href="#pulsanti-sidebar">🌟 Pulsanti Sidebar</a>
+│   └── <a href="#ventilatore-intelligente">🌀 Ventilatore Intelligente</a>
 │
-└── <a href="#-progetti-futuri">🚧 Progetti Futuri</a>
-    ├── <a href="#-3d-floorplan-card">🏠 3D Floorplan</a>
-    └── <a href="#-floorplan-3d-wireframe-project">🏗️ Wireframe Project</a>
+└── <a href="#progetti-futuri">🚧 Progetti Futuri</a>
+    ├── <a href="#3d-floorplan-card">🏠 3D Floorplan</a>
+    └── <a href="#wireframe-project">🏗️ Wireframe Project</a>
 </pre>
 
 **Ogni sezione include:**
@@ -152,8 +154,9 @@ SmartHome_project Floorplan
 </details>
 
 ---
-<a id="-configurazione"></a>
+
 <details>
+<h2 id="configurazione">📹 Configurazione</h2>
   <summary><strong>🛠️ Configurazione</strong></summary>
 
   <br>
@@ -198,8 +201,9 @@ SmartHome_project Floorplan
 </details>
 
 ---
-<a id="-progettazione"></a>
+
 <details>
+<h2 id="progettazione">📹 Prpgettazione</h2>
   <summary><strong>🎨 Progettazione</strong></summary>
 
   <br>
@@ -212,8 +216,9 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 </details>
 
 ---
-<a id="-esempi-luci"></a>
+
 <details>
+<h2 id="esempi-configurazione-luci">📹 💡 Esempi Configurazione - LUCI</h2>
 <summary><strong>💡 Esempi di configurazione - LUCI</strong></summary>
 
 ---
