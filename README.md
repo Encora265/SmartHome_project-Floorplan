@@ -241,8 +241,6 @@ Le immagini finali sono ottimizzate per mantenere qualità elevata e caricamento
 
 <summary><strong>⬜ / ⬛ Switch on/off</strong></summary>
 
-<br>
-
 **Overlay Dinamico Base (switch on/off)**
 
 <details>
@@ -287,9 +285,8 @@ type: image
 
   <div align="center">
     <img src="/www/repo/switch.gif" width="35%" alt=""switch on/off"> 
-  </div></details>
-  </details>
-  </details>
+  </div>
+   </details>
 
 ---
 
