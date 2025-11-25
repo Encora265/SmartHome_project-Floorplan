@@ -84,7 +84,10 @@ automation:
         service: notify.mobile_app_sm_t550
         data:
           title: 'Tablet'
-          message: 'Si è scaricata la batteria, arrivata a: {{ states("sensor.my_wall_panel_battery_level") | int(0) }}%, ora procedo a caricarla'
+          message: >
+            Il tablet è quasi scarico: è al
+            {{ states("sensor.my_wall_panel_battery_level") | int(0) }}%.
+            Avvio la ricarica.
           data:
             priority: 0
 
@@ -100,7 +103,7 @@ automation:
         target:
           entity_id: media_player.nesthube6f7
         data:
-          message: "Il tablet è scarico"
+          message: "Il tablet ha la batteria bassa, lo metto in carica."
           cache: true
 
   - alias: 'Dashboard - Spegnimento Alimentazione'
@@ -137,7 +140,10 @@ automation:
         service: notify.mobile_app_sm_t550
         data:
           title: 'Tablet'
-          message: 'La batteria si è caricata, arrivata alla percentuale: {{ states("sensor.my_wall_panel_battery_level") | int(0) }}, ora stacco la corrente'
+          message: >
+            Il tablet è carico: ha raggiunto il
+            {{ states("sensor.my_wall_panel_battery_level") | int(0) }}%.
+            Spengo l’alimentazione.
           data:
             priority: 0
 
@@ -153,5 +159,6 @@ automation:
         target:
           entity_id: media_player.nesthube6f7
         data:
-          message: "Il tablet è carico"
+          message: "Il tablet è completamente carico. Interrompo la ricarica."
           cache: true
+

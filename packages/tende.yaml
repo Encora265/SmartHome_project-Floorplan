@@ -1,0 +1,430 @@
+#########################################
+# INPUT_NUMBER
+#########################################
+input_number:
+  tende_refresher_500ms:
+    name: "Refresher Tende 500ms"
+    min: 0
+    max: 100
+    step: 1
+    mode: box
+    initial: 0
+
+  tenda_a_caduta_open_time:
+    name: "Tenda a Caduta apertura"
+    min: 0
+    max: 120
+    step: 0.1
+    mode: box
+    initial: 40.5
+
+  tenda_a_caduta_close_time:
+    name: "Tenda a Caduta chiusura"
+    min: 0
+    max: 120
+    step: 0.1
+    mode: box
+    initial: 40.5
+
+  tenda_a_bracci_open_time:
+    name: "Tenda a Bracci apertura"
+    min: 0
+    max: 120
+    step: 0.1
+    mode: box
+    initial: 33.6
+
+  tenda_a_bracci_close_time:
+    name: "Tenda a Bracci chiusura"
+    min: 0
+    max: 120
+    step: 0.1
+    mode: box
+    initial: 35.0
+
+  cappottina_open_time:
+    name: "Cappottina apertura"
+    min: 0
+    max: 120
+    step: 0.1
+    mode: box
+    initial: 23.28
+
+  cappottina_close_time:
+    name: "Cappottina chiusura"
+    min: 0
+    max: 120
+    step: 0.1
+    mode: box
+    initial: 23.85
+
+  # Input number per posizione smooth
+  tenda_a_caduta_pos_smooth:
+    name: "Posizione Tenda Caduta (smooth)"
+    min: 0
+    max: 100
+    step: 0.1
+    mode: box
+    initial: 0
+
+  tenda_a_bracci_pos_smooth:
+    name: "Posizione Tenda Bracci (smooth)"
+    min: 0
+    max: 100
+    step: 0.1
+    mode: box
+    initial: 0
+
+  cappottina_pos_smooth:
+    name: "Posizione Cappottina (smooth)"
+    min: 0
+    max: 100
+    step: 0.1
+    mode: box
+    initial: 0
+
+#########################################
+# COVER TEMPLATE VIRTUALI
+# Fix per Somfy con comandi E posizione invertiti
+#########################################
+cover:
+  - platform: template
+    covers:
+      tenda_a_caduta_virtual:
+        friendly_name: "Tenda a Caduta"
+        device_class: awning
+        position_template: >
+          {{ states('input_number.tenda_a_caduta_pos_smooth') | float(0) }}
+        value_template: >
+          {{ (states('input_number.tenda_a_caduta_pos_smooth') | float(0)) > 0 }}
+        open_cover:
+          service: cover.close_cover
+          target:
+            entity_id: cover.tenda_a_caduta
+        close_cover:
+          service: cover.open_cover
+          target:
+            entity_id: cover.tenda_a_caduta
+        stop_cover:
+          service: cover.stop_cover
+          target:
+            entity_id: cover.tenda_a_caduta
+        set_cover_position:
+          service: cover.set_cover_position
+          data:
+            position: "{{ 100 - position }}"
+          target:
+            entity_id: cover.tenda_a_caduta
+        icon_template: >
+          {% if states('input_number.tenda_a_caduta_pos_smooth') | float(0) > 0 %}
+            mdi:awning
+          {% else %}
+            mdi:awning-outline
+          {% endif %}
+
+      tenda_a_bracci_virtual:
+        friendly_name: "Tenda a Bracci"
+        device_class: awning
+        position_template: >
+          {{ states('input_number.tenda_a_bracci_pos_smooth') | float(0) }}
+        value_template: >
+          {{ (states('input_number.tenda_a_bracci_pos_smooth') | float(0)) > 0 }}
+        open_cover:
+          service: cover.close_cover
+          target:
+            entity_id: cover.tenda_a_bracci
+        close_cover:
+          service: cover.open_cover
+          target:
+            entity_id: cover.tenda_a_bracci
+        stop_cover:
+          service: cover.stop_cover
+          target:
+            entity_id: cover.tenda_a_bracci
+        set_cover_position:
+          service: cover.set_cover_position
+          data:
+            position: "{{ 100 - position }}"
+          target:
+            entity_id: cover.tenda_a_bracci
+        icon_template: >
+          {% if states('input_number.tenda_a_bracci_pos_smooth') | float(0) > 0 %}
+            mdi:awning
+          {% else %}
+            mdi:awning-outline
+          {% endif %}
+
+      tenda_cappottina_virtual:
+        friendly_name: "Cappottina"
+        device_class: awning
+        position_template: >
+          {{ states('input_number.cappottina_pos_smooth') | float(0) }}
+        value_template: >
+          {{ (states('input_number.cappottina_pos_smooth') | float(0)) > 0 }}
+        open_cover:
+          service: cover.close_cover
+          target:
+            entity_id: cover.cappottina
+        close_cover:
+          service: cover.open_cover
+          target:
+            entity_id: cover.cappottina
+        stop_cover:
+          service: cover.stop_cover
+          target:
+            entity_id: cover.cappottina
+        set_cover_position:
+          service: cover.set_cover_position
+          data:
+            position: "{{ 100 - position }}"
+          target:
+            entity_id: cover.cappottina
+        icon_template: >
+          {% if states('input_number.cappottina_pos_smooth') | float(0) > 0 %}
+            mdi:awning
+          {% else %}
+            mdi:awning-outline
+          {% endif %}
+
+#########################################
+# SCRIPT TOGGLE
+#########################################
+script:
+  tenda_a_caduta_toggle:
+    sequence:
+      - service: cover.toggle
+        target:
+          entity_id: cover.tenda_a_caduta_virtual
+
+  tenda_a_bracci_toggle:
+    sequence:
+      - service: cover.toggle
+        target:
+          entity_id: cover.tenda_a_bracci_virtual
+
+  cappottina_toggle:
+    sequence:
+      - service: cover.toggle
+        target:
+          entity_id: cover.tenda_cappottina_virtual
+
+#########################################
+# AUTOMAZIONE CHIUSURA 20:00
+#########################################
+automation:
+  - alias: "Chiudi tende alle 20:00"
+    trigger:
+      - platform: time
+        at: "20:00:00"
+    condition:
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: cover.tenda_a_caduta_virtual
+            state: "open"
+          - condition: state
+            entity_id: cover.tenda_a_bracci_virtual
+            state: "open"
+          - condition: state
+            entity_id: cover.tenda_cappottina_virtual
+            state: "open"
+    action:
+      - service: cover.close_cover
+        target:
+          entity_id:
+            - cover.tenda_a_caduta_virtual
+            - cover.tenda_a_bracci_virtual
+            - cover.tenda_cappottina_virtual
+
+#########################################
+# SINCRONIZZAZIONE POSIZIONE FLUIDA
+# Somfy: 0=aperto, 100=chiuso (invertito!)
+#########################################
+  - alias: "Sync Tenda a Caduta Position"
+    trigger:
+      - platform: state
+        entity_id: cover.tenda_a_caduta
+        attribute: current_position
+      - platform: state
+        entity_id: cover.tenda_a_caduta
+    action:
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.tenda_a_caduta_pos_smooth
+        data:
+          value: >
+            {% set pos = state_attr('cover.tenda_a_caduta', 'current_position') %}
+            {% if pos is not none %}
+              {{ 100 - pos | float(0) }}
+            {% else %}
+              {{ 100 if is_state('cover.tenda_a_caduta', 'open') else 0 }}
+            {% endif %}
+
+  - alias: "Sync Tenda a Bracci Position"
+    trigger:
+      - platform: state
+        entity_id: cover.tenda_a_bracci
+        attribute: current_position
+      - platform: state
+        entity_id: cover.tenda_a_bracci
+    action:
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.tenda_a_bracci_pos_smooth
+        data:
+          value: >
+            {% set pos = state_attr('cover.tenda_a_bracci', 'current_position') %}
+            {% if pos is not none %}
+              {{ 100 - pos | float(0) }}
+            {% else %}
+              {{ 100 if is_state('cover.tenda_a_bracci', 'open') else 0 }}
+            {% endif %}
+
+  - alias: "Sync Cappottina Position"
+    trigger:
+      - platform: state
+        entity_id: cover.cappottina
+        attribute: current_position
+      - platform: state
+        entity_id: cover.cappottina
+    action:
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.cappottina_pos_smooth
+        data:
+          value: >
+            {% set pos = state_attr('cover.cappottina', 'current_position') %}
+            {% if pos is not none %}
+              {{ 100 - pos | float(0) }}
+            {% else %}
+              {{ 100 if is_state('cover.cappottina', 'open') else 0 }}
+            {% endif %}
+
+#########################################
+# AGGIORNAMENTO FLUIDO DURANTE MOVIMENTO
+# Si aggiorna ogni 500ms per animazione smooth
+#########################################
+  - alias: "Tenda a Caduta - Aggiornamento Fluido"
+    trigger:
+      - platform: time_pattern
+        seconds: "/1"
+    condition:
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: cover.tenda_a_caduta
+            state: "opening"
+          - condition: state
+            entity_id: cover.tenda_a_caduta
+            state: "closing"
+    action:
+      - service: input_number.increment
+        target:
+          entity_id: input_number.tende_refresher_500ms
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.tenda_a_caduta_pos_smooth
+        data:
+          value: >
+            {% set state = states('cover.tenda_a_caduta') %}
+            {% set current = states('input_number.tenda_a_caduta_pos_smooth') | float(0) %}
+            {% set time_open = states('input_number.tenda_a_caduta_open_time') | float(40.5) %}
+            {% set time_close = states('input_number.tenda_a_caduta_close_time') | float(40.5) %}
+            {% if state == 'closing' %}
+              {% set increment = 100 / time_open %}
+              {{ [current + increment, 100] | min }}
+            {% elif state == 'opening' %}
+              {% set decrement = 100 / time_close %}
+              {{ [current - decrement, 0] | max }}
+            {% else %}
+              {{ current }}
+            {% endif %}
+
+  - alias: "Tenda a Bracci - Aggiornamento Fluido"
+    trigger:
+      - platform: time_pattern
+        seconds: "/1"
+    condition:
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: cover.tenda_a_bracci
+            state: "opening"
+          - condition: state
+            entity_id: cover.tenda_a_bracci
+            state: "closing"
+    action:
+      - service: input_number.increment
+        target:
+          entity_id: input_number.tende_refresher_500ms
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.tenda_a_bracci_pos_smooth
+        data:
+          value: >
+            {% set state = states('cover.tenda_a_bracci') %}
+            {% set current = states('input_number.tenda_a_bracci_pos_smooth') | float(0) %}
+            {% set time_open = states('input_number.tenda_a_bracci_open_time') | float(33.6) %}
+            {% set time_close = states('input_number.tenda_a_bracci_close_time') | float(35.0) %}
+            {% if state == 'closing' %}
+              {% set increment = 100 / time_open %}
+              {{ [current + increment, 100] | min }}
+            {% elif state == 'opening' %}
+              {% set decrement = 100 / time_close %}
+              {{ [current - decrement, 0] | max }}
+            {% else %}
+              {{ current }}
+            {% endif %}
+
+  - alias: "Cappottina - Aggiornamento Fluido"
+    trigger:
+      - platform: time_pattern
+        seconds: "/1"
+    condition:
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: cover.cappottina
+            state: "opening"
+          - condition: state
+            entity_id: cover.cappottina
+            state: "closing"
+    action:
+      - service: input_number.increment
+        target:
+          entity_id: input_number.tende_refresher_500ms
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.cappottina_pos_smooth
+        data:
+          value: >
+            {% set state = states('cover.cappottina') %}
+            {% set current = states('input_number.cappottina_pos_smooth') | float(0) %}
+            {% set time_open = states('input_number.cappottina_open_time') | float(23.28) %}
+            {% set time_close = states('input_number.cappottina_close_time') | float(23.85) %}
+            {% if state == 'closing' %}
+              {% set increment = 100 / time_open %}
+              {{ [current + increment, 100] | min }}
+            {% elif state == 'opening' %}
+              {% set decrement = 100 / time_close %}
+              {{ [current - decrement, 0] | max }}
+            {% else %}
+              {{ current }}
+            {% endif %}
+
+#########################################
+# SENSORI PERCENTUALE FLUIDA
+#########################################
+template:
+  - sensor:
+      - name: "Tenda a Caduta percentuale fluida"
+        state: "{{ states('input_number.tenda_a_caduta_pos_smooth') | float(0) }}"
+        unit_of_measurement: "%"
+
+      - name: "Tenda a Bracci percentuale fluida"
+        state: "{{ states('input_number.tenda_a_bracci_pos_smooth') | float(0) }}"
+        unit_of_measurement: "%"
+
+      - name: "Cappottina percentuale fluida"
+        state: "{{ states('input_number.cappottina_pos_smooth') | float(0) }}"
+        unit_of_measurement: "%"

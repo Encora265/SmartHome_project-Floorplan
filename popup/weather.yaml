@@ -1,0 +1,31 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Forecast  
+  card:
+    type: vertical-stack
+    cards:
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: entity
+            entity: sun.sun
+          - type: template
+            content: >-
+              Sunrise  {% if states.sun.sun %} {{
+              (as_timestamp(states.sun.sun.attributes.next_rising)) |
+              timestamp_custom(('%H:%M') )}} {% endif %}
+            icon: mdi:weather-sunset-up
+          - type: template
+            content: >-
+              Sunset  {% if states.sun.sun %} {{
+              (as_timestamp(states.sun.sun.attributes.next_setting)) |
+              timestamp_custom(('%H:%M') )}} {% endif %}
+            icon: mdi:weather-sunset-down
+    #       - type: entity
+    #         entity: sensor.moon_phase
+    #     alignment: center
+    #   - type: weather-forecast
+    #     entity: weather.home_2
+    #     secondary_info_attribute: humidity
+    #     show_current: true
+    #     show_forecast: true
